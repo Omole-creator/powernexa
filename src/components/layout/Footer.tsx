@@ -20,13 +20,15 @@ export function Footer() {
     <footer className="border-t border-line bg-navy text-white">
       <Container className="grid gap-10 py-14 lg:grid-cols-[1.3fr_1fr_1fr_1fr]">
         <div>
-          <Image
-            src="/images/logo.png"
-            alt={SITE_NAME}
-            width={1536}
-            height={1024}
-            className="h-14 w-auto object-contain brightness-0 invert"
-          />
+          <div className="inline-flex rounded-2xl bg-white p-3 shadow-[0_10px_24px_-10px_rgba(0,0,0,0.4)]">
+            <Image
+              src="/images/logo-transparent.png"
+              alt={SITE_NAME}
+              width={1536}
+              height={1024}
+              className="h-10 w-auto object-contain"
+            />
+          </div>
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/70">{SITE_TAGLINE}</p>
           <p className="mt-5 text-sm text-white/70">
             {BUSINESS_ADDRESS.street}, {BUSINESS_ADDRESS.area}, {BUSINESS_ADDRESS.city}

@@ -7,7 +7,7 @@ import { MobileMenu } from "./MobileMenu";
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-30 border-b border-line bg-white/95 backdrop-blur">
+    <header className="sticky top-0 z-30 bg-white/90 shadow-[0_1px_0_rgba(9,43,76,0.07),0_12px_28px_-22px_rgba(9,43,76,0.35)] backdrop-blur-md">
       <Container className="flex h-20 items-center justify-between">
         <Link href="/" className="flex shrink-0 items-center gap-2" aria-label="PowerNexa Solutions home">
           <Image

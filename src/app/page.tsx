@@ -133,7 +133,7 @@ export default function HomePage() {
             </Link>
           </Reveal>
           <div className="mt-10 grid gap-5 lg:grid-cols-3">
-            <Reveal className="lg:col-span-2 lg:row-span-2">
+            <Reveal className="lg:col-span-2">
               <ServiceCard service={SERVICES[0]} featured />
             </Reveal>
             {SERVICES.slice(1).map((service, index) => (

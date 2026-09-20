@@ -37,7 +37,7 @@ export default async function BlogListPage() {
           <Reveal className="mt-6 max-w-2xl">
             <Eyebrow>The PowerNexa blog</Eyebrow>
             <h1 className="mt-5 font-display text-4xl font-bold leading-tight text-navy sm:text-5xl">
-              Straight answers about power in Lagos
+              Everything we've learned installing solar in Lagos
             </h1>
             <p className="mt-5 text-lg leading-relaxed text-charcoal/75">
               No fluff, no fake numbers, just practical guidance on solar, inverters, and batteries

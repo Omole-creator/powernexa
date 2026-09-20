@@ -1,0 +1,112 @@
+@import "tailwindcss";
+
+:root {
+  --color-navy: #092b4c;
+  --color-navy-ink: #061a30;
+  --color-orange: #f58220;
+  --color-orange-dark: #d96c0f;
+  --color-yellow: #ffc857;
+  --color-white: #ffffff;
+  --color-mist: #f2f6fa;
+  --color-charcoal: #17212b;
+  --color-line: #e1e8f0;
+
+  --font-display: var(--font-space-grotesk);
+  --font-body: var(--font-plex-sans);
+  --font-mono: var(--font-plex-mono);
+}
+
+@theme inline {
+  --color-navy: var(--color-navy);
+  --color-navy-ink: var(--color-navy-ink);
+  --color-orange: var(--color-orange);
+  --color-orange-dark: var(--color-orange-dark);
+  --color-yellow: var(--color-yellow);
+  --color-mist: var(--color-mist);
+  --color-charcoal: var(--color-charcoal);
+  --color-line: var(--color-line);
+
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --font-mono: var(--font-mono);
+}
+
+* {
+  border-color: var(--color-line);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-white);
+  color: var(--color-charcoal);
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+.font-display {
+  font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+}
+
+.font-mono-num {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-feature-settings: "tnum" 1;
+}
+
+/* Signature motif: the waveform. A continuous line that resolves from
+   jagged grid power into a smooth PowerNexa sine curve. Used in the hero
+   and, thinner, as a section divider throughout the site. */
+.waveform-path {
+  stroke-dasharray: 2000;
+  stroke-dashoffset: 2000;
+  animation: draw-waveform 1.8s ease-out forwards;
+}
+
+@keyframes draw-waveform {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .waveform-path {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+  .animate-\[marquee_28s_linear_infinite\] {
+    animation: none !important;
+  }
+}
+
+/* Panel-cell corner notch, echoing the logo's tilted solar-cell grid.
+   Used sparingly on featured cards/images only. */
+.panel-notch {
+  clip-path: polygon(0 0, calc(100% - 28px) 0, 100% 28px, 100% 100%, 0 100%);
+}
+
+::selection {
+  background: var(--color-orange);
+  color: var(--color-white);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-orange);
+  outline-offset: 2px;
+}

@@ -42,6 +42,16 @@ export function MarkdownContent({ content }: { content: string }) {
               </a>
             );
           },
+          img: ({ src, alt }) =>
+            typeof src === "string" ? (
+              // eslint-disable-next-line @next/next/no-img-element -- images come from admin-uploaded markdown with arbitrary, unknown dimensions
+              <img
+                src={src}
+                alt={alt ?? ""}
+                loading="lazy"
+                className="mt-6 w-full rounded-2xl shadow-[0_20px_40px_-24px_rgba(9,43,76,0.35)]"
+              />
+            ) : null,
           blockquote: ({ children }) => (
             <blockquote className="mt-5 border-l-4 border-orange bg-mist py-3 pl-5 italic text-charcoal/75">
               {children}

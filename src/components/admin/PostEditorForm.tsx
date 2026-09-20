@@ -6,6 +6,7 @@ import { createPostAction, updatePostAction, type PostFormState } from "@/action
 import { slugify } from "@/lib/validation";
 import { SeoChecklist } from "./SeoChecklist";
 import { InternalLinkHelper } from "./InternalLinkHelper";
+import { BlogContentEditor } from "./BlogContentEditor";
 import type { BlogPost } from "@/lib/blog";
 
 const CATEGORY_SUGGESTIONS = ["Pricing", "Guides", "Locations", "Maintenance", "Comparisons"];
@@ -82,17 +83,8 @@ export function PostEditorForm({
             placeholder="One or two sentences shown on blog cards and search results."
           />
 
-          <label className="mt-4 block text-sm font-medium text-charcoal/80">
-            Content (Markdown, use ## for headings)
-          </label>
-          <textarea
-            name="content"
-            required
-            rows={20}
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            className="mt-1.5 w-full rounded-xl border border-line px-4 py-3 font-mono text-sm leading-relaxed outline-none focus:border-orange focus:ring-2 focus:ring-orange/20"
-          />
+          <label className="mt-4 block text-sm font-medium text-charcoal/80">Content</label>
+          <BlogContentEditor value={content} onChange={setContent} />
         </div>
 
         <div className="grid gap-5 rounded-2xl border border-line bg-white p-6 sm:grid-cols-2">

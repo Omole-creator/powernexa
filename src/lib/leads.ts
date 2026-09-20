@@ -16,6 +16,17 @@ export type Lead = {
   utm_campaign: string | null;
   status: "new" | "contacted" | "quoted" | "won" | "lost";
   created_at: string;
+  archived_at: string | null;
+};
+
+export type LeadEditInput = {
+  name: string;
+  phone: string;
+  area: string;
+  propertyType: string;
+  serviceInterest: string;
+  budgetRange?: string;
+  message?: string;
 };
 
 export type NewLeadInput = {
@@ -55,8 +66,16 @@ export async function createLead(input: NewLeadInput): Promise<number> {
   return data.id;
 }
 
-export async function listLeads(): Promise<Lead[]> {
-  const { data, error } = await supabase.from("leads").select("*").order("created_at", { ascending: false });
+export async function listLeads(options?: { archived?: boolean | "all" }): Promise<Lead[]> {
+  let query = supabase.from("leads").select("*").order("created_at", { ascending: false });
+  if (options?.archived === "all") {
+    // no filter, return every lead regardless of archived status
+  } else if (options?.archived) {
+    query = query.not("archived_at", "is", null);
+  } else {
+    query = query.is("archived_at", null);
+  }
+  const { data, error } = await query;
   if (error) throw error;
   return data ?? [];
 }
@@ -69,6 +88,30 @@ export async function getLeadById(id: number): Promise<Lead | null> {
 
 export async function updateLeadStatus(id: number, status: Lead["status"]): Promise<void> {
   const { error } = await supabase.from("leads").update({ status }).eq("id", id);
+  if (error) throw error;
+}
+
+export async function updateLead(id: number, input: LeadEditInput): Promise<void> {
+  const { error } = await supabase
+    .from("leads")
+    .update({
+      name: input.name,
+      phone: input.phone,
+      area: input.area,
+      property_type: input.propertyType,
+      service_interest: input.serviceInterest,
+      budget_range: input.budgetRange ?? null,
+      message: input.message ?? null,
+    })
+    .eq("id", id);
+  if (error) throw error;
+}
+
+export async function setLeadArchived(id: number, archived: boolean): Promise<void> {
+  const { error } = await supabase
+    .from("leads")
+    .update({ archived_at: archived ? new Date().toISOString() : null })
+    .eq("id", id);
   if (error) throw error;
 }
 
@@ -88,6 +131,7 @@ export function leadsToCsv(leads: Lead[]): string {
     "utm_campaign",
     "status",
     "created_at",
+    "archived_at",
   ];
   const escape = (value: unknown) => {
     const str = value === null || value === undefined ? "" : String(value);

@@ -8,7 +8,7 @@ export async function GET() {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const csv = leadsToCsv(await listLeads());
+  const csv = leadsToCsv(await listLeads({ archived: "all" }));
 
   return new NextResponse(csv, {
     headers: {

@@ -96,3 +96,14 @@ errors, just retry the exact same command.
 - Owner asked twice for more FAQs "based on research" beyond the current set
   (4 on the homepage, more on `/faq`). Not yet actioned, do proper Lagos-specific
   research (forums, common objections) before writing new ones, not invented Q&As.
+- Leads can now be edited and archived from `/admin/leads` (archiving sets
+  `archived_at` instead of deleting the row; hard delete was deliberately left
+  out, per the owner, so the lead record stays trustworthy for both business
+  partners, archived leads are viewable/restorable via the "View archived"
+  link, never gone for good). This needs a one-time
+  `alter table leads add column if not exists archived_at timestamptz;`
+  (already in `supabase/schema.sql`) run in the Supabase SQL editor before
+  it works, the service role key can't run DDL, only Data API queries.
+  **Confirm this has been run before trusting `/admin/leads` or the
+  dashboard in production** — until it is, both will 500, since the leads
+  queries now select/filter on `archived_at`.

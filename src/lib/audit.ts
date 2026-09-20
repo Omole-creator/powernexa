@@ -10,6 +10,9 @@ export type AuditAction =
   | "unpublish_post"
   | "delete_post"
   | "update_lead_status"
+  | "update_lead"
+  | "archive_lead"
+  | "unarchive_lead"
   | "change_password"
   | "add_teammate";
 

@@ -49,10 +49,17 @@ create table if not exists leads (
   utm_medium text,
   utm_campaign text,
   status text not null default 'new' check (status in ('new', 'contacted', 'quoted', 'won', 'lost')),
-  created_at timestamptz not null default now()
+  created_at timestamptz not null default now(),
+  archived_at timestamptz
 );
 
+-- Added after launch so leads can be archived (hidden, never hard-deleted)
+-- instead of removed outright. Safe to re-run against the already-created
+-- table above.
+alter table leads add column if not exists archived_at timestamptz;
+
 create index if not exists idx_leads_status on leads (status, created_at);
+create index if not exists idx_leads_archived on leads (archived_at);
 
 create table if not exists analytics_events (
   id bigint generated always as identity primary key,

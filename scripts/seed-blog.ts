@@ -4,7 +4,7 @@
 // Run with: node --env-file=.env.local scripts/seed-blog.ts
 
 import { createClient } from "@supabase/supabase-js";
-import { BLOG_SEED_POSTS } from "../src/lib/blog-seed-data";
+import { BLOG_SEED_POSTS } from "../src/lib/blog-seed-data.ts";
 
 function computeReadingTime(content: string): number {
   const words = content.trim().split(/\s+/).filter(Boolean).length;

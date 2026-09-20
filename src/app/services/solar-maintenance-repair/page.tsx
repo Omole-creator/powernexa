@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { ServiceDetailLayout } from "@/components/marketing/ServiceDetailLayout";
 import { Container, SectionHeading } from "@/components/ui/Container";
 import { CheckIcon } from "@/components/marketing/Icons";
+import { Reveal } from "@/components/ui/Reveal";
 
 export const metadata: Metadata = {
   title: "Solar & Inverter Maintenance and Repair in Lagos",
@@ -67,19 +69,44 @@ export default function MaintenancePage() {
     >
       <section className="bg-mist py-20">
         <Container className="grid gap-10 lg:grid-cols-2 lg:items-start">
-          <SectionHeading
-            eyebrow="What we check"
-            title="Our standard maintenance checklist"
-            description="Every visit covers the same core checklist, so small issues get caught before they turn into a full system failure."
-          />
-          <ul className="space-y-3 rounded-2xl border border-line bg-white p-7">
-            {CHECKLIST.map((item) => (
-              <li key={item} className="flex items-start gap-3">
-                <CheckIcon className="mt-0.5 h-5 w-5 shrink-0 text-orange" />
-                <span className="text-sm leading-relaxed text-charcoal/75">{item}</span>
-              </li>
-            ))}
-          </ul>
+          <Reveal>
+            <SectionHeading
+              eyebrow="What we check"
+              title="Our standard maintenance checklist"
+              description="Every visit covers the same core checklist, so small issues get caught before they turn into a full system failure."
+            />
+          </Reveal>
+          <Reveal delay={150}>
+            <ul className="space-y-3 rounded-2xl border border-line bg-white p-7">
+              {CHECKLIST.map((item) => (
+                <li key={item} className="flex items-start gap-3">
+                  <CheckIcon className="mt-0.5 h-5 w-5 shrink-0 text-orange" />
+                  <span className="text-sm leading-relaxed text-charcoal/75">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+        </Container>
+      </section>
+
+      <section className="py-20">
+        <Container className="grid gap-10 lg:grid-cols-2 lg:items-center">
+          <Reveal>
+            <SectionHeading
+              eyebrow="Safety first"
+              title="Isolation and earthing, checked every visit"
+              description="Working on a live distribution board without proper isolation is how systems get damaged and people get hurt. Our technicians isolate before they touch anything, every time."
+            />
+          </Reveal>
+          <Reveal delay={150} className="overflow-hidden rounded-2xl border border-line">
+            <Image
+              src="/images/installation-distribution-board.jpg"
+              alt="A technician in a safety harness inspecting a distribution board"
+              width={640}
+              height={480}
+              className="h-full w-full object-cover"
+            />
+          </Reveal>
         </Container>
       </section>
     </ServiceDetailLayout>

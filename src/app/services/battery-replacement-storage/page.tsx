@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { ServiceDetailLayout } from "@/components/marketing/ServiceDetailLayout";
 import { Container, SectionHeading } from "@/components/ui/Container";
+import { Reveal } from "@/components/ui/Reveal";
 
 export const metadata: Metadata = {
   title: "Battery Replacement & Storage in Lagos",
@@ -60,6 +62,27 @@ export default function BatteryReplacementPage() {
         },
       ]}
     >
+      <section className="py-20">
+        <Container className="grid gap-10 lg:grid-cols-2 lg:items-center">
+          <Reveal className="overflow-hidden rounded-2xl border border-line">
+            <Image
+              src="/images/inverter-battery-stack.jpg"
+              alt="Hybrid inverter mounted above a stack of batteries, with solar panels in the background"
+              width={640}
+              height={480}
+              className="h-full w-full object-cover"
+            />
+          </Reveal>
+          <Reveal delay={150}>
+            <SectionHeading
+              eyebrow="Sized to fit"
+              title="Batteries stacked to match your backup goal"
+              description="More backup hours means more battery capacity, not a bigger single unit. We stack the right number of batteries for your target, wired and balanced correctly, in a space that fits your home or office."
+            />
+          </Reveal>
+        </Container>
+      </section>
+
       <section className="bg-mist py-20">
         <Container>
           <SectionHeading

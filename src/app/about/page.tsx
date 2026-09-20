@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Container, SectionHeading, Eyebrow } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import { Breadcrumbs } from "@/components/marketing/Breadcrumbs";
@@ -85,6 +86,27 @@ export default function AboutPage() {
           </Reveal>
           <Reveal delay={200}>
             <Waveform className="h-56 w-full text-navy" />
+          </Reveal>
+        </Container>
+      </section>
+
+      <section className="bg-mist py-20">
+        <Container className="grid gap-10 lg:grid-cols-2 lg:items-center">
+          <Reveal className="overflow-hidden rounded-2xl border border-line lg:order-2">
+            <Image
+              src="/images/installation-battery-room-1.jpg"
+              alt="A PowerNexa technician wiring an inverter and battery bank inside a Lagos home"
+              width={640}
+              height={480}
+              className="h-full w-full object-cover"
+            />
+          </Reveal>
+          <Reveal delay={150} className="lg:order-1">
+            <SectionHeading
+              eyebrow="On site"
+              title="Careful, methodical work behind every install"
+              description="Cable runs are labelled, connections are torqued to spec, and every isolator is tested before we call a job finished. It's slower than rushing, and it's why systems keep working years later."
+            />
           </Reveal>
         </Container>
       </section>

@@ -77,11 +77,11 @@ When you get quotes from different installers, don't just compare the bottom-lin
     focusKeyword: "solar installers in lagos",
     metaTitle: "Best Solar Installers in Lagos: A Buyer's Checklist",
     metaDescription:
-      "Before you hire a solar installer in Lagos, check these things: load calculation, written quotes, warranty terms, and battery specifics. Here's exactly what to ask.",
-    featuredImageAlt: "Checklist for choosing a solar installer in Lagos",
+      "Before you hire any of the solar installers in Lagos, check these things: load calculation, written quotes, warranty terms, and battery specifics. Here's exactly what to ask.",
+    featuredImageAlt: "Checklist for choosing among solar installers in Lagos",
     authorName: "PowerNexa Solutions Team",
     publishedDaysAgo: 55,
-    content: `Solar and inverter systems are a serious investment, and Lagos has no shortage of installers competing for your money. Some are excellent. Some will sell you whatever is sitting in their store, regardless of whether it fits your home. Here's how to tell the difference before you pay a deposit.
+    content: `Solar installers in Lagos are easy to find and hard to tell apart. Solar and inverter systems are a serious investment, and Lagos has no shortage of installers competing for your money. Some are excellent. Some will sell you whatever is sitting in their store, regardless of whether it fits your home. Here's how to tell the difference before you pay a deposit.
 
 ## 1. Do they calculate your load, or just ask "how many rooms"?
 

@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { ServiceDetailLayout } from "@/components/marketing/ServiceDetailLayout";
 import { Container, SectionHeading } from "@/components/ui/Container";
+import { Reveal } from "@/components/ui/Reveal";
 
 export const metadata: Metadata = {
   title: "Commercial Solar for Business in Lagos",
@@ -62,12 +64,14 @@ export default function CommercialSolarPage() {
     >
       <section className="bg-mist py-20">
         <Container className="grid gap-10 lg:grid-cols-2 lg:items-center">
-          <SectionHeading
-            eyebrow="Estates & facility managers"
-            title="Coordinated installs across an entire estate"
-            description="If you manage a gated estate, we can schedule installations across multiple homes efficiently, standardize on equipment that's easy to maintain, and set up a shared maintenance calendar that keeps every household's system in good health."
-          />
-          <div className="rounded-2xl border border-line bg-white p-7">
+          <Reveal>
+            <SectionHeading
+              eyebrow="Estates & facility managers"
+              title="Coordinated installs across an entire estate"
+              description="If you manage a gated estate, we can schedule installations across multiple homes efficiently, standardize on equipment that's easy to maintain, and set up a shared maintenance calendar that keeps every household's system in good health."
+            />
+          </Reveal>
+          <Reveal delay={150} className="rounded-2xl border border-line bg-white p-7">
             <h3 className="font-display text-lg font-bold text-navy">See relevant estate areas</h3>
             <p className="mt-3 text-sm leading-relaxed text-charcoal/75">
               We&apos;ve worked across estate-style neighborhoods including{" "}
@@ -80,7 +84,28 @@ export default function CommercialSolarPage() {
               </Link>
               . Message us your estate name and we&apos;ll confirm coverage.
             </p>
-          </div>
+          </Reveal>
+        </Container>
+      </section>
+
+      <section className="py-20">
+        <Container className="grid gap-10 lg:grid-cols-2 lg:items-center">
+          <Reveal className="overflow-hidden rounded-2xl border border-line">
+            <Image
+              src="/images/installation-battery-room-2.jpg"
+              alt="Commercial-grade inverter and battery installation inside a Lagos business premises"
+              width={640}
+              height={480}
+              className="h-full w-full object-cover"
+            />
+          </Reveal>
+          <Reveal delay={150}>
+            <SectionHeading
+              eyebrow="Built for uptime"
+              title="Commercial rooms need commercial-grade installs"
+              description="A business backup room carries more load and runs longer hours than a home setup. We size the inverter, battery bank, and wiring for that duty cycle, not a residential kit stretched past its limit."
+            />
+          </Reveal>
         </Container>
       </section>
     </ServiceDetailLayout>

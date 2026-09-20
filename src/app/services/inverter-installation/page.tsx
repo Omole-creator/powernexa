@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { ServiceDetailLayout } from "@/components/marketing/ServiceDetailLayout";
 import { Container, SectionHeading } from "@/components/ui/Container";
 import { Waveform } from "@/components/marketing/Waveform";
+import { Reveal } from "@/components/ui/Reveal";
 
 export const metadata: Metadata = {
   title: "Inverter Installation in Lagos",
@@ -63,7 +65,7 @@ export default function InverterInstallationPage() {
     >
       <section className="py-20">
         <Container className="grid gap-12 lg:grid-cols-2 lg:items-center">
-          <div>
+          <Reveal>
             <SectionHeading
               eyebrow="Why the wave shape matters"
               title="Our logo isn't just a sun. It's a sine wave, on purpose."
@@ -73,8 +75,31 @@ export default function InverterInstallationPage() {
               We only install pure sine wave inverters for exactly this reason. It costs a little
               more upfront and saves you money in appliance repairs over the years.
             </p>
-          </div>
-          <Waveform className="h-48 w-full text-navy" />
+          </Reveal>
+          <Reveal delay={150}>
+            <Waveform className="h-48 w-full text-navy" />
+          </Reveal>
+        </Container>
+      </section>
+
+      <section className="bg-mist py-20">
+        <Container className="grid gap-10 lg:grid-cols-2 lg:items-center">
+          <Reveal delay={150} className="order-2 overflow-hidden rounded-2xl border border-line lg:order-1">
+            <Image
+              src="/images/inverter-wall-mounted.jpg"
+              alt="A pure sine wave inverter mounted on a wall next to the meter and isolator switch"
+              width={640}
+              height={480}
+              className="h-full w-full object-cover"
+            />
+          </Reveal>
+          <Reveal className="order-1 lg:order-2">
+            <SectionHeading
+              eyebrow="Clean installation, every time"
+              title="Neat wiring isn't cosmetic, it's safety"
+              description="A properly mounted inverter sits close to your distribution board, with cables labelled and isolators easy to reach. Loose or tangled wiring is usually the first sign an installer rushed the job."
+            />
+          </Reveal>
         </Container>
       </section>
     </ServiceDetailLayout>

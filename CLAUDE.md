@@ -6,17 +6,22 @@ Full detail lives in `docs/PRD.md` and `docs/SPEC.md`. Read those before making
 product or architecture changes. Summary:
 
 - Lagos-only solar, inverter, and battery installation business.
-- Brand: navy `#092B4C`, orange `#F58220`, solar yellow `#FFC857`, white background, charcoal `#17212B` text. Fonts: Space Grotesk (display), IBM Plex Sans (body), IBM Plex Mono (numbers, stats).
-- Signature visual motif: the waveform (`src/components/marketing/Waveform.tsx`), a line that resolves from jagged grid power into a smooth sine curve. Used in the hero, as section dividers, and to explain pure vs modified sine wave inverters.
+- **Live site:** https://www.powernexasolutions.site (real domain, bought and registered through Vercel, DNS fully propagated). Apex domain redirects to the www version, which is the canonical URL used everywhere (`NEXT_PUBLIC_SITE_URL`).
+- **Vercel project:** `omole-creator-s-projects/powernexa`, linked locally via `vercel link --repo`. Deploys automatically on every push to `main` on GitHub (`Omole-creator/powernexa`).
+- Brand: navy `#092B4C`, orange `#F58220`, solar yellow `#FFC857`, white background, charcoal `#17212B` text. Fonts: Archivo (display, swapped from Space Grotesk per owner feedback), IBM Plex Sans (body), IBM Plex Mono (numbers, stats).
+- Hero headline (final, owner-approved): "Solar and inverter power that never blinks." Do not change without being asked, the owner went through several rounds on this.
+- Signature visual motif: the waveform (`src/components/marketing/Waveform.tsx`), a line that resolves from jagged grid power into a smooth sine curve. Used as the hero's bottom divider, section dividers elsewhere, and to explain pure vs modified sine wave inverters on the inverter service page.
+- Real installation photos live in `public/images/`: `hero.jpg` (hero background) plus 6 owner-supplied photos (`solar-panel-inverter-wiring.jpg`, `inverter-battery-stack.jpg`, `inverter-wall-mounted.jpg`, `installation-battery-room-1.jpg`, `installation-battery-room-2.jpg`, `installation-distribution-board.jpg`). These are placed across the homepage (bento gallery section), About, and all 5 service pages. Alt text is intentionally generic ("a technician wiring...") since the source photos show placeholder brand names (NG Power, Soltarc, Phoenix) that are not confirmed real equipment brands PowerNexa installs, don't caption them as if they were.
 - Phone/WhatsApp: 0813 209 7317 (`+2348132097317`). Contact email: powernexas@gmail.com (also the admin login email).
 - Office (service area, not a showroom): 11 Idris Ogunlaja Drive, Sangotedo, Lagos.
-- Domain is a placeholder (`powernexasolutions.com`) until the owner buys a real one. Find and replace before launch.
-- Copy on this site follows `COPYWRITING-PLAYBOOK.md` section 0.1 house style: no em dashes, plain 8th-grade words, short paragraphs, every claim provable. Avoid AI-sounding filler ("real", "seamless", "delve", "crucial", bold mini-heading lists, forced triads). Run new copy through the `humanizer` skill before it ships.
+- Copy on this site follows `COPYWRITING-PLAYBOOK.md` section 0.1 house style: no em dashes, plain 8th-grade words, short paragraphs, every claim provable. Avoid AI-sounding filler ("real", "seamless", "delve", "crucial", bold mini-heading lists, forced triads). For headline/emotional copy, mine actual Lagos voice-of-customer language (Nairaland, Nigerian Twitter) before writing, terms like "NEPA take light," "up NEPA," "wahala" carry more weight than generic English. Run new copy through the `humanizer` skill before it ships.
 - Testimonials on the site are placeholders (fake names, real Lagos neighborhoods), marked with `PLACEHOLDER TESTIMONIAL` comments in `src/lib/testimonials-data.ts`. Replace with real reviews when available. No Review/AggregateRating schema is attached to them while they're placeholders.
 - Database is Supabase (Postgres), accessed only from the server via the service role key (`src/lib/supabase.ts`). Schema and dashboard SQL functions live in `supabase/schema.sql`, meant to be pasted once into the Supabase SQL editor. RLS is enabled on every table with no public policies, since the browser never talks to Supabase directly.
-- Admin login is created by running `npm run seed:admin` (reads `ADMIN_EMAIL` / `ADMIN_PASSWORD` from `.env.local`). Blog launch content is created by running `npm run seed:blog`.
-- Hero background photo is `public/images/hero.jpg` (owner-supplied). Beyond that, the site intentionally uses icon illustrations and the waveform motif instead of generic stock photography. Ask the owner for real project/team photos before adding more, since Unsplash/Pexels block automated scraping without an API key.
-- Scroll/load-in animation: wrap section content in `<Reveal>` (`src/components/ui/Reveal.tsx`) for a staggered fade-up on load and on scroll. Already applied to the homepage, service pages, location pages, and the about page.
+- Admin login is created by running `npm run seed:admin` (reads `ADMIN_EMAIL` / `ADMIN_PASSWORD` from `.env.local`). Blog launch content is created by running `npm run seed:blog` (safe to re-run, skips existing slugs, does not update already-published posts, edit those directly in `/admin/blog` or patch Supabase if the seed data changes later).
+- Admin dashboard shows human-only metrics with no toggle to include bots (owner explicitly asked for this, don't re-add an "include bots" switch). It also shows a "unique visits" stat: one visitor counts once per calendar day, a repeat visit the next day counts again. This is computed client-side in `getUniqueVisitCount()` (`src/lib/analytics.ts`) from raw rows, not a SQL function.
+- Quote form (`src/components/marketing/QuoteForm.tsx`) is intentionally colored: mist-tinted inputs, thick orange focus ring, navy bold labels, gradient accent bar. Do not revert to plain white/gray styling.
+- Scroll/load-in animation: wrap section content in `<Reveal>` (`src/components/ui/Reveal.tsx`) for a staggered fade-up on load and on scroll. Applied to the homepage, service pages, location pages, pricing, FAQ, testimonials, blog listing, contact, and about. `SectionHeading` (`src/components/ui/Container.tsx`) takes a `light` prop for use on navy/dark backgrounds, always pass it there or text is invisible.
+- All 6 launch blog posts were audited against the site's own `computeSeoChecklist()` logic and score 71-88/100 with zero keyword-placement failures (title, meta description, slug, first 100 words, at least one heading, image alt all contain the focus keyword). If you add more posts, run the same check before publishing.
 
 ## Top 30 blog topics (SEO content roadmap)
 
@@ -62,11 +67,27 @@ The first 6 of these are seeded as full, published posts at launch (via `npm run
 is not empty. The rest are backlog for the owner/marketer to write using the
 admin blog editor's built-in SEO checklist.
 
-## Deployment
+## Deployment (already done, for reference)
 
-See the setup guide provided in chat (Supabase project creation, running
-`supabase/schema.sql`, environment variables, then Vercel deploy) for the full
-step-by-step. Short version: create the Supabase project, run
-`supabase/schema.sql` in its SQL editor, set env vars from `.env.example` in
-both `.env.local` and the Vercel project, run `npm run seed:admin` and
-`npm run seed:blog` once locally, then deploy to Vercel.
+1. Supabase project created (`sxdhtbzzadbtsygwruyj`), `supabase/schema.sql` run in its SQL editor.
+2. Env vars set in `.env.local` and in Vercel (`vercel env add`, all three environments: production, preview, development). See `.env.example` for the full list.
+3. `npm run seed:admin` and `npm run seed:blog` run once locally against the live Supabase project.
+4. Project linked to Vercel (`vercel link --repo`) and deployed. Custom domain `powernexasolutions.site` (and `www.`) purchased and attached through Vercel, DNS auto-configured since Vercel is the registrar.
+
+To make further changes live: commit and push to `main`, Vercel auto-deploys.
+To change an env var, use `vercel env rm <name> <environment>` then
+`vercel env add <name> <environment>` (reads the value from stdin), for all
+three environments, then push or redeploy to pick it up. The Vercel CLI is
+occasionally flaky with transient "fetch failed" / "Not able to load teams"
+errors, just retry the exact same command.
+
+## Known open items
+
+- Admin blog editor still uses a plain markdown textarea. Owner asked for a
+  proper rich text/image-insertion editor, not yet built.
+- `analytics_events` table may still contain test rows from development and
+  smoke-testing (curl calls, manual verification). The owner asked for these
+  to be cleared so the dashboard starts clean at launch. Bulk deletes against
+  Supabase get blocked by Claude Code's auto-mode safety classifier; either
+  ask the owner to run `delete from analytics_events;` in the Supabase SQL
+  editor themselves, or get explicit approval and a permissions change first.

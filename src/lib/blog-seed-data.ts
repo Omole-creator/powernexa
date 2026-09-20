@@ -77,7 +77,7 @@ When you get quotes from different installers, don't just compare the bottom-lin
     focusKeyword: "solar installers in lagos",
     metaTitle: "Best Solar Installers in Lagos: A Buyer's Checklist",
     metaDescription:
-      "Before you hire any of the solar installers in Lagos, check these things: load calculation, written quotes, warranty terms, and battery specifics. Here's exactly what to ask.",
+      "Before you hire any of the solar installers in Lagos, check their load calculation, written quotes, warranty terms, and battery specifics first.",
     featuredImageAlt: "Checklist for choosing among solar installers in Lagos",
     authorName: "PowerNexa Solutions Team",
     publishedDaysAgo: 55,
@@ -133,7 +133,7 @@ If you want a written, load-based quote to compare against what you've already r
     focusKeyword: "solar and inverter installation in lagos",
     metaTitle: "Solar and Inverter Installation in Lagos: Complete Guide",
     metaDescription:
-      "A complete guide to solar panel, inverter, and battery installation for Lagos homes: how the components work together, what it costs, and how the process runs.",
+      "A complete guide to solar and inverter installation in Lagos: how the components work together, what it costs, and how the process runs from start to finish.",
     featuredImageAlt: "Homeowner's guide to solar and inverter installation in Lagos",
     authorName: "PowerNexa Solutions Team",
     publishedDaysAgo: 50,
@@ -193,21 +193,21 @@ We install and maintain solar, inverter, and battery systems across Lagos, inclu
   },
   {
     slug: "inverter-vs-generator-lagos",
-    title: "Inverter vs Generator: Which Saves You More Money in Lagos?",
+    title: "Inverter vs Generator in Lagos: Which Saves You More Money?",
     excerpt:
       "A honest comparison of inverter and battery systems against petrol and diesel generators for Lagos homes and businesses.",
     category: "Comparisons",
     tags: ["inverter", "generator", "comparison"],
-    focusKeyword: "inverter vs generator lagos",
+    focusKeyword: "inverter vs generator in lagos",
     metaTitle: "Inverter vs Generator in Lagos: An Honest Comparison",
     metaDescription:
-      "Comparing inverter and battery backup against petrol and diesel generators in Lagos: running cost, noise, maintenance, and lifespan, side by side.",
+      "Comparing an inverter vs generator in Lagos: running cost, noise, maintenance, and lifespan, side by side, so you know which fits your home.",
     featuredImageAlt: "Comparing inverter systems and generators for Lagos homes",
     authorName: "PowerNexa Solutions Team",
     publishedDaysAgo: 45,
-    content: `Almost every Lagos household has owned or currently owns a generator. It's a familiar, understood technology. An inverter and battery system is a bigger upfront decision, so it's worth comparing the two honestly, without exaggerating either side.
+    content: `Choosing between an inverter vs generator in Lagos comes down to more than the price tag on day one. Almost every Lagos household has owned or currently owns a generator. It's a familiar, understood technology. An inverter and battery system is a bigger upfront decision, so it's worth comparing the two honestly, without exaggerating either side.
 
-## Upfront cost
+## Inverter vs generator in Lagos: upfront cost
 
 Generators are cheaper to buy upfront, often by a wide margin, especially small petrol units. An inverter and battery system costs more to install initially, and that gap grows if you add solar panels on top. This is the main reason generators remain common despite their downsides.
 
@@ -217,7 +217,7 @@ This is where the comparison shifts. A generator needs fuel every single time yo
 
 ## Noise and fumes
 
-A generator running in a compound is loud, and diesel or petrol fumes are a genuine health concern, especially for households with children, the elderly, or anyone with respiratory issues. An inverter and battery system is silent. This alone is why many households upgrade after their first generator wears out.
+A generator running in a compound is loud. Diesel or petrol fumes are also a genuine health concern, especially for households with children, the elderly, or anyone with respiratory issues. An inverter and battery system is silent. This alone is why many households upgrade after their first generator wears out.
 
 ## Maintenance
 
@@ -225,11 +225,11 @@ Generators need regular servicing, oil changes, and eventually part replacements
 
 ## Lifespan
 
-A well-maintained generator can last for years, but engine wear is constant with use and heavy daily running shortens its life considerably. A quality inverter, paired with the right battery (especially lithium), can run for many years with proper care and much less daily wear, since there are no moving engine parts doing the work.
+A well-maintained generator can last for years, but engine wear is constant with use and heavy daily running shortens its life considerably. A quality inverter, paired with the right battery (especially lithium), can run for many years with proper care. There are no moving engine parts, so daily wear is much lower.
 
 ## Reliability during outages
 
-Both systems provide backup, but they behave differently. A generator needs to be manually started (or has an auto-start feature on higher-end units) and needs fuel on hand at all times, which isn't always guaranteed during a fuel scarcity period. An inverter and battery system switches over automatically and instantly, with no dependence on having fuel in stock.
+Both systems provide backup, but they behave differently. A generator needs to be manually started, or has an auto-start feature on higher-end units. Either way, it needs fuel on hand at all times, and that isn't always guaranteed during a fuel scarcity period. An inverter and battery system switches over automatically and instantly, with no dependence on having fuel in stock.
 
 ## Environmental impact
 
@@ -241,7 +241,7 @@ It depends on your time horizon and how often you experience outages. If outages
 
 ## A realistic middle ground
 
-You don't have to choose one and abandon the other overnight. A common, sensible path is to install an inverter and battery system sized for your daily needs, keep an existing generator as an occasional backup, and add solar panels later to reduce how much you rely on either the grid or fuel. This spreads the investment out and lets you feel the benefit immediately without overcommitting upfront.
+You don't have to choose one and abandon the other overnight. A common, sensible path is to install an inverter and battery system sized for your daily needs. Keep an existing generator as an occasional backup, then add solar panels later to cut how much you rely on either the grid or fuel. This spreads the investment out and lets you feel the benefit immediately without overcommitting upfront.
 
 ## Getting a system sized for your actual usage
 
@@ -249,25 +249,25 @@ If you're considering the switch, the right next step is a load assessment, not 
   },
   {
     slug: "solar-battery-types-lithium-vs-tubular",
-    title: "Solar Battery Types Explained: Lithium vs Tubular for Lagos Homes",
+    title: "Lithium vs Tubular Battery in Lagos: Which Should You Choose?",
     excerpt:
       "Lithium or tubular battery for your solar or inverter system? Here's a straightforward comparison for Lagos conditions.",
     category: "Guides",
     tags: ["batteries", "lithium", "tubular"],
-    focusKeyword: "lithium vs tubular battery lagos",
-    metaTitle: "Lithium vs Tubular Battery: Which Is Right for Your Lagos Home?",
+    focusKeyword: "lithium vs tubular battery in lagos",
+    metaTitle: "Lithium vs Tubular Battery in Lagos: Which Is Right for You?",
     metaDescription:
-      "A clear comparison of lithium (LiFePO4) and tubular batteries for solar and inverter systems in Lagos: cost, lifespan, maintenance, and which suits your budget.",
-    featuredImageAlt: "Lithium and tubular battery comparison for Lagos solar systems",
+      "A clear comparison of lithium vs tubular battery in Lagos for solar and inverter systems: cost, lifespan, maintenance, and which suits your budget.",
+    featuredImageAlt: "Lithium vs tubular battery comparison for Lagos solar systems",
     authorName: "PowerNexa Solutions Team",
     publishedDaysAgo: 40,
-    content: `Once you've decided on solar panels and an inverter, the next big decision is your battery. In Lagos, the two options you'll hear about most are lithium (specifically LiFePO4) and tubular. Both work. They just serve different budgets and priorities.
+    content: `Choosing between a lithium vs tubular battery in Lagos is the biggest decision left once you've settled on solar panels and an inverter. Both work. They just serve different budgets and priorities.
 
-## How each battery type works, briefly
+## Lithium vs tubular battery: how each type works, briefly
 
 Tubular batteries are a type of lead-acid battery built with tube-shaped plates that improve durability compared to older flat-plate designs. They're a familiar technology in Nigeria and widely available.
 
-Lithium (LiFePO4) batteries use lithium iron phosphate chemistry, one of the safer and more stable lithium chemistries available, with a strong track record for solar and backup power use specifically.
+Lithium (LiFePO4) batteries use lithium iron phosphate chemistry. It's one of the safer, more stable lithium chemistries available, with a strong track record for solar and backup power use.
 
 ## Upfront cost
 
@@ -283,7 +283,7 @@ Tubular batteries need regular attention: topping up with distilled water, keepi
 
 ## Weight and space
 
-Lithium batteries are considerably lighter and more compact than tubular batteries of similar capacity, which matters if you're tight on space or installing in a location that's harder to access.
+Lithium batteries are considerably lighter and more compact than tubular batteries of similar capacity. That matters if you're tight on space or installing somewhere harder to access.
 
 ## Charging speed and efficiency
 
@@ -291,9 +291,9 @@ Lithium batteries generally charge faster and use the energy put into them more 
 
 ## Depth of discharge
 
-This is a technical point worth understanding: tubular batteries are usually recommended to only be discharged to around 50% of their capacity to protect their lifespan, meaning you effectively only get to use half of the rated capacity regularly. Lithium batteries can typically be discharged much deeper, often to 80-90%, without meaningfully shortening their life. This means a lithium battery's usable capacity is often much closer to its rated capacity than a tubular battery's.
+Here's a technical point worth understanding. Tubular batteries are usually only discharged to around 50% of their capacity to protect their lifespan. In practice, that means you only get to use about half of the rated capacity regularly. Lithium batteries can typically be discharged much deeper, often to 80-90%, without meaningfully shortening their life. This means a lithium battery's usable capacity is often much closer to its rated capacity than a tubular battery's.
 
-## Which one should you choose?
+## Lithium vs tubular battery in Lagos: which one should you choose?
 
 Tubular makes sense if your upfront budget is tight, you don't mind regular maintenance, and you want a familiar, widely serviceable technology. Lithium makes sense if you want the lowest cost per year of use, minimal maintenance, and a longer lifespan, and you don't mind paying more today to get that.
 
@@ -309,23 +309,25 @@ The right choice depends on your budget, how much backup capacity you need, and 
   },
   {
     slug: "how-long-does-solar-installation-take-in-lagos",
-    title: "How Long Does a Solar Panel Installation Take in Lagos?",
+    title: "How Long Does Solar Panel Installation Take in Lagos?",
     excerpt:
       "A realistic timeline for solar and inverter installation in Lagos, from first site visit to a fully commissioned system.",
     category: "Guides",
     tags: ["installation", "timeline", "process"],
-    focusKeyword: "how long does solar installation take",
-    metaTitle: "How Long Does Solar Installation Take in Lagos?",
+    focusKeyword: "how long does solar panel installation take in lagos",
+    metaTitle: "How Long Does Solar Panel Installation Take in Lagos?",
     metaDescription:
-      "A realistic timeline for solar panel, inverter, and battery installation in Lagos, from the first site visit to a fully tested, commissioned system.",
-    featuredImageAlt: "Timeline for solar and inverter installation in Lagos",
+      "How long does solar panel installation take in Lagos? A realistic timeline from the first site visit to a fully tested, commissioned system.",
+    featuredImageAlt: "Timeline showing how long solar panel installation takes in Lagos",
     authorName: "PowerNexa Solutions Team",
     publishedDaysAgo: 35,
-    content: `One of the most common questions we get after "how much does this cost" is "how long will this take." Here's a realistic breakdown, not a marketing promise.
+    content: `How long does solar panel installation take in Lagos? That's one of the most common questions we get, right after "how much does this cost." Here's a realistic breakdown, not a marketing promise.
+
+## The solar panel installation timeline in Lagos, stage by stage
 
 ## Stage 1: First contact to site visit (same day to a few days)
 
-Once you reach out by phone, WhatsApp, or our [quote form](/get-a-quote), we typically confirm details and schedule a free site visit within the same business day, depending on our current schedule. During the visit, we review your appliances, your electricity bill, and inspect your roof and wiring.
+Once you reach out by phone, WhatsApp, or our [quote form](/get-a-quote), we confirm details fast. A free site visit is usually scheduled within the same business day, depending on our current schedule. During the visit, we review your appliances, your electricity bill, and inspect your roof and wiring.
 
 ## Stage 2: Written quote (usually within a day or two of the visit)
 
@@ -341,7 +343,7 @@ If the specific panels, inverter, or batteries you've chosen need to be sourced,
 
 ## Stage 5: Installation (1 to 3 days for most homes)
 
-This is the part people usually mean when they ask "how long will it take." For most residential installations, the on-site work, mounting panels, running wiring, installing the inverter and battery, takes one to three days, depending on system size and roof complexity. A simple inverter and battery installation without panels can sometimes be completed in a single day. A larger system with many panels and a complex roof can take longer.
+This is the part people usually mean when they ask "how long will it take." For most residential installations, the on-site work, mounting panels, running wiring, installing the inverter and battery, takes one to three days. The exact time depends on system size and roof complexity. A simple inverter and battery installation without panels can sometimes be completed in a single day. A larger system with many panels and a complex roof can take longer.
 
 Commercial and estate projects, covered under our [commercial solar for business](/services/commercial-solar-for-business) service, vary more widely based on scope and are scheduled individually.
 

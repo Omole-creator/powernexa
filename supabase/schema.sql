@@ -100,63 +100,76 @@ alter table audit_log enable row level security;
 -- Dashboard aggregate functions, called from the admin dashboard via
 -- supabase.rpc(...). Kept as SQL functions so the heavy GROUP BY work runs
 -- inside Postgres instead of being pulled row-by-row into the app.
+--
+-- Take an explicit [start_ts, end_ts) range rather than a rolling "last N
+-- days" window, so the dashboard's Day/Month/Quarter/Year period picker can
+-- ask for any calendar period (e.g. "March 2026" or "Q1 2027"), not only a
+-- window ending at the current moment. Dropped first because changing a
+-- function's argument types does not replace the old signature in place,
+-- it would otherwise leave the old (days int, include_bots boolean)
+-- overload behind.
+drop function if exists dashboard_totals_by_event(int, boolean);
+drop function if exists dashboard_daily_page_views(int, boolean);
+drop function if exists dashboard_top_pages(int, boolean, int);
+drop function if exists dashboard_top_referrers(int, boolean, int);
+drop function if exists dashboard_device_breakdown(int, boolean);
 
-create or replace function dashboard_totals_by_event(days int, include_bots boolean)
+create or replace function dashboard_totals_by_event(start_ts timestamptz, end_ts timestamptz, include_bots boolean)
 returns table (event_type text, count bigint)
 language sql stable as $$
   select event_type, count(*) as count
   from analytics_events
-  where created_at >= now() - (days || ' days')::interval
+  where created_at >= start_ts and created_at < end_ts
     and (include_bots or is_bot = false)
   group by event_type
   order by count desc;
 $$;
 
-create or replace function dashboard_daily_page_views(days int, include_bots boolean)
+create or replace function dashboard_daily_page_views(start_ts timestamptz, end_ts timestamptz, include_bots boolean)
 returns table (day date, count bigint)
 language sql stable as $$
   select date(created_at) as day, count(*) as count
   from analytics_events
   where event_type = 'page_view'
-    and created_at >= now() - (days || ' days')::interval
+    and created_at >= start_ts and created_at < end_ts
     and (include_bots or is_bot = false)
   group by day
   order by day asc;
 $$;
 
-create or replace function dashboard_top_pages(days int, include_bots boolean, result_limit int default 10)
+create or replace function dashboard_top_pages(start_ts timestamptz, end_ts timestamptz, include_bots boolean, result_limit int default 10)
 returns table (page_path text, count bigint)
 language sql stable as $$
   select page_path, count(*) as count
   from analytics_events
   where event_type = 'page_view'
-    and created_at >= now() - (days || ' days')::interval
+    and created_at >= start_ts and created_at < end_ts
     and (include_bots or is_bot = false)
   group by page_path
   order by count desc
   limit result_limit;
 $$;
 
-create or replace function dashboard_top_referrers(days int, include_bots boolean, result_limit int default 8)
+create or replace function dashboard_top_referrers(start_ts timestamptz, end_ts timestamptz, include_bots boolean, result_limit int default 8)
 returns table (referrer text, count bigint)
 language sql stable as $$
   select coalesce(nullif(referrer, ''), 'Direct / none') as referrer, count(*) as count
   from analytics_events
   where event_type = 'page_view'
-    and created_at >= now() - (days || ' days')::interval
+    and created_at >= start_ts and created_at < end_ts
     and (include_bots or is_bot = false)
   group by referrer
   order by count desc
   limit result_limit;
 $$;
 
-create or replace function dashboard_device_breakdown(days int, include_bots boolean)
+create or replace function dashboard_device_breakdown(start_ts timestamptz, end_ts timestamptz, include_bots boolean)
 returns table (device_type text, count bigint)
 language sql stable as $$
   select coalesce(nullif(device_type, ''), 'unknown') as device_type, count(*) as count
   from analytics_events
   where event_type = 'page_view'
-    and created_at >= now() - (days || ' days')::interval
+    and created_at >= start_ts and created_at < end_ts
     and (include_bots or is_bot = false)
   group by device_type
   order by count desc;

@@ -1,5 +1,6 @@
 import "server-only";
 import { supabase } from "./supabase";
+import type { DateRange } from "./date-range";
 
 export const TRACKABLE_EVENTS = [
   "page_view",
@@ -76,15 +77,17 @@ export type DashboardStats = {
 //
 // These read from Postgres functions defined in the Supabase SQL editor.
 // See docs/SPEC.md and the project setup guide for the exact SQL to run.
-export async function getDashboardStats(days = 30): Promise<DashboardStats> {
+export async function getDashboardStats(range: DateRange): Promise<DashboardStats> {
   const includeBots = false;
+  const startTs = range.start.toISOString();
+  const endTs = range.end.toISOString();
   const [totals, daily, pages, referrers, devices, uniqueVisits, leadsToday, leadsThisWeek] = await Promise.all([
-    supabase.rpc("dashboard_totals_by_event", { days, include_bots: includeBots }),
-    supabase.rpc("dashboard_daily_page_views", { days, include_bots: includeBots }),
-    supabase.rpc("dashboard_top_pages", { days, include_bots: includeBots, result_limit: 10 }),
-    supabase.rpc("dashboard_top_referrers", { days, include_bots: includeBots, result_limit: 8 }),
-    supabase.rpc("dashboard_device_breakdown", { days, include_bots: includeBots }),
-    getUniqueVisitCount(days),
+    supabase.rpc("dashboard_totals_by_event", { start_ts: startTs, end_ts: endTs, include_bots: includeBots }),
+    supabase.rpc("dashboard_daily_page_views", { start_ts: startTs, end_ts: endTs, include_bots: includeBots }),
+    supabase.rpc("dashboard_top_pages", { start_ts: startTs, end_ts: endTs, include_bots: includeBots, result_limit: 10 }),
+    supabase.rpc("dashboard_top_referrers", { start_ts: startTs, end_ts: endTs, include_bots: includeBots, result_limit: 8 }),
+    supabase.rpc("dashboard_device_breakdown", { start_ts: startTs, end_ts: endTs, include_bots: includeBots }),
+    getUniqueVisitCount(range),
     supabase
       .from("leads")
       .select("*", { count: "exact", head: true })
@@ -118,14 +121,15 @@ export async function getDashboardStats(days = 30): Promise<DashboardStats> {
 // pages today is one visit, and the same person coming back tomorrow is a
 // second visit. Deduplicated in JS from raw rows rather than a SQL function,
 // so no extra schema change is needed.
-export async function getUniqueVisitCount(days = 30): Promise<number> {
+export async function getUniqueVisitCount(range: DateRange): Promise<number> {
   const { data, error } = await supabase
     .from("analytics_events")
     .select("visitor_id, created_at")
     .eq("event_type", "page_view")
     .eq("is_bot", false)
     .not("visitor_id", "is", null)
-    .gte("created_at", new Date(Date.now() - days * 24 * 60 * 60 * 1000).toISOString());
+    .gte("created_at", range.start.toISOString())
+    .lt("created_at", range.end.toISOString());
   if (error) throw error;
 
   const seen = new Set<string>();

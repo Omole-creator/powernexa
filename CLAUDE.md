@@ -107,3 +107,14 @@ errors, just retry the exact same command.
   **Confirm this has been run before trusting `/admin/leads` or the
   dashboard in production** — until it is, both will 500, since the leads
   queries now select/filter on `archived_at`.
+- Dashboard (`/admin`) has a Day/Month/Quarter/Year period dropdown
+  (`src/components/admin/DashboardPeriodFilter.tsx`, ranges resolved in
+  `src/lib/date-range.ts`), year options run from 2026 to (current year + 3)
+  automatically. This needed the five `dashboard_*` SQL functions in
+  `supabase/schema.sql` changed from a rolling `days int` window to an
+  explicit `start_ts timestamptz, end_ts timestamptz` range, which needs the
+  updated function definitions (including their `drop function if exists
+  ...(int, boolean[, int])` lines, changing a function's argument types
+  does not replace it in place) pasted into the Supabase SQL editor once.
+  **Confirm this has been run before trusting `/admin`** — until it is, the
+  dashboard 500s, since the app now calls the new signature only.

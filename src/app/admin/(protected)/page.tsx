@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { StatCard } from "@/components/admin/StatCard";
 import { Sparkbars, Barlist } from "@/components/admin/Sparkbars";
+import { DashboardPeriodFilter } from "@/components/admin/DashboardPeriodFilter";
 import { getDashboardStats } from "@/lib/analytics";
 import { listLeads } from "@/lib/leads";
+import { resolveDateRange } from "@/lib/date-range";
 
 export const metadata: Metadata = { title: "Dashboard", robots: { index: false } };
 
@@ -11,26 +13,57 @@ function countFor(totals: { event_type: string; count: number }[], type: string)
   return totals.find((t) => t.event_type === type)?.count ?? 0;
 }
 
-export default async function AdminDashboardPage() {
-  const stats = await getDashboardStats(30);
+// Daily bars stay readable for a day/month view (at most 31 points), but a
+// quarter or year would cram in 90-365 of them, so those roll up to one bar
+// per month instead.
+function chartData(daily: { day: string; count: number }[], spanDays: number): { day: string; count: number }[] {
+  if (spanDays <= 45) return daily;
+
+  const byMonth = new Map<string, number>();
+  for (const point of daily) {
+    const key = point.day.slice(0, 7);
+    byMonth.set(key, (byMonth.get(key) ?? 0) + point.count);
+  }
+  return Array.from(byMonth.entries())
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([key, count]) => {
+      const [y, m] = key.split("-").map(Number);
+      const label = new Date(y, m - 1, 1).toLocaleDateString("en-GB", { month: "short", year: "numeric" });
+      return { day: label, count };
+    });
+}
+
+export default async function AdminDashboardPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ period?: string; value?: string }>;
+}) {
+  const { period, value } = await searchParams;
+  const range = resolveDateRange(period, value);
+  const spanDays = Math.round((range.end.getTime() - range.start.getTime()) / (24 * 60 * 60 * 1000));
+
+  const stats = await getDashboardStats(range);
   const leads = await listLeads();
   const newLeadsCount = leads.filter((l) => l.status === "new").length;
 
   return (
     <div className="space-y-8">
-      <div>
-        <h1 className="font-display text-2xl font-bold text-navy">Dashboard</h1>
-        <p className="text-sm text-charcoal/55">
-          Last 30 days, human traffic only. Both partners see the same numbers here.
-        </p>
+      <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
+        <div>
+          <h1 className="font-display text-2xl font-bold text-navy">Dashboard</h1>
+          <p className="text-sm text-charcoal/55">
+            {range.label}, human traffic only. Both partners see the same numbers here.
+          </p>
+        </div>
+        <DashboardPeriodFilter type={range.type} value={range.value} />
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
         <StatCard label="Unique visits" value={stats.uniqueVisits} hint="One person, one day" />
-        <StatCard label="Page views" value={countFor(stats.totalsByEvent, "page_view")} hint="Last 30 days" />
-        <StatCard label="WhatsApp clicks" value={countFor(stats.totalsByEvent, "whatsapp_click")} hint="Last 30 days" />
-        <StatCard label="Call clicks" value={countFor(stats.totalsByEvent, "call_click")} hint="Last 30 days" />
-        <StatCard label="Quote submissions" value={countFor(stats.totalsByEvent, "quote_form_submit")} hint="Last 30 days" />
+        <StatCard label="Page views" value={countFor(stats.totalsByEvent, "page_view")} hint={range.label} />
+        <StatCard label="WhatsApp clicks" value={countFor(stats.totalsByEvent, "whatsapp_click")} hint={range.label} />
+        <StatCard label="Call clicks" value={countFor(stats.totalsByEvent, "call_click")} hint={range.label} />
+        <StatCard label="Quote submissions" value={countFor(stats.totalsByEvent, "quote_form_submit")} hint={range.label} />
       </div>
 
       <div className="grid gap-4 sm:grid-cols-3">
@@ -41,9 +74,9 @@ export default async function AdminDashboardPage() {
 
       <div className="grid gap-6 lg:grid-cols-[1.6fr_1fr]">
         <div className="rounded-2xl border border-line bg-white p-6">
-          <h2 className="font-display text-lg font-bold text-navy">Page views, last 30 days</h2>
+          <h2 className="font-display text-lg font-bold text-navy">Page views, {range.label}</h2>
           <div className="mt-6">
-            <Sparkbars data={stats.dailyPageViews} />
+            <Sparkbars data={chartData(stats.dailyPageViews, spanDays)} />
           </div>
         </div>
         <div className="rounded-2xl border border-line bg-white p-6">

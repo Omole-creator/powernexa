@@ -6,22 +6,25 @@ Full detail lives in `docs/PRD.md` and `docs/SPEC.md`. Read those before making
 product or architecture changes. Summary:
 
 - Lagos-only solar, inverter, and battery installation business.
-- Brand: navy `#092B4C`, orange `#F58220`, solar yellow `#FFC857`, white background, charcoal `#17212B` text.
-- Phone/WhatsApp: 0813 209 7317 (`+2348132097317`). No public email at launch (owner's choice).
+- Brand: navy `#092B4C`, orange `#F58220`, solar yellow `#FFC857`, white background, charcoal `#17212B` text. Fonts: Space Grotesk (display), IBM Plex Sans (body), IBM Plex Mono (numbers, stats).
+- Signature visual motif: the waveform (`src/components/marketing/Waveform.tsx`), a line that resolves from jagged grid power into a smooth sine curve. Used in the hero, as section dividers, and to explain pure vs modified sine wave inverters.
+- Phone/WhatsApp: 0813 209 7317 (`+2348132097317`). Contact email: powernexas@gmail.com (also the admin login email).
 - Office (service area, not a showroom): 11 Idris Ogunlaja Drive, Sangotedo, Lagos.
-- Domain is a placeholder (`powernexasolutions.com`) until the owner buys a real one — find and replace before launch.
-- Copy on this site follows `COPYWRITING-PLAYBOOK.md` section 0.1 house style: no em dashes, plain words, short paragraphs, every claim provable.
-- Testimonials on the site are placeholders (fake names, real Lagos neighborhoods), marked with `PLACEHOLDER TESTIMONIAL` comments in the code. Replace with real reviews when available.
-- Database is local SQLite (`data/powernexa.db`, `node:sqlite`). Fine for local dev and VPS-style hosting; needs migration to a hosted DB before deploying to a serverless platform with an ephemeral filesystem.
-- Admin login is seeded from `ADMIN_EMAIL` / `ADMIN_PASSWORD` env vars — set real values in `.env.local` before go-live.
+- Domain is a placeholder (`powernexasolutions.com`) until the owner buys a real one. Find and replace before launch.
+- Copy on this site follows `COPYWRITING-PLAYBOOK.md` section 0.1 house style: no em dashes, plain 8th-grade words, short paragraphs, every claim provable. Avoid AI-sounding filler ("real", "seamless", "delve", "crucial", bold mini-heading lists, forced triads). Run new copy through the `humanizer` skill before it ships.
+- Testimonials on the site are placeholders (fake names, real Lagos neighborhoods), marked with `PLACEHOLDER TESTIMONIAL` comments in `src/lib/testimonials-data.ts`. Replace with real reviews when available. No Review/AggregateRating schema is attached to them while they're placeholders.
+- Database is Supabase (Postgres), accessed only from the server via the service role key (`src/lib/supabase.ts`). Schema and dashboard SQL functions live in `supabase/schema.sql`, meant to be pasted once into the Supabase SQL editor. RLS is enabled on every table with no public policies, since the browser never talks to Supabase directly.
+- Admin login is created by running `npm run seed:admin` (reads `ADMIN_EMAIL` / `ADMIN_PASSWORD` from `.env.local`). Blog launch content is created by running `npm run seed:blog`.
+- Hero background photo is `public/images/hero.jpg` (owner-supplied). Beyond that, the site intentionally uses icon illustrations and the waveform motif instead of generic stock photography. Ask the owner for real project/team photos before adding more, since Unsplash/Pexels block automated scraping without an API key.
+- Scroll/load-in animation: wrap section content in `<Reveal>` (`src/components/ui/Reveal.tsx`) for a staggered fade-up on load and on scroll. Already applied to the homepage, service pages, location pages, and the about page.
 
 ## Top 30 blog topics (SEO content roadmap)
 
 Chosen to build topical authority around the three highest-value keyword clusters
 from the Lagos keyword research (installation, local-provider, pricing), plus
-location pages and trust/credibility content. Write these in roughly this order —
+location pages and trust/credibility content. Write these in roughly this order,
 pricing and cost-guide posts first (highest existing search intent and easiest to
-rank, per the Low-competition keywords in the research), then location posts,
+rank, per the low-competition keywords in the research), then location posts,
 then technical/trust posts.
 
 1. How Much Does Solar Panel Installation Cost in Lagos? (Price Guide)
@@ -53,8 +56,17 @@ then technical/trust posts.
 27. 7 Questions to Ask a Solar Installer Before You Sign a Contract
 28. How Net Metering and Feed-in Policies Could Affect Lagos Homeowners
 29. Solar Panel Installation for Rental Properties: A Landlord's Guide
-30. Real Cost of Running Generators vs Solar in Lagos: A 5-Year Comparison
+30. Actual Cost of Running Generators vs Solar in Lagos: A 5-Year Comparison
 
-The first 6 of these are seeded as full, published posts at launch so the blog
+The first 6 of these are seeded as full, published posts at launch (via `npm run seed:blog`) so the blog
 is not empty. The rest are backlog for the owner/marketer to write using the
 admin blog editor's built-in SEO checklist.
+
+## Deployment
+
+See the setup guide provided in chat (Supabase project creation, running
+`supabase/schema.sql`, environment variables, then Vercel deploy) for the full
+step-by-step. Short version: create the Supabase project, run
+`supabase/schema.sql` in its SQL editor, set env vars from `.env.example` in
+both `.env.local` and the Vercel project, run `npm run seed:admin` and
+`npm run seed:blog` once locally, then deploy to Vercel.

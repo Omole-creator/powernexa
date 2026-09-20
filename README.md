@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PowerNexa Solutions
 
-## Getting Started
+Marketing site and admin panel for PowerNexa Solutions, a solar, inverter, and
+battery installation business serving Lagos, Nigeria.
 
-First, run the development server:
+Built with Next.js 16 (App Router), TypeScript, and Tailwind CSS v4. Data
+lives in Supabase (Postgres), accessed only from the server.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+See `docs/PRD.md` and `docs/SPEC.md` for the product and technical spec, and
+`CLAUDE.md` for a running summary of decisions and the blog content roadmap.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Local setup
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Install dependencies:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+   ```bash
+   npm install
+   ```
 
-## Learn More
+2. Create a Supabase project and run `supabase/schema.sql` in its SQL editor.
+   Full step-by-step is in the setup guide (ask for it again if you don't have
+   a copy).
 
-To learn more about Next.js, take a look at the following resources:
+3. Copy `.env.example` to `.env.local` and fill in real values (Supabase URL
+   and service role key, admin email/password, a random session secret).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+4. Create the admin account and launch blog posts:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+   ```bash
+   npm run seed:admin
+   npm run seed:blog
+   ```
 
-## Deploy on Vercel
+5. Run the dev server:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   ```bash
+   npm run dev
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+   Visit `http://localhost:3000` for the site and `http://localhost:3000/admin/login`
+   for the admin panel.
+
+## Scripts
+
+- `npm run dev` — start the dev server
+- `npm run build` — production build
+- `npm run start` — run a production build
+- `npm run lint` — run ESLint
+- `npm run seed:admin` — create or update the admin account from `.env.local`
+- `npm run seed:blog` — publish the 6 launch blog posts (safe to re-run)
+
+## Deployment
+
+Deploy to Vercel and set the same environment variables from `.env.example`
+in the Vercel project settings. Supabase is a managed Postgres, so there is
+no local database file to worry about on a serverless platform.

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { ServiceDetailLayout } from "@/components/marketing/ServiceDetailLayout";
 import { Container, SectionHeading } from "@/components/ui/Container";
@@ -67,9 +66,10 @@ export default function SolarPanelInstallationPage() {
       ]}
     >
       <section className="bg-mist py-20">
-        <Container className="grid gap-10 lg:grid-cols-2 lg:items-center">
-          <Reveal>
+        <Container>
+          <Reveal className="mx-auto max-w-2xl text-center">
             <SectionHeading
+              align="center"
               eyebrow="A common mistake"
               title="Panels without the right inverter and battery are wasted money"
               description="Solar panels only work as well as the inverter and battery bank behind them. A poorly matched inverter throttles your output, and undersized batteries leave you without power exactly when you need it most, at night or during long outages."
@@ -86,15 +86,6 @@ export default function SolarPanelInstallationPage() {
               needed to actually use the power your panels generate, so you&apos;re not left with a
               roof full of panels and no way to store what they produce.
             </p>
-          </Reveal>
-          <Reveal delay={150} className="overflow-hidden rounded-2xl border border-line">
-            <Image
-              src="/images/solar-panel-inverter-wiring.jpg"
-              alt="Rooftop solar panels wired to a wall-mounted inverter"
-              width={640}
-              height={480}
-              className="h-full w-full object-cover"
-            />
           </Reveal>
         </Container>
       </section>

@@ -116,66 +116,25 @@ export default function HomePage() {
         </Container>
       </section>
 
-      {/* Proof: real equipment and real installs, not stock icons */}
+      {/* One proof image, placed once, doing one job: back up the headline. */}
       <section className="bg-mist py-20">
-        <Container>
-          <Reveal className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
+        <Container className="grid gap-10 lg:grid-cols-2 lg:items-center">
+          <Reveal>
             <SectionHeading
-              eyebrow="The work itself"
-              title="What a proper installation actually looks like"
-              description="Panels wired to spec, inverters mounted clean, batteries stacked and labelled. No shortcuts you can't see."
+              eyebrow="What that actually means"
+              title="This is what &quot;never blinks&quot; looks like"
+              description="Panels on the roof, wired straight into an inverter sized for your load. That's the whole idea: generate it, store it, use it, without a gap in between."
             />
-            <Link href="/about" className="shrink-0 text-sm font-semibold text-orange hover:text-orange-dark">
-              More about how we work →
-            </Link>
           </Reveal>
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:grid-rows-2">
-            <Reveal className="overflow-hidden rounded-2xl border border-line lg:col-span-2 lg:row-span-2">
-              <Image
-                src="/images/solar-panel-inverter-wiring.jpg"
-                alt="Rooftop solar panels wired to a wall-mounted inverter"
-                width={800}
-                height={800}
-                className="h-full min-h-[280px] w-full object-cover"
-              />
-            </Reveal>
-            <Reveal delay={100} className="overflow-hidden rounded-2xl border border-line">
-              <Image
-                src="/images/inverter-battery-stack.jpg"
-                alt="Hybrid inverter mounted above a stack of batteries"
-                width={400}
-                height={300}
-                className="h-full min-h-[130px] w-full object-cover"
-              />
-            </Reveal>
-            <Reveal delay={150} className="overflow-hidden rounded-2xl border border-line">
-              <Image
-                src="/images/inverter-wall-mounted.jpg"
-                alt="A pure sine wave inverter mounted on a wall next to the meter"
-                width={400}
-                height={300}
-                className="h-full min-h-[130px] w-full object-cover"
-              />
-            </Reveal>
-            <Reveal delay={200} className="overflow-hidden rounded-2xl border border-line">
-              <Image
-                src="/images/installation-battery-room-2.jpg"
-                alt="Technician wiring an inverter and battery bank inside a Lagos home"
-                width={400}
-                height={300}
-                className="h-full min-h-[130px] w-full object-cover"
-              />
-            </Reveal>
-            <Reveal delay={250} className="overflow-hidden rounded-2xl border border-line">
-              <Image
-                src="/images/installation-distribution-board.jpg"
-                alt="A technician in a safety harness inspecting a distribution board"
-                width={400}
-                height={300}
-                className="h-full min-h-[130px] w-full object-cover"
-              />
-            </Reveal>
-          </div>
+          <Reveal delay={150} className="overflow-hidden rounded-2xl border border-line">
+            <Image
+              src="/images/solar-panel-inverter-wiring.jpg"
+              alt="Rooftop solar panels wired to a wall-mounted inverter"
+              width={640}
+              height={480}
+              className="h-full w-full object-cover"
+            />
+          </Reveal>
         </Container>
       </section>
 

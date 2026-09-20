@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Container, SectionHeading } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
+import { GlowOrb } from "@/components/ui/GlowOrb";
 import { Waveform } from "@/components/marketing/Waveform";
 import { StatStrip } from "@/components/marketing/StatStrip";
 import { TrustedBy } from "@/components/marketing/TrustedBy";
@@ -40,6 +41,29 @@ const HOME_FAQS = [
   },
 ];
 
+const PROCESS_STEPS = [
+  {
+    step: "01",
+    title: "Tell us your load",
+    body: "Call or WhatsApp us what you want to power. We ask a few questions to understand your actual usage.",
+  },
+  {
+    step: "02",
+    title: "Site visit & quote",
+    body: "We visit, measure your space and wiring, and hand you a written quote with sizing and pricing explained.",
+  },
+  {
+    step: "03",
+    title: "Professional install",
+    body: "Our team installs panels, inverter, and batteries, then tests the full system before we leave.",
+  },
+  {
+    step: "04",
+    title: "Commission & warranty",
+    body: "We walk you through the system, hand over your warranty, and schedule your first maintenance check.",
+  },
+];
+
 export default function HomePage() {
   return (
     <>
@@ -60,7 +84,7 @@ export default function HomePage() {
         <Container className="relative py-20 sm:py-24 lg:py-28">
           <div className="max-w-xl">
             <Reveal delay={0}>
-              <h1 className="font-display text-4xl font-extrabold leading-[1.2] text-white sm:text-5xl lg:text-[3.25rem]">
+              <h1 className="font-display text-4xl font-extrabold leading-[1.15] tracking-tight text-white sm:text-5xl lg:text-[3.4rem]">
                 Solar and inverter power that never blinks.
               </h1>
             </Reveal>
@@ -81,7 +105,7 @@ export default function HomePage() {
               </div>
             </Reveal>
             <Reveal delay={480}>
-              <div className="mt-12 rounded-2xl bg-white/10 p-6 backdrop-blur-sm">
+              <div className="mt-12 rounded-[28px] bg-white/10 p-6 shadow-[0_20px_60px_-20px_rgba(0,0,0,0.5)] backdrop-blur-md">
                 <StatStrip light />
               </div>
             </Reveal>
@@ -93,9 +117,11 @@ export default function HomePage() {
 
       <TrustedBy />
 
-      {/* Services */}
-      <section className="py-20">
-        <Container>
+      {/* Services: one featured, rest supporting, not a flat uniform grid */}
+      <section className="relative overflow-hidden py-24">
+        <GlowOrb color="orange" className="-right-32 top-10 h-72 w-72" />
+        <GlowOrb color="yellow" className="-left-24 bottom-0 h-56 w-56" />
+        <Container className="relative">
           <Reveal className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
             <SectionHeading
               eyebrow="What we do"
@@ -106,9 +132,12 @@ export default function HomePage() {
               View all services →
             </Link>
           </Reveal>
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {SERVICES.map((service, index) => (
-              <Reveal key={service.slug} delay={index * 80}>
+          <div className="mt-10 grid gap-5 lg:grid-cols-3">
+            <Reveal className="lg:col-span-2 lg:row-span-2">
+              <ServiceCard service={SERVICES[0]} featured />
+            </Reveal>
+            {SERVICES.slice(1).map((service, index) => (
+              <Reveal key={service.slug} delay={(index + 1) * 80}>
                 <ServiceCard service={service} />
               </Reveal>
             ))}
@@ -117,7 +146,7 @@ export default function HomePage() {
       </section>
 
       {/* One proof image, placed once, doing one job: back up the headline. */}
-      <section className="bg-mist py-20">
+      <section className="bg-mist py-24">
         <Container className="grid gap-10 lg:grid-cols-2 lg:items-center">
           <Reveal>
             <SectionHeading
@@ -126,21 +155,28 @@ export default function HomePage() {
               description="Panels on the roof, wired straight into an inverter sized for your load. That's the whole idea: generate it, store it, use it, without a gap in between."
             />
           </Reveal>
-          <Reveal delay={150} className="overflow-hidden rounded-2xl border border-line">
-            <Image
-              src="/images/solar-panel-inverter-wiring.jpg"
-              alt="Rooftop solar panels wired to a wall-mounted inverter"
-              width={640}
-              height={480}
-              className="h-full w-full object-cover"
-            />
+          <Reveal delay={150} className="relative">
+            <div className="overflow-hidden rounded-[32px] shadow-[0_30px_60px_-24px_rgba(9,43,76,0.35)]">
+              <Image
+                src="/images/solar-panel-inverter-wiring.jpg"
+                alt="Rooftop solar panels wired to a wall-mounted inverter"
+                width={640}
+                height={480}
+                className="h-full w-full object-cover"
+              />
+            </div>
+            <div className="absolute -bottom-6 -left-6 hidden rounded-2xl bg-navy px-5 py-4 text-white shadow-xl sm:block">
+              <p className="font-mono-num text-2xl font-bold text-orange">100%</p>
+              <p className="text-xs text-white/70">load-calculated</p>
+            </div>
           </Reveal>
         </Container>
       </section>
 
-      {/* How it works: genuinely sequential, so numbering earns its place here */}
-      <section className="bg-navy py-20 text-white">
-        <Container>
+      {/* How it works: connected steps, genuinely sequential */}
+      <section className="relative overflow-hidden bg-navy py-24 text-white">
+        <GlowOrb color="orange" className="left-1/4 top-0 h-64 w-64" />
+        <Container className="relative">
           <Reveal>
             <SectionHeading
               light
@@ -149,64 +185,51 @@ export default function HomePage() {
               description="Four steps, start to finish. No guesswork, no surprise costs."
             />
           </Reveal>
-          <ol className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              {
-                step: "01",
-                title: "Tell us your load",
-                body: "Call or WhatsApp us what you want to power. We ask a few questions to understand your actual usage.",
-              },
-              {
-                step: "02",
-                title: "Site visit & quote",
-                body: "We visit, measure your space and wiring, and hand you a written quote with sizing and pricing explained.",
-              },
-              {
-                step: "03",
-                title: "Professional install",
-                body: "Our team installs panels, inverter, and batteries, then tests the full system before we leave.",
-              },
-              {
-                step: "04",
-                title: "Commission & warranty",
-                body: "We walk you through the system, hand over your warranty, and schedule your first maintenance check.",
-              },
-            ].map((item, index) => (
-              <Reveal key={item.step} as="li" delay={index * 100}>
-                <p className="font-mono-num text-sm font-bold text-orange">{item.step}</p>
-                <h3 className="mt-3 font-display text-lg font-bold">{item.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-white/70">{item.body}</p>
-              </Reveal>
-            ))}
-          </ol>
+          <div className="relative mt-14">
+            <div className="absolute left-0 right-0 top-6 hidden h-px bg-white/15 lg:block" />
+            <ol className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+              {PROCESS_STEPS.map((item, index) => (
+                <Reveal key={item.step} as="li" delay={index * 100} className="relative">
+                  <span className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full bg-orange font-mono-num text-lg font-bold text-white shadow-[0_10px_24px_-6px_rgba(245,130,32,0.6)]">
+                    {item.step}
+                  </span>
+                  <h3 className="mt-5 font-display text-lg font-bold">{item.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-white/70">{item.body}</p>
+                </Reveal>
+              ))}
+            </ol>
+          </div>
         </Container>
       </section>
 
       {/* Second proof image: safety, isolated from the first by two full sections. */}
-      <section className="py-20">
+      <section className="py-24">
         <Container className="grid gap-10 lg:grid-cols-2 lg:items-center">
-          <Reveal delay={150} className="order-2 overflow-hidden rounded-2xl border border-line lg:order-1">
-            <Image
-              src="/images/installation-distribution-board.jpg"
-              alt="A technician in a safety harness inspecting a distribution board"
-              width={640}
-              height={480}
-              className="h-full w-full object-cover"
-            />
+          <Reveal delay={150} className="order-2 lg:order-1">
+            <div className="overflow-hidden rounded-[32px] shadow-[0_30px_60px_-24px_rgba(9,43,76,0.25)]">
+              <Image
+                src="/images/installation-distribution-board.jpg"
+                alt="A technician in a safety harness inspecting a distribution board"
+                width={640}
+                height={480}
+                className="h-full w-full object-cover"
+              />
+            </div>
           </Reveal>
           <Reveal className="order-1 lg:order-2">
             <SectionHeading
-              eyebrow="Step 3, done right"
+              eyebrow="The part you don't see in a quote"
               title="Isolated first. Tested after. Every time."
-              description="This is the part that doesn't show up in a quote: isolating the circuit before we touch it, then testing the whole system before we call the job finished."
+              description="Before anyone touches a wire, the circuit gets isolated. Before we call a job finished, the whole system gets tested under load. That order never changes."
             />
           </Reveal>
         </Container>
       </section>
 
       {/* Locations */}
-      <section className="bg-mist py-20">
-        <Container>
+      <section className="relative overflow-hidden bg-mist py-24">
+        <GlowOrb color="navy" className="-right-20 bottom-0 h-72 w-72" />
+        <Container className="relative">
           <Reveal className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
             <SectionHeading
               eyebrow="Where we work"
@@ -228,7 +251,7 @@ export default function HomePage() {
       </section>
 
       {/* Third proof image: the equipment itself, right before the testimonials that talk about it. */}
-      <section className="py-20">
+      <section className="py-24">
         <Container className="grid gap-10 lg:grid-cols-2 lg:items-center">
           <Reveal>
             <SectionHeading
@@ -237,20 +260,22 @@ export default function HomePage() {
               description="This is what sits in the room after we leave: an inverter sized to your load, and batteries stacked for the backup hours you asked for. Nothing hidden, nothing oversold."
             />
           </Reveal>
-          <Reveal delay={150} className="overflow-hidden rounded-2xl border border-line">
-            <Image
-              src="/images/inverter-battery-stack.jpg"
-              alt="Hybrid inverter mounted above a stack of batteries, with solar panels in the background"
-              width={640}
-              height={480}
-              className="h-full w-full object-cover"
-            />
+          <Reveal delay={150}>
+            <div className="overflow-hidden rounded-[32px] shadow-[0_30px_60px_-24px_rgba(9,43,76,0.25)]">
+              <Image
+                src="/images/inverter-battery-stack.jpg"
+                alt="Hybrid inverter mounted above a stack of batteries, with solar panels in the background"
+                width={640}
+                height={480}
+                className="h-full w-full object-cover"
+              />
+            </div>
           </Reveal>
         </Container>
       </section>
 
       {/* Testimonials */}
-      <section className="bg-mist py-20">
+      <section className="bg-mist py-24">
         <Container>
           <Reveal>
             <SectionHeading
@@ -270,11 +295,12 @@ export default function HomePage() {
       </section>
 
       {/* Quote form + FAQ */}
-      <section className="bg-mist py-20">
-        <Container className="grid gap-12 lg:grid-cols-2">
+      <section className="relative overflow-hidden bg-mist py-24">
+        <GlowOrb color="orange" className="left-1/3 top-0 h-64 w-64" />
+        <Container className="relative grid gap-12 lg:grid-cols-2">
           <Reveal>
             <SectionHeading eyebrow="Get a quote" title="Get your free, no-pressure quote" />
-            <div className="mt-8 rounded-2xl border border-line bg-white p-7">
+            <div className="mt-8 rounded-[28px] bg-white p-7 shadow-[0_20px_50px_-24px_rgba(9,43,76,0.25)]">
               <QuoteForm />
             </div>
           </Reveal>

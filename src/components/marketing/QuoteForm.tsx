@@ -50,7 +50,8 @@ export function QuoteForm({ variant = "full" }: { variant?: "full" | "compact" }
   }
 
   return (
-    <form action={formAction} className="space-y-4">
+    <form action={formAction} className="space-y-5">
+      <div className="h-1.5 w-16 rounded-full bg-gradient-to-r from-orange to-yellow" />
       <input type="hidden" name="sourcePage" value={pathname} />
       <input type="hidden" name="utmSource" ref={utmSourceRef} defaultValue="" />
       <input type="hidden" name="utmMedium" ref={utmMediumRef} defaultValue="" />
@@ -146,7 +147,7 @@ export function QuoteForm({ variant = "full" }: { variant?: "full" | "compact" }
 }
 
 const inputClass =
-  "w-full rounded-xl border border-line bg-white px-4 py-2.5 text-sm text-charcoal outline-none transition focus:border-orange focus:ring-2 focus:ring-orange/20";
+  "w-full rounded-xl border-2 border-line bg-mist px-4 py-2.5 text-sm text-charcoal outline-none transition focus:border-orange focus:bg-white focus:ring-4 focus:ring-orange/15";
 
 function Field({
   label,
@@ -161,9 +162,9 @@ function Field({
 }) {
   return (
     <label htmlFor={name} className="block text-sm">
-      <span className="mb-1.5 block font-medium text-charcoal/80">{label}</span>
+      <span className="mb-1.5 block font-semibold text-navy">{label}</span>
       {children}
-      {error ? <span className="mt-1 block text-xs text-red-600">{error}</span> : null}
+      {error ? <span className="mt-1 block text-xs font-medium text-red-600">{error}</span> : null}
     </label>
   );
 }

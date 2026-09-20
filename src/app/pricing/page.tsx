@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Container, SectionHeading, Eyebrow } from "@/components/ui/Container";
+import { Reveal } from "@/components/ui/Reveal";
 import { Breadcrumbs } from "@/components/marketing/Breadcrumbs";
 import { FaqAccordion } from "@/components/marketing/FaqAccordion";
 import { CtaBand } from "@/components/marketing/CtaBand";
@@ -99,7 +100,7 @@ export default function PricingPage() {
       <section className="bg-mist py-14 sm:py-16">
         <Container>
           <Breadcrumbs items={[{ name: "Home", path: "/" }, { name: "Pricing", path: "/pricing" }]} />
-          <div className="mt-6 max-w-2xl">
+          <Reveal className="mt-6 max-w-2xl">
             <Eyebrow>Solar installation cost in Lagos</Eyebrow>
             <h1 className="mt-5 font-display text-4xl font-bold leading-tight text-navy sm:text-5xl">
               What actually determines your solar and inverter cost
@@ -109,19 +110,21 @@ export default function PricingPage() {
               people who read it. Instead, here&apos;s exactly what drives cost up or down, so you
               can budget realistically before you request your free, exact quote.
             </p>
-          </div>
+          </Reveal>
         </Container>
       </section>
 
       <section className="py-20">
         <Container>
-          <SectionHeading eyebrow="Cost factors" title="Six things that determine your price" />
+          <Reveal>
+            <SectionHeading eyebrow="Cost factors" title="Six things that determine your price" />
+          </Reveal>
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {FACTORS.map((factor) => (
-              <div key={factor.title} className="rounded-2xl border border-line bg-white p-6">
+            {FACTORS.map((factor, index) => (
+              <Reveal key={factor.title} delay={(index % 3) * 90} className="rounded-2xl border border-line bg-white p-6">
                 <h3 className="font-display text-base font-bold text-navy">{factor.title}</h3>
                 <p className="mt-2.5 text-sm leading-relaxed text-charcoal/70">{factor.body}</p>
-              </div>
+              </Reveal>
             ))}
           </div>
         </Container>
@@ -129,14 +132,17 @@ export default function PricingPage() {
 
       <section className="bg-navy py-20 text-white">
         <Container>
-          <SectionHeading
-            eyebrow="Typical system tiers"
-            title={<span className="text-white">Three common starting points</span>}
-            description="These are illustrative categories, not quotes. Your exact system and price come from your free site visit."
-          />
+          <Reveal>
+            <SectionHeading
+              light
+              eyebrow="Typical system tiers"
+              title="Three common starting points"
+              description="These are illustrative categories, not quotes. Your exact system and price come from your free site visit."
+            />
+          </Reveal>
           <div className="mt-10 grid gap-6 lg:grid-cols-3">
-            {TIERS.map((tier) => (
-              <div key={tier.name} className="rounded-2xl border border-white/15 bg-white/5 p-7">
+            {TIERS.map((tier, index) => (
+              <Reveal key={tier.name} delay={index * 100} className="rounded-2xl border border-white/15 bg-white/5 p-7">
                 <h3 className="font-display text-xl font-bold text-orange">{tier.name}</h3>
                 <p className="mt-1 text-sm text-white/60">{tier.who}</p>
                 <div className="mt-5 space-y-3 text-sm text-white/80">
@@ -153,7 +159,7 @@ export default function PricingPage() {
                     </span>
                   </p>
                 </div>
-              </div>
+              </Reveal>
             ))}
           </div>
         </Container>
@@ -161,10 +167,12 @@ export default function PricingPage() {
 
       <section className="py-20">
         <Container className="mx-auto max-w-3xl">
-          <SectionHeading align="center" eyebrow="Pricing questions" title="Frequently asked questions" />
-          <div className="mt-10">
-            <FaqAccordion items={FAQS} />
-          </div>
+          <Reveal>
+            <SectionHeading align="center" eyebrow="Pricing questions" title="Frequently asked questions" />
+            <div className="mt-10">
+              <FaqAccordion items={FAQS} />
+            </div>
+          </Reveal>
         </Container>
       </section>
 

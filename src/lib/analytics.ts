@@ -66,19 +66,25 @@ export type DashboardStats = {
   topPages: { page_path: string; count: number }[];
   topReferrers: { referrer: string; count: number }[];
   deviceBreakdown: { device_type: string; count: number }[];
+  uniqueVisits: number;
   leadsToday: number;
   leadsThisWeek: number;
 };
 
+// Bots never count anywhere in this dashboard. There is no toggle to include
+// them, both partners always see human traffic only.
+//
 // These read from Postgres functions defined in the Supabase SQL editor.
 // See docs/SPEC.md and the project setup guide for the exact SQL to run.
-export async function getDashboardStats(days = 30, includeBots = false): Promise<DashboardStats> {
-  const [totals, daily, pages, referrers, devices, leadsToday, leadsThisWeek] = await Promise.all([
+export async function getDashboardStats(days = 30): Promise<DashboardStats> {
+  const includeBots = false;
+  const [totals, daily, pages, referrers, devices, uniqueVisits, leadsToday, leadsThisWeek] = await Promise.all([
     supabase.rpc("dashboard_totals_by_event", { days, include_bots: includeBots }),
     supabase.rpc("dashboard_daily_page_views", { days, include_bots: includeBots }),
     supabase.rpc("dashboard_top_pages", { days, include_bots: includeBots, result_limit: 10 }),
     supabase.rpc("dashboard_top_referrers", { days, include_bots: includeBots, result_limit: 8 }),
     supabase.rpc("dashboard_device_breakdown", { days, include_bots: includeBots }),
+    getUniqueVisitCount(days),
     supabase
       .from("leads")
       .select("*", { count: "exact", head: true })
@@ -102,9 +108,32 @@ export async function getDashboardStats(days = 30, includeBots = false): Promise
     topPages: pages.data ?? [],
     topReferrers: referrers.data ?? [],
     deviceBreakdown: devices.data ?? [],
+    uniqueVisits,
     leadsToday: leadsToday.count ?? 0,
     leadsThisWeek: leadsThisWeek.count ?? 0,
   };
+}
+
+// Counts a visitor once per calendar day: the same person browsing five
+// pages today is one visit, and the same person coming back tomorrow is a
+// second visit. Deduplicated in JS from raw rows rather than a SQL function,
+// so no extra schema change is needed.
+export async function getUniqueVisitCount(days = 30): Promise<number> {
+  const { data, error } = await supabase
+    .from("analytics_events")
+    .select("visitor_id, created_at")
+    .eq("event_type", "page_view")
+    .eq("is_bot", false)
+    .not("visitor_id", "is", null)
+    .gte("created_at", new Date(Date.now() - days * 24 * 60 * 60 * 1000).toISOString());
+  if (error) throw error;
+
+  const seen = new Set<string>();
+  for (const row of data ?? []) {
+    const day = String(row.created_at).slice(0, 10);
+    seen.add(`${row.visitor_id}:${day}`);
+  }
+  return seen.size;
 }
 
 export type EventRow = {

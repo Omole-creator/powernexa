@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Container, Eyebrow } from "@/components/ui/Container";
+import { Reveal } from "@/components/ui/Reveal";
 import { Breadcrumbs } from "@/components/marketing/Breadcrumbs";
 import { BlogCard } from "@/components/marketing/BlogCard";
 import { CtaBand } from "@/components/marketing/CtaBand";
@@ -33,7 +34,7 @@ export default async function BlogListPage() {
       <section className="bg-mist py-14 sm:py-16">
         <Container>
           <Breadcrumbs items={[{ name: "Home", path: "/" }, { name: "Blog", path: "/blog" }]} />
-          <div className="mt-6 max-w-2xl">
+          <Reveal className="mt-6 max-w-2xl">
             <Eyebrow>The PowerNexa blog</Eyebrow>
             <h1 className="mt-5 font-display text-4xl font-bold leading-tight text-navy sm:text-5xl">
               Straight answers about power in Lagos
@@ -42,10 +43,10 @@ export default async function BlogListPage() {
               No fluff, no fake numbers, just practical guidance on solar, inverters, and batteries
               from the team that installs them.
             </p>
-          </div>
+          </Reveal>
 
           {categories.length > 0 ? (
-            <div className="mt-8 flex flex-wrap gap-2">
+            <Reveal delay={150} className="mt-8 flex flex-wrap gap-2">
               {categories.map((category) => (
                 <Link
                   key={category}
@@ -55,7 +56,7 @@ export default async function BlogListPage() {
                   {category}
                 </Link>
               ))}
-            </div>
+            </Reveal>
           ) : null}
         </Container>
       </section>
@@ -64,8 +65,10 @@ export default async function BlogListPage() {
         <Container>
           {posts.length > 0 ? (
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {posts.map((post) => (
-                <BlogCard key={post.id} post={post} />
+              {posts.map((post, index) => (
+                <Reveal key={post.id} delay={(index % 3) * 90}>
+                  <BlogCard post={post} />
+                </Reveal>
               ))}
             </div>
           ) : (

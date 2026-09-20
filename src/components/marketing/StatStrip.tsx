@@ -1,27 +1,22 @@
 const STATS = [
-  { value: "100%", label: "Load-calculated, not guesswork" },
-  { value: "Free", label: "Site visit & written quote" },
-  { value: "Written", label: "Workmanship warranty" },
-  { value: "Fast", label: "Response across Lagos" },
+  { value: "100%", rest: "load-calculated, not guesswork" },
+  { value: "Free", rest: "site visit & written quote" },
+  { value: "Written", rest: "workmanship warranty" },
+  { value: "Fast", rest: "response across Lagos" },
 ];
 
 export function StatStrip({ light = false }: { light?: boolean }) {
+  const valueColor = light ? "text-white" : "text-navy";
+  const restColor = light ? "text-white/75" : "text-charcoal/70";
+
   return (
-    <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
+    <ul className="grid grid-cols-1 gap-x-6 gap-y-3 sm:grid-cols-2">
       {STATS.map((stat) => (
-        <div key={stat.label} className="text-center sm:text-left">
-          <p className={`font-mono-num text-3xl font-bold sm:text-4xl ${light ? "text-white" : "text-navy"}`}>
-            {stat.value}
-          </p>
-          <p
-            className={`mt-1 text-xs font-medium uppercase tracking-wide sm:text-sm sm:normal-case sm:tracking-normal ${
-              light ? "text-white/70" : "text-charcoal/55"
-            }`}
-          >
-            {stat.label}
-          </p>
-        </div>
+        <li key={stat.rest} className="text-sm leading-snug sm:text-[15px]">
+          <span className={`font-mono-num font-bold ${valueColor}`}>{stat.value}</span>{" "}
+          <span className={restColor}>{stat.rest}</span>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 }

@@ -11,33 +11,22 @@ function countFor(totals: { event_type: string; count: number }[], type: string)
   return totals.find((t) => t.event_type === type)?.count ?? 0;
 }
 
-export default async function AdminDashboardPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ bots?: string }>;
-}) {
-  const { bots } = await searchParams;
-  const includeBots = bots === "1";
-  const stats = await getDashboardStats(30, includeBots);
+export default async function AdminDashboardPage() {
+  const stats = await getDashboardStats(30);
   const leads = await listLeads();
   const newLeadsCount = leads.filter((l) => l.status === "new").length;
 
   return (
     <div className="space-y-8">
-      <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
-        <div>
-          <h1 className="font-display text-2xl font-bold text-navy">Dashboard</h1>
-          <p className="text-sm text-charcoal/55">Last 30 days. Both partners see the same numbers here.</p>
-        </div>
-        <Link
-          href={includeBots ? "/admin" : "/admin?bots=1"}
-          className="self-start rounded-full border border-line bg-white px-4 py-2 text-xs font-semibold text-navy hover:border-orange"
-        >
-          {includeBots ? "Showing all traffic, including bots. Switch to human only" : "Showing human traffic only. Include bots"}
-        </Link>
+      <div>
+        <h1 className="font-display text-2xl font-bold text-navy">Dashboard</h1>
+        <p className="text-sm text-charcoal/55">
+          Last 30 days, human traffic only. Both partners see the same numbers here.
+        </p>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+        <StatCard label="Unique visits" value={stats.uniqueVisits} hint="One person, one day" />
         <StatCard label="Page views" value={countFor(stats.totalsByEvent, "page_view")} hint="Last 30 days" />
         <StatCard label="WhatsApp clicks" value={countFor(stats.totalsByEvent, "whatsapp_click")} hint="Last 30 days" />
         <StatCard label="Call clicks" value={countFor(stats.totalsByEvent, "call_click")} hint="Last 30 days" />

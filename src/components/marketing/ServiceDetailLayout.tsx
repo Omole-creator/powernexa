@@ -105,8 +105,9 @@ export function ServiceDetailLayout({
         <Container>
           <Reveal>
             <SectionHeading
+              light
               eyebrow="Our process"
-              title={<span className="text-white">How we handle {name.toLowerCase()}</span>}
+              title={`How we handle ${name.toLowerCase()}`}
               description={processIntro}
             />
           </Reveal>

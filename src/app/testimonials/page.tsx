@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Container, Eyebrow } from "@/components/ui/Container";
+import { Reveal } from "@/components/ui/Reveal";
 import { Breadcrumbs } from "@/components/marketing/Breadcrumbs";
 import { TestimonialCard } from "@/components/marketing/TestimonialCard";
 import { CtaBand } from "@/components/marketing/CtaBand";
@@ -26,20 +27,22 @@ export default function TestimonialsPage() {
       <section className="bg-mist py-14 sm:py-16">
         <Container>
           <Breadcrumbs items={[{ name: "Home", path: "/" }, { name: "Testimonials", path: "/testimonials" }]} />
-          <div className="mt-6 max-w-2xl">
+          <Reveal className="mt-6 max-w-2xl">
             <Eyebrow>Customer stories</Eyebrow>
             <h1 className="mt-5 font-display text-4xl font-bold leading-tight text-navy sm:text-5xl">
               What Lagos homes and businesses say
             </h1>
-          </div>
+          </Reveal>
         </Container>
       </section>
 
       <section className="py-20">
         <Container>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {TESTIMONIALS.map((testimonial) => (
-              <TestimonialCard key={testimonial.name} testimonial={testimonial} />
+            {TESTIMONIALS.map((testimonial, index) => (
+              <Reveal key={testimonial.name} delay={(index % 3) * 100}>
+                <TestimonialCard testimonial={testimonial} />
+              </Reveal>
             ))}
           </div>
         </Container>

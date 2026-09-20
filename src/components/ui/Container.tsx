@@ -23,11 +23,13 @@ export function SectionHeading({
   title,
   description,
   align = "left",
+  light = false,
 }: {
   eyebrow?: string;
   title: ReactNode;
   description?: ReactNode;
   align?: "left" | "center";
+  light?: boolean;
 }) {
   return (
     <div className={`max-w-2xl ${align === "center" ? "mx-auto text-center" : ""}`}>
@@ -36,8 +38,16 @@ export function SectionHeading({
           <Eyebrow>{eyebrow}</Eyebrow>
         </div>
       ) : null}
-      <h2 className="font-display text-3xl font-bold leading-tight text-navy sm:text-4xl">{title}</h2>
-      {description ? <p className="mt-4 text-base leading-relaxed text-charcoal/75">{description}</p> : null}
+      <h2
+        className={`font-display text-3xl font-bold leading-tight sm:text-4xl ${light ? "text-white" : "text-navy"}`}
+      >
+        {title}
+      </h2>
+      {description ? (
+        <p className={`mt-4 text-base leading-relaxed ${light ? "text-white/75" : "text-charcoal/75"}`}>
+          {description}
+        </p>
+      ) : null}
     </div>
   );
 }

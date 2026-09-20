@@ -92,10 +92,7 @@ export default function AboutPage() {
       <section className="bg-navy py-20 text-white">
         <Container>
           <Reveal>
-            <SectionHeading
-              eyebrow="How we operate"
-              title={<span className="text-white">What you can expect from us</span>}
-            />
+            <SectionHeading light eyebrow="How we operate" title="What you can expect from us" />
           </Reveal>
           <div className="mt-10 grid gap-8 sm:grid-cols-2">
             {PRINCIPLES.map((principle, index) => (

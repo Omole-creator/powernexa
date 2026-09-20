@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Container, SectionHeading, Eyebrow } from "@/components/ui/Container";
+import { Reveal } from "@/components/ui/Reveal";
 import { Breadcrumbs } from "@/components/marketing/Breadcrumbs";
 import { QuoteForm } from "@/components/marketing/QuoteForm";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -37,7 +38,7 @@ export default function ContactPage() {
       <section className="bg-mist py-14 sm:py-16">
         <Container>
           <Breadcrumbs items={[{ name: "Home", path: "/" }, { name: "Contact", path: "/contact" }]} />
-          <div className="mt-6 max-w-2xl">
+          <Reveal className="mt-6 max-w-2xl">
             <Eyebrow>Get in touch</Eyebrow>
             <h1 className="mt-5 font-display text-4xl font-bold leading-tight text-navy sm:text-5xl">
               Talk to us about your power needs
@@ -46,14 +47,14 @@ export default function ContactPage() {
               Call, WhatsApp, or send a quote request below. We respond fastest on WhatsApp during
               business hours.
             </p>
-          </div>
+          </Reveal>
         </Container>
       </section>
 
       <section className="py-20">
         <Container className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
           <div className="space-y-8">
-            <div className="rounded-2xl border border-line bg-white p-7">
+            <Reveal className="rounded-2xl border border-line bg-white p-7">
               <h2 className="font-display text-lg font-bold text-navy">Call or WhatsApp</h2>
               <a href={`tel:${PHONE_E164}`} className="mt-3 block font-mono-num text-2xl font-bold text-navy hover:text-orange">
                 {PHONE_DISPLAY}
@@ -67,9 +68,9 @@ export default function ContactPage() {
               >
                 Chat on WhatsApp
               </a>
-            </div>
+            </Reveal>
 
-            <div className="rounded-2xl border border-line bg-white p-7">
+            <Reveal delay={100} className="rounded-2xl border border-line bg-white p-7">
               <h2 className="font-display text-lg font-bold text-navy">Service base</h2>
               <p className="mt-2 text-sm leading-relaxed text-charcoal/70">
                 {BUSINESS_ADDRESS.street}
@@ -91,9 +92,9 @@ export default function ContactPage() {
                   className="block"
                 />
               </div>
-            </div>
+            </Reveal>
 
-            <div className="rounded-2xl border border-line bg-white p-7">
+            <Reveal delay={200} className="rounded-2xl border border-line bg-white p-7">
               <h2 className="font-display text-lg font-bold text-navy">Business hours</h2>
               <ul className="mt-3 space-y-1.5 text-sm text-charcoal/70">
                 {BUSINESS_HOURS.map((h) => (
@@ -102,15 +103,15 @@ export default function ContactPage() {
                   </li>
                 ))}
               </ul>
-            </div>
+            </Reveal>
           </div>
 
-          <div>
+          <Reveal delay={150}>
             <SectionHeading eyebrow="Or send a request" title="Get a free quote" />
             <div className="mt-6 rounded-2xl border border-line bg-white p-7">
               <QuoteForm />
             </div>
-          </div>
+          </Reveal>
         </Container>
       </section>
     </>

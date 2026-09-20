@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Container, SectionHeading, Eyebrow } from "@/components/ui/Container";
+import { Container, SectionHeading } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
 import { Waveform } from "@/components/marketing/Waveform";
@@ -9,14 +9,12 @@ import { TrustedBy } from "@/components/marketing/TrustedBy";
 import { ServiceCard } from "@/components/marketing/ServiceCard";
 import { LocationCard } from "@/components/marketing/LocationCard";
 import { TestimonialCard } from "@/components/marketing/TestimonialCard";
-import { BlogCard } from "@/components/marketing/BlogCard";
 import { FaqAccordion } from "@/components/marketing/FaqAccordion";
 import { CtaBand } from "@/components/marketing/CtaBand";
 import { QuoteForm } from "@/components/marketing/QuoteForm";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { SERVICES, LAGOS_AREAS } from "@/lib/constants";
 import { TESTIMONIALS } from "@/lib/testimonials-data";
-import { listPublishedPosts } from "@/lib/blog";
 import { faqJsonLd } from "@/lib/seo";
 
 const HOME_FAQS = [
@@ -42,9 +40,7 @@ const HOME_FAQS = [
   },
 ];
 
-export default async function HomePage() {
-  const latestPosts = await listPublishedPosts({ limit: 3 });
-
+export default function HomePage() {
   return (
     <>
       <JsonLd data={faqJsonLd(HOME_FAQS)} />
@@ -65,7 +61,7 @@ export default async function HomePage() {
           <div className="max-w-xl">
             <Reveal delay={0}>
               <h1 className="font-display text-4xl font-extrabold leading-[1.2] text-white sm:text-5xl lg:text-[3.25rem]">
-                NEPA takes the light. We keep yours on.
+                Power Lagos can&apos;t switch off.
               </h1>
             </Reveal>
             <Reveal delay={160}>
@@ -125,6 +121,7 @@ export default async function HomePage() {
         <Container>
           <Reveal>
             <SectionHeading
+              light
               eyebrow="How it works"
               title="From first message to commissioned system"
               description="Four steps, start to finish. No guesswork, no surprise costs."
@@ -205,30 +202,6 @@ export default async function HomePage() {
           </div>
         </Container>
       </section>
-
-      {/* Blog preview */}
-      {latestPosts.length > 0 ? (
-        <section className="py-20">
-          <Container>
-            <Reveal className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
-              <SectionHeading
-                eyebrow="From the blog"
-                title="Straight answers about solar and inverters in Lagos"
-              />
-              <Link href="/blog" className="shrink-0 text-sm font-semibold text-orange hover:text-orange-dark">
-                Read the blog →
-              </Link>
-            </Reveal>
-            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {latestPosts.map((post, index) => (
-                <Reveal key={post.id} delay={index * 80}>
-                  <BlogCard post={post} />
-                </Reveal>
-              ))}
-            </div>
-          </Container>
-        </section>
-      ) : null}
 
       {/* Quote form + FAQ */}
       <section className="bg-mist py-20">

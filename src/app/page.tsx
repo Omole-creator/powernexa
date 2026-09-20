@@ -64,22 +64,17 @@ export default async function HomePage() {
         <Container className="relative py-20 sm:py-24 lg:py-28">
           <div className="max-w-xl">
             <Reveal delay={0}>
-              <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3.5 py-1 text-xs font-bold uppercase tracking-[0.14em] text-yellow backdrop-blur-sm">
-                Lagos-based · Sangotedo team
-              </span>
-            </Reveal>
-            <Reveal delay={120}>
-              <h1 className="mt-5 font-display text-4xl font-bold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-[3.4rem]">
-                Power that doesn&apos;t blink when NEPA does.
+              <h1 className="font-display text-4xl font-extrabold leading-[1.2] text-white sm:text-5xl lg:text-[3.25rem]">
+                NEPA takes the light. We keep yours on.
               </h1>
             </Reveal>
-            <Reveal delay={240}>
-              <p className="mt-5 max-w-lg text-lg leading-relaxed text-white/85">
+            <Reveal delay={160}>
+              <p className="mt-6 max-w-lg text-lg leading-relaxed text-white/85">
                 We install and maintain solar panels, inverters, and battery backup for homes and
                 businesses across Lagos, sized to what you actually use, not a one-size package.
               </p>
             </Reveal>
-            <Reveal delay={360}>
+            <Reveal delay={320}>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <Button href="/get-a-quote" size="lg">
                   Get a Free Quote

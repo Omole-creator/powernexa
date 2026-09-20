@@ -11,7 +11,7 @@
   --color-charcoal: #17212b;
   --color-line: #e1e8f0;
 
-  --font-display: var(--font-space-grotesk);
+  --font-display: var(--font-archivo);
   --font-body: var(--font-plex-sans);
   --font-mono: var(--font-plex-mono);
 }

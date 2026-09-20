@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
+import { Archivo, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
 import Script from "next/script";
 import { Suspense } from "react";
 import "./globals.css";
@@ -12,10 +12,10 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { businessJsonLd } from "@/lib/seo";
 import { SITE_NAME, SITE_TAGLINE, SITE_URL } from "@/lib/constants";
 
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
+const archivo = Archivo({
+  variable: "--font-archivo",
   subsets: ["latin"],
-  weight: ["500", "600", "700"],
+  weight: ["600", "700", "800"],
 });
 
 const plexSans = IBM_Plex_Sans({
@@ -70,7 +70,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${spaceGrotesk.variable} ${plexSans.variable} ${plexMono.variable} h-full antialiased`}
+      className={`${archivo.variable} ${plexSans.variable} ${plexMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
         {gaId ? (

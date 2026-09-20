@@ -23,7 +23,7 @@ export const TESTIMONIALS: Testimonial[] = [
     rating: 5,
   },
   {
-    name: "Tunde Bakare",
+    name: "Tunde Balogun",
     location: "Lekki Phase 1, Lagos",
     quote:
       "They came, measured our actual load instead of guessing, and explained every naira on the quote. Installation took two days, exactly as promised.",

@@ -1,6 +1,6 @@
 export const SITE_NAME = "PowerNexa Solutions";
 export const SITE_TAGLINE = "Solar, Inverter and Battery Solutions for Homes and Businesses";
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://powernexasolutions.com";
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.powernexasolutions.site";
 
 export const PHONE_DISPLAY = "0813 209 7317";
 export const PHONE_E164 = "+2348132097317";

@@ -61,7 +61,7 @@ export default function HomePage() {
           <div className="max-w-xl">
             <Reveal delay={0}>
               <h1 className="font-display text-4xl font-extrabold leading-[1.2] text-white sm:text-5xl lg:text-[3.25rem]">
-                Power Lagos can&apos;t switch off.
+                Solar and inverter power that never blinks.
               </h1>
             </Reveal>
             <Reveal delay={160}>

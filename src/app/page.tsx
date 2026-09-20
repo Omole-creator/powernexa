@@ -182,8 +182,30 @@ export default function HomePage() {
         </Container>
       </section>
 
-      {/* Locations */}
+      {/* Second proof image: safety, isolated from the first by two full sections. */}
       <section className="py-20">
+        <Container className="grid gap-10 lg:grid-cols-2 lg:items-center">
+          <Reveal delay={150} className="order-2 overflow-hidden rounded-2xl border border-line lg:order-1">
+            <Image
+              src="/images/installation-distribution-board.jpg"
+              alt="A technician in a safety harness inspecting a distribution board"
+              width={640}
+              height={480}
+              className="h-full w-full object-cover"
+            />
+          </Reveal>
+          <Reveal className="order-1 lg:order-2">
+            <SectionHeading
+              eyebrow="Step 3, done right"
+              title="Isolated first. Tested after. Every time."
+              description="This is the part that doesn't show up in a quote: isolating the circuit before we touch it, then testing the whole system before we call the job finished."
+            />
+          </Reveal>
+        </Container>
+      </section>
+
+      {/* Locations */}
+      <section className="bg-mist py-20">
         <Container>
           <Reveal className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
             <SectionHeading
@@ -202,6 +224,28 @@ export default function HomePage() {
               </Reveal>
             ))}
           </div>
+        </Container>
+      </section>
+
+      {/* Third proof image: the equipment itself, right before the testimonials that talk about it. */}
+      <section className="py-20">
+        <Container className="grid gap-10 lg:grid-cols-2 lg:items-center">
+          <Reveal>
+            <SectionHeading
+              eyebrow="What you're actually buying"
+              title="The inverter and battery bank behind the promise"
+              description="This is what sits in the room after we leave: an inverter sized to your load, and batteries stacked for the backup hours you asked for. Nothing hidden, nothing oversold."
+            />
+          </Reveal>
+          <Reveal delay={150} className="overflow-hidden rounded-2xl border border-line">
+            <Image
+              src="/images/inverter-battery-stack.jpg"
+              alt="Hybrid inverter mounted above a stack of batteries, with solar panels in the background"
+              width={640}
+              height={480}
+              className="h-full w-full object-cover"
+            />
+          </Reveal>
         </Container>
       </section>
 

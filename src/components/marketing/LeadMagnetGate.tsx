@@ -3,7 +3,6 @@
 import { useActionState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { submitLeadMagnetSignup, type LeadMagnetFormState } from "@/actions/lead-magnet";
-import { Eyebrow } from "@/components/ui/Container";
 import type { LeadMagnet } from "@/lib/lead-magnets";
 
 const initialState: LeadMagnetFormState = { success: false };
@@ -32,13 +31,13 @@ export function LeadMagnetGate({
   }, [state]);
 
   return (
-    <div className="relative overflow-hidden rounded-[28px] bg-white p-7 shadow-[0_20px_50px_-24px_rgba(9,43,76,0.25)] sm:p-9">
+    <div className="relative overflow-hidden rounded-[28px] bg-gradient-to-br from-navy to-navy-ink p-7 shadow-[0_20px_50px_-24px_rgba(9,43,76,0.45)] sm:p-9">
       <div className="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-orange to-yellow" />
 
       {state.success && state.downloadUrl ? (
         <div className="text-center">
-          <h3 className="font-display text-xl font-bold text-navy sm:text-2xl">Your checklist is ready.</h3>
-          <p className="mt-2 text-sm text-charcoal/70">
+          <h3 className="font-display text-xl font-bold text-white sm:text-2xl">Your checklist is ready.</h3>
+          <p className="mt-2 text-sm text-white/70">
             We opened it in a new tab. If it did not open, use the button below.
           </p>
           <a
@@ -53,9 +52,11 @@ export function LeadMagnetGate({
       ) : (
         <div className="grid gap-6 sm:grid-cols-2 sm:items-center">
           <div>
-            <Eyebrow>Free download</Eyebrow>
-            <h3 className="mt-4 font-display text-xl font-bold text-navy sm:text-2xl">{title}</h3>
-            <p className="mt-3 text-sm leading-relaxed text-charcoal/70">{description}</p>
+            <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3.5 py-1 text-xs font-bold uppercase tracking-[0.14em] text-yellow">
+              Free download
+            </span>
+            <h3 className="mt-4 font-display text-xl font-bold text-white sm:text-2xl">{title}</h3>
+            <p className="mt-3 text-sm leading-relaxed text-white/75">{description}</p>
           </div>
           <form action={formAction} className="space-y-3">
             <input type="hidden" name="magnetSlug" value={magnet.slug} />
@@ -63,7 +64,7 @@ export function LeadMagnetGate({
             <input name="name" required placeholder="Full name" className={inputClass} />
             <input name="email" required type="email" placeholder="Email address" className={inputClass} />
             <input name="phone" required placeholder="Phone / WhatsApp number" inputMode="tel" className={inputClass} />
-            {state.error ? <p className="text-sm font-medium text-red-600">{state.error}</p> : null}
+            {state.error ? <p className="text-sm font-medium text-red-300">{state.error}</p> : null}
             <button
               type="submit"
               disabled={pending}
@@ -71,7 +72,7 @@ export function LeadMagnetGate({
             >
               {pending ? "Sending..." : "Send me the checklist"}
             </button>
-            <p className="text-center text-xs text-charcoal/50">
+            <p className="text-center text-xs text-white/50">
               We will only use this to send your checklist and occasional Lagos power tips. No spam.
             </p>
           </form>

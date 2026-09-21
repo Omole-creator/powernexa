@@ -14,7 +14,8 @@ export type AuditAction =
   | "archive_lead"
   | "unarchive_lead"
   | "change_password"
-  | "add_teammate";
+  | "add_teammate"
+  | "sync_price_benchmarks";
 
 export async function logAudit(actorEmail: string, action: AuditAction, detail?: string): Promise<void> {
   const { error } = await supabase.from("audit_log").insert({

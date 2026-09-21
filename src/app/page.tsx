@@ -57,7 +57,7 @@ const PROCESS_STEPS = [
   {
     step: "03",
     title: "Professional install",
-    body: "Our team installs panels, inverter, and batteries, then tests the full system before we leave.",
+    body: "We buy every panel, inverter, and battery ourselves, install it, then test the full system before we leave. You don't have to find or buy anything.",
   },
   {
     step: "04",

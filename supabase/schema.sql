@@ -106,6 +106,30 @@ create table if not exists audit_log (
   created_at timestamptz not null default now()
 );
 
+-- Auto-generated equipment price benchmarks, refreshed nightly by
+-- /api/cron/sync-equipment-prices from Itel Solar's public storefront API
+-- (their live retail catalog, the only wholesaler with a genuinely public,
+-- machine-readable price list). Never hand-entered: a stale row just means
+-- the last sync failed, not a manually typed guess. One row per
+-- (source, category, subtype): panels are priced per watt, inverters per
+-- kVA (split by 1-phase / 3-phase), batteries per kWh (split by chemistry).
+-- Internal reference for admin quote prep only, never shown to a customer.
+create table if not exists equipment_price_benchmarks (
+  id bigint generated always as identity primary key,
+  source text not null,
+  category text not null check (category in ('panel', 'inverter', 'battery')),
+  subtype text not null default 'standard',
+  unit text not null check (unit in ('watt', 'kva', 'kwh')),
+  rate_ngn numeric not null,
+  min_rate_ngn numeric not null,
+  max_rate_ngn numeric not null,
+  sample_size int not null,
+  synced_at timestamptz not null default now(),
+  unique (source, category, subtype)
+);
+
+alter table equipment_price_benchmarks enable row level security;
+
 -- Row Level Security: enabled with no public policies on every table.
 -- The Next.js server is the only client that ever talks to Supabase, using
 -- the service role key, which bypasses RLS entirely. Nothing here is ever

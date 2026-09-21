@@ -18,6 +18,7 @@ const WHAT_HAPPENS_NEXT = [
   "We review your request and confirm details on WhatsApp, usually the same day during business hours.",
   "We schedule a free site visit at a time that works for you.",
   "You receive a written quote with sizing and pricing explained, no pressure to decide on the spot.",
+  "We buy and bring every panel, inverter, and battery ourselves. You don't source anything.",
 ];
 
 export default function GetQuotePage() {

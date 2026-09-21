@@ -33,6 +33,10 @@ const PRINCIPLES = [
     title: "We're based in Lagos, for Lagos",
     body: "Our team works out of Sangotedo, which means faster site visits, faster response when something needs attention, and installers who already know Lagos wiring, weather, and estate rules.",
   },
+  {
+    title: "We buy everything so you don't have to",
+    body: "You don't need to find a panel supplier, an inverter dealer, or a battery seller. We buy every component ourselves, so all you do is watch the install happen.",
+  },
 ];
 
 export default function AboutPage() {

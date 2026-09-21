@@ -7,7 +7,7 @@ export type LeadMagnet = {
 export const LEAD_MAGNETS: Record<string, LeadMagnet> = {
   "installer-vetting-checklist": {
     slug: "installer-vetting-checklist",
-    title: "The Lagos Inverter Installer Checklist",
+    title: "21 Questions to Ask Before You Pay an Inverter Installer in Lagos",
     fileUrl: "/downloads/lagos-inverter-installer-checklist.pdf",
   },
 };

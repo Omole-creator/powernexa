@@ -61,6 +61,25 @@ alter table leads add column if not exists archived_at timestamptz;
 create index if not exists idx_leads_status on leads (status, created_at);
 create index if not exists idx_leads_archived on leads (archived_at);
 
+-- Lead magnet signups (gated downloads at the end of blog posts and on the
+-- homepage). Kept separate from `leads`: these are top-of-funnel email/phone
+-- captures with no property/budget/service data, not quote requests.
+create table if not exists lead_magnet_signups (
+  id bigint generated always as identity primary key,
+  name text not null,
+  email text not null,
+  phone text not null,
+  magnet_slug text not null,
+  source_page text,
+  utm_source text,
+  utm_medium text,
+  utm_campaign text,
+  created_at timestamptz not null default now()
+);
+
+create index if not exists idx_lead_magnet_signups_created on lead_magnet_signups (created_at);
+alter table lead_magnet_signups enable row level security;
+
 create table if not exists analytics_events (
   id bigint generated always as identity primary key,
   event_type text not null,

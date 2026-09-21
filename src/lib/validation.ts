@@ -19,6 +19,12 @@ export function isValidNigerianPhone(value: string): boolean {
   return NIGERIAN_PHONE_PATTERN.test(digitsOnly);
 }
 
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+export function isValidEmail(value: string): boolean {
+  return EMAIL_PATTERN.test(value.trim());
+}
+
 export function slugify(input: string): string {
   return input
     .toLowerCase()

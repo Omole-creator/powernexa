@@ -10,6 +10,7 @@ export const TRACKABLE_EVENTS = [
   "quote_form_submit",
   "blog_view",
   "cta_click",
+  "lead_magnet_signup",
 ] as const;
 
 export type TrackableEvent = (typeof TRACKABLE_EVENTS)[number];

@@ -13,10 +13,12 @@ import { TestimonialCard } from "@/components/marketing/TestimonialCard";
 import { FaqAccordion } from "@/components/marketing/FaqAccordion";
 import { CtaBand } from "@/components/marketing/CtaBand";
 import { QuoteForm } from "@/components/marketing/QuoteForm";
+import { LeadMagnetGate } from "@/components/marketing/LeadMagnetGate";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { SERVICES, LAGOS_AREAS } from "@/lib/constants";
 import { TESTIMONIALS } from "@/lib/testimonials-data";
 import { faqJsonLd } from "@/lib/seo";
+import { DEFAULT_LEAD_MAGNET } from "@/lib/lead-magnets";
 
 const HOME_FAQS = [
   {
@@ -247,6 +249,20 @@ export default function HomePage() {
               </Reveal>
             ))}
           </div>
+        </Container>
+      </section>
+
+      {/* Lead magnet: a free, no-quote-required download between the trust-building
+          sections (locations) and the harder "get a quote" ask further down. */}
+      <section className="py-24">
+        <Container>
+          <Reveal>
+            <LeadMagnetGate
+              magnet={DEFAULT_LEAD_MAGNET}
+              title={DEFAULT_LEAD_MAGNET.title}
+              description="Not ready for a quote yet? Get the checklist Lagos homeowners use to check any inverter installer before paying a deposit. No installation booking required."
+            />
+          </Reveal>
         </Container>
       </section>
 

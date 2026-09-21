@@ -7,10 +7,12 @@ import { TableOfContents } from "@/components/marketing/TableOfContents";
 import { BlogCard } from "@/components/marketing/BlogCard";
 import { BlogViewTracker } from "@/components/marketing/BlogViewTracker";
 import { CtaBand } from "@/components/marketing/CtaBand";
+import { LeadMagnetGate } from "@/components/marketing/LeadMagnetGate";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { breadcrumbJsonLd, blogPostingJsonLd } from "@/lib/seo";
 import { getPublishedPostBySlug, listPublishedPosts, listRelatedPosts } from "@/lib/blog";
 import { SITE_URL } from "@/lib/constants";
+import { DEFAULT_LEAD_MAGNET } from "@/lib/lead-magnets";
 
 export const revalidate = 60;
 
@@ -117,6 +119,14 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                   ))}
                 </div>
               ) : null}
+
+              <div className="mt-10">
+                <LeadMagnetGate
+                  magnet={DEFAULT_LEAD_MAGNET}
+                  title={DEFAULT_LEAD_MAGNET.title}
+                  description="A step-by-step list of what to check before, during, and after your installation, so you never end up paying for someone else's guesswork."
+                />
+              </div>
             </div>
 
             <aside className="hidden lg:block">

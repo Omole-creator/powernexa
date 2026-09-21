@@ -6,6 +6,7 @@ import { logout } from "@/actions/auth";
 const NAV = [
   { href: "/admin", label: "Dashboard", icon: "📊" },
   { href: "/admin/leads", label: "Leads", icon: "📥" },
+  { href: "/admin/subscribers", label: "Subscribers", icon: "📩" },
   { href: "/admin/blog", label: "Blog", icon: "📝" },
   { href: "/admin/audit-log", label: "Audit Log", icon: "🔍" },
   { href: "/admin/settings", label: "Settings", icon: "⚙️" },
@@ -18,13 +19,15 @@ export default async function AdminProtectedLayout({ children }: { children: Rea
     <div className="flex min-h-screen bg-mist">
       <aside className="hidden w-64 shrink-0 flex-col border-r border-line bg-navy text-white lg:flex">
         <div className="flex h-20 items-center px-6">
-          <Image
-            src="/images/logo.png"
-            alt="PowerNexa Solutions"
-            width={1536}
-            height={1024}
-            className="h-10 w-auto object-contain brightness-0 invert"
-          />
+          <div className="inline-flex rounded-xl bg-white p-2">
+            <Image
+              src="/images/logo-transparent.png"
+              alt="PowerNexa Solutions"
+              width={1536}
+              height={1024}
+              className="h-8 w-auto object-contain"
+            />
+          </div>
         </div>
         <nav className="flex-1 space-y-1 px-4">
           {NAV.map((item) => (

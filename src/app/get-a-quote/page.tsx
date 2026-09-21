@@ -5,7 +5,7 @@ import { QuoteForm } from "@/components/marketing/QuoteForm";
 import { CheckIcon } from "@/components/marketing/Icons";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { breadcrumbJsonLd } from "@/lib/seo";
-import { PHONE_DISPLAY, PHONE_E164 } from "@/lib/constants";
+import { PHONE_DISPLAY, PHONE_E164, PHONE_DISPLAY_2, PHONE_E164_2 } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "Get a Free Quote",
@@ -49,6 +49,10 @@ export default function GetQuotePage() {
               to call instead?{" "}
               <a href={`tel:${PHONE_E164}`} className="font-semibold text-orange">
                 {PHONE_DISPLAY}
+              </a>{" "}
+              or{" "}
+              <a href={`tel:${PHONE_E164_2}`} className="font-semibold text-orange">
+                {PHONE_DISPLAY_2}
               </a>
               .
             </p>

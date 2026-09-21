@@ -1,7 +1,7 @@
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { Waveform } from "./Waveform";
-import { PHONE_DISPLAY, PHONE_E164 } from "@/lib/constants";
+import { PHONE_DISPLAY, PHONE_E164, PHONE_DISPLAY_2, PHONE_E164_2 } from "@/lib/constants";
 import { buildWhatsAppUrl, defaultWhatsAppMessage } from "@/lib/whatsapp";
 
 export function CtaBand({
@@ -25,9 +25,16 @@ export function CtaBand({
             Chat on WhatsApp
           </Button>
         </div>
-        <a href={`tel:${PHONE_E164}`} className="font-mono-num text-sm text-white/70 hover:text-white">
-          Or call us directly: {PHONE_DISPLAY}
-        </a>
+        <p className="font-mono-num text-sm text-white/70">
+          Or call us directly:{" "}
+          <a href={`tel:${PHONE_E164}`} className="hover:text-white">
+            {PHONE_DISPLAY}
+          </a>{" "}
+          /{" "}
+          <a href={`tel:${PHONE_E164_2}`} className="hover:text-white">
+            {PHONE_DISPLAY_2}
+          </a>
+        </p>
       </Container>
     </section>
   );

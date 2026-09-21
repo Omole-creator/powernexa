@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Container, Eyebrow } from "@/components/ui/Container";
 import { Breadcrumbs } from "@/components/marketing/Breadcrumbs";
-import { PHONE_DISPLAY, SITE_NAME } from "@/lib/constants";
+import { PHONE_DISPLAY, PHONE_DISPLAY_2, SITE_NAME } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -76,7 +76,8 @@ export default function PrivacyPolicyPage() {
           <p>
             You can ask us what information we hold about you, ask us to correct it, or ask us to
             delete it, subject to any records we&apos;re required to keep for legitimate business or
-            legal reasons. Contact us by phone or WhatsApp at {PHONE_DISPLAY} to make a request.
+            legal reasons. Contact us by phone or WhatsApp at {PHONE_DISPLAY} or {PHONE_DISPLAY_2} to
+            make a request.
           </p>
 
           <h2 className="font-display text-xl font-bold text-navy">Changes to this policy</h2>

@@ -4,6 +4,7 @@ import { createLead } from "@/lib/leads";
 import { recordEvent } from "@/lib/analytics";
 import { quoteWhatsAppMessage, buildWhatsAppUrl } from "@/lib/whatsapp";
 import { requiredString, optionalString, isValidNigerianPhone } from "@/lib/validation";
+import { QUOTE_WHATSAPP_NUMBER } from "@/lib/constants";
 
 export type QuoteFormState = {
   success: boolean;
@@ -69,7 +70,8 @@ export async function submitQuote(_prevState: QuoteFormState, formData: FormData
       serviceInterest: serviceInterest!,
       budgetRange,
       message,
-    })
+    }),
+    QUOTE_WHATSAPP_NUMBER
   );
 
   return { success: true, whatsappUrl };

@@ -3,7 +3,7 @@
 import { useEffect, useState, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
-import { NAV_LINKS, PHONE_DISPLAY, PHONE_E164 } from "@/lib/constants";
+import { NAV_LINKS, PHONE_DISPLAY, PHONE_E164, PHONE_DISPLAY_2, PHONE_E164_2 } from "@/lib/constants";
 import { buildWhatsAppUrl, defaultWhatsAppMessage } from "@/lib/whatsapp";
 import { track } from "@/lib/track-client";
 
@@ -66,6 +66,13 @@ export function MobileMenu() {
                   className="rounded-full border-2 border-white py-3 text-center font-semibold text-white"
                 >
                   Call {PHONE_DISPLAY}
+                </a>
+                <a
+                  href={`tel:${PHONE_E164_2}`}
+                  onClick={() => track("call_click")}
+                  className="rounded-full border-2 border-white py-3 text-center font-semibold text-white"
+                >
+                  Call {PHONE_DISPLAY_2}
                 </a>
                 <a
                   href={buildWhatsAppUrl(defaultWhatsAppMessage())}

@@ -5,6 +5,11 @@ export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.powerne
 export const PHONE_DISPLAY = "0813 209 7317";
 export const PHONE_E164 = "+2348132097317";
 export const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "2348132097317";
+
+export const PHONE_DISPLAY_2 = "0906 556 0594";
+export const PHONE_E164_2 = "+2349065560594";
+export const QUOTE_WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_QUOTE_WHATSAPP_NUMBER || "2349065560594";
+
 export const CONTACT_EMAIL = "powernexas@gmail.com";
 
 export const BUSINESS_ADDRESS = {

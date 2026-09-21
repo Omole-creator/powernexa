@@ -7,6 +7,8 @@ import {
   LAGOS_AREAS,
   PHONE_DISPLAY,
   PHONE_E164,
+  PHONE_DISPLAY_2,
+  PHONE_E164_2,
   SERVICES,
   SITE_NAME,
   SITE_TAGLINE,
@@ -35,6 +37,9 @@ export function Footer() {
           </p>
           <a href={`tel:${PHONE_E164}`} className="mt-1 block font-mono-num text-sm text-white hover:text-orange">
             {PHONE_DISPLAY}
+          </a>
+          <a href={`tel:${PHONE_E164_2}`} className="mt-0.5 block font-mono-num text-sm text-white hover:text-orange">
+            {PHONE_DISPLAY_2}
           </a>
           <EmailLink className="mt-1 block text-sm text-white/80 hover:text-orange" />
         </div>

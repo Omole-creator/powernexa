@@ -1,19 +1,21 @@
 "use client";
 
-import { PHONE_DISPLAY, PHONE_E164 } from "@/lib/constants";
+import { PHONE_DISPLAY, PHONE_E164, PHONE_DISPLAY_2, PHONE_E164_2 } from "@/lib/constants";
 import { buildWhatsAppUrl, defaultWhatsAppMessage } from "@/lib/whatsapp";
 import { track } from "@/lib/track-client";
 
 export function HeaderCtas() {
   return (
     <div className="hidden items-center gap-3 lg:flex">
-      <a
-        href={`tel:${PHONE_E164}`}
-        onClick={() => track("call_click")}
-        className="font-mono-num text-sm font-semibold text-navy hover:text-orange"
-      >
-        {PHONE_DISPLAY}
-      </a>
+      <div className="flex items-center gap-1.5 font-mono-num text-sm font-semibold text-navy">
+        <a href={`tel:${PHONE_E164}`} onClick={() => track("call_click")} className="hover:text-orange">
+          {PHONE_DISPLAY}
+        </a>
+        <span className="text-navy/30">/</span>
+        <a href={`tel:${PHONE_E164_2}`} onClick={() => track("call_click")} className="hover:text-orange">
+          {PHONE_DISPLAY_2}
+        </a>
+      </div>
       <a
         href={buildWhatsAppUrl(defaultWhatsAppMessage())}
         target="_blank"

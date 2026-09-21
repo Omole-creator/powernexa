@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Container, Eyebrow } from "@/components/ui/Container";
 import { Breadcrumbs } from "@/components/marketing/Breadcrumbs";
-import { PHONE_DISPLAY, SITE_NAME } from "@/lib/constants";
+import { PHONE_DISPLAY, PHONE_DISPLAY_2, SITE_NAME } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "Terms of Service",
@@ -60,7 +60,10 @@ export default function TermsPage() {
           </p>
 
           <h2 className="font-display text-xl font-bold text-navy">Contact</h2>
-          <p>Questions about these terms can be sent to us by phone or WhatsApp at {PHONE_DISPLAY}.</p>
+          <p>
+            Questions about these terms can be sent to us by phone or WhatsApp at {PHONE_DISPLAY} or{" "}
+            {PHONE_DISPLAY_2}.
+          </p>
         </div>
       </Container>
     </section>

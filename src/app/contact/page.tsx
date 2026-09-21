@@ -10,6 +10,8 @@ import {
   BUSINESS_HOURS,
   PHONE_DISPLAY,
   PHONE_E164,
+  PHONE_DISPLAY_2,
+  PHONE_E164_2,
 } from "@/lib/constants";
 import { buildWhatsAppUrl, defaultWhatsAppMessage } from "@/lib/whatsapp";
 import { EmailLink } from "@/components/layout/EmailLink";
@@ -58,6 +60,9 @@ export default function ContactPage() {
               <h2 className="font-display text-lg font-bold text-navy">Call or WhatsApp</h2>
               <a href={`tel:${PHONE_E164}`} className="mt-3 block font-mono-num text-2xl font-bold text-navy hover:text-orange">
                 {PHONE_DISPLAY}
+              </a>
+              <a href={`tel:${PHONE_E164_2}`} className="mt-1 block font-mono-num text-2xl font-bold text-navy hover:text-orange">
+                {PHONE_DISPLAY_2}
               </a>
               <EmailLink className="mt-2 block text-sm font-medium text-charcoal/70 hover:text-orange" />
               <a

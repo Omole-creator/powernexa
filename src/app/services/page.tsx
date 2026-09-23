@@ -11,7 +11,7 @@ import { SERVICES } from "@/lib/constants";
 export const metadata: Metadata = {
   title: "Solar & Inverter Installation Services in Lagos",
   description:
-    "Solar panel installation, inverter installation, battery replacement, maintenance, and commercial solar for businesses across Lagos. Get a free, load-based quote.",
+    "Solar panel installation, inverter installation, battery replacement, maintenance, and commercial solar for businesses across Lagos. Get a load-based quote.",
   alternates: { canonical: "/services" },
 };
 

@@ -1,155 +1,256 @@
 "use client";
 
-import { useState } from "react";
-import type { PriceBenchmark } from "@/lib/price-benchmarks";
+import { useMemo, useState } from "react";
+import {
+  JOB_COSTS,
+  PACKAGES,
+  defaultAccessoryCosts,
+  estimateJob,
+  formatNaira,
+  roundQuote,
+  type AccessoryCosts,
+  type Chemistry,
+  type PackageKey,
+  type PriceSourceItem,
+} from "@/lib/costing";
 
-function formatNaira(value: number): string {
-  return `₦${Math.round(value).toLocaleString("en-NG")}`;
-}
+const inputClass =
+  "w-full rounded-xl border border-line px-3 py-2 text-sm outline-none focus:border-orange focus:ring-2 focus:ring-orange/20";
 
-export function PricingCalculator({ benchmarks }: { benchmarks: PriceBenchmark[] }) {
-  const panelBenchmark = benchmarks.find((b) => b.category === "panel");
-  const inverterOptions = benchmarks.filter((b) => b.category === "inverter");
-  const batteryOptions = benchmarks.filter((b) => b.category === "battery");
+const ACCESSORY_FIELDS: { key: keyof AccessoryCosts; label: string }[] = [
+  { key: "mounting", label: "Mounting structure" },
+  { key: "cables", label: "Cables and MC4" },
+  { key: "protection", label: "Breakers, isolators, SPD" },
+  { key: "earthing", label: "Earthing kit" },
+];
 
-  const [panelWatts, setPanelWatts] = useState("");
-  const [inverterSubtype, setInverterSubtype] = useState(inverterOptions[0]?.subtype ?? "");
-  const [inverterKva, setInverterKva] = useState("");
-  const [batterySubtype, setBatterySubtype] = useState(batteryOptions[0]?.subtype ?? "");
-  const [batteryKwh, setBatteryKwh] = useState("");
-  const [markupPercent, setMarkupPercent] = useState("");
+export function PricingCalculator({
+  priceBook,
+  initialPackage = "medium",
+}: {
+  priceBook: PriceSourceItem[];
+  initialPackage?: PackageKey;
+}) {
+  const start = PACKAGES[initialPackage].spec;
+  const [preset, setPreset] = useState<PackageKey | "custom">(initialPackage);
+  const [inverterKva, setInverterKva] = useState(String(start.inverterKva));
+  const [batteryKwh, setBatteryKwh] = useState(String(start.batteryKwh));
+  const [chemistry, setChemistry] = useState<Chemistry>(start.batteryChemistry);
+  const [panelCount, setPanelCount] = useState(String(start.panelCount));
+  const [panelWatts, setPanelWatts] = useState(String(start.panelWatts));
+  const [source, setSource] = useState("");
+  const [accessoryOverrides, setAccessoryOverrides] = useState<Partial<Record<keyof AccessoryCosts, string>>>({});
+  const [includeVat, setIncludeVat] = useState(false);
 
-  const selectedInverter = inverterOptions.find((b) => b.subtype === inverterSubtype);
-  const selectedBattery = batteryOptions.find((b) => b.subtype === batterySubtype);
+  const sources = useMemo(() => [...new Set(priceBook.map((i) => i.source))], [priceBook]);
 
-  const panelCost = (Number(panelWatts) || 0) * (panelBenchmark?.rate_ngn ?? 0);
-  const inverterCost = (Number(inverterKva) || 0) * (selectedInverter?.rate_ngn ?? 0);
-  const batteryCost = (Number(batteryKwh) || 0) * (selectedBattery?.rate_ngn ?? 0);
-  const equipmentTotal = panelCost + inverterCost + batteryCost;
-  const suggestedTotal = equipmentTotal * (1 + (Number(markupPercent) || 0) / 100);
+  const spec = {
+    inverterKva: Number(inverterKva) || 0,
+    batteryKwh: Number(batteryKwh) || 0,
+    batteryChemistry: chemistry,
+    panelCount: Number(panelCount) || 0,
+    panelWatts: Number(panelWatts) || 0,
+  };
+  const defaults = defaultAccessoryCosts(spec.inverterKva, spec.panelCount);
+  const accessories: AccessoryCosts = {
+    mounting: numberOr(accessoryOverrides.mounting, defaults.mounting),
+    cables: numberOr(accessoryOverrides.cables, defaults.cables),
+    protection: numberOr(accessoryOverrides.protection, defaults.protection),
+    earthing: numberOr(accessoryOverrides.earthing, defaults.earthing),
+  };
+  const estimate = estimateJob({ spec, priceBook, accessories, sourceFilter: source || undefined });
+  const finalShown = includeVat ? estimate.finalPriceWithVat : estimate.finalPrice;
 
-  const inputClass =
-    "w-full rounded-xl border border-line px-3 py-2 text-sm outline-none focus:border-orange focus:ring-2 focus:ring-orange/20";
+  const applyPreset = (key: PackageKey | "custom") => {
+    setPreset(key);
+    if (key === "custom") return;
+    const p = PACKAGES[key].spec;
+    setInverterKva(String(p.inverterKva));
+    setBatteryKwh(String(p.batteryKwh));
+    setChemistry(p.batteryChemistry);
+    setPanelCount(String(p.panelCount));
+    setPanelWatts(String(p.panelWatts));
+    setAccessoryOverrides({});
+  };
+  const edit = (setter: (v: string) => void) => (e: React.ChangeEvent<HTMLInputElement>) => {
+    setter(e.target.value);
+    setPreset("custom");
+  };
 
   return (
     <div className="rounded-2xl border border-line bg-white p-6">
-      <h2 className="font-display text-lg font-bold text-navy">Equipment cost calculator</h2>
+      <h2 className="font-display text-lg font-bold text-navy">Job cost calculator</h2>
       <p className="mt-1 text-sm text-charcoal/60">
-        Uses the benchmarks above plus your own labour and margin. For preparing a quote after the
-        site visit, not for quoting a customer directly.
+        Supplier cost, your markups (inverter 10%, battery 20%, panels 10%, accessories 35%), then labour,
+        transport, site survey, warranty reserve, overhead, naira buffer and bank charges. It picks the
+        cheapest price on file for each item unless you choose one supplier.
       </p>
 
-      <div className="mt-5 grid gap-4 sm:grid-cols-2">
-        <div>
-          <label className="mb-1.5 block text-xs font-semibold text-navy">Total panel wattage (W)</label>
-          <input
-            type="number"
-            min="0"
-            value={panelWatts}
-            onChange={(e) => setPanelWatts(e.target.value)}
-            className={inputClass}
-            placeholder="e.g. 2000"
-            disabled={!panelBenchmark}
-          />
-          {!panelBenchmark ? <p className="mt-1 text-xs text-charcoal/50">No panel benchmark yet.</p> : null}
-        </div>
-
-        <div>
-          <label className="mb-1.5 block text-xs font-semibold text-navy">Inverter size (kVA)</label>
-          <div className="flex gap-2">
+      <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <label className="text-xs font-semibold text-navy">
+          Package
+          <select value={preset} onChange={(e) => applyPreset(e.target.value as PackageKey | "custom")} className={`${inputClass} mt-1`}>
+            {(Object.keys(PACKAGES) as PackageKey[]).map((key) => (
+              <option key={key} value={key}>
+                {PACKAGES[key].label}
+              </option>
+            ))}
+            <option value="custom">Custom</option>
+          </select>
+        </label>
+        <label className="text-xs font-semibold text-navy">
+          Price source
+          <select value={source} onChange={(e) => setSource(e.target.value)} className={`${inputClass} mt-1`}>
+            <option value="">Cheapest on file</option>
+            {sources.map((s) => (
+              <option key={s} value={s}>
+                {s} only
+              </option>
+            ))}
+          </select>
+        </label>
+        <label className="text-xs font-semibold text-navy">
+          Inverter (kVA)
+          <input type="number" min="0" step="0.1" value={inverterKva} onChange={edit(setInverterKva)} className={`${inputClass} mt-1`} />
+        </label>
+        <label className="text-xs font-semibold text-navy">
+          Battery (kWh)
+          <div className="mt-1 flex gap-2">
+            <input type="number" min="0" step="0.1" value={batteryKwh} onChange={edit(setBatteryKwh)} className={inputClass} />
             <select
-              value={inverterSubtype}
-              onChange={(e) => setInverterSubtype(e.target.value)}
+              value={chemistry}
+              onChange={(e) => {
+                setChemistry(e.target.value as Chemistry);
+                setPreset("custom");
+              }}
               className={inputClass}
-              disabled={inverterOptions.length === 0}
             >
-              {inverterOptions.map((option) => (
-                <option key={option.subtype} value={option.subtype}>
-                  {option.subtype}
-                </option>
-              ))}
+              <option value="lithium">Lithium</option>
+              <option value="tubular">Tubular</option>
             </select>
-            <input
-              type="number"
-              min="0"
-              value={inverterKva}
-              onChange={(e) => setInverterKva(e.target.value)}
-              className={inputClass}
-              placeholder="e.g. 6"
-              disabled={inverterOptions.length === 0}
-            />
           </div>
-          {inverterOptions.length === 0 ? <p className="mt-1 text-xs text-charcoal/50">No inverter benchmark yet.</p> : null}
-        </div>
-
-        <div>
-          <label className="mb-1.5 block text-xs font-semibold text-navy">Battery capacity (kWh)</label>
-          <div className="flex gap-2">
-            <select
-              value={batterySubtype}
-              onChange={(e) => setBatterySubtype(e.target.value)}
-              className={inputClass}
-              disabled={batteryOptions.length === 0}
-            >
-              {batteryOptions.map((option) => (
-                <option key={option.subtype} value={option.subtype}>
-                  {option.subtype}
-                </option>
-              ))}
-            </select>
-            <input
-              type="number"
-              min="0"
-              value={batteryKwh}
-              onChange={(e) => setBatteryKwh(e.target.value)}
-              className={inputClass}
-              placeholder="e.g. 5"
-              disabled={batteryOptions.length === 0}
-            />
+        </label>
+        <label className="text-xs font-semibold text-navy">
+          Panels (count x watts)
+          <div className="mt-1 flex gap-2">
+            <input type="number" min="0" value={panelCount} onChange={edit(setPanelCount)} className={inputClass} />
+            <input type="number" min="0" step="10" value={panelWatts} onChange={edit(setPanelWatts)} className={inputClass} />
           </div>
-          {batteryOptions.length === 0 ? <p className="mt-1 text-xs text-charcoal/50">No battery benchmark yet.</p> : null}
-        </div>
-
-        <div>
-          <label className="mb-1.5 block text-xs font-semibold text-navy">Labour + margin (%)</label>
-          <input
-            type="number"
-            min="0"
-            value={markupPercent}
-            onChange={(e) => setMarkupPercent(e.target.value)}
-            className={inputClass}
-            placeholder="Your own rate"
-          />
-        </div>
+        </label>
       </div>
 
-      <div className="mt-6 space-y-2 rounded-xl bg-mist p-5 text-sm">
-        <div className="flex justify-between text-charcoal/70">
-          <span>Panels</span>
-          <span className="font-mono-num">{formatNaira(panelCost)}</span>
+      <details className="mt-4 rounded-xl border border-line px-4 py-3">
+        <summary className="cursor-pointer text-xs font-semibold text-navy">
+          Accessory costs (estimated from system size, edit if you have real figures)
+        </summary>
+        <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {ACCESSORY_FIELDS.map((field) => (
+            <label key={field.key} className="text-xs font-semibold text-navy">
+              {field.label} (₦)
+              <input
+                type="number"
+                min="0"
+                value={accessoryOverrides[field.key] ?? String(defaults[field.key])}
+                onChange={(e) => setAccessoryOverrides((prev) => ({ ...prev, [field.key]: e.target.value }))}
+                className={`${inputClass} mt-1`}
+              />
+            </label>
+          ))}
         </div>
-        <div className="flex justify-between text-charcoal/70">
-          <span>Inverter</span>
-          <span className="font-mono-num">{formatNaira(inverterCost)}</span>
+      </details>
+
+      {estimate.missing.length > 0 ? (
+        <p className="mt-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-xs font-medium text-red-700">
+          No price on file for: {estimate.missing.join(", ")}. The total below leaves these out. Add a supplier price or run
+          the Itel sync.
+        </p>
+      ) : null}
+
+      <div className="mt-6 overflow-x-auto">
+        <table className="w-full min-w-[640px] text-sm">
+          <thead className="text-xs uppercase tracking-wide text-charcoal/45">
+            <tr className="border-b border-line">
+              <th className="py-2 text-left">Item</th>
+              <th className="py-2 text-right">Cost</th>
+              <th className="py-2 text-right">Markup</th>
+              <th className="py-2 text-right">Our price</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-line">
+            {estimate.equipment.map((line) => (
+              <tr key={line.key}>
+                <td className="py-2 pr-3">
+                  <span className="font-medium text-navy">{line.label}</span>
+                  {line.detail ? <span className="block text-xs text-charcoal/50">{line.detail}</span> : null}
+                </td>
+                <td className="py-2 text-right font-mono-num text-charcoal/70">{formatNaira(line.cost)}</td>
+                <td className="py-2 text-right font-mono-num text-charcoal/55">{Math.round(line.markupRate * 100)}%</td>
+                <td className="py-2 text-right font-mono-num text-navy">{formatNaira(line.price)}</td>
+              </tr>
+            ))}
+            <tr className="font-semibold text-navy">
+              <td className="py-2">Equipment total</td>
+              <td className="py-2 text-right font-mono-num">{formatNaira(estimate.equipmentCost)}</td>
+              <td />
+              <td className="py-2 text-right font-mono-num">{formatNaira(estimate.equipmentPrice)}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div className="mt-6 space-y-1.5 rounded-xl bg-mist p-5 text-sm">
+        <Row label={`Labour (₦${JOB_COSTS.labourPerKva.toLocaleString("en-NG")} per kVA, min ₦${JOB_COSTS.labourMinimum.toLocaleString("en-NG")})`} value={estimate.labour} />
+        <Row label="Transport and logistics" value={estimate.transport} />
+        <Row label="Site survey visit" value={estimate.siteSurvey} />
+        <Row label="Warranty reserve (2% of equipment cost)" value={estimate.warrantyReserve} />
+        <Row label="Subtotal" value={estimate.subtotalBeforeOverhead} strong />
+        <Row label="Overhead and marketing (5%)" value={estimate.overhead} />
+        <Row label="Naira buffer (3%)" value={estimate.nairaBuffer} />
+        <Row label="Bank and payment charges" value={estimate.bankCharges} />
+        <label className="flex items-center gap-2 pt-1 text-xs text-charcoal/60">
+          <input type="checkbox" checked={includeVat} onChange={(e) => setIncludeVat(e.target.checked)} className="accent-orange" />
+          Add VAT at 7.5% (only once the business is VAT registered)
+        </label>
+        {includeVat ? <Row label="VAT (7.5%)" value={estimate.vat} /> : null}
+        <div className="flex justify-between border-t border-line pt-3 text-lg font-bold text-navy">
+          <span>Final price</span>
+          <span className="font-mono-num text-orange">{formatNaira(finalShown)}</span>
         </div>
-        <div className="flex justify-between text-charcoal/70">
-          <span>Battery</span>
-          <span className="font-mono-num">{formatNaira(batteryCost)}</span>
+        <div className="flex justify-between text-xs text-charcoal/60">
+          <span>Rounded for the written quote</span>
+          <span className="font-mono-num">{formatNaira(roundQuote(finalShown))}</span>
         </div>
-        <div className="flex justify-between border-t border-line pt-2 font-semibold text-navy">
-          <span>Equipment cost</span>
-          <span className="font-mono-num">{formatNaira(equipmentTotal)}</span>
+        <div className="flex justify-between text-xs text-charcoal/60">
+          <span>60% to 70% deposit</span>
+          <span className="font-mono-num">
+            {formatNaira(roundQuote(finalShown) * 0.6)} to {formatNaira(roundQuote(finalShown) * 0.7)}
+          </span>
         </div>
-        <div className="flex justify-between text-lg font-bold text-navy">
-          <span>Suggested internal total</span>
-          <span className="font-mono-num text-orange">{formatNaira(suggestedTotal)}</span>
+        <div className="flex justify-between text-xs font-semibold text-green-700">
+          <span>Expected margin (markups + overhead + buffer)</span>
+          <span className="font-mono-num">{formatNaira(estimate.expectedMargin)}</span>
         </div>
       </div>
 
       <p className="mt-4 rounded-xl border border-orange/30 bg-orange/5 px-4 py-3 text-xs font-medium text-navy">
-        Internal figure only. Do not read this number to a customer, their written quote still comes
-        from the site visit.
+        Internal figure only. Do not read this number to a customer. Their written quote still comes from the site
+        visit, marked &quot;valid for 7 days&quot;.
       </p>
+    </div>
+  );
+}
+
+function numberOr(value: string | undefined, fallback: number): number {
+  if (value === undefined || value.trim() === "") return fallback;
+  const n = Number(value);
+  return Number.isFinite(n) && n >= 0 ? n : fallback;
+}
+
+function Row({ label, value, strong }: { label: string; value: number; strong?: boolean }) {
+  return (
+    <div className={`flex justify-between gap-4 ${strong ? "font-semibold text-navy" : "text-charcoal/70"}`}>
+      <span>{label}</span>
+      <span className="font-mono-num">{formatNaira(value)}</span>
     </div>
   );
 }

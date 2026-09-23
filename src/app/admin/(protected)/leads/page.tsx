@@ -4,6 +4,27 @@ import { listLeads } from "@/lib/leads";
 import { LeadStatusSelect } from "@/components/admin/LeadStatusSelect";
 import { ArchiveLeadButton } from "@/components/admin/ArchiveLeadButton";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
+import { listPriceBenchmarks } from "@/lib/price-benchmarks";
+import { buildPriceBook, listSupplierPrices } from "@/lib/supplier-prices";
+import {
+  PACKAGES,
+  estimateJob,
+  formatNaira,
+  loadProfileLabel,
+  packageForLoadProfile,
+  roundQuote,
+  type PriceSourceItem,
+} from "@/lib/costing";
+
+// Internal ballpark for the package a lead's "what do you want to power?"
+// answer points to. Never shown to the customer.
+function leadEstimate(loadProfile: string | null | undefined, priceBook: PriceSourceItem[]) {
+  const key = packageForLoadProfile(loadProfile);
+  if (!key) return null;
+  const estimate = estimateJob({ spec: PACKAGES[key].spec, priceBook });
+  if (estimate.missing.length > 0) return { key, amount: null };
+  return { key, amount: roundQuote(estimate.finalPrice) };
+}
 
 export const metadata: Metadata = { title: "Leads", robots: { index: false } };
 
@@ -14,7 +35,12 @@ export default async function AdminLeadsPage({
 }) {
   const { view } = await searchParams;
   const showArchived = view === "archived";
-  const leads = await listLeads({ archived: showArchived });
+  const [leads, benchmarks, supplierPrices] = await Promise.all([
+    listLeads({ archived: showArchived }),
+    listPriceBenchmarks(),
+    listSupplierPrices(),
+  ]);
+  const priceBook = buildPriceBook(supplierPrices.items, benchmarks);
 
   return (
     <div className="space-y-6">
@@ -43,7 +69,7 @@ export default async function AdminLeadsPage({
       </div>
 
       <div className="overflow-x-auto rounded-2xl border border-line bg-white">
-        <table className="w-full min-w-[950px] text-left text-sm">
+        <table className="w-full min-w-[1200px] text-left text-sm">
           <thead className="border-b border-line text-xs uppercase tracking-wide text-charcoal/45">
             <tr>
               <th className="px-4 py-3">Name</th>
@@ -52,6 +78,10 @@ export default async function AdminLeadsPage({
               <th className="px-4 py-3">Property</th>
               <th className="px-4 py-3">Service</th>
               <th className="px-4 py-3">Budget</th>
+              <th className="px-4 py-3">Wants to power</th>
+              <th className="px-4 py-3" title="In-house price for the matching package, from /admin/pricing. Internal only.">
+                Est. job value
+              </th>
               <th className="px-4 py-3">Status</th>
               <th className="px-4 py-3">Received</th>
               <th className="px-4 py-3" />
@@ -66,6 +96,10 @@ export default async function AdminLeadsPage({
                 <td className="px-4 py-3 text-charcoal/70">{lead.property_type}</td>
                 <td className="px-4 py-3 text-charcoal/70">{lead.service_interest}</td>
                 <td className="px-4 py-3 text-charcoal/60">{lead.budget_range ?? "Not set"}</td>
+                <td className="px-4 py-3 text-charcoal/60">{loadProfileLabel(lead.load_profile) ?? "Not set"}</td>
+                <td className="px-4 py-3 whitespace-nowrap">
+                  <LeadEstimateCell estimate={leadEstimate(lead.load_profile, priceBook)} />
+                </td>
                 <td className="px-4 py-3">
                   <LeadStatusSelect leadId={lead.id} status={lead.status} />
                 </td>
@@ -92,7 +126,7 @@ export default async function AdminLeadsPage({
             ))}
             {leads.length === 0 ? (
               <tr>
-                <td colSpan={9} className="px-4 py-10 text-center text-charcoal/50">
+                <td colSpan={11} className="px-4 py-10 text-center text-charcoal/50">
                   {showArchived ? "No archived leads." : "No leads yet."}
                 </td>
               </tr>
@@ -101,5 +135,17 @@ export default async function AdminLeadsPage({
         </table>
       </div>
     </div>
+  );
+}
+
+function LeadEstimateCell({ estimate }: { estimate: ReturnType<typeof leadEstimate> }) {
+  if (!estimate) return <span className="text-charcoal/40">Needs visit</span>;
+  return (
+    <Link href={`/admin/pricing?package=${estimate.key}`} className="group block">
+      <span className="font-mono-num font-semibold text-navy group-hover:text-orange">
+        {estimate.amount ? `~${formatNaira(estimate.amount)}` : "No prices yet"}
+      </span>
+      <span className="block text-xs text-charcoal/45">{PACKAGES[estimate.key].label}</span>
+    </Link>
   );
 }

@@ -1,6 +1,8 @@
+import { PROJECTS_COMPLETED } from "@/lib/projects-data";
+
 const STATS = [
   { value: "100%", rest: "load-calculated, not guesswork" },
-  { value: "Free", rest: "site visit & written quote" },
+  { value: `${PROJECTS_COMPLETED}+`, rest: "projects completed" },
   { value: "Written", rest: "workmanship warranty" },
   { value: "Fast", rest: "response across Lagos" },
 ];

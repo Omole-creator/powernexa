@@ -8,15 +8,15 @@ import { breadcrumbJsonLd } from "@/lib/seo";
 import { PHONE_DISPLAY, PHONE_E164, PHONE_DISPLAY_2, PHONE_E164_2 } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "Get a Free Quote",
+  title: "Get a Quote",
   description:
-    "Request a free, load-based solar and inverter installation quote in Lagos. Tell us what you need and we'll respond on WhatsApp with next steps.",
+    "Request a load-based solar and inverter installation quote in Lagos. Tell us what you need and we'll respond on WhatsApp with next steps.",
   alternates: { canonical: "/get-a-quote" },
 };
 
 const WHAT_HAPPENS_NEXT = [
   "We review your request and confirm details on WhatsApp, usually the same day during business hours.",
-  "We schedule a free site visit at a time that works for you.",
+  "We book a site assessment at a time that suits you. There's a small fee, and we take it off your installation price when you go ahead with us.",
   "You receive a written quote with sizing and pricing explained, no pressure to decide on the spot.",
   "We buy and bring every panel, inverter, and battery ourselves. You don't source anything.",
 ];
@@ -40,7 +40,7 @@ export default function GetQuotePage() {
       <section className="py-16">
         <Container className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr]">
           <div>
-            <Eyebrow>Free, no-pressure quote</Eyebrow>
+            <Eyebrow>No-pressure quote</Eyebrow>
             <h1 className="mt-5 font-display text-4xl font-bold leading-tight text-navy sm:text-5xl">
               Tell us what you need. We&apos;ll size it right.
             </h1>

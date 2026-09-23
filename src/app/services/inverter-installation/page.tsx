@@ -54,7 +54,7 @@ export default function InverterInstallationPage() {
         {
           question: "What size inverter do I need?",
           answer:
-            "It depends on the combined wattage of what you want to run at once. A home running a few lights, a TV, and a fridge needs far less than one running multiple air conditioners. We calculate this for you during your free assessment.",
+            "It depends on the combined wattage of what you want to run at once. A home running a few lights, a TV, and a fridge needs far less than one running multiple air conditioners. We calculate this for you during your site assessment.",
         },
         {
           question: "Can you install an inverter with my existing solar panels or generator setup?",

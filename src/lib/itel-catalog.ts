@@ -32,14 +32,39 @@ export type BenchmarkRow = {
   sampleSize: number;
 };
 
+// Identifies us honestly. Node's bare default user agent is the kind of
+// request bot filters drop first.
+const REQUEST_HEADERS = {
+  Accept: "application/json",
+  "User-Agent": "Mozilla/5.0 (compatible; PowerNexaPriceSync/1.0; +https://www.powernexasolutions.site)",
+};
+
+export class CatalogFetchError extends Error {
+  constructor(
+    message: string,
+    readonly status?: number
+  ) {
+    super(message);
+  }
+}
+
+// Throws on any non-200 response instead of quietly stopping. A silent stop
+// used to report a "successful" sync of 0 rows and wipe the last good snapshot.
 async function fetchCategoryProducts(categoryId: number): Promise<ItelProduct[]> {
   const products: ItelProduct[] = [];
   for (let page = 1; page <= 5; page++) {
-    const res = await fetch(
-      `${ITEL_STORE_API}?category=${categoryId}&per_page=100&page=${page}`,
-      { cache: "no-store" }
-    );
-    if (!res.ok) break;
+    const res = await fetch(`${ITEL_STORE_API}?category=${categoryId}&per_page=100&page=${page}`, {
+      cache: "no-store",
+      headers: REQUEST_HEADERS,
+      signal: AbortSignal.timeout(20_000),
+    });
+    if (!res.ok) {
+      throw new CatalogFetchError(`Itel Solar returned HTTP ${res.status} for category ${categoryId}`, res.status);
+    }
+    const contentType = res.headers.get("content-type") ?? "";
+    if (!contentType.includes("json")) {
+      throw new CatalogFetchError(`Itel Solar returned ${contentType || "no content type"} instead of JSON (likely a bot challenge page)`);
+    }
     const batch = (await res.json()) as ItelProduct[];
     products.push(...batch);
     if (batch.length < 100) break;

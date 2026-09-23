@@ -58,6 +58,11 @@ create table if not exists leads (
 -- table above.
 alter table leads add column if not exists archived_at timestamptz;
 
+-- Optional "what do you want to power?" answer from the quote form, stored as
+-- a package key from src/lib/costing.ts (e.g. 'medium'). Lets /admin/leads
+-- show an internal price estimate per lead. Never shown to the customer.
+alter table leads add column if not exists load_profile text;
+
 create index if not exists idx_leads_status on leads (status, created_at);
 create index if not exists idx_leads_archived on leads (archived_at);
 
@@ -129,6 +134,27 @@ create table if not exists equipment_price_benchmarks (
 );
 
 alter table equipment_price_benchmarks enable row level security;
+
+-- Supplier price lists typed in from a company's own price sheet (e.g. Nexus),
+-- for suppliers whose website has no usable public prices. One row per item.
+-- Edited in /admin/pricing. Internal quote prep only, never shown to a customer.
+-- size is kVA for inverters, kWh for batteries, watts for panels.
+create table if not exists supplier_price_items (
+  id bigint generated always as identity primary key,
+  supplier text not null,
+  category text not null check (category in ('inverter', 'battery', 'panel')),
+  name text not null,
+  size numeric not null check (size > 0),
+  voltage text,
+  chemistry text check (chemistry in ('lithium', 'tubular')),
+  price_ngn numeric not null check (price_ngn > 0),
+  available boolean not null default true,
+  notes text,
+  updated_at timestamptz not null default now()
+);
+
+create index if not exists idx_supplier_price_items_lookup on supplier_price_items (category, available);
+alter table supplier_price_items enable row level security;
 
 -- Row Level Security: enabled with no public policies on every table.
 -- The Next.js server is the only client that ever talks to Supabase, using

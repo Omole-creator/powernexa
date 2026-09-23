@@ -59,9 +59,9 @@ See our full [pricing guide](/pricing) for more detail on these tiers.
 
 ## How to get an accurate number
 
-The only way to get a price that actually applies to you is a load assessment. We offer a free site visit where we look at your appliances, your electricity bill, and your property, then hand you a written quote with everything explained. No pressure, no hidden line items.
+The only way to get a price that actually applies to you is a load assessment. We do a site assessment where we look at your appliances, your electricity bill, and your property, then hand you a written quote with everything explained. No pressure, no hidden line items.
 
-If you're ready, [get a free quote](/get-a-quote) or message us on WhatsApp with what you're trying to power, and we'll tell you what it will realistically take.
+If you're ready, [get a quote](/get-a-quote) or message us on WhatsApp with what you're trying to power, and we'll tell you what it will realistically take.
 
 ## A quick word on comparing installers
 
@@ -121,7 +121,7 @@ Ask the installer this one question: "If I only wanted to power my fridge, light
 
 ## Ready to compare?
 
-If you want a written, load-based quote to compare against what you've already received, [request a free quote](/get-a-quote) or message us on WhatsApp. We'll walk you through exactly what we're proposing and why, so you can make an informed decision either way.`,
+If you want a written, load-based quote to compare against what you've already received, [request a quote](/get-a-quote) or message us on WhatsApp. We'll walk you through exactly what we're proposing and why, so you can make an informed decision either way.`,
   },
   {
     slug: "solar-and-inverter-installation-lagos-complete-guide",
@@ -189,7 +189,7 @@ A roof full of panels is wasted if your inverter can't handle the output or your
 
 ## Where PowerNexa fits in
 
-We install and maintain solar, inverter, and battery systems across Lagos, including [Victoria Island](/locations/victoria-island), [Lekki Phase 1](/locations/lekki-phase-1), [Ikoyi](/locations/ikoyi), [Ajah](/locations/ajah), and beyond. Every project starts with the load calculation described above, not a generic package. If you're ready to get specific numbers for your home, [request a free quote](/get-a-quote) and we'll take it from there.`,
+We install and maintain solar, inverter, and battery systems across Lagos, including [Victoria Island](/locations/victoria-island), [Lekki Phase 1](/locations/lekki-phase-1), [Ikoyi](/locations/ikoyi), [Ajah](/locations/ajah), and beyond. Every project starts with the load calculation described above, not a generic package. If you're ready to get specific numbers for your home, [request a quote](/get-a-quote) and we'll take it from there.`,
   },
   {
     slug: "inverter-vs-generator-lagos",
@@ -245,7 +245,7 @@ You don't have to choose one and abandon the other overnight. A common, sensible
 
 ## Getting a system sized for your actual usage
 
-If you're considering the switch, the right next step is a load assessment, not a guess based on your current generator's kVA rating. See our [inverter installation](/services/inverter-installation) service or [request a free quote](/get-a-quote) to get a system sized around what you actually run, with pricing explained in writing.`,
+If you're considering the switch, the right next step is a load assessment, not a guess based on your current generator's kVA rating. See our [inverter installation](/services/inverter-installation) service or [request a quote](/get-a-quote) to get a system sized around what you actually run, with pricing explained in writing.`,
   },
   {
     slug: "solar-battery-types-lithium-vs-tubular",
@@ -305,7 +305,7 @@ Not all lithium chemistries are equal. LiFePO4 is widely regarded as one of the 
 
 ## Getting the right battery for your situation
 
-The right choice depends on your budget, how much backup capacity you need, and how much ongoing maintenance you're willing to do. See our [battery replacement and storage service](/services/battery-replacement-storage) for details on both options, or [request a free quote](/get-a-quote) and we'll recommend based on your specific situation, not just push whichever is more profitable for us.`,
+The right choice depends on your budget, how much backup capacity you need, and how much ongoing maintenance you're willing to do. See our [battery replacement and storage service](/services/battery-replacement-storage) for details on both options, or [request a quote](/get-a-quote) and we'll recommend based on your specific situation, not just push whichever is more profitable for us.`,
   },
   {
     slug: "how-long-does-solar-installation-take-in-lagos",
@@ -327,7 +327,7 @@ The right choice depends on your budget, how much backup capacity you need, and 
 
 ## Stage 1: First contact to site visit (same day to a few days)
 
-Once you reach out by phone, WhatsApp, or our [quote form](/get-a-quote), we confirm details fast. A free site visit is usually scheduled within the same business day, depending on our current schedule. During the visit, we review your appliances, your electricity bill, and inspect your roof and wiring.
+Once you reach out by phone, WhatsApp, or our [quote form](/get-a-quote), we confirm details fast. A site assessment is usually booked within the same business day, depending on our current schedule. During the visit, we review your appliances, your electricity bill, and inspect your roof and wiring.
 
 ## Stage 2: Written quote (usually within a day or two of the visit)
 
@@ -363,6 +363,6 @@ A well-organized installer with your load calculation already done, equipment co
 
 If you run a business, see our note on [scheduling installation around business hours](/services/commercial-solar-for-business) to minimize disruption. For homes, we work with you to pick installation days that fit your schedule, including weekends where needed.
 
-Ready to get a specific timeline for your property? [Request a free quote](/get-a-quote) and we'll give you a realistic date range based on your system size and our current schedule, not an optimistic guess.`,
+Ready to get a specific timeline for your property? [Request a quote](/get-a-quote) and we'll give you a realistic date range based on your system size and our current schedule, not an optimistic guess.`,
   },
 ];

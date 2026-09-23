@@ -15,6 +15,7 @@ export function quoteWhatsAppMessage(input: {
   propertyType: string;
   serviceInterest: string;
   budgetRange?: string;
+  loadProfile?: string;
   message?: string;
 }): string {
   const lines = [
@@ -26,6 +27,7 @@ export function quoteWhatsAppMessage(input: {
     `Property type: ${input.propertyType}`,
     `Service needed: ${input.serviceInterest}`,
   ];
+  if (input.loadProfile) lines.push(`Want to power: ${input.loadProfile}`);
   if (input.budgetRange) lines.push(`Budget range: ${input.budgetRange}`);
   if (input.message) lines.push(`Message: ${input.message}`);
   lines.push("", "Please can someone get back to me?");

@@ -112,7 +112,7 @@ export default function ContactPage() {
           </div>
 
           <Reveal delay={150}>
-            <SectionHeading eyebrow="Or send a request" title="Get a free quote" />
+            <SectionHeading eyebrow="Or send a request" title="Get a quote" />
             <div className="mt-6 rounded-2xl border border-line bg-white p-7">
               <QuoteForm />
             </div>

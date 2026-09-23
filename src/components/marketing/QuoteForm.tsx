@@ -4,6 +4,7 @@ import { useActionState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { submitQuote, type QuoteFormState } from "@/actions/quote";
 import { BUDGET_RANGES, LAGOS_AREAS, PROPERTY_TYPES, SERVICES } from "@/lib/constants";
+import { LOAD_PROFILES } from "@/lib/costing";
 
 const initialState: QuoteFormState = { success: false };
 
@@ -119,6 +120,17 @@ export function QuoteForm({ variant = "full" }: { variant?: "full" | "compact" }
         </Field>
       </div>
 
+      <Field label="What do you want to power? (optional)" name="loadProfile">
+        <select name="loadProfile" defaultValue="" className={inputClass}>
+          <option value="">Pick the closest match</option>
+          {LOAD_PROFILES.map((profile) => (
+            <option key={profile.value} value={profile.value}>
+              {profile.label}
+            </option>
+          ))}
+        </select>
+      </Field>
+
       {variant === "full" ? (
         <Field label="Tell us more (optional)" name="message">
           <textarea
@@ -137,7 +149,7 @@ export function QuoteForm({ variant = "full" }: { variant?: "full" | "compact" }
         disabled={pending}
         className="w-full rounded-full bg-orange px-6 py-3.5 font-semibold text-white transition hover:bg-orange-dark disabled:opacity-60"
       >
-        {pending ? "Sending..." : "Get my free quote on WhatsApp"}
+        {pending ? "Sending..." : "Send my request on WhatsApp"}
       </button>
       <p className="text-center text-xs text-charcoal/50">
         We&apos;ll open WhatsApp with your details ready to send. No spam, ever.

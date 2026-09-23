@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     template: `%s | ${SITE_NAME}`,
   },
   description:
-    "PowerNexa Solutions installs and maintains solar panels, inverters, and battery backup systems for homes and businesses across Lagos. Get a free quote today.",
+    "PowerNexa Solutions installs and maintains solar panels, inverters, and battery backup systems for homes and businesses across Lagos. Get a quote today.",
   keywords: [
     "solar installation Lagos",
     "inverter installation Lagos",

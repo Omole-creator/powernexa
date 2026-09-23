@@ -108,7 +108,7 @@ export default function PricingPage() {
             <p className="mt-5 text-lg leading-relaxed text-charcoal/75">
               We won&apos;t quote you a fake fixed price here, because it would be wrong for most
               people who read it. Instead, here&apos;s exactly what drives cost up or down, so you
-              can budget realistically before you request your free, exact quote.
+              can budget realistically before you request your exact quote.
             </p>
           </Reveal>
         </Container>
@@ -137,7 +137,7 @@ export default function PricingPage() {
               light
               eyebrow="Typical system tiers"
               title="Three common starting points"
-              description="These are illustrative categories, not quotes. Your exact system and price come from your free site visit."
+              description="These are illustrative categories, not quotes. Your exact system and price come from your site assessment."
             />
           </Reveal>
           <div className="mt-10 grid gap-6 lg:grid-cols-3">
@@ -178,7 +178,7 @@ export default function PricingPage() {
 
       <CtaBand
         title="Get your exact price, not an estimate"
-        description="A free site visit gives you a written quote based on your actual load, not a guess."
+        description="A site assessment gives you a written quote based on your load, not a guess."
       />
     </>
   );

@@ -29,7 +29,7 @@ export async function generateMetadata({
 
   return {
     title: `Solar Installation in ${area.name}, Lagos`,
-    description: `Solar panel, inverter, and battery installation in ${area.name}, Lagos. Free load-based quote, written warranty, and fast local response.`,
+    description: `Solar panel, inverter, and battery installation in ${area.name}, Lagos. Load-based quote, written warranty, and fast local response.`,
     alternates: { canonical: `/locations/${area.slug}` },
   };
 }
@@ -54,7 +54,7 @@ export default async function LocationPage({ params }: { params: Promise<{ area:
     },
     {
       question: `What does solar installation cost in ${area.name}?`,
-      answer: `Pricing depends on your load, not your neighborhood. See our pricing guide for the factors that determine cost, then request a free quote for an exact number based on your property.`,
+      answer: `Pricing depends on your load, not your neighborhood. See our pricing guide for the factors that determine cost, then request a quote for an exact number based on your property.`,
     },
   ];
 
@@ -94,7 +94,7 @@ export default async function LocationPage({ params }: { params: Promise<{ area:
             <p className="mt-5 text-lg leading-relaxed text-charcoal/75">{area.blurb}</p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Button href="/get-a-quote" size="lg">
-                Get a Free Quote
+                Get a Quote
               </Button>
               <Button href="/services" variant="outline" size="lg">
                 See All Services

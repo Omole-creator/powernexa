@@ -19,7 +19,7 @@ export function CtaBand({
         <p className="max-w-xl text-white/75">{description}</p>
         <div className="flex flex-col gap-3 sm:flex-row">
           <Button href="/get-a-quote" size="lg">
-            Get a Free Quote
+            Get a Quote
           </Button>
           <Button href={buildWhatsAppUrl(defaultWhatsAppMessage())} variant="outlineWhite" size="lg">
             Chat on WhatsApp

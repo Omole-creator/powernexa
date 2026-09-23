@@ -48,3 +48,11 @@ yarn-error.log*
 next-env.d.ts
 
 .vercel
+
+# private, non-code documents (contracts, personal legal docs) — never commit
+/legal/
+
+# raw owner source files: only the watermarked web copies in
+# public/videos/projects are committed, and the pricing guide stays private
+/*.mp4
+/*.docx

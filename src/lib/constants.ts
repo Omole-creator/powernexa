@@ -6,9 +6,9 @@ export const PHONE_DISPLAY = "0813 209 7317";
 export const PHONE_E164 = "+2348132097317";
 export const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "2348132097317";
 
-export const PHONE_DISPLAY_2 = "0906 556 0594";
-export const PHONE_E164_2 = "+2349065560594";
-export const QUOTE_WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_QUOTE_WHATSAPP_NUMBER || "2349065560594";
+export const PHONE_DISPLAY_2 = "0708 695 0312";
+export const PHONE_E164_2 = "+2347086950312";
+export const QUOTE_WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_QUOTE_WHATSAPP_NUMBER || "2347086950312";
 
 export const CONTACT_EMAIL = "powernexas@gmail.com";
 
@@ -147,6 +147,7 @@ export const NAV_LINKS = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
   { href: "/services", label: "Services" },
+  { href: "/projects", label: "Projects" },
   { href: "/locations", label: "Locations" },
   { href: "/pricing", label: "Pricing" },
   { href: "/blog", label: "Blog" },

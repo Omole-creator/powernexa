@@ -69,7 +69,7 @@ export function ServiceDetailLayout({
             <p className="mt-5 text-lg leading-relaxed text-charcoal/75">{heroDescription}</p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Button href="/get-a-quote" size="lg">
-                Get a Free Quote
+                Get a Quote
               </Button>
               <Button href="/pricing" variant="outline" size="lg">
                 See Pricing Factors

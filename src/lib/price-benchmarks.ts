@@ -29,16 +29,19 @@ export async function listPriceBenchmarks(): Promise<PriceBenchmark[]> {
 // Delete-then-insert (not upsert) because a sync can drop a subtype entirely
 // (e.g. Itel sells out of 3-phase inverters), and a stale row for a subtype
 // with no current data is worse than no row at all.
+// An empty result is treated as a failure, never as "Itel sells nothing now",
+// so a bad fetch can't wipe the last good snapshot.
 export async function syncAllPriceBenchmarks(): Promise<{ synced: number }> {
   const itelRows = await fetchItelBenchmarks();
+  if (itelRows.length === 0) {
+    throw new Error("Itel Solar's catalog came back with no priced panels, inverters or batteries");
+  }
 
   const { error: deleteError } = await supabase
     .from("equipment_price_benchmarks")
     .delete()
     .eq("source", "itel_solar");
   if (deleteError) throw deleteError;
-
-  if (itelRows.length === 0) return { synced: 0 };
 
   const { error: insertError } = await supabase.from("equipment_price_benchmarks").insert(
     itelRows.map((row) => ({

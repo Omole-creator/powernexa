@@ -6,6 +6,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { GlowOrb } from "@/components/ui/GlowOrb";
 import { Waveform } from "@/components/marketing/Waveform";
 import { StatStrip } from "@/components/marketing/StatStrip";
+import { ProofSection } from "@/components/marketing/ProofSection";
 import { TrustedBy } from "@/components/marketing/TrustedBy";
 import { ServiceCard } from "@/components/marketing/ServiceCard";
 import { LocationCard } from "@/components/marketing/LocationCard";
@@ -99,7 +100,7 @@ export default function HomePage() {
             <Reveal delay={320}>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <Button href="/get-a-quote" size="lg">
-                  Get a Free Quote
+                  Get a Quote
                 </Button>
                 <Button href="/services" variant="outlineWhite" size="lg">
                   See Our Services
@@ -118,6 +119,10 @@ export default function HomePage() {
       </section>
 
       <TrustedBy />
+
+      {/* Proof: counters plus one install video, straight after the hero so the
+          claim is backed up before we ask for anything. */}
+      <ProofSection />
 
       {/* Services: one featured, rest supporting, not a flat uniform grid */}
       <section className="relative overflow-hidden py-24">
@@ -315,7 +320,7 @@ export default function HomePage() {
         <GlowOrb color="orange" className="left-1/3 top-0 h-64 w-64" />
         <Container className="relative grid gap-12 lg:grid-cols-2">
           <Reveal>
-            <SectionHeading eyebrow="Get a quote" title="Get your free, no-pressure quote" />
+            <SectionHeading eyebrow="Get a quote" title="Get your no-pressure quote" />
             <div className="mt-8 rounded-[28px] bg-white p-7 shadow-[0_20px_50px_-24px_rgba(9,43,76,0.25)]">
               <QuoteForm />
             </div>

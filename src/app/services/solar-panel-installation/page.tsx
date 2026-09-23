@@ -18,7 +18,7 @@ export default function SolarPanelInstallationPage() {
       slug="solar-panel-installation"
       heroDescription="Rooftop solar for homes, estates, and offices across Lagos. We calculate your actual power needs first, then design a panel array that covers it, not a generic package sized for a different house."
       benefits={[
-        "Free site visit to check roof space, angle, and shading before we recommend anything.",
+        "Site assessment to check roof space, angle, and shading before we recommend anything.",
         "Monocrystalline or polycrystalline panels, matched to your budget and available space.",
         "Structural mounting rated for Lagos wind and rain, not a bracket kit from a hardware stall.",
         "Full wiring, earthing, and safety isolation done to standard, not shortcuts to save time.",
@@ -31,7 +31,7 @@ export default function SolarPanelInstallationPage() {
           <Link href="/pricing" className="font-semibold text-orange">
             full pricing guide
           </Link>{" "}
-          for realistic ranges, or request a free quote for an exact number.
+          for realistic ranges, or request a quote for an exact number.
         </p>
       }
       processIntro="Every panel installation follows the same disciplined process, whether it's a 2-panel starter system or a 40-panel commercial array."
@@ -46,7 +46,7 @@ export default function SolarPanelInstallationPage() {
         {
           question: "How many solar panels do I need for my home?",
           answer:
-            "It depends entirely on what you want to run and for how long. A single fridge and some lights need far fewer panels than a home running multiple AC units. We calculate this during your free site visit rather than guessing.",
+            "It depends entirely on what you want to run and for how long. A single fridge and some lights need far fewer panels than a home running multiple AC units. We calculate this during your site assessment rather than guessing.",
         },
         {
           question: "Do you install both monocrystalline and polycrystalline panels?",

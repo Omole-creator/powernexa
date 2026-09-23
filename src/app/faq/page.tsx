@@ -21,12 +21,12 @@ const GROUPS: { title: string; items: { question: string; answer: string }[] }[]
       {
         question: "How do I get a quote?",
         answer:
-          "Fill in the quote form on this site, call us, or message us on WhatsApp with what you'd like to power. We'll ask a few questions and schedule a free site visit to give you a written quote.",
+          "Fill in the quote form on this site, call us, or message us on WhatsApp with what you'd like to power. We'll ask a few questions, then book a site assessment and give you a written quote.",
       },
       {
-        question: "Is the site visit really free?",
+        question: "Do you charge for the site visit?",
         answer:
-          "Yes. We visit, assess your load and property, and provide a written quote at no charge and no obligation to proceed.",
+          "Asking questions on WhatsApp or by phone is free. The site assessment has a small fee, and we tell you the amount before we book. If you go ahead with the installation, we take the full fee off your final price.",
       },
       {
         question: "How long does the whole process take, from quote to commissioning?",

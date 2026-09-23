@@ -1,5 +1,6 @@
 import "server-only";
 import { supabase } from "./supabase";
+import { loadProfileLabel } from "./costing";
 
 export type Lead = {
   id: number;
@@ -17,6 +18,7 @@ export type Lead = {
   status: "new" | "contacted" | "quoted" | "won" | "lost";
   created_at: string;
   archived_at: string | null;
+  load_profile?: string | null;
 };
 
 export type LeadEditInput = {
@@ -37,6 +39,7 @@ export type NewLeadInput = {
   serviceInterest: string;
   budgetRange?: string;
   message?: string;
+  loadProfile?: string;
   sourcePage?: string;
   utmSource?: string;
   utmMedium?: string;
@@ -44,26 +47,36 @@ export type NewLeadInput = {
 };
 
 export async function createLead(input: NewLeadInput): Promise<number> {
+  const row = {
+    name: input.name,
+    phone: input.phone,
+    area: input.area,
+    property_type: input.propertyType,
+    service_interest: input.serviceInterest,
+    budget_range: input.budgetRange ?? null,
+    message: input.message ?? null,
+    source_page: input.sourcePage ?? null,
+    utm_source: input.utmSource ?? null,
+    utm_medium: input.utmMedium ?? null,
+    utm_campaign: input.utmCampaign ?? null,
+  };
+
   const { data, error } = await supabase
     .from("leads")
-    .insert({
-      name: input.name,
-      phone: input.phone,
-      area: input.area,
-      property_type: input.propertyType,
-      service_interest: input.serviceInterest,
-      budget_range: input.budgetRange ?? null,
-      message: input.message ?? null,
-      source_page: input.sourcePage ?? null,
-      utm_source: input.utmSource ?? null,
-      utm_medium: input.utmMedium ?? null,
-      utm_campaign: input.utmCampaign ?? null,
-    })
+    .insert({ ...row, load_profile: input.loadProfile ?? null })
     .select("id")
     .single();
+  if (!error) return data.id;
 
-  if (error) throw error;
-  return data.id;
+  // load_profile needs a one-time `alter table` in Supabase. Until it's run,
+  // save the lead anyway and keep the answer in the message, so a quote
+  // request is never lost over a missing column.
+  if (!/load_profile/.test(error.message ?? "")) throw error;
+  const label = loadProfileLabel(input.loadProfile);
+  const message = [label ? `Wants to power: ${label}` : null, row.message].filter(Boolean).join("\n") || null;
+  const retry = await supabase.from("leads").insert({ ...row, message }).select("id").single();
+  if (retry.error) throw retry.error;
+  return retry.data.id;
 }
 
 export async function listLeads(options?: { archived?: boolean | "all" }): Promise<Lead[]> {
@@ -124,6 +137,7 @@ export function leadsToCsv(leads: Lead[]): string {
     "property_type",
     "service_interest",
     "budget_range",
+    "load_profile",
     "message",
     "source_page",
     "utm_source",

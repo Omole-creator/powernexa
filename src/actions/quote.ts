@@ -5,6 +5,7 @@ import { recordEvent } from "@/lib/analytics";
 import { quoteWhatsAppMessage, buildWhatsAppUrl } from "@/lib/whatsapp";
 import { requiredString, optionalString, isValidNigerianPhone } from "@/lib/validation";
 import { QUOTE_WHATSAPP_NUMBER } from "@/lib/constants";
+import { LOAD_PROFILES, loadProfileLabel } from "@/lib/costing";
 
 export type QuoteFormState = {
   success: boolean;
@@ -21,6 +22,8 @@ export async function submitQuote(_prevState: QuoteFormState, formData: FormData
   const serviceInterest = requiredString(formData.get("serviceInterest"), 120);
   const budgetRange = optionalString(formData.get("budgetRange"), 60);
   const message = optionalString(formData.get("message"), 1000);
+  const rawLoadProfile = optionalString(formData.get("loadProfile"), 30);
+  const loadProfile = LOAD_PROFILES.some((p) => p.value === rawLoadProfile) ? rawLoadProfile : undefined;
   const sourcePage = optionalString(formData.get("sourcePage"), 200);
   const utmSource = optionalString(formData.get("utmSource"), 100);
   const utmMedium = optionalString(formData.get("utmMedium"), 100);
@@ -46,6 +49,7 @@ export async function submitQuote(_prevState: QuoteFormState, formData: FormData
     serviceInterest: serviceInterest!,
     budgetRange,
     message,
+    loadProfile,
     sourcePage,
     utmSource,
     utmMedium,
@@ -69,6 +73,7 @@ export async function submitQuote(_prevState: QuoteFormState, formData: FormData
       propertyType: propertyType!,
       serviceInterest: serviceInterest!,
       budgetRange,
+      loadProfile: loadProfileLabel(loadProfile) ?? undefined,
       message,
     }),
     QUOTE_WHATSAPP_NUMBER

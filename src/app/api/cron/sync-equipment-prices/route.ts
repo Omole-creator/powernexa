@@ -15,6 +15,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ ok: true, ...result });
   } catch (error) {
     console.error("Equipment price sync failed", error);
-    return NextResponse.json({ ok: false, error: "Sync failed" }, { status: 500 });
+    const detail = error instanceof Error ? error.message : "Sync failed";
+    return NextResponse.json({ ok: false, error: detail }, { status: 500 });
   }
 }

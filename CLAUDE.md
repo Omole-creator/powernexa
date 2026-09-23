@@ -92,14 +92,11 @@ errors, just retry the exact same command.
 
 ## Known open items
 
-- **Paste the supplier price SQL into Supabase** (the `supplier_price_items`
-  table and `alter table leads add column if not exists load_profile text;`,
-  both in `supabase/schema.sql`, also shown on `/admin/pricing` until run).
-  Until then supplier lists can't be saved and the leads estimate column
-  shows "Not set". Then click "Load Nexus price list" on `/admin/pricing`.
-  Two Nexus sheet entries need owner confirmation: the 600W panel (sheet
+- Supplier price SQL (`supplier_price_items`, `leads.load_profile`) was run
+  in Supabase and the Nexus Sept 2026 list (18 items) loaded, Sept 2026.
+  Two Nexus entries still need owner confirmation: the 600W panel (sheet
   said ₦13,000, entered as ₦130,000) and the lithium batteries (sheet said
-  "Not available" above them).
+  "Not available" above them). Fix either in `/admin/pricing`.
 - **Itel sync is blocked in production.** Confirmed Sept 2026: Itel's
   Cloudflare returns HTTP 403 to requests from Vercel's servers (the same
   request works from an ordinary Nigerian connection). That is their bot

@@ -33,49 +33,70 @@ product or architecture changes. Summary:
 - Homepage hero is modelled on designskonstruct.com (owner's chosen template, Sept 2026): centred pill badge, the locked headline (white-to-white/65 gradient text), subtext, "Get a Quote" and "See Our Services" on one line even on phones (`flex-nowrap`, `flex-1` below `sm`), then `HeroCollage`, three overlapping 4:5 photo cards (sides tilted ±6° and tucked behind a larger centre card) that rise in one by one and drift slightly on scroll, over a bottom fade to white. Entrance animations are the `.hero-fade-in` / `.hero-rise` / `.hero-zoom` classes in `globals.css` (reduced-motion safe). There is no stat strip under the hero any more. Section order after it: TrustedBy, Services, **Our track record** (`TrackRecord.tsx`, navy, 4 glass stat cards counting up from 1: 125+ projects completed, 99%+ customer satisfaction, 100% installation warranty, 24/7 customer support, the owner's own figures, don't point it at a single project), **Featured Projects** (`FeaturedProjects.tsx`, "A look at work we've completed", a scroll-snap video carousel with a prev/next arrow at each end, 4:5 cropped cards via `ProjectVideoCard compact`, starting one video pauses the others), then How it works, and so on. `Reveal` transitions `translate`/`scale`/`filter` (Tailwind v4 uses those standalone properties, not `transform`, so listing only `transform` made everything jump into place).
 - Projects: `/projects` (in the main nav) shows the owner's install videos from `PROJECT_VIDEOS` in `src/lib/projects-data.ts`, framed as a small sample of the total (`PROJECTS_COMPLETED`, currently 125, the owner's count, also used by the track record). Videos in `public/videos/projects/` are 720p re-encodes with the PowerNexa logo burned in, faint (about 28% opacity) and centred, plus a poster JPG. Make new ones the same way (ffmpeg overlay of an alpha-faded crop of `logo-transparent.png` at 380px wide, `-crf 28 -maxrate 850k`, `+faststart`). Keep the source phone videos out of git (`/*.mp4` is gitignored). Labels use only the owner's own captions; Mowe-Ibafo came with a location only, so its label names visible parts without sizes.
 
-## Top 30 blog topics (SEO content roadmap)
+## Blog topic roadmap (SEO content, re-validated Sept 2026)
 
-Chosen to build topical authority around the three highest-value keyword clusters
-from the Lagos keyword research (installation, local-provider, pricing), plus
-location pages and trust/credibility content. Write these in roughly this order,
-pricing and cost-guide posts first (highest existing search intent and easiest to
-rank, per the low-competition keywords in the research), then location posts,
-then technical/trust posts.
+Full evidence, the owner's top-50 keyword list, and the rules below are in
+`docs/KEYWORD-RESEARCH.md`. The old "top 30" list was never checked against real
+searches; in Sept 2026 each topic was checked against Nigerian Google autocomplete
+(`gl=ng`), current search results and Nairaland, and the list below replaced it.
+The owner's top-50 list is a Google Keyword Planner export set to Lagos (bucketed
+50/500/5,000 volumes). Its broad 5,000/month terms ("solar panels for home",
+"solar energy for home") are shop-heavy results, so they're targeted by the home
+page, service pages and one pillar post (#3 below); the blog's long-tail posts
+come from autocomplete evidence.
 
-1. How Much Does Solar Panel Installation Cost in Lagos? (Price Guide)
-2. Solar Panel Installation Cost in Lagos: A Full Breakdown by System Size
-3. Best Solar Installers in Lagos: What to Check Before You Pay Anyone
-4. Solar and Inverter Installation in Lagos: The Complete Homeowner's Guide
-5. How to Choose the Right Inverter Size for Your Lagos Home
-6. Solar Panels for Home in Lagos: Is It Worth It in 2026?
-7. Inverter vs Generator: Which Saves You More Money in Lagos?
-8. How Many Solar Panels Do You Need to Power a 3-Bedroom Flat in Lagos?
-9. Solar Battery Types Explained: Lithium vs Tubular for Lagos Homes
-10. Signs Your Inverter Battery Needs Replacement (And What It Costs)
-11. Solar Installation in Victoria Island: What Homeowners Need to Know
-12. Solar Installers in Lekki Phase 1: A Local Buyer's Guide
-13. Solar Power for Ikoyi Homes: Backup Systems for Luxury Properties
-14. Solar and Inverter Installation in Ajah: Affordable Options for Families
-15. Solar Installation in VGC (Victoria Garden City): Estate-Wide Solutions
-16. Best Solar Companies Near Sangotedo and Ajah
-17. How to Size a Solar System for an Office or Clinic in Lagos
-18. Commercial Solar for Business in Lagos: Cutting Diesel Costs at Scale
-19. Solar for Estates in Lagos: Adding Power Backup From Day One
-20. Off-Grid vs Hybrid Solar Systems: Which Is Right for Lagos Power Cuts?
-21. How Long Does a Solar Panel Installation Take in Lagos?
-22. Solar Panel Maintenance in Lagos: A Checklist for Harmattan and Rainy Season
-23. Common Inverter Problems in Nigeria and How to Fix Them
-24. How to Read Your Electricity Bill and Know If Solar Will Save You Money
-25. Monocrystalline vs Polycrystalline Solar Panels: Which Suits Lagos Heat?
-26. What Warranty Should You Expect From a Solar Installer in Lagos?
-27. 7 Questions to Ask a Solar Installer Before You Sign a Contract
-28. How Net Metering and Feed-in Policies Could Affect Lagos Homeowners
-29. Solar Panel Installation for Rental Properties: A Landlord's Guide
-30. Actual Cost of Running Generators vs Solar in Lagos: A 5-Year Comparison
+Rules for every post:
+- Title says "Lagos" (or one specific area, only in that area's post). Never list
+  several areas in one title; use area names in the body where they fit.
+- "Near me" keywords belong on the home page, `/locations`, location pages and the
+  Google Business Profile, not in blog titles.
+- Use Nigerian phrasing: kVA sizes, "can it carry", "NEPA", "light", "pumping machine".
+- Only write area posts for areas with search evidence: Lekki, Ajah, Victoria
+  Island, Ikeja. Ikoyi, VGC and Sangotedo have none, their location pages cover them.
+- No public price posts until the owner decides (see `docs/KEYWORD-RESEARCH.md` section 6).
+- Run each post through `computeSeoChecklist()` and the `humanizer` skill before publishing.
 
-The first 6 of these are seeded as full, published posts at launch (via `npm run seed:blog`) so the blog
-is not empty. The rest are backlog for the owner/marketer to write using the
-admin blog editor's built-in SEO checklist.
+**Published (6, seeded via `npm run seed:blog`):** solar panel installation cost in
+Lagos; best solar installers in Lagos; solar and inverter installation in Lagos
+(complete guide); inverter vs generator in Lagos; lithium vs tubular battery in
+Lagos; how long solar installation takes in Lagos.
+
+**Next, in this order** (focus keyword in brackets):
+
+1. What Can a 3.5kVA Inverter Carry? AC, Freezer and Pumping Machine in a Lagos Home [what can a 3.5kva inverter carry] (covers "how many solar panels for 3.5kva inverter" in an H2)
+2. What Can a 5kVA Inverter Carry? A Lagos Home Guide [what can a 5kva inverter carry] (plus "how many solar panels for 5kva inverter")
+3. Solar Energy for Home in Lagos: What a Home System Includes and What It Can Run [solar energy for home] (pillar post for the 5,000/month home terms, links to every kVA post)
+3a. What Size Inverter Do I Need? A Simple Load Calculation for Lagos Homes [what size inverter do i need]
+4. Inverter Not Charging? What to Check Before You Call a Technician in Lagos [inverter not charging]
+5. Hybrid Inverter vs Normal Inverter: Which Is Better for Lagos Power Cuts? [hybrid inverter vs normal inverter] (also covers off-grid vs hybrid)
+6. Band A Electricity Tariff in Lagos: Is Solar Now Cheaper Than NEPA? [band a electricity tariff in lagos]
+7. Solar Company in Lekki: What to Check Before You Hire One [solar company in lekki]
+8. Solar Company in Ajah: Solar and Inverter Options for Ajah and Sangotedo Homes [solar company in ajah]
+9. How Long Does an Inverter Battery Last in Lagos? Per Night and in Years [how long does inverter battery last] (includes signs it needs replacing)
+10. Why Is My Inverter Beeping? Beeps and Fault Lights Explained [inverter beeping]
+11. Grade A Lithium Battery in Nigeria: How to Spot Fake or Used Cells [grade a lithium battery in nigeria]
+12. Can Your Inverter Run a Pumping Machine? Borehole Power in Lagos [can inverter carry pumping machine]
+13. Solar System for a 3-Bedroom House in Lagos: What Size You Need [solar system for 3 bedroom house]
+14. What Can a 1.5kVA Inverter Carry? (Small Flats and Self-Contains in Lagos) [what can a 1.5kva inverter carry]
+15. 10kVA Solar System in Lagos: What It Carries and Who Needs One [10kva solar system]
+16. Solar Companies in Victoria Island: Backup Power for Homes and Offices [solar companies in victoria island]
+17. Solar Companies in Ikeja: How to Choose an Installer [solar companies in ikeja]
+18. Diesel Generator vs Solar for Businesses in Lagos [diesel generator vs solar power]
+19. Solar for Offices, Shops and Clinics in Lagos: How to Size It [solar system for office]
+20. Can Solar Power an AC in Lagos? [can solar power run ac]
+21. Solar Warranty in Nigeria: What Your Installer Should Put in Writing [solar warranty]
+22. Monocrystalline vs Polycrystalline Solar Panels in Lagos Heat [monocrystalline vs polycrystalline]
+23. How Long Do Solar Panels Last in Lagos? [how long does solar panel last]
+
+**Update, not a new post:** add "solar companies in lagos" / "best solar company in
+lagos" as secondary keywords to the live "best solar installers in Lagos" post
+(same search intent, a second post would compete with it).
+
+**Brand comparisons are allowed** (owner: PowerNexa installs any brand):
+"Felicity vs Deye Inverter", "Felicity vs Growatt", "Felicity vs Cworth lithium
+battery" all have strong autocomplete. Compare on published specs and warranty.
+
+**Needs owner input first:** any "Xkva inverter price in nigeria" post (price rule).
 
 ## Deployment (already done, for reference)
 

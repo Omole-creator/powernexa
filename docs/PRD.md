@@ -94,7 +94,7 @@ Based on the Lagos-only keyword research provided (50-keyword export), the site 
 
 Location pages (VI, Lekki, Ikoyi, Ajah, VGC, Sangotedo, Ikeja, Lagos Mainland) exist only because PowerNexa can genuinely serve these areas — no fake location pages for areas outside Lagos.
 
-The top 30 blog topics chosen to build topical authority, trust, and long-tail traffic are documented in `CLAUDE.md`.
+The blog topic roadmap (re-validated against Nigerian search data in Sept 2026) is in `CLAUDE.md`, with the evidence and the owner's keyword list in `docs/KEYWORD-RESEARCH.md`.
 
 ## 10. Analytics & anti-fraud requirement
 

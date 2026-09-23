@@ -100,9 +100,15 @@ errors, just retry the exact same command.
   Two Nexus sheet entries need owner confirmation: the 600W panel (sheet
   said ₦13,000, entered as ₦130,000) and the lithium batteries (sheet said
   "Not available" above them).
-- If Itel keeps rejecting Vercel's servers (Cloudflare in front of their
-  store API), the sync now says so with the HTTP status instead of
-  reporting success. Check `/admin/pricing` "Sync now" after deploy.
+- **Itel sync is blocked in production.** Confirmed Sept 2026: Itel's
+  Cloudflare returns HTTP 403 to requests from Vercel's servers (the same
+  request works from an ordinary Nigerian connection). That is their bot
+  policy, don't try to get around it (proxies, residential IPs, spoofed
+  browser fingerprints). The code side is fixed: the sync reports the 403
+  and keeps the last snapshot instead of wiping it. Legitimate options are
+  asking Itel for API access / allow-listing, or typing Itel's prices in as
+  a supplier list the same way as Nexus. Until then the calculator runs on
+  supplier lists only.
 
 - `analytics_events` table may still contain test rows from development and
   smoke-testing (curl calls, manual verification). The owner asked for these

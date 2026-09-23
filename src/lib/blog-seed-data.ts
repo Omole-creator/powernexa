@@ -572,9 +572,9 @@ If you want AC all night, the 48V 200Ah lithium bank (or two 100Ah units) is the
 
 ## How many solar panels for a 5kVA inverter?
 
-For most Lagos homes, 8 to 12 panels of 450 to 550 watts each is a good range. That's about 3,600 to 6,000 watts of panels.
+For most Lagos homes, 6 to 10 panels of 450 to 550 watts each is a good range. That's about 2,700 to 5,500 watts of panels.
 
-Lagos gets around 4 peak sun hours a day over the year. In the rainy months of July and August that can fall to about 3. After heat, dust and wiring losses, each 550-watt panel gives around 1.2 to 1.6kWh a day. Ten of them can refill a large battery bank and run daytime loads, including an AC, on most days.
+Lagos gets around 4 peak sun hours a day over the year. In the rainy months of July and August that can fall to about 3. After heat, dust and wiring losses, each 550-watt panel gives around 1.2 to 1.6kWh a day. Six of them can refill a 5kWh battery and run your daytime load on most days. Go toward ten if you run an AC in the daytime or have a bigger battery bank.
 
 Check two things before buying panels:
 
@@ -601,5 +601,248 @@ The last one needs attention straight away. Switch off the heavy loads and call 
 A 5kVA inverter is a good fit for many Lagos homes, but the right system depends on what you run and when. The battery bank and panels matter as much as the inverter.
 
 You can send us your appliance list on WhatsApp and ask questions for free. When you're ready, [get a quote](/get-a-quote). We'll book a site assessment, look at your wiring and load, and give you a written plan for your [inverter installation](/services/inverter-installation).`,
+  },
+  {
+    slug: "solar-energy-for-home-in-lagos",
+    title: "Solar Energy for Home in Lagos: What Size You Need and What It Can Run",
+    excerpt:
+      "What a home solar system includes, which size fits a self-contain, flat or duplex in Lagos, what it can and can't run, and how it compares with plug-in solar kits.",
+    category: "Guides",
+    tags: ["solar", "home", "sizing"],
+    focusKeyword: "solar energy for home",
+    metaTitle: "Solar Energy for Home in Lagos: Sizes and What It Runs",
+    metaDescription:
+      "Solar energy for home in Lagos explained: what a system includes, the right size for a flat or duplex, what it can run, and how it compares with solar kits.",
+    featuredImageAlt: "Solar energy for home: solar panels, inverter and batteries installed in a Lagos house",
+    authorName: "PowerNexa Solutions Team",
+    publishedDaysAgo: 0,
+    content: `For a Lagos home, solar is mostly about the evenings: keeping the fan spinning and the freezer cold when NEPA takes light at 9pm. This guide explains solar energy for home use in Lagos in plain terms: what a home system is made of, what size fits your home, what it can and can't run, and how it compares with the plug-in solar kits sold in shops.
+
+## What solar energy for home means in Lagos
+
+A home solar system has four main parts:
+
+1. Solar panels on the roof turn sunlight into power.
+2. An inverter turns that power into the kind your sockets use, and decides where power comes from at each moment.
+3. Batteries store power for the night and for cloudy days.
+4. Wiring, breakers and a changeover connect it all to your house safely.
+
+In Lagos, almost every home system is a hybrid. By day, the panels run the house and charge the batteries. At night, the batteries take over. When NEPA brings light, or you run the generator, the inverter can use that to top up the batteries too. That last part matters most in July and August, when rain cuts how much the panels make.
+
+Our [complete homeowner's guide](/blog/solar-and-inverter-installation-lagos-complete-guide) goes through each part and the installation process step by step.
+
+## What size system does your home need?
+
+The size depends on what you run, not how many rooms you have. Still, most Lagos homes fall into one of these starting points:
+
+| Your home | What it usually runs | Starting system |
+|---|---|---|
+| Self-contain or mini flat | Lights, fans, TV, laptop, phone charging | 1.5kVA inverter, 2 panels, a small lithium battery |
+| 1 to 2 bedroom flat | The above plus a fridge or freezer | 3.5kVA inverter, 4 panels, about 3.5kWh of battery |
+| 3 bedroom flat | A full flat, including one AC | 5kVA inverter, 6 panels, about 5kWh of battery or four tubular batteries (3.5kVA can do if the AC isn't used at night) |
+| Duplex or large house | Several rooms, 2 or more ACs, pumping machine | 10kVA inverter, 12 panels, about 10kWh of battery |
+
+The panels in this table are 550-watt panels. Treat these as starting points only. Two families in the same flat can need very different systems if one runs an AC all night and the other doesn't.
+
+For more detail on each size, see:
+
+- [What a 3.5kVA inverter can carry](/blog/what-can-a-3-5kva-inverter-carry)
+- [What a 5kVA inverter can carry](/blog/what-can-a-5kva-inverter-carry)
+- [What size inverter you need](/blog/what-size-inverter-do-i-need), with a simple way to add up your own load
+
+## What solar can run well
+
+Solar is good at things you run for many hours a day:
+
+- Lights, fans, TVs, decoders and Wi-Fi
+- Fridges and freezers, day and night
+- Laptops and phone charging for people working from home
+- An inverter AC, especially in the afternoon when the sun is strong
+- A pumping machine, if you pump in the daytime
+
+## What solar struggles with
+
+Anything that heats with electricity uses a lot of power. Electric cookers, hot plates, kettles and water heaters use 1,500 to 3,000 watts each. They empty batteries fast, so most homes keep these on gas or on NEPA.
+
+Running ACs all night is possible, but it needs a large battery bank. The battery, not the panels, is usually the most expensive part of that plan. If night-time AC matters to you, say so at the start so the system is sized for it.
+
+## Solar kits, "solar generators" and installed systems
+
+You'll see three kinds of solar products for sale in Lagos. They do different jobs.
+
+Small solar home kits come with a panel, a control box and a few bulbs, sometimes a fan or TV. They are made for lighting and charging in a room or small flat. They are cheap and easy to set up, but they can't run a fridge, freezer or AC.
+
+Portable "solar generators" are boxes with a battery and inverter inside, charged by a panel or by NEPA. You plug appliances straight into them. They are handy for a room or a shop, but most can't run a whole house for long, and they aren't wired into your sockets.
+
+An installed solar system is wired into your house through the distribution board and changeover. It powers your normal sockets and switches, and it can grow later with more panels or batteries. It costs more at the start, but it's the only one of the three that can carry a whole home.
+
+## Does solar energy for home save money in Lagos?
+
+It depends on what you're paying for power now.
+
+If you run a petrol or diesel generator most evenings, fuel is a cost you pay every week. A solar system is paid for once, then the sun does most of the work. The saving grows the more hours you used to run the generator.
+
+If you're on a Band A feeder, your tariff has been over ₦200 per kWh since the 2024 increase. Solar can cut how much you buy from the grid. The saving is smaller than replacing a generator, though, because Band A feeders are meant to get at least 20 hours of supply a day.
+
+Our [inverter vs generator guide](/blog/inverter-vs-generator-lagos) compares running costs in more detail. For what drives the price of a system, see our [solar installation cost guide](/blog/solar-panel-installation-cost-in-lagos).
+
+## Lagos weather and your panels
+
+Lagos gets around 4 hours of strong sun a day on average. It can drop to about 3 in July and August, when rain and cloud are heavy. A good installer sizes the panels with the rainy season in mind, not only the sunny months.
+
+Harmattan dust also settles on panels and lowers what they make. Rinsing them with clean water from time to time helps. Our [maintenance service](/services/solar-maintenance-repair) includes panel cleaning and system checks.
+
+## How long each part lasts
+
+Each part of a home system wears out at a different pace:
+
+- Solar panels last the longest. Good panels usually come with a 25-year output warranty, and they keep working after that at a lower output.
+- Inverters usually last 5 to 10 years. Heat, poor airflow and power surges from NEPA shorten that, so where it's mounted matters.
+- Tubular batteries often need replacing after 3 to 5 years in daily use.
+- Lithium batteries last longer, often 8 years or more, if they're not run completely flat or kept in a hot room.
+
+So you'll replace batteries and the inverter long before the panels. Plan for that from the start.
+
+## What to check before you buy
+
+Ask any installer, including us, these questions before you pay:
+
+1. Did you work out my load from my appliances, or guess from my house size?
+2. What is the inverter's solar input limit, and do the panels fit under it?
+3. Which battery type is it, how many years is the warranty, and is that in writing?
+4. How will the system connect to my NEPA and generator supply?
+5. Who do I call if something goes wrong, and how fast do you come?
+
+Clear answers to all five are a good sign. Our guide on [what to check before you hire a solar installer](/blog/best-solar-installers-in-lagos-what-to-check) goes further.
+
+## Getting started
+
+Before anyone quotes you, list the appliances you want on backup and when you use them. That list decides the size of everything else.
+
+You can send it to us on WhatsApp and ask questions at no cost. When you're ready, [get a quote](/get-a-quote). We'll book a site assessment, check your roof, wiring and load, and give you a written plan for your [solar panel installation](/services/solar-panel-installation).`,
+  },
+  {
+    slug: "what-size-inverter-do-i-need",
+    title: "What Size Inverter Do I Need? A Simple Load Calculation for Lagos Homes",
+    excerpt:
+      "Work out the right inverter size in five steps: list your appliances, add up the watts, allow for start-up surge, add headroom, then size the battery for your night.",
+    category: "Guides",
+    tags: ["inverter", "sizing", "load calculation"],
+    focusKeyword: "what size inverter do i need",
+    metaTitle: "What Size Inverter Do I Need? Lagos Load Calculation",
+    metaDescription:
+      "What size inverter do I need? Add up your appliances in five simple steps, allow for AC and pump surge, and pick the right kVA and battery for your Lagos home.",
+    featuredImageAlt: "What size inverter do I need: working out the load for an inverter in a Lagos home",
+    authorName: "PowerNexa Solutions Team",
+    publishedDaysAgo: 0,
+    content: `Buy an inverter that's too small and it beeps, trips and shuts down every time the freezer and AC start together. Buy one that's too big and you've paid for power you never use. If you're asking "what size inverter do I need?", the answer comes from your appliances, not your house size or your old generator. This guide shows you how to work it out in five steps, with a worked example for a Lagos flat.
+
+## Why your generator's size is the wrong guide
+
+Many people pick an inverter to match their generator: "I use a 3.5kVA gen, so I'll buy a 3.5kVA inverter." That rarely works out.
+
+A generator has fuel, so it can run for as long as you keep filling it. An inverter runs on stored power, so its size has to match both what you switch on and how long the batteries must last. So a generator that works for three hours of evening use tells you little about the inverter and batteries you need for a whole night.
+
+## Step 1: List what you want on backup
+
+Walk through your house and write down every appliance you want working when NEPA takes light. Be honest. If you'll switch on the AC at 11pm, it goes on the list.
+
+Then find each one's watts. It's printed on the label, usually at the back or bottom, or in the manual. If you can't find it, the figures in the table below are typical for Lagos homes.
+
+| Appliance | Typical running watts |
+|---|---|
+| LED bulb | 7 to 12W each |
+| Standing or ceiling fan | 50 to 80W each |
+| TV (32 to 55 inch) and decoder | 80 to 150W |
+| Wi-Fi router | 10 to 20W |
+| Laptop | 50 to 90W |
+| Fridge | 100 to 200W |
+| Chest freezer | 100 to 200W |
+| Washing machine (no hot wash) | 400 to 800W |
+| Microwave | 1,000 to 1,500W |
+| Pressing iron | 1,000 to 1,200W |
+| 1HP inverter AC | 600 to 900W |
+| 1.5HP inverter AC | 900 to 1,300W |
+| 1HP pumping machine | 750 to 1,000W |
+
+## Step 2: Add up the running watts
+
+Add the watts of everything that could be on at the same time. Leave out things you'll only use one at a time. For example, if nobody irons while the microwave is running, count only the bigger of the two.
+
+This total is your running load.
+
+## Step 3: Allow for start-up surge
+
+Anything with a motor or compressor pulls extra power for a second or two when it starts. That includes fridges, freezers, pumping machines and older non-inverter ACs. A fridge that runs at 150 watts can pull three or more times that as it starts.
+
+Most inverters can handle a short surge, often about twice their rated power for a few seconds. Check the "surge" or "peak" rating in the manual. Your aim is simple: the running load plus the start-up surge of your biggest motor should stay under that surge rating.
+
+Inverter ACs start slowly, so their surge is small. That's one reason they work so much better on backup than older ACs.
+
+## Step 4: Add headroom and turn watts into kVA
+
+Don't plan to run an inverter at its limit. Keep your running load under about 80% of its rated watts. To get the watts you need, divide your running load by 0.8.
+
+Next, turn watts into kVA. Inverters are sold in kVA, and many give about 0.8 watts for every VA. So a 3.5kVA inverter gives about 2,800 watts, and a 5kVA gives about 4,000 watts. Some newer inverters give the full figure (5kVA gives 5,000 watts). The "rated output power" on the label tells you which kind you have.
+
+Then pick the next common size up. In Nigeria that's usually 1kVA, 1.5kVA, 2.5kVA, 3.5kVA, 5kVA, 7.5kVA or 10kVA.
+
+## Step 5: Size the battery for your night
+
+The inverter size tells you what you can switch on. The battery decides how long it lasts.
+
+Estimate your average load at night (usually much lower than your peak, since the microwave and iron are off). Multiply it by the hours you need backup. Then add about 10% for the inverter's own losses.
+
+Tubular batteries should only be run down to about half, so you need twice that figure in stored capacity. Lithium batteries can be run down much further, so you need less extra. Our guide on [lithium vs tubular batteries](/blog/solar-battery-types-lithium-vs-tubular) explains why.
+
+## Worked example: a 3-bedroom flat in Lagos
+
+Here's what a typical evening list might look like:
+
+| Appliance | Watts |
+|---|---|
+| 10 LED bulbs | 100W |
+| 3 fans | 210W |
+| TV and decoder | 120W |
+| Fridge | 150W |
+| Chest freezer | 150W |
+| Router and phone chargers | 40W |
+| Laptop | 60W |
+| 1HP inverter AC | 800W |
+| Running load | 1,630W |
+
+Surge check: the freezer and fridge are the biggest start-ups. Starting together, they might add about 600 watts for a moment, making about 2,230 watts at peak. That's well inside the surge rating of any 3.5kVA inverter.
+
+Headroom: 1,630 ÷ 0.8 = about 2,040 watts needed.
+
+Size: a 2.5kVA inverter gives about 2,000 watts, which is too tight. A 3.5kVA inverter gives about 2,800 watts. That's the right size here. See [what a 3.5kVA inverter can carry](/blog/what-can-a-3-5kva-inverter-carry) for more on this size.
+
+Battery: suppose the AC runs for 3 hours at night and everything else averages 500 watts over 8 hours. That's about 2.4kWh for the AC plus 4kWh for the rest, so 6.4kWh. Add 10% and you need about 7kWh of usable storage. That's a big battery bank for a 3.5kVA system. If AC at night matters to you, plan for a bigger battery bank, or a 5kVA system with room to add batteries later.
+
+## The same flat with a pumping machine
+
+Now change two things. The family swaps the 1HP AC for a 1.5HP inverter AC, and wants to run a 1HP pumping machine while everything else is on.
+
+- Running load: 1,630W − 800W + 1,200W + 1,000W = 3,030W
+- With headroom: 3,030 ÷ 0.8 = about 3,790 watts
+
+A 3.5kVA inverter (about 2,800 watts) is now too small. A 5kVA inverter fits, and one that gives the full 5,000 watts leaves more room. The other option is to keep the 3.5kVA and only pump in the afternoon with the AC off. See [what a 5kVA inverter can carry](/blog/what-can-a-5kva-inverter-carry) for more.
+
+## What size inverter do I need for my home? A quick guide
+
+If you want a rough starting point before doing the sums:
+
+- Self-contain or mini flat, with no fridge: 1.5kVA
+- 1 to 2 bedroom flat, with a fridge or freezer: 2.5kVA to 3.5kVA
+- 3 bedroom flat, with one AC: 3.5kVA to 5kVA
+- Duplex, with 2 or more ACs or a pumping machine: 7.5kVA to 10kVA
+
+Our guide to [solar energy for home](/blog/solar-energy-for-home-in-lagos) explains what each size usually runs and how many panels it needs.
+
+## Check your sums with an installer
+
+Adding up watts gets you close. An installer should also look at your wiring, your changeover, where the inverter and batteries will sit, and whether your AC is an inverter type.
+
+You can send your list to us on WhatsApp and ask questions at no cost. When you're ready, [get a quote](/get-a-quote). We'll book a site assessment and give you a written plan for your [inverter installation](/services/inverter-installation).`,
   },
 ];

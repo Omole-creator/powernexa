@@ -72,6 +72,19 @@ export default async function AdminDashboardPage({
         <StatCard label="Leads today" value={stats.leadsToday} />
       </div>
 
+      <Link
+        href="/admin/accounts"
+        className="flex items-center justify-between gap-4 rounded-2xl border border-line bg-white p-5 hover:border-orange"
+      >
+        <div>
+          <p className="font-display text-base font-bold text-navy">Revenue &amp; Expenses</p>
+          <p className="text-sm text-charcoal/55">
+            Record work done and expenses, see profit or loss, growth and founder loans.
+          </p>
+        </div>
+        <span className="text-sm font-semibold text-orange">Open →</span>
+      </Link>
+
       <div className="grid gap-6 lg:grid-cols-[1.6fr_1fr]">
         <div className="rounded-2xl border border-line bg-white p-6">
           <h2 className="font-display text-lg font-bold text-navy">Page views, {range.label}</h2>

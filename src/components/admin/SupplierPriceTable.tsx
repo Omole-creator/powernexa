@@ -15,48 +15,58 @@ export function SupplierPriceTable({ items }: { items: SupplierPriceItem[] }) {
   const suppliers = [...new Set(items.map((i) => i.supplier))];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-3">
       {suppliers.map((supplier) => {
         const rows = items.filter((i) => i.supplier === supplier);
         const lastUpdated = rows.reduce((latest, r) => (r.updated_at > latest ? r.updated_at : latest), "");
         return (
-          <div key={supplier} className="overflow-x-auto rounded-2xl border border-line bg-white">
-            <div className="flex items-baseline justify-between gap-3 border-b border-line px-4 py-3">
-              <h3 className="font-display text-base font-bold text-navy">{supplier}</h3>
-              <p className="text-xs text-charcoal/50">
+          <details key={supplier} className="group rounded-2xl border border-line bg-white">
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 [&::-webkit-details-marker]:hidden">
+              <span className="flex items-center gap-2">
+                <span
+                  aria-hidden="true"
+                  className="inline-block text-xs text-charcoal/40 transition-transform group-open:rotate-90"
+                >
+                  ▶
+                </span>
+                <h3 className="font-display text-base font-bold text-navy">{supplier}</h3>
+              </span>
+              <span className="text-right text-xs text-charcoal/50">
                 {rows.length} items · last edited{" "}
                 {new Date(lastUpdated).toLocaleString("en-GB", { dateStyle: "medium", timeStyle: "short" })}
-              </p>
+              </span>
+            </summary>
+            <div className="overflow-x-auto border-t border-line">
+              <table className="w-full min-w-[760px] text-left text-sm">
+                <thead className="border-b border-line text-xs uppercase tracking-wide text-charcoal/45">
+                  <tr>
+                    <th className="px-4 py-2.5">Item</th>
+                    <th className="px-4 py-2.5">Size</th>
+                    <th className="px-4 py-2.5">Price (₦)</th>
+                    <th className="px-4 py-2.5">In stock</th>
+                    <th className="px-4 py-2.5">Notes</th>
+                    <th className="px-4 py-2.5" />
+                  </tr>
+                </thead>
+                {(["inverter", "battery", "panel"] as const).map((category) => {
+                  const categoryRows = rows.filter((r) => r.category === category);
+                  if (categoryRows.length === 0) return null;
+                  return (
+                    <tbody key={category} className="divide-y divide-line">
+                      <tr className="bg-mist/60">
+                        <td colSpan={6} className="px-4 py-1.5 text-xs font-semibold uppercase tracking-wide text-navy/70">
+                          {CATEGORY_LABEL[category]}
+                        </td>
+                      </tr>
+                      {categoryRows.map((row) => (
+                        <SupplierPriceRow key={row.id} row={row} />
+                      ))}
+                    </tbody>
+                  );
+                })}
+              </table>
             </div>
-            <table className="w-full min-w-[760px] text-left text-sm">
-              <thead className="border-b border-line text-xs uppercase tracking-wide text-charcoal/45">
-                <tr>
-                  <th className="px-4 py-2.5">Item</th>
-                  <th className="px-4 py-2.5">Size</th>
-                  <th className="px-4 py-2.5">Price (₦)</th>
-                  <th className="px-4 py-2.5">In stock</th>
-                  <th className="px-4 py-2.5">Notes</th>
-                  <th className="px-4 py-2.5" />
-                </tr>
-              </thead>
-              {(["inverter", "battery", "panel"] as const).map((category) => {
-                const categoryRows = rows.filter((r) => r.category === category);
-                if (categoryRows.length === 0) return null;
-                return (
-                  <tbody key={category} className="divide-y divide-line">
-                    <tr className="bg-mist/60">
-                      <td colSpan={6} className="px-4 py-1.5 text-xs font-semibold uppercase tracking-wide text-navy/70">
-                        {CATEGORY_LABEL[category]}
-                      </td>
-                    </tr>
-                    {categoryRows.map((row) => (
-                      <SupplierPriceRow key={row.id} row={row} />
-                    ))}
-                  </tbody>
-                );
-              })}
-            </table>
-          </div>
+          </details>
         );
       })}
     </div>

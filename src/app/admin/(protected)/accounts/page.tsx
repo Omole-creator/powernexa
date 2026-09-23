@@ -21,7 +21,7 @@ import { JobsSection } from "@/components/admin/accounts/JobsSection";
 import { ExpensesSection } from "@/components/admin/accounts/ExpensesSection";
 import { FounderLoans } from "@/components/admin/accounts/FounderLoans";
 
-export const metadata: Metadata = { title: "Accounts", robots: { index: false } };
+export const metadata: Metadata = { title: "Revenue & Expenses", robots: { index: false } };
 
 const VIEW_WORDS: Record<AccountsView, { prev: string; growth: string }> = {
   month: { prev: "last month", growth: "Month on month" },
@@ -128,7 +128,7 @@ export default async function AdminAccountsPage({
     <div className="space-y-8">
       <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
         <div>
-          <h1 className="font-display text-2xl font-bold text-navy">Accounts</h1>
+          <h1 className="font-display text-2xl font-bold text-navy">Revenue &amp; Expenses</h1>
           <p className="text-sm text-charcoal/55">
             Work done, expenses, profit and founder loans for {label}. Both partners see the same numbers.
           </p>

@@ -5,10 +5,18 @@ import type { ProjectVideo } from "@/lib/projects-data";
 // Vertical phone footage in an elevated card. The watermark is burned into
 // the video file itself; hiding the download button and the right-click menu
 // just stops the casual "save video as".
-export function ProjectVideoCard({ project, priority = false }: { project: ProjectVideo; priority?: boolean }) {
+export function ProjectVideoCard({
+  project,
+  priority = false,
+  compact = false,
+}: {
+  project: ProjectVideo;
+  priority?: boolean;
+  compact?: boolean; // 4:5 crop for carousels, full 9:16 elsewhere
+}) {
   return (
-    <figure className="group overflow-hidden rounded-[28px] bg-white shadow-[0_20px_50px_-24px_rgba(9,43,76,0.3)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_30px_60px_-24px_rgba(9,43,76,0.4)]">
-      <div className="relative aspect-[9/16] bg-navy-ink">
+    <figure className="group h-full overflow-hidden rounded-[28px] bg-white shadow-[0_20px_50px_-24px_rgba(9,43,76,0.3)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_30px_60px_-24px_rgba(9,43,76,0.4)]">
+      <div className={`relative bg-navy-ink ${compact ? "aspect-[4/5]" : "aspect-[9/16]"}`}>
         <video
           className="h-full w-full object-cover"
           src={project.video}

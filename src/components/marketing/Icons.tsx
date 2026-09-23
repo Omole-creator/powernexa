@@ -92,3 +92,57 @@ export function MapPinIcon(props: IconProps) {
     </svg>
   );
 }
+
+export function ProjectsIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 48 48" fill="none" {...props}>
+      <path d="M8 22 24 9l16 13v17a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2V22Z" stroke="currentColor" strokeWidth="2.5" strokeLinejoin="round" />
+      <path d="m17 29 5 5 9-10" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function SmileIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 48 48" fill="none" {...props}>
+      <circle cx="24" cy="24" r="17" stroke="currentColor" strokeWidth="2.5" />
+      <path d="M16.5 28c1.8 3 4.4 4.5 7.5 4.5s5.7-1.5 7.5-4.5" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+      <circle cx="18" cy="20" r="2" fill="currentColor" />
+      <circle cx="30" cy="20" r="2" fill="currentColor" />
+    </svg>
+  );
+}
+
+export function ShieldIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 48 48" fill="none" {...props}>
+      <path d="M24 6 9 12v11c0 9.5 6.4 16.6 15 19 8.6-2.4 15-9.5 15-19V12L24 6Z" stroke="currentColor" strokeWidth="2.5" strokeLinejoin="round" />
+      <path d="m17 24 5 5 9-10" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function HeadsetIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 48 48" fill="none" {...props}>
+      <path d="M9 27v-4a15 15 0 0 1 30 0v4" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+      <rect x="7" y="26" width="8" height="12" rx="3" stroke="currentColor" strokeWidth="2.5" />
+      <rect x="33" y="26" width="8" height="12" rx="3" stroke="currentColor" strokeWidth="2.5" />
+      <path d="M37 38c0 3-3 4-7 4h-3" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+export function ChevronIcon({ direction = "right", ...props }: IconProps & { direction?: "left" | "right" }) {
+  return (
+    <svg viewBox="0 0 20 20" fill="none" {...props}>
+      <path
+        d={direction === "right" ? "m8 5 5 5-5 5" : "m12 5-5 5 5 5"}
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}

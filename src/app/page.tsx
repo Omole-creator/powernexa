@@ -4,9 +4,10 @@ import { Container, SectionHeading } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
 import { GlowOrb } from "@/components/ui/GlowOrb";
-import { Waveform } from "@/components/marketing/Waveform";
-import { StatStrip } from "@/components/marketing/StatStrip";
-import { ProofSection } from "@/components/marketing/ProofSection";
+import { HeroCollage } from "@/components/marketing/HeroCollage";
+import { TrackRecord } from "@/components/marketing/TrackRecord";
+import { FeaturedProjects } from "@/components/marketing/FeaturedProjects";
+import { ChevronIcon } from "@/components/marketing/Icons";
 import { TrustedBy } from "@/components/marketing/TrustedBy";
 import { ServiceCard } from "@/components/marketing/ServiceCard";
 import { LocationCard } from "@/components/marketing/LocationCard";
@@ -72,57 +73,66 @@ export default function HomePage() {
     <>
       <JsonLd data={faqJsonLd(HOME_FAQS)} />
 
-      {/* Hero: each piece pops in on its own beat as soon as the page loads */}
+      {/* Hero, modelled on the reference site: centred copy, both CTAs on one
+          line (even on phones), then three overlapping install photos rising
+          in. The bottom fades into white so the photos sit across the seam. */}
       <section className="relative isolate overflow-hidden bg-navy">
         <Image
           src="/images/hero.jpg"
           alt="A PowerNexa Solutions technician installing solar panels on a home roof in bright sun"
           fill
           priority
-          className="object-cover object-[65%_center]"
+          className="hero-zoom object-cover object-[65%_center]"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/85 to-navy/30" />
-        <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/10 to-transparent" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(6,26,48,0.88)_0%,rgba(9,43,76,0.74)_40%,rgba(9,43,76,0.55)_100%)]" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-44 bg-gradient-to-b from-transparent to-white" />
 
-        <Container className="relative py-20 sm:py-24 lg:py-28">
-          <div className="max-w-xl">
-            <Reveal delay={0}>
-              <h1 className="font-display text-4xl font-extrabold leading-[1.15] tracking-tight text-white sm:text-5xl lg:text-[3.4rem]">
-                Solar and inverter power that never blinks.
-              </h1>
-            </Reveal>
-            <Reveal delay={160}>
-              <p className="mt-6 max-w-lg text-lg leading-relaxed text-white/85">
-                We install and maintain solar panels, inverters, and battery backup for homes and
-                businesses across Lagos, sized to what you actually use, not a one-size package.
-              </p>
-            </Reveal>
-            <Reveal delay={320}>
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <Button href="/get-a-quote" size="lg">
-                  Get a Quote
-                </Button>
-                <Button href="/services" variant="outlineWhite" size="lg">
-                  See Our Services
-                </Button>
-              </div>
-            </Reveal>
-            <Reveal delay={480}>
-              <div className="mt-12 rounded-[28px] bg-white/10 p-6 shadow-[0_20px_60px_-20px_rgba(0,0,0,0.5)] backdrop-blur-md">
-                <StatStrip light />
-              </div>
-            </Reveal>
+        <Container className="relative flex flex-col items-center pt-16 text-center sm:pt-20 lg:pt-24">
+          <Link href="/services" className="hero-fade-in group" style={{ animationDelay: "0ms" }}>
+            <span className="flex w-fit items-center gap-1.5 rounded-full border-[1.5px] border-white/25 bg-white/10 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-white backdrop-blur transition group-hover:border-orange/60 group-hover:bg-white/15 sm:px-5 sm:text-xs">
+              <span className="sm:hidden">Solar and inverter installs, Lagos</span>
+              <span className="hidden sm:inline">Solar, inverter and battery installation in Lagos</span>
+              <ChevronIcon className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+            </span>
+          </Link>
+
+          <h1
+            className="hero-fade-in mt-7 max-w-3xl text-balance bg-gradient-to-br from-white from-40% to-white/65 bg-clip-text font-display text-4xl font-extrabold leading-[1.05] tracking-tighter text-transparent sm:text-5xl lg:text-[4rem]"
+            style={{ animationDelay: "150ms" }}
+          >
+            Solar and inverter power that never blinks.
+          </h1>
+
+          <p
+            className="hero-fade-in mt-6 max-w-2xl text-balance text-base leading-relaxed text-white/80 sm:text-lg"
+            style={{ animationDelay: "300ms" }}
+          >
+            We install and maintain solar panels, inverters, and battery backup for homes and
+            businesses across Lagos, sized to what you actually use, not a one-size package.
+          </p>
+
+          <div
+            className="hero-fade-in mt-9 flex w-full flex-row flex-nowrap items-center justify-center gap-3 sm:w-auto sm:gap-4"
+            style={{ animationDelay: "450ms" }}
+          >
+            <Button href="/get-a-quote" size="lg" className="h-12 flex-1 whitespace-nowrap px-5 sm:h-14 sm:flex-none sm:px-8">
+              Get a Quote
+            </Button>
+            <Button
+              href="/services"
+              variant="outlineWhite"
+              size="lg"
+              className="h-12 flex-1 whitespace-nowrap border-white/40 px-5 backdrop-blur hover:border-white sm:h-14 sm:flex-none sm:px-8"
+            >
+              See Our Services
+            </Button>
           </div>
         </Container>
 
-        <Waveform variant="divider" className="absolute inset-x-0 bottom-0 h-10 w-full text-white/70" />
+        <HeroCollage />
       </section>
 
       <TrustedBy />
-
-      {/* Proof: counters plus one install video, straight after the hero so the
-          claim is backed up before we ask for anything. */}
-      <ProofSection />
 
       {/* Services: one featured, rest supporting, not a flat uniform grid */}
       <section className="relative overflow-hidden py-24">
@@ -152,33 +162,9 @@ export default function HomePage() {
         </Container>
       </section>
 
-      {/* One proof image, placed once, doing one job: back up the headline. */}
-      <section className="bg-mist py-24">
-        <Container className="grid gap-10 lg:grid-cols-2 lg:items-center">
-          <Reveal>
-            <SectionHeading
-              eyebrow="What that actually means"
-              title="This is what &quot;never blinks&quot; looks like"
-              description="Panels on the roof, wired straight into an inverter sized for your load. That's the whole idea: generate it, store it, use it, without a gap in between."
-            />
-          </Reveal>
-          <Reveal delay={150} className="relative">
-            <div className="overflow-hidden rounded-[32px] shadow-[0_30px_60px_-24px_rgba(9,43,76,0.35)]">
-              <Image
-                src="/images/solar-panel-inverter-wiring.jpg"
-                alt="Rooftop solar panels wired to a wall-mounted inverter"
-                width={640}
-                height={480}
-                className="h-full w-full object-cover"
-              />
-            </div>
-            <div className="absolute -bottom-6 -left-6 hidden rounded-2xl bg-navy px-5 py-4 text-white shadow-xl sm:block">
-              <p className="font-mono-num text-2xl font-bold text-orange">100%</p>
-              <p className="text-xs text-white/70">load-calculated</p>
-            </div>
-          </Reveal>
-        </Container>
-      </section>
+      <TrackRecord />
+
+      <FeaturedProjects />
 
       {/* How it works: connected steps, genuinely sequential */}
       <section className="relative overflow-hidden bg-navy py-24 text-white">

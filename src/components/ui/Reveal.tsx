@@ -39,7 +39,7 @@ export function Reveal({
   return (
     <Component
       ref={ref}
-      className={`reveal-item ${visible ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"} ${className}`}
+      className={`reveal-item ${visible ? "translate-y-0 scale-100 opacity-100 filter-none" : "translate-y-10 scale-[0.98] opacity-0 blur-[2px]"} ${className}`}
       style={{ transitionDelay: visible ? `${delay}ms` : "0ms" }}
     >
       {children}

@@ -130,12 +130,8 @@ errors, just retry the exact same command.
   Two Nexus entries still need owner confirmation: the 600W panel (sheet
   said ₦13,000, entered as ₦130,000) and the lithium batteries (sheet said
   "Not available" above them). Fix either in `/admin/pricing`.
-- **Accounts SQL not yet run (as of 23 Sept 2026).** `/admin/accounts`
-  needs the `business_jobs`, `business_expenses` and `founder_repayments`
-  tables from `supabase/schema.sql` (the page also shows the exact SQL
-  until they exist). The owner has to paste it into the Supabase SQL editor
-  once; supabase-js can't run DDL. Check with a select on `business_jobs`
-  before assuming it's done.
+- Accounts SQL (`business_jobs`, `business_expenses`, `founder_repayments`)
+  was run in Supabase and confirmed on 23 Sept 2026.
 
 - `analytics_events` table may still contain test rows from development and
   smoke-testing (curl calls, manual verification). The owner asked for these

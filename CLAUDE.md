@@ -56,37 +56,42 @@ Rules for every post:
 - No public price posts until the owner decides (see `docs/KEYWORD-RESEARCH.md` section 6).
 - Run each post through `computeSeoChecklist()` and the `humanizer` skill before publishing.
 
-**Published (6, seeded via `npm run seed:blog`):** solar panel installation cost in
-Lagos; best solar installers in Lagos; solar and inverter installation in Lagos
-(complete guide); inverter vs generator in Lagos; lithium vs tubular battery in
-Lagos; how long solar installation takes in Lagos.
+**Published (8, all in `src/lib/blog-seed-data.ts`, seeded via `npm run seed:blog`):**
+solar panel installation cost in Lagos; best solar installers in Lagos; solar and
+inverter installation in Lagos (complete guide); inverter vs generator in Lagos;
+lithium vs tubular battery in Lagos; how long solar installation takes in Lagos;
+what can a 3.5kVA inverter carry (`/blog/what-can-a-3-5kva-inverter-carry`, SEO
+score 92, the slug check warns only because slugify strips the dot); what can a
+5kVA inverter carry (`/blog/what-can-a-5kva-inverter-carry`, score 100). Both
+kVA posts went live 23 Sept 2026. Their battery-runtime and panel-count figures
+assume ~4 peak sun hours/day (about 3 in July/August), 75% panel yield, 10%
+inverter loss, tubular used to 50% and lithium to ~85%; keep later kVA posts
+(1.5kVA, 10kVA) on the same assumptions so the numbers agree across posts.
 
 **Next, in this order** (focus keyword in brackets):
 
-1. What Can a 3.5kVA Inverter Carry? AC, Freezer and Pumping Machine in a Lagos Home [what can a 3.5kva inverter carry] (covers "how many solar panels for 3.5kva inverter" in an H2)
-2. What Can a 5kVA Inverter Carry? A Lagos Home Guide [what can a 5kva inverter carry] (plus "how many solar panels for 5kva inverter")
-3. Solar Energy for Home in Lagos: What a Home System Includes and What It Can Run [solar energy for home] (pillar post for the 5,000/month home terms, links to every kVA post)
-3a. What Size Inverter Do I Need? A Simple Load Calculation for Lagos Homes [what size inverter do i need]
-4. Inverter Not Charging? What to Check Before You Call a Technician in Lagos [inverter not charging]
-5. Hybrid Inverter vs Normal Inverter: Which Is Better for Lagos Power Cuts? [hybrid inverter vs normal inverter] (also covers off-grid vs hybrid)
-6. Band A Electricity Tariff in Lagos: Is Solar Now Cheaper Than NEPA? [band a electricity tariff in lagos]
-7. Solar Company in Lekki: What to Check Before You Hire One [solar company in lekki]
-8. Solar Company in Ajah: Solar and Inverter Options for Ajah and Sangotedo Homes [solar company in ajah]
-9. How Long Does an Inverter Battery Last in Lagos? Per Night and in Years [how long does inverter battery last] (includes signs it needs replacing)
-10. Why Is My Inverter Beeping? Beeps and Fault Lights Explained [inverter beeping]
-11. Grade A Lithium Battery in Nigeria: How to Spot Fake or Used Cells [grade a lithium battery in nigeria]
-12. Can Your Inverter Run a Pumping Machine? Borehole Power in Lagos [can inverter carry pumping machine]
-13. Solar System for a 3-Bedroom House in Lagos: What Size You Need [solar system for 3 bedroom house]
-14. What Can a 1.5kVA Inverter Carry? (Small Flats and Self-Contains in Lagos) [what can a 1.5kva inverter carry]
-15. 10kVA Solar System in Lagos: What It Carries and Who Needs One [10kva solar system]
-16. Solar Companies in Victoria Island: Backup Power for Homes and Offices [solar companies in victoria island]
-17. Solar Companies in Ikeja: How to Choose an Installer [solar companies in ikeja]
-18. Diesel Generator vs Solar for Businesses in Lagos [diesel generator vs solar power]
-19. Solar for Offices, Shops and Clinics in Lagos: How to Size It [solar system for office]
-20. Can Solar Power an AC in Lagos? [can solar power run ac]
-21. Solar Warranty in Nigeria: What Your Installer Should Put in Writing [solar warranty]
-22. Monocrystalline vs Polycrystalline Solar Panels in Lagos Heat [monocrystalline vs polycrystalline]
-23. How Long Do Solar Panels Last in Lagos? [how long does solar panel last]
+1. Solar Energy for Home in Lagos: What a Home System Includes and What It Can Run [solar energy for home] (pillar post for the 5,000/month home terms, links to every kVA post)
+2. What Size Inverter Do I Need? A Simple Load Calculation for Lagos Homes [what size inverter do i need]
+3. Inverter Not Charging? What to Check Before You Call a Technician in Lagos [inverter not charging]
+4. Hybrid Inverter vs Normal Inverter: Which Is Better for Lagos Power Cuts? [hybrid inverter vs normal inverter] (also covers off-grid vs hybrid)
+5. Band A Electricity Tariff in Lagos: Is Solar Now Cheaper Than NEPA? [band a electricity tariff in lagos]
+6. Solar Company in Lekki: What to Check Before You Hire One [solar company in lekki]
+7. Solar Company in Ajah: Solar and Inverter Options for Ajah and Sangotedo Homes [solar company in ajah]
+8. How Long Does an Inverter Battery Last in Lagos? Per Night and in Years [how long does inverter battery last] (includes signs it needs replacing)
+9. Why Is My Inverter Beeping? Beeps and Fault Lights Explained [inverter beeping]
+10. Grade A Lithium Battery in Nigeria: How to Spot Fake or Used Cells [grade a lithium battery in nigeria]
+11. Can Your Inverter Run a Pumping Machine? Borehole Power in Lagos [can inverter carry pumping machine]
+12. Solar System for a 3-Bedroom House in Lagos: What Size You Need [solar system for 3 bedroom house]
+13. What Can a 1.5kVA Inverter Carry? (Small Flats and Self-Contains in Lagos) [what can a 1.5kva inverter carry]
+14. 10kVA Solar System in Lagos: What It Carries and Who Needs One [10kva solar system]
+15. Solar Companies in Victoria Island: Backup Power for Homes and Offices [solar companies in victoria island]
+16. Solar Companies in Ikeja: How to Choose an Installer [solar companies in ikeja]
+17. Diesel Generator vs Solar for Businesses in Lagos [diesel generator vs solar power]
+18. Solar for Offices, Shops and Clinics in Lagos: How to Size It [solar system for office]
+19. Can Solar Power an AC in Lagos? [can solar power run ac]
+20. Solar Warranty in Nigeria: What Your Installer Should Put in Writing [solar warranty]
+21. Monocrystalline vs Polycrystalline Solar Panels in Lagos Heat [monocrystalline vs polycrystalline]
+22. How Long Do Solar Panels Last in Lagos? [how long does solar panel last]
 
 **Update, not a new post:** add "solar companies in lagos" / "best solar company in
 lagos" as secondary keywords to the live "best solar installers in Lagos" post

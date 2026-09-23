@@ -1,4 +1,4 @@
-// One-time setup script: publishes the 6 launch blog posts to Supabase.
+// Publishes the blog posts in src/lib/blog-seed-data.ts to Supabase.
 // Safe to re-run, it skips any slug that already exists.
 //
 // Run with: node --env-file=.env.local scripts/seed-blog.ts

@@ -365,4 +365,241 @@ If you run a business, see our note on [scheduling installation around business 
 
 Ready to get a specific timeline for your property? [Request a quote](/get-a-quote) and we'll give you a realistic date range based on your system size and our current schedule, not an optimistic guess.`,
   },
+  {
+    slug: "what-can-a-3-5kva-inverter-carry",
+    title: "What Can a 3.5kVA Inverter Carry? AC, Freezer and Pumping Machine",
+    excerpt:
+      "Which ACs, freezers, pumping machines and irons a 3.5kVA inverter can run in a Lagos home, how long the batteries last, and how many solar panels it needs.",
+    category: "Guides",
+    tags: ["inverter", "sizing", "3.5kva"],
+    focusKeyword: "what can a 3.5kva inverter carry",
+    metaTitle: "What Can a 3.5kVA Inverter Carry? A Lagos Home Guide",
+    metaDescription:
+      "What can a 3.5kVA inverter carry? See what AC, freezer, pumping machine and iron it runs in a Lagos home, how long batteries last, and how many panels it needs.",
+    featuredImageAlt: "What can a 3.5kVA inverter carry: an inverter and battery bank in a Lagos home",
+    authorName: "PowerNexa Solutions Team",
+    publishedDaysAgo: 0,
+    content: `"Can my 3.5kVA carry AC?" Lagos homeowners ask this a lot before they buy an inverter. This guide answers what can a 3.5kVA inverter carry, appliance by appliance: the AC, the freezer, the pumping machine, the pressing iron. It also covers how long the batteries will last when NEPA takes light, and how many solar panels you need to charge them.
+
+The short answer: a 3.5kVA inverter runs a normal family home well. It can carry fans, lights, TVs, a fridge, a freezer and one small inverter AC. It struggles when heavy appliances start at the same time.
+
+## First, what 3.5kVA means in watts
+
+Inverters are sold in kVA, but your appliances are labelled in watts. They are not the same number.
+
+Many older 3.5kVA inverters give about 2,800 watts (3.5 × 0.8). Many newer ones give 3,000 watts or a bit more. Check the "rated output power" line on the inverter's label or manual. That watts figure is your true limit.
+
+Don't plan to use all of it. Keep your normal load under about 80% of the rated watts, so around 2,300 to 2,500 watts at a time. That leaves room for motors to start and keeps the inverter from running hot.
+
+Most 3.5kVA inverters run on a 24V battery bank. That usually means two 12V batteries, or one 24V lithium battery.
+
+## So, what can a 3.5kVA inverter carry?
+
+Here are typical figures for common Lagos appliances. Your own appliance labels are the final word, since models differ.
+
+| Appliance | Typical running watts | Can a 3.5kVA carry it? |
+|---|---|---|
+| LED bulbs (10 of them) | 70 to 100W | Yes |
+| Standing or ceiling fans (3) | 150 to 250W | Yes |
+| TV and decoder | 80 to 150W | Yes |
+| Wi-Fi router and phone chargers | 20 to 50W | Yes |
+| Laptop | 50 to 90W | Yes |
+| Fridge | 100 to 200W | Yes |
+| Chest freezer | 100 to 200W | Yes |
+| Washing machine (no hot wash) | 400 to 800W | Yes, when the AC is off |
+| Microwave | 1,000 to 1,500W | Yes, for short use |
+| Pressing iron | 1,000 to 1,200W | Yes, but it drains the battery fast |
+| 1HP inverter AC | 600 to 900W | Yes |
+| 1HP non-inverter AC | 900 to 1,200W, with a big start-up surge | Risky |
+| 1.5HP inverter AC | 900 to 1,300W | Yes, alone, for a short time |
+| 2HP AC | 1,500W and up | No |
+| 0.5HP pumping machine | about 400 to 500W, with a start-up surge | Yes |
+| 1HP pumping machine | about 750 to 1,000W, with a big start-up surge | Only with other heavy loads off |
+| Electric kettle, hot plate, water heater | 1,500 to 3,000W | No |
+
+### Can a 3.5kVA inverter carry AC?
+
+Yes, if it's the right AC.
+
+An inverter AC starts slowly. It ramps its compressor up instead of jumping to full power, so its start-up draw stays low. A 1HP inverter AC runs comfortably on a 3.5kVA inverter alongside your fans, lights and fridge.
+
+A non-inverter AC (the older, cheaper type) is different. When its compressor kicks in, it can pull three to five times its running power for a moment. On a 3.5kVA inverter, that surge can trip the overload alarm or shut the inverter down, especially if other things are already on.
+
+A 1.5HP inverter AC will run on a 3.5kVA inverter, but it takes a big share of the capacity. It will also empty a small battery bank in a couple of hours. A 2HP AC is too much for a 3.5kVA inverter. If you want AC most nights, look at a [5kVA inverter](/blog/what-can-a-5kva-inverter-carry) instead.
+
+### Can a 3.5kVA inverter carry a freezer?
+
+Yes. A fridge and a chest freezer together are well within a 3.5kVA inverter's limit. Both have a short start-up surge when the compressor kicks in, but it's small enough for a 3.5kVA to handle.
+
+Watch the battery instead. A freezer runs all night, so it slowly uses stored power while you sleep.
+
+### Can a 3.5kVA inverter carry a pumping machine?
+
+A 0.5HP pumping machine, yes. A 1HP pumping machine can start on many 3.5kVA inverters, but only when the AC, iron and microwave are off. Water pumps pull a large surge at start-up, and that surge plus an AC can go over the limit.
+
+The easy fix is to pump water in the afternoon when the sun is strong or when NEPA is on, with the AC off.
+
+### Pressing iron and microwave
+
+A 3.5kVA inverter can carry both, one at a time. The problem is the battery. A pressing iron uses about 1,000 to 1,200 watts, so 30 minutes of ironing can use a big chunk of a small battery bank. Iron when there's light or strong sun, not at 10pm on battery.
+
+## What a 3.5kVA inverter should not carry
+
+Anything that heats with electricity. Electric kettles, hot plates, electric cookers and water heaters use 1,500 to 3,000 watts each. They either overload a 3.5kVA inverter or empty the batteries in minutes. Keep these on gas or on NEPA.
+
+## How long will the batteries last?
+
+This depends on the battery bank, not the inverter. Here is a rough guide for a typical night load of about 500 watts (fans, lights, TV, fridge and router):
+
+- Two 12V 200Ah tubular batteries store about 4.8kWh. You should only use about half of that to protect them, so roughly 2.4kWh. That's about 4 hours at 500 watts.
+- One 24V 200Ah lithium battery also stores about 4.8kWh, but you can safely use most of it, around 4kWh. That's about 7 hours at 500 watts.
+
+Add a 1HP inverter AC and the load climbs to around 1,200 watts. The same batteries then last less than half as long.
+
+Our guide on [lithium vs tubular batteries](/blog/solar-battery-types-lithium-vs-tubular) explains the trade-offs in more detail.
+
+## How many solar panels for a 3.5kVA inverter?
+
+For most Lagos homes, 4 to 6 panels of 450 to 550 watts each is a good range. That gives about 2,000 to 3,000 watts of panels.
+
+Lagos gets about 4 peak sun hours a day across the year. In July and August it can drop to about 3. After losses from heat, dust and wiring, a 450-watt panel gives around 1 to 1.4kWh a day. Six of them can refill a 4.8kWh battery bank and run your daytime load on most days.
+
+Two things can change your number:
+
+1. Your inverter's solar input limit. Check this first. Some 3.5kVA inverters only accept about 1,000 to 1,600 watts of panels. Others take 4,000 watts or more. Check the "max PV input power" on the label before buying panels. Extra panels past this limit do nothing.
+2. When you use power. If your family is home in the daytime running fans and a freezer, you need more panels than a home that's empty until evening.
+
+## Signs your load is too big for a 3.5kVA
+
+- The inverter beeps or shows "overload" when the AC or pump starts
+- The inverter shuts down, then restarts, when a big appliance switches on
+- The batteries are flat long before morning
+- The inverter or battery area feels very hot
+
+If you see these, the fix may be moving one or two heavy appliances to NEPA-only times. Or it may be time for a bigger inverter or more battery storage.
+
+## Get your load checked before you buy
+
+Adding up your appliances on paper is a good start. But an installer should also check your wiring, your changeover, where the inverter will sit, and what you really run at night. That's what our [inverter installation](/services/inverter-installation) visit is for.
+
+You can send us your list of appliances on WhatsApp and ask questions at no cost. When you're ready, [get a quote](/get-a-quote) and we'll book a site assessment and give you a written plan for your home.`,
+  },
+  {
+    slug: "what-can-a-5kva-inverter-carry",
+    title: "What Can a 5kVA Inverter Carry? AC, Pumping Machine and More",
+    excerpt:
+      "Which ACs, pumping machines and home appliances a 5kVA inverter can run in Lagos, how long different battery banks last, and how many solar panels it needs.",
+    category: "Guides",
+    tags: ["inverter", "sizing", "5kva"],
+    focusKeyword: "what can a 5kva inverter carry",
+    metaTitle: "What Can a 5kVA Inverter Carry? A Lagos Home Guide",
+    metaDescription:
+      "What can a 5kVA inverter carry? See if it runs a 1.5HP or 2HP AC and a pumping machine in a Lagos home, how long batteries last, and how many panels it needs.",
+    featuredImageAlt: "What can a 5kVA inverter carry: an inverter and lithium battery setup in a Lagos home",
+    authorName: "PowerNexa Solutions Team",
+    publishedDaysAgo: 0,
+    content: `A 5kVA inverter is the size to look at when you want to run AC on backup, not only fans and lights. But "5kVA" on the box doesn't tell you what you can switch on when NEPA takes light. This guide covers what can a 5kVA inverter carry, appliance by appliance, how long the batteries last, and how many solar panels you need.
+
+The short answer: a 5kVA inverter can carry a whole family home, including a 1.5HP inverter AC, a freezer and a pumping machine. What limits it most is battery size, not the inverter.
+
+## What 5kVA means in watts
+
+Inverters are rated in kVA, but appliances are labelled in watts.
+
+Older 5kVA inverters give about 4,000 watts (5 × 0.8). Many newer hybrid inverters give the full 5,000 watts. Look for "rated output power" on the label or in the manual. That watts figure is your true limit.
+
+For everyday use, keep your running load under about 80% of it. That's roughly 3,200 watts on an older unit and 4,000 watts on a newer one. The spare room lets motors start without tripping the inverter.
+
+Most 5kVA inverters run on a 48V battery bank. That's usually four 12V batteries in series, or one 48V lithium battery.
+
+## So, what can a 5kVA inverter carry?
+
+These are typical figures. Check your own appliance labels, since models differ.
+
+| Appliance | Typical running watts | Can a 5kVA carry it? |
+|---|---|---|
+| Lights, fans, TVs, router, chargers | 300 to 600W together | Yes |
+| Fridge and chest freezer | 200 to 400W together | Yes |
+| Washing machine (no hot wash) | 400 to 800W | Yes |
+| Microwave | 1,000 to 1,500W | Yes |
+| Pressing iron | 1,000 to 1,200W | Yes |
+| 1HP inverter AC | 600 to 900W | Yes |
+| 1.5HP inverter AC | 900 to 1,300W | Yes |
+| 1.5HP non-inverter AC | 1,100 to 1,500W, with a big start-up surge | Usually, if little else is starting at the same time |
+| 2HP inverter AC | 1,400 to 1,900W | Yes, but it drains the battery fast |
+| Two 1HP inverter ACs | 1,200 to 1,800W together | Yes, with a large battery bank |
+| 1HP to 1.5HP pumping machine | 750 to 1,100W, with a big start-up surge | Yes, with the ACs off while it starts |
+| Water heater | 1,500 to 3,000W | Not on battery |
+| Electric cooker or hot plate | 1,500 to 2,000W per ring | No |
+
+### Can a 5kVA inverter carry a 1.5HP AC?
+
+Yes. If you want a 1.5HP AC on backup, this is the size to look at. A 1.5HP inverter AC runs comfortably, with room left for fans, lights, the fridge and the freezer.
+
+A non-inverter AC pulls a large surge each time its compressor starts, often three to five times its running power. A 5kVA inverter can usually handle one of these. Trouble starts when the AC kicks in at the same moment as a pump or a microwave. If you're buying a new AC, an inverter type is kinder to your backup system.
+
+### Can a 5kVA inverter carry a 2HP AC?
+
+It can start and run one. A 2HP inverter AC uses around 1,400 to 1,900 watts. Add the rest of the house and you are near the limit of an older 4,000-watt unit. The bigger issue is storage. At that load, a four-battery tubular bank will be flat in about two hours.
+
+If you want a 2HP AC, or two ACs, running through the night, plan the battery bank around that first. A single 5kVA inverter can't make up for too little storage.
+
+### Can a 5kVA inverter carry a pumping machine?
+
+Yes. A 1HP or 1.5HP pumping machine is fine on a 5kVA inverter. Pumps have a heavy start-up surge, so it's still wise to pump when the ACs are off, or during the day when the sun is strong and the panels are doing the work.
+
+### Pressing iron, microwave and washing machine
+
+A 5kVA inverter carries all of these. You can run the washing machine and iron at the same time as your fans and fridge. Each of them takes a big bite out of the battery, so heavy chores are best done while there's light or sun.
+
+## What a 5kVA inverter should not carry
+
+Water heaters, electric cookers, hot plates and electric kettles use 1,500 to 3,000 watts each. A 5kVA inverter may carry one briefly, but the batteries will drain very fast. Keep these on gas or on NEPA.
+
+## How long will the batteries last?
+
+Here are rough figures for three common battery banks and two evening loads. The small load is about 500 watts (fans, lights, TV, fridge, router). The AC load adds a 1HP inverter AC, for about 1,200 watts total.
+
+| Battery bank | Usable storage | 500W load | 1,200W load (with AC) |
+|---|---|---|---|
+| Four 12V 200Ah tubular | about 4.8kWh (half of 9.6kWh) | about 8 hours | about 3 to 4 hours |
+| 48V 100Ah lithium | about 4.3kWh | about 7 to 8 hours | about 3 hours |
+| 48V 200Ah lithium | about 8.5kWh | about 15 hours | about 6 to 7 hours |
+
+Tubular batteries should only be run down to about half, or they wear out quickly. Lithium batteries can be run much lower. So a lithium battery gives more usable power for its size. For more detail, see our guide on [lithium vs tubular batteries](/blog/solar-battery-types-lithium-vs-tubular).
+
+If you want AC all night, the 48V 200Ah lithium bank (or two 100Ah units) is the practical minimum.
+
+## How many solar panels for a 5kVA inverter?
+
+For most Lagos homes, 8 to 12 panels of 450 to 550 watts each is a good range. That's about 3,600 to 6,000 watts of panels.
+
+Lagos gets around 4 peak sun hours a day over the year. In the rainy months of July and August that can fall to about 3. After heat, dust and wiring losses, each 550-watt panel gives around 1.2 to 1.6kWh a day. Ten of them can refill a large battery bank and run daytime loads, including an AC, on most days.
+
+Check two things before buying panels:
+
+1. The inverter's solar input limit. Look for "max PV input power" on the label. Many 5kVA hybrids accept 5,000 to 6,500 watts of panels, but some accept less. Panels above the limit add nothing.
+2. The voltage limit. Panels are wired in strings, and each string's voltage must stay under the inverter's maximum PV voltage. This is a job for your installer, not guesswork, because going over it can damage the inverter.
+
+## 5kVA or 3.5kVA?
+
+Choose a 3.5kVA if your home runs fans, lights, TVs, a fridge and a freezer, with maybe one small inverter AC now and then. Our [3.5kVA inverter guide](/blog/what-can-a-3-5kva-inverter-carry) covers that size in full.
+
+Choose a 5kVA if you want a 1.5HP AC on backup, run a pumping machine often, or have a large family with lots going on at once. Also choose it if you plan to add more batteries or panels later. Moving up to 5kVA later usually means replacing the inverter, so buying the right size once saves money.
+
+## Signs your 5kVA is overloaded
+
+- An "overload" warning or beeping when the AC or pump starts
+- The inverter switching off, then back on
+- Batteries flat hours before NEPA comes back
+- Heat or a burning smell near the inverter, batteries or cables
+
+The last one needs attention straight away. Switch off the heavy loads and call your installer. Our [maintenance and repair service](/services/solar-maintenance-repair) covers inverter checks like this.
+
+## Size the system around your home
+
+A 5kVA inverter is a good fit for many Lagos homes, but the right system depends on what you run and when. The battery bank and panels matter as much as the inverter.
+
+You can send us your appliance list on WhatsApp and ask questions for free. When you're ready, [get a quote](/get-a-quote). We'll book a site assessment, look at your wiring and load, and give you a written plan for your [inverter installation](/services/inverter-installation).`,
+  },
 ];

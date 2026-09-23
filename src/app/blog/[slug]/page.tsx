@@ -98,12 +98,15 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           </header>
 
           {post.featured_image ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={post.featured_image}
-              alt={post.featured_image_alt ?? post.title}
-              className="mx-auto mt-8 max-w-3xl rounded-2xl border border-line object-cover"
-            />
+            <div className="mx-auto mt-8 aspect-[16/9] w-full max-w-3xl overflow-hidden rounded-[28px] bg-mist shadow-[0_1px_2px_rgba(9,43,76,0.06),0_10px_24px_-16px_rgba(9,43,76,0.16)]">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={post.featured_image}
+                alt={post.featured_image_alt ?? post.title}
+                fetchPriority="high"
+                className="h-full w-full object-cover"
+              />
+            </div>
           ) : null}
 
           <div className="mx-auto mt-10 grid max-w-5xl gap-10 lg:grid-cols-[1fr_260px]">

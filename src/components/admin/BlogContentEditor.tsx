@@ -2,8 +2,7 @@
 
 import { useEffect, useRef, useState, type ClipboardEvent, type DragEvent } from "react";
 import { MarkdownContent } from "@/components/marketing/MarkdownContent";
-
-const MAX_UPLOAD_BYTES = 5 * 1024 * 1024;
+import { uploadBlogImage } from "@/lib/blog-image-upload";
 
 type Selection = { start: number; end: number };
 
@@ -73,23 +72,10 @@ export function BlogContentEditor({
 
   async function uploadFile(file: File) {
     setUploadError(null);
-    if (!file.type.startsWith("image/")) {
-      setUploadError("Only image files can be uploaded.");
-      return;
-    }
-    if (file.size > MAX_UPLOAD_BYTES) {
-      setUploadError(`"${file.name}" is larger than 5MB.`);
-      return;
-    }
-
     const { start } = getSelection();
     setUploading(true);
     try {
-      const body = new FormData();
-      body.append("file", file);
-      const res = await fetch("/api/admin/blog-image", { method: "POST", body });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Upload failed.");
+      const data = await uploadBlogImage(file);
 
       const alt = file.name.replace(/\.[a-z0-9]+$/i, "").replace(/[-_]+/g, " ").trim();
       const markdown = `![${alt}](${data.url})\n`;

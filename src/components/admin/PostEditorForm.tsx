@@ -7,6 +7,7 @@ import { slugify } from "@/lib/validation";
 import { SeoChecklist } from "./SeoChecklist";
 import { InternalLinkHelper } from "./InternalLinkHelper";
 import { BlogContentEditor } from "./BlogContentEditor";
+import { FeaturedImageField } from "./FeaturedImageField";
 import type { BlogPost } from "@/lib/blog";
 
 const CATEGORY_SUGGESTIONS = ["Pricing", "Guides", "Locations", "Maintenance", "Comparisons"];
@@ -128,16 +129,7 @@ export function PostEditorForm({
               className="mt-1.5 w-full rounded-xl border border-line px-4 py-2.5 text-sm outline-none focus:border-orange focus:ring-2 focus:ring-orange/20"
             />
           </div>
-          <div>
-            <label className="block text-sm font-medium text-charcoal/80">Featured image URL</label>
-            <input
-              name="featuredImage"
-              value={featuredImage}
-              onChange={(e) => setFeaturedImage(e.target.value)}
-              placeholder="https://..."
-              className="mt-1.5 w-full rounded-xl border border-line px-4 py-2.5 text-sm outline-none focus:border-orange focus:ring-2 focus:ring-orange/20"
-            />
-          </div>
+          <FeaturedImageField value={featuredImage} onChange={setFeaturedImage} />
           <div>
             <label className="block text-sm font-medium text-charcoal/80">Featured image alt text</label>
             <input

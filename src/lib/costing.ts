@@ -16,19 +16,26 @@ export const MARKUPS = {
   earthing: 0.35,
 } as const;
 
-// Non-equipment costs, defaults from the guide's 5kVA worked example.
-// Labour follows the guide's "per kVA" option: ₦150,000 on a 5kVA job.
+// Starting figures for the service lines, from the guide's 5kVA worked
+// example. They change from job to job (distance, roof, access), so the
+// calculator lets each one be typed over. Labour follows the guide's
+// "per kVA" option: ₦150,000 on a 5kVA job.
 export const JOB_COSTS = {
   labourPerKva: 30_000,
   labourMinimum: 60_000,
   transport: 60_000,
   siteSurvey: 20_000,
-  warrantyReserveRate: 0.02, // of equipment cost
-  overheadRate: 0.05, // tools, insurance, adverts, phone and data
-  nairaBufferRate: 0.03, // protects the quote when the dollar moves
-  bankCharges: 40_000,
-  vatRate: 0.075, // only once the business is VAT registered
 } as const;
+
+export type ServiceCosts = { labour: number; transport: number; siteSurvey: number };
+
+export function defaultServiceCosts(inverterKva: number): ServiceCosts {
+  return {
+    labour: Math.max(JOB_COSTS.labourMinimum, inverterKva * JOB_COSTS.labourPerKva),
+    transport: JOB_COSTS.transport,
+    siteSurvey: JOB_COSTS.siteSurvey,
+  };
+}
 
 // Accessory costs have no public price list, so they scale from the guide's
 // 5kVA / 6-panel example (mounting ₦120k, cables ₦90k, breakers and SPD ₦110k,
@@ -103,15 +110,14 @@ export function packageForLoadProfile(value: string | null | undefined): Package
   return value as PackageKey;
 }
 
-// A supplier item (typed-in price list) or a benchmark rate (Itel, per unit).
+// One item from a typed-in supplier price list.
 export type PriceSourceItem = {
-  source: string; // supplier name, or "Itel Solar (benchmark)"
+  source: string; // supplier name
   category: "inverter" | "battery" | "panel";
   name: string;
   size: number; // kVA / kWh / W for one unit
   chemistry?: Chemistry | null;
   price: number; // for one unit
-  perUnitRate?: boolean; // true for benchmarks: price is per kVA/kWh/W, sized exactly
 };
 
 export type PickedItem = {
@@ -126,33 +132,20 @@ export type PickedItem = {
 const MAX_UNITS = 4;
 
 // Cheapest way to cover `needed` from the available items: several units of
-// one model are allowed (e.g. 2 x 11kVA for a 22kVA job). Benchmarks are
-// priced for the exact size.
+// one model are allowed (e.g. 2 x 11kVA for a 22kVA job).
 export function pickCheapest(items: PriceSourceItem[], needed: number): PickedItem | null {
   let best: PickedItem | null = null;
   for (const item of items) {
-    let candidate: PickedItem;
-    if (item.perUnitRate) {
-      candidate = {
-        source: item.source,
-        name: item.name,
-        quantity: 1,
-        unitPrice: item.price * needed,
-        cost: item.price * needed,
-        providedSize: needed,
-      };
-    } else {
-      const quantity = Math.ceil(needed / item.size - 1e-9);
-      if (quantity < 1 || quantity > MAX_UNITS) continue;
-      candidate = {
-        source: item.source,
-        name: item.name,
-        quantity,
-        unitPrice: item.price,
-        cost: item.price * quantity,
-        providedSize: item.size * quantity,
-      };
-    }
+    const quantity = Math.ceil(needed / item.size - 1e-9);
+    if (quantity < 1 || quantity > MAX_UNITS) continue;
+    const candidate: PickedItem = {
+      source: item.source,
+      name: item.name,
+      quantity,
+      unitPrice: item.price,
+      cost: item.price * quantity,
+      providedSize: item.size * quantity,
+    };
     if (!best || candidate.cost < best.cost) best = candidate;
   }
   return best;
@@ -167,24 +160,18 @@ export function pickPanel(items: PriceSourceItem[], panelWatts: number, panelCou
       best = item;
       continue;
     }
-    const itemSize = item.perUnitRate ? panelWatts : item.size;
-    const bestSize = best.perUnitRate ? panelWatts : best.size;
-    const itemGap = Math.abs(itemSize - panelWatts);
-    const bestGap = Math.abs(bestSize - panelWatts);
-    const itemUnit = item.perUnitRate ? item.price * panelWatts : item.price;
-    const bestUnit = best.perUnitRate ? best.price * panelWatts : best.price;
-    if (itemGap < bestGap || (itemGap === bestGap && itemUnit < bestUnit)) best = item;
+    const itemGap = Math.abs(item.size - panelWatts);
+    const bestGap = Math.abs(best.size - panelWatts);
+    if (itemGap < bestGap || (itemGap === bestGap && item.price < best.price)) best = item;
   }
   if (!best) return null;
-  const unitPrice = best.perUnitRate ? best.price * panelWatts : best.price;
-  const unitWatts = best.perUnitRate ? panelWatts : best.size;
   return {
     source: best.source,
-    name: best.perUnitRate ? `${panelWatts}W panel (benchmark rate)` : best.name,
+    name: best.name,
     quantity: panelCount,
-    unitPrice,
-    cost: unitPrice * panelCount,
-    providedSize: unitWatts * panelCount,
+    unitPrice: best.price,
+    cost: best.price * panelCount,
+    providedSize: best.size * panelCount,
   };
 }
 
@@ -205,18 +192,9 @@ export type JobEstimate = {
   labour: number;
   transport: number;
   siteSurvey: number;
-  warrantyReserve: number;
-  subtotalBeforeOverhead: number;
-  overhead: number;
-  subtotalBeforeBuffer: number;
-  nairaBuffer: number;
-  bankCharges: number;
   finalPrice: number;
-  vat: number;
-  finalPriceWithVat: number;
-  // What PowerNexa keeps: markup earned plus the overhead/buffer lines, after
-  // labour, transport, survey and bank charges are paid out. The warranty
-  // reserve is money set aside, so it's not counted as profit.
+  // What PowerNexa keeps from the equipment markups. Labour, transport and
+  // the survey are paid out, so they're not counted here.
   expectedMargin: number;
 };
 
@@ -226,7 +204,8 @@ export function estimateJob(options: {
   spec: SystemSpec;
   priceBook: PriceSourceItem[];
   accessories?: AccessoryCosts;
-  sourceFilter?: string; // only use this supplier/benchmark, e.g. "Nexus"
+  services?: ServiceCosts;
+  sourceFilter?: string; // only use this supplier, e.g. "Nexus"
 }): JobEstimate {
   const { spec } = options;
   const book = options.sourceFilter
@@ -284,18 +263,7 @@ export function estimateJob(options: {
 
   const equipmentCost = sum(equipment.map((l) => l.cost));
   const equipmentPrice = sum(equipment.map((l) => l.price));
-  const labour = Math.max(JOB_COSTS.labourMinimum, spec.inverterKva * JOB_COSTS.labourPerKva);
-  const transport = JOB_COSTS.transport;
-  const siteSurvey = JOB_COSTS.siteSurvey;
-  const warrantyReserve = equipmentCost * JOB_COSTS.warrantyReserveRate;
-
-  const subtotalBeforeOverhead = equipmentPrice + labour + transport + siteSurvey + warrantyReserve;
-  const overhead = subtotalBeforeOverhead * JOB_COSTS.overheadRate;
-  const subtotalBeforeBuffer = subtotalBeforeOverhead + overhead;
-  const nairaBuffer = subtotalBeforeBuffer * JOB_COSTS.nairaBufferRate;
-  const bankCharges = JOB_COSTS.bankCharges;
-  const finalPrice = subtotalBeforeBuffer + nairaBuffer + bankCharges;
-  const vat = finalPrice * JOB_COSTS.vatRate;
+  const { labour, transport, siteSurvey } = options.services ?? defaultServiceCosts(spec.inverterKva);
 
   return {
     equipment,
@@ -305,16 +273,8 @@ export function estimateJob(options: {
     labour,
     transport,
     siteSurvey,
-    warrantyReserve,
-    subtotalBeforeOverhead,
-    overhead,
-    subtotalBeforeBuffer,
-    nairaBuffer,
-    bankCharges,
-    finalPrice,
-    vat,
-    finalPriceWithVat: finalPrice + vat,
-    expectedMargin: equipmentPrice - equipmentCost + overhead + nairaBuffer,
+    finalPrice: equipmentPrice + labour + transport + siteSurvey,
+    expectedMargin: equipmentPrice - equipmentCost,
   };
 }
 

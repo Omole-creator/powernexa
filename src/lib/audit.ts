@@ -15,11 +15,18 @@ export type AuditAction =
   | "unarchive_lead"
   | "change_password"
   | "add_teammate"
-  | "sync_price_benchmarks"
   | "add_supplier_price"
   | "update_supplier_price"
   | "delete_supplier_price"
-  | "import_supplier_prices";
+  | "import_supplier_prices"
+  | "add_job_record"
+  | "update_job_record"
+  | "delete_job_record"
+  | "add_expense"
+  | "update_expense"
+  | "delete_expense"
+  | "add_founder_repayment"
+  | "delete_founder_repayment";
 
 export async function logAudit(actorEmail: string, action: AuditAction, detail?: string): Promise<void> {
   const { error } = await supabase.from("audit_log").insert({

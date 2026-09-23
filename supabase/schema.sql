@@ -111,29 +111,8 @@ create table if not exists audit_log (
   created_at timestamptz not null default now()
 );
 
--- Auto-generated equipment price benchmarks, refreshed nightly by
--- /api/cron/sync-equipment-prices from Itel Solar's public storefront API
--- (their live retail catalog, the only wholesaler with a genuinely public,
--- machine-readable price list). Never hand-entered: a stale row just means
--- the last sync failed, not a manually typed guess. One row per
--- (source, category, subtype): panels are priced per watt, inverters per
--- kVA (split by 1-phase / 3-phase), batteries per kWh (split by chemistry).
--- Internal reference for admin quote prep only, never shown to a customer.
-create table if not exists equipment_price_benchmarks (
-  id bigint generated always as identity primary key,
-  source text not null,
-  category text not null check (category in ('panel', 'inverter', 'battery')),
-  subtype text not null default 'standard',
-  unit text not null check (unit in ('watt', 'kva', 'kwh')),
-  rate_ngn numeric not null,
-  min_rate_ngn numeric not null,
-  max_rate_ngn numeric not null,
-  sample_size int not null,
-  synced_at timestamptz not null default now(),
-  unique (source, category, subtype)
-);
-
-alter table equipment_price_benchmarks enable row level security;
+-- (equipment_price_benchmarks, the old Itel Solar sync table, was removed in
+-- Sept 2026. If it still exists in Supabase it is unused and can be dropped.)
 
 -- Supplier price lists typed in from a company's own price sheet (e.g. Nexus),
 -- for suppliers whose website has no usable public prices. One row per item.
@@ -155,6 +134,51 @@ create table if not exists supplier_price_items (
 
 create index if not exists idx_supplier_price_items_lookup on supplier_price_items (category, available);
 alter table supplier_price_items enable row level security;
+
+-- Business accounts, edited in /admin/accounts. business_jobs is work done
+-- (job_value counts as revenue on job_date, amount_paid tracks what the
+-- customer has paid). business_expenses records each cost as amount x
+-- quantity; paid_by marks money a founder paid from their own pocket, which
+-- the business owes back. founder_repayments records the business paying a
+-- founder back. Internal only.
+create table if not exists business_jobs (
+  id bigint generated always as identity primary key,
+  job_date date not null,
+  customer text not null,
+  description text,
+  job_value numeric not null check (job_value >= 0),
+  amount_paid numeric not null default 0 check (amount_paid >= 0),
+  notes text,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+create index if not exists idx_business_jobs_date on business_jobs (job_date);
+alter table business_jobs enable row level security;
+
+create table if not exists business_expenses (
+  id bigint generated always as identity primary key,
+  expense_date date not null,
+  name text not null,
+  category text not null default 'other',
+  amount numeric not null check (amount >= 0),
+  quantity numeric not null default 1 check (quantity > 0),
+  paid_by text not null default 'business' check (paid_by in ('business', 'omole', 'idowu')),
+  notes text,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+create index if not exists idx_business_expenses_date on business_expenses (expense_date);
+alter table business_expenses enable row level security;
+
+create table if not exists founder_repayments (
+  id bigint generated always as identity primary key,
+  repaid_date date not null,
+  founder text not null check (founder in ('omole', 'idowu')),
+  amount numeric not null check (amount > 0),
+  notes text,
+  created_at timestamptz not null default now()
+);
+alter table founder_repayments enable row level security;
 
 -- Row Level Security: enabled with no public policies on every table.
 -- The Next.js server is the only client that ever talks to Supabase, using

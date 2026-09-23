@@ -4,7 +4,6 @@ import { listLeads } from "@/lib/leads";
 import { LeadStatusSelect } from "@/components/admin/LeadStatusSelect";
 import { ArchiveLeadButton } from "@/components/admin/ArchiveLeadButton";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
-import { listPriceBenchmarks } from "@/lib/price-benchmarks";
 import { buildPriceBook, listSupplierPrices } from "@/lib/supplier-prices";
 import {
   PACKAGES,
@@ -35,12 +34,8 @@ export default async function AdminLeadsPage({
 }) {
   const { view } = await searchParams;
   const showArchived = view === "archived";
-  const [leads, benchmarks, supplierPrices] = await Promise.all([
-    listLeads({ archived: showArchived }),
-    listPriceBenchmarks(),
-    listSupplierPrices(),
-  ]);
-  const priceBook = buildPriceBook(supplierPrices.items, benchmarks);
+  const [leads, supplierPrices] = await Promise.all([listLeads({ archived: showArchived }), listSupplierPrices()]);
+  const priceBook = buildPriceBook(supplierPrices.items);
 
   return (
     <div className="space-y-6">

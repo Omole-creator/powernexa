@@ -3,7 +3,7 @@
 import { useActionState, useEffect, useRef, useState } from "react";
 import {
   addSupplierPriceAction,
-  importNexusPriceListAction,
+  importSupplierPriceListAction,
   type SupplierPriceFormState,
 } from "@/actions/pricing";
 
@@ -12,7 +12,13 @@ const initialState: SupplierPriceFormState = {};
 const inputClass =
   "w-full rounded-xl border border-line px-3 py-2 text-sm outline-none focus:border-orange focus:ring-2 focus:ring-orange/20";
 
-export function AddSupplierPriceForm({ suppliers, showNexusImport }: { suppliers: string[]; showNexusImport: boolean }) {
+export function AddSupplierPriceForm({
+  suppliers,
+  importable,
+}: {
+  suppliers: string[];
+  importable: { supplier: string; label: string }[];
+}) {
   const [state, formAction, pending] = useActionState(addSupplierPriceAction, initialState);
   const [category, setCategory] = useState("inverter");
   const formRef = useRef<HTMLFormElement>(null);
@@ -40,7 +46,13 @@ export function AddSupplierPriceForm({ suppliers, showNexusImport }: { suppliers
             For a new supplier, type their name. Each item shows up in the table and the calculator as soon as it&apos;s saved.
           </p>
         </div>
-        {showNexusImport ? <ImportNexusButton /> : null}
+        {importable.length > 0 ? (
+          <div className="flex flex-col gap-2 sm:items-end">
+            {importable.map((list) => (
+              <ImportListButton key={list.supplier} supplier={list.supplier} label={list.label} />
+            ))}
+          </div>
+        ) : null}
       </div>
 
       <form ref={formRef} action={formAction} className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -112,8 +124,11 @@ export function AddSupplierPriceForm({ suppliers, showNexusImport }: { suppliers
   );
 }
 
-function ImportNexusButton() {
-  const [state, formAction, pending] = useActionState(importNexusPriceListAction, initialState);
+function ImportListButton({ supplier, label }: { supplier: string; label: string }) {
+  const [state, formAction, pending] = useActionState(
+    importSupplierPriceListAction.bind(null, supplier),
+    initialState
+  );
   return (
     <form action={formAction} className="flex flex-col items-start gap-1 sm:items-end">
       <button
@@ -121,7 +136,7 @@ function ImportNexusButton() {
         disabled={pending}
         className="rounded-full border border-orange bg-orange/5 px-4 py-2 text-xs font-semibold text-navy hover:bg-orange/10 disabled:opacity-60"
       >
-        {pending ? "Loading..." : "Load Nexus price list (Sept 2026)"}
+        {pending ? "Loading..." : `Load ${label}`}
       </button>
       {state.error ? <p className="text-xs font-medium text-red-600">{state.error}</p> : null}
       {state.success ? <p className="text-xs font-medium text-green-600">{state.success}</p> : null}

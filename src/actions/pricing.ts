@@ -2,39 +2,15 @@
 
 import { revalidatePath } from "next/cache";
 import { requireAdmin } from "@/lib/dal";
-import { syncAllPriceBenchmarks } from "@/lib/price-benchmarks";
 import {
   addSupplierPrices,
   deleteSupplierPrice,
   listSupplierPrices,
   updateSupplierPrice,
 } from "@/lib/supplier-prices";
-import { NEXUS_PRICE_LIST } from "@/lib/supplier-seed-data";
+import { SUPPLIER_PRICE_LISTS } from "@/lib/supplier-seed-data";
 import { logAudit } from "@/lib/audit";
 import { optionalString, requiredString } from "@/lib/validation";
-
-export type PricingSyncState = {
-  error?: string;
-  success?: string;
-};
-
-export async function syncEquipmentPricesNow(
-  _prevState: PricingSyncState,
-  _formData: FormData
-): Promise<PricingSyncState> {
-  const admin = await requireAdmin();
-
-  try {
-    const result = await syncAllPriceBenchmarks();
-    await logAudit(admin.email, "sync_price_benchmarks", `Synced ${result.synced} benchmark rows from Itel Solar`);
-    revalidatePath("/admin/pricing");
-    return { success: `Updated ${result.synced} price benchmarks from Itel Solar's live catalog.` };
-  } catch (error) {
-    console.error("Manual price sync failed", error);
-    const detail = error instanceof Error ? error.message : "Unknown error";
-    return { error: `Sync failed, the previous prices were kept. ${detail}.` };
-  }
-}
 
 export type SupplierPriceFormState = {
   error?: string;
@@ -117,20 +93,26 @@ export async function deleteSupplierPriceAction(id: number, name: string) {
   revalidatePath("/admin/leads");
 }
 
-export async function importNexusPriceListAction(): Promise<SupplierPriceFormState> {
+export async function importSupplierPriceListAction(
+  supplier: string,
+  _prevState: SupplierPriceFormState,
+  _formData: FormData
+): Promise<SupplierPriceFormState> {
   const admin = await requireAdmin();
+  const list = SUPPLIER_PRICE_LISTS.find((l) => l.supplier === supplier);
+  if (!list) return { error: "Unknown price list." };
   const { items } = await listSupplierPrices();
-  if (items.some((item) => item.supplier === NEXUS_PRICE_LIST.supplier)) {
-    return { error: "Nexus prices are already loaded. Edit them in the table instead." };
+  if (items.some((item) => item.supplier === list.supplier)) {
+    return { error: `${list.supplier} prices are already loaded. Edit them in the table instead.` };
   }
   try {
-    await addSupplierPrices(NEXUS_PRICE_LIST.supplier, NEXUS_PRICE_LIST.items);
+    await addSupplierPrices(list.supplier, list.items);
   } catch (error) {
-    console.error("Nexus import failed", error);
+    console.error(`${list.supplier} import failed`, error);
     return { error: "Could not import. Has the supplier price SQL been run in Supabase?" };
   }
-  await logAudit(admin.email, "import_supplier_prices", `Imported ${NEXUS_PRICE_LIST.items.length} Nexus items`);
+  await logAudit(admin.email, "import_supplier_prices", `Imported ${list.items.length} ${list.supplier} items`);
   revalidatePath("/admin/pricing");
   revalidatePath("/admin/leads");
-  return { success: `Loaded ${NEXUS_PRICE_LIST.items.length} Nexus prices.` };
+  return { success: `Loaded ${list.items.length} ${list.supplier} prices.` };
 }

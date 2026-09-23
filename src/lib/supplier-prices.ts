@@ -1,6 +1,5 @@
 import "server-only";
 import { supabase } from "./supabase";
-import type { PriceBenchmark } from "./price-benchmarks";
 import type { PriceSourceItem } from "./costing";
 
 export type SupplierPriceItem = {
@@ -88,12 +87,10 @@ export async function deleteSupplierPrice(id: number): Promise<void> {
   if (error) throw error;
 }
 
-export const BENCHMARK_SOURCE = "Itel Solar (benchmark)";
-
-// Merges typed-in supplier lists with Itel's per-unit benchmark rates into
-// one list the costing engine can pick the cheapest option from.
-export function buildPriceBook(supplierItems: SupplierPriceItem[], benchmarks: PriceBenchmark[]): PriceSourceItem[] {
-  const book: PriceSourceItem[] = supplierItems
+// Turns the in-stock supplier items into the list the costing engine picks
+// the cheapest option from.
+export function buildPriceBook(supplierItems: SupplierPriceItem[]): PriceSourceItem[] {
+  return supplierItems
     .filter((item) => item.available)
     .map((item) => ({
       source: item.supplier,
@@ -103,20 +100,4 @@ export function buildPriceBook(supplierItems: SupplierPriceItem[], benchmarks: P
       chemistry: item.chemistry,
       price: item.price_ngn,
     }));
-
-  for (const row of benchmarks) {
-    // Unlabelled batteries could be either chemistry, so they're left out
-    // rather than guessed.
-    if (row.category === "battery" && row.subtype !== "lithium" && row.subtype !== "tubular") continue;
-    book.push({
-      source: BENCHMARK_SOURCE,
-      category: row.category,
-      name: `Itel median rate (${row.subtype})`,
-      size: 1,
-      chemistry: row.category === "battery" ? (row.subtype as "lithium" | "tubular") : null,
-      price: Number(row.rate_ngn),
-      perUnitRate: true,
-    });
-  }
-  return book;
 }

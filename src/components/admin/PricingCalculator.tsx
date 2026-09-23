@@ -5,6 +5,7 @@ import {
   JOB_COSTS,
   PACKAGES,
   defaultAccessoryCosts,
+  defaultServiceCosts,
   estimateJob,
   formatNaira,
   roundQuote,
@@ -12,6 +13,7 @@ import {
   type Chemistry,
   type PackageKey,
   type PriceSourceItem,
+  type ServiceCosts,
 } from "@/lib/costing";
 
 const inputClass =
@@ -22,6 +24,16 @@ const ACCESSORY_FIELDS: { key: keyof AccessoryCosts; label: string }[] = [
   { key: "cables", label: "Cables and MC4" },
   { key: "protection", label: "Breakers, isolators, SPD" },
   { key: "earthing", label: "Earthing kit" },
+];
+
+const SERVICE_FIELDS: { key: keyof ServiceCosts; label: string; hint: string }[] = [
+  {
+    key: "labour",
+    label: "Labour",
+    hint: `Starts at ₦${JOB_COSTS.labourPerKva.toLocaleString("en-NG")} per kVA, min ₦${JOB_COSTS.labourMinimum.toLocaleString("en-NG")}`,
+  },
+  { key: "transport", label: "Transport and logistics", hint: "Depends on distance and load" },
+  { key: "siteSurvey", label: "Site survey visit", hint: "What the assessment cost us" },
 ];
 
 export function PricingCalculator({
@@ -40,7 +52,7 @@ export function PricingCalculator({
   const [panelWatts, setPanelWatts] = useState(String(start.panelWatts));
   const [source, setSource] = useState("");
   const [accessoryOverrides, setAccessoryOverrides] = useState<Partial<Record<keyof AccessoryCosts, string>>>({});
-  const [includeVat, setIncludeVat] = useState(false);
+  const [serviceOverrides, setServiceOverrides] = useState<Partial<Record<keyof ServiceCosts, string>>>({});
 
   const sources = useMemo(() => [...new Set(priceBook.map((i) => i.source))], [priceBook]);
 
@@ -58,8 +70,13 @@ export function PricingCalculator({
     protection: numberOr(accessoryOverrides.protection, defaults.protection),
     earthing: numberOr(accessoryOverrides.earthing, defaults.earthing),
   };
-  const estimate = estimateJob({ spec, priceBook, accessories, sourceFilter: source || undefined });
-  const finalShown = includeVat ? estimate.finalPriceWithVat : estimate.finalPrice;
+  const serviceDefaults = defaultServiceCosts(spec.inverterKva);
+  const services: ServiceCosts = {
+    labour: numberOr(serviceOverrides.labour, serviceDefaults.labour),
+    transport: numberOr(serviceOverrides.transport, serviceDefaults.transport),
+    siteSurvey: numberOr(serviceOverrides.siteSurvey, serviceDefaults.siteSurvey),
+  };
+  const estimate = estimateJob({ spec, priceBook, accessories, services, sourceFilter: source || undefined });
 
   const applyPreset = (key: PackageKey | "custom") => {
     setPreset(key);
@@ -71,6 +88,7 @@ export function PricingCalculator({
     setPanelCount(String(p.panelCount));
     setPanelWatts(String(p.panelWatts));
     setAccessoryOverrides({});
+    setServiceOverrides({});
   };
   const edit = (setter: (v: string) => void) => (e: React.ChangeEvent<HTMLInputElement>) => {
     setter(e.target.value);
@@ -82,8 +100,8 @@ export function PricingCalculator({
       <h2 className="font-display text-lg font-bold text-navy">Job cost calculator</h2>
       <p className="mt-1 text-sm text-charcoal/60">
         Supplier cost, your markups (inverter 10%, battery 20%, panels 10%, accessories 35%), then labour,
-        transport, site survey, warranty reserve, overhead, naira buffer and bank charges. It picks the
-        cheapest price on file for each item unless you choose one supplier.
+        transport and the site survey, which you can change for each job. It picks the cheapest price on file
+        for each item unless you choose one supplier.
       </p>
 
       <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -161,8 +179,8 @@ export function PricingCalculator({
 
       {estimate.missing.length > 0 ? (
         <p className="mt-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-xs font-medium text-red-700">
-          No price on file for: {estimate.missing.join(", ")}. The total below leaves these out. Add a supplier price or run
-          the Itel sync.
+          No price on file for: {estimate.missing.join(", ")}. The total below leaves these out. Add a supplier price
+          below.
         </p>
       ) : null}
 
@@ -199,35 +217,38 @@ export function PricingCalculator({
       </div>
 
       <div className="mt-6 space-y-1.5 rounded-xl bg-mist p-5 text-sm">
-        <Row label={`Labour (₦${JOB_COSTS.labourPerKva.toLocaleString("en-NG")} per kVA, min ₦${JOB_COSTS.labourMinimum.toLocaleString("en-NG")})`} value={estimate.labour} />
-        <Row label="Transport and logistics" value={estimate.transport} />
-        <Row label="Site survey visit" value={estimate.siteSurvey} />
-        <Row label="Warranty reserve (2% of equipment cost)" value={estimate.warrantyReserve} />
-        <Row label="Subtotal" value={estimate.subtotalBeforeOverhead} strong />
-        <Row label="Overhead and marketing (5%)" value={estimate.overhead} />
-        <Row label="Naira buffer (3%)" value={estimate.nairaBuffer} />
-        <Row label="Bank and payment charges" value={estimate.bankCharges} />
-        <label className="flex items-center gap-2 pt-1 text-xs text-charcoal/60">
-          <input type="checkbox" checked={includeVat} onChange={(e) => setIncludeVat(e.target.checked)} className="accent-orange" />
-          Add VAT at 7.5% (only once the business is VAT registered)
-        </label>
-        {includeVat ? <Row label="VAT (7.5%)" value={estimate.vat} /> : null}
+        <Row label="Equipment (our price)" value={estimate.equipmentPrice} />
+        <div className="grid gap-3 py-2 sm:grid-cols-3">
+          {SERVICE_FIELDS.map((field) => (
+            <label key={field.key} className="text-xs font-semibold text-navy">
+              {field.label} (₦)
+              <input
+                type="number"
+                min="0"
+                value={serviceOverrides[field.key] ?? String(serviceDefaults[field.key])}
+                onChange={(e) => setServiceOverrides((prev) => ({ ...prev, [field.key]: e.target.value }))}
+                className={`${inputClass} mt-1 bg-white`}
+              />
+              <span className="mt-1 block font-normal text-charcoal/50">{field.hint}</span>
+            </label>
+          ))}
+        </div>
         <div className="flex justify-between border-t border-line pt-3 text-lg font-bold text-navy">
           <span>Final price</span>
-          <span className="font-mono-num text-orange">{formatNaira(finalShown)}</span>
+          <span className="font-mono-num text-orange">{formatNaira(estimate.finalPrice)}</span>
         </div>
         <div className="flex justify-between text-xs text-charcoal/60">
           <span>Rounded for the written quote</span>
-          <span className="font-mono-num">{formatNaira(roundQuote(finalShown))}</span>
+          <span className="font-mono-num">{formatNaira(roundQuote(estimate.finalPrice))}</span>
         </div>
         <div className="flex justify-between text-xs text-charcoal/60">
           <span>60% to 70% deposit</span>
           <span className="font-mono-num">
-            {formatNaira(roundQuote(finalShown) * 0.6)} to {formatNaira(roundQuote(finalShown) * 0.7)}
+            {formatNaira(roundQuote(estimate.finalPrice) * 0.6)} to {formatNaira(roundQuote(estimate.finalPrice) * 0.7)}
           </span>
         </div>
         <div className="flex justify-between text-xs font-semibold text-green-700">
-          <span>Expected margin (markups + overhead + buffer)</span>
+          <span>Expected margin (equipment markups)</span>
           <span className="font-mono-num">{formatNaira(estimate.expectedMargin)}</span>
         </div>
       </div>

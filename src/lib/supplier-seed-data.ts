@@ -81,4 +81,39 @@ export const LUXSUN_PRICE_LIST: SupplierPriceList = {
   ],
 };
 
-export const SUPPLIER_PRICE_LISTS: SupplierPriceList[] = [NEXUS_PRICE_LIST, LUXSUN_PRICE_LIST];
+// SRNE dealer price list, supplied by the owner in September 2026. SRNE
+// rates its inverters in kW; size here is that kW figure, used as kVA by the
+// job calculator. HESP and ASP are separate SRNE series with different
+// prices at the same size. Warranty (EOS05B/10B/15B 10 years, the rest 5)
+// is kept in each battery's notes.
+export const SRNE_PRICE_LIST: SupplierPriceList = {
+  label: "SRNE dealer price list (Sept 2026)",
+  supplier: "SRNE",
+  items: [
+    { category: "inverter", name: "SRNE 1.5kW 12V", size: 1.5, voltage: "12V", priceNgn: 282_000 },
+    { category: "inverter", name: "SRNE 3kW 24V", size: 3, voltage: "24V", priceNgn: 301_000 },
+    { category: "inverter", name: "SRNE 3.3kW 24V (500VDC PV)", size: 3.3, voltage: "24V", priceNgn: 390_000 },
+    { category: "inverter", name: "SRNE AFP 5kW 48V (500VDC PV)", size: 5, voltage: "48V", priceNgn: 521_000 },
+    { category: "inverter", name: "SRNE AEP 6kW 48V (500VDC PV)", size: 6, voltage: "48V", priceNgn: 727_000 },
+    { category: "inverter", name: "SRNE ASP 10kW 48V", size: 10, voltage: "48V", priceNgn: 1_230_000 },
+    { category: "inverter", name: "SRNE ASP 12kW 48V single phase", size: 12, voltage: "48V", priceNgn: 1_345_000 },
+    { category: "inverter", name: "SRNE ASP 12kW 48V three phase", size: 12, voltage: "48V", priceNgn: 1_376_000, notes: "Three-phase." },
+    { category: "inverter", name: "SRNE HESP 12kW 48V", size: 12, voltage: "48V", priceNgn: 2_344_000 },
+    { category: "inverter", name: "SRNE HESP 12kW 48V three phase", size: 12, voltage: "48V", priceNgn: 2_450_000, notes: "Three-phase." },
+    { category: "inverter", name: "SRNE ASP 16kW 48V single phase", size: 16, voltage: "48V", priceNgn: 2_415_000 },
+    { category: "inverter", name: "SRNE ASP 20kW 48V three phase", size: 20, voltage: "48V", priceNgn: 2_945_000, notes: "Three-phase." },
+    { category: "inverter", name: "SRNE HESP 20kW 48V three phase", size: 20, voltage: "48V", priceNgn: 3_980_000, notes: "Three-phase." },
+    { category: "battery", name: "SRNE EOS05B 5kWh 48V", size: 5, voltage: "48V", chemistry: "lithium", priceNgn: 1_265_000, notes: "10-year warranty." },
+    { category: "battery", name: "SRNE EOS10B 10kWh 48V", size: 10, voltage: "48V", chemistry: "lithium", priceNgn: 2_700_000, notes: "10-year warranty." },
+    { category: "battery", name: "SRNE EOS15B 16.07kWh 48V", size: 16.07, voltage: "48V", chemistry: "lithium", priceNgn: 3_252_000, notes: "10-year warranty." },
+    { category: "battery", name: "SRNE EOS02B-12 2.56kWh 12V 200Ah", size: 2.56, voltage: "12V", chemistry: "lithium", priceNgn: 553_000, notes: "5-year warranty." },
+    { category: "battery", name: "SRNE EOS02B-24 2.56kWh 24V 100Ah", size: 2.56, voltage: "24V", chemistry: "lithium", priceNgn: 700_000, notes: "5-year warranty." },
+    { category: "battery", name: "SRNE EOS08B-24 7.16kWh 24V 218Ah", size: 7.16, voltage: "24V", chemistry: "lithium", priceNgn: 1_430_000, notes: "5-year warranty." },
+    { category: "battery", name: "SRNE SE05B 5kWh 48V", size: 5, voltage: "48V", chemistry: "lithium", priceNgn: 1_030_000, notes: "5-year warranty." },
+    { category: "battery", name: "SRNE SE10B 10.49kWh 48V", size: 10.49, voltage: "48V", chemistry: "lithium", priceNgn: 2_000_000, notes: "5-year warranty." },
+    { category: "battery", name: "SRNE SE15B 14.33kWh 48V", size: 14.33, voltage: "48V", chemistry: "lithium", priceNgn: 2_409_000, notes: "5-year warranty." },
+    { category: "battery", name: "SRNE SE15B Pro 16.07kWh 48V", size: 16.07, voltage: "48V", chemistry: "lithium", priceNgn: 2_675_000, notes: "5-year warranty." },
+  ],
+};
+
+export const SUPPLIER_PRICE_LISTS: SupplierPriceList[] = [NEXUS_PRICE_LIST, LUXSUN_PRICE_LIST, SRNE_PRICE_LIST];

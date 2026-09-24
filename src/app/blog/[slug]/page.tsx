@@ -8,6 +8,7 @@ import { BlogCard } from "@/components/marketing/BlogCard";
 import { BlogViewTracker } from "@/components/marketing/BlogViewTracker";
 import { CtaBand } from "@/components/marketing/CtaBand";
 import { LeadMagnetGate } from "@/components/marketing/LeadMagnetGate";
+import { ShareButtons } from "@/components/marketing/ShareButtons";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { breadcrumbJsonLd, blogPostingJsonLd } from "@/lib/seo";
 import { getPublishedPostBySlug, listPublishedPosts, listRelatedPosts } from "@/lib/blog";
@@ -58,6 +59,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
   const related = await listRelatedPosts(post.id, post.category, 3);
   const tags = post.tags;
+  const shareUrl = `${SITE_URL}/blog/${post.slug}`;
 
   return (
     <>
@@ -95,6 +97,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               <span aria-hidden="true">·</span>
               <span>{post.reading_time_minutes} min read</span>
             </div>
+            <ShareButtons url={shareUrl} title={post.title} className="mt-5" />
           </header>
 
           {post.featured_image ? (
@@ -122,6 +125,13 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                   ))}
                 </div>
               ) : null}
+
+              <ShareButtons
+                url={shareUrl}
+                title={post.title}
+                label="Found this useful? Share it"
+                className={`rounded-[28px] bg-white p-5 shadow-[0_1px_2px_rgba(9,43,76,0.06),0_10px_24px_-16px_rgba(9,43,76,0.16)] ${tags.length > 0 ? "mt-6" : "mt-10"}`}
+              />
 
               <div className="mt-10">
                 <LeadMagnetGate

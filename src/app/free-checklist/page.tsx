@@ -26,13 +26,23 @@ export const metadata: Metadata = {
   },
 };
 
-// Question counts match the PDF's five stages (4 + 5 + 3 + 5 + 4 = 21).
-const STAGES = [
-  { name: "Before you call anyone", count: 4, body: "Know what you want to power, and ask for past customers you can call yourself." },
-  { name: "Before you agree to a price", count: 5, body: "Get the load calculation in writing and the brand and model of every part." },
-  { name: "Before you pay a deposit", count: 3, body: "Get the warranty and payment terms written down." },
-  { name: "On installation day", count: 5, body: "Check the cables suit the load and the brand names match the quote." },
-  { name: "Before you pay the balance", count: 4, body: "Watch the system run your appliances, and collect the warranty papers." },
+// Curiosity bullets for "What's inside". Each one points at a question or
+// red flag that is in the PDF, without giving the answer away (only the
+// download does). If the PDF changes, check every bullet is still true.
+const TEASERS = [
+  "Why \"How long has your company been around?\" can point you to the wrong installer, and what to ask instead.",
+  "One kind of proof that tells you more than a phone full of finished-job photos.",
+  "A warning sign that shows up before you even get a price, and tells you your system is being sized by guesswork.",
+  "What every line of a proper quote should name, so the parts that arrive at your house are the parts you paid for.",
+  "Four costs that may or may not be inside your quoted price, and the one question that settles it.",
+  "How a simple WhatsApp message can protect your deposit, if it says the right things.",
+  "Three details to collect before you pay a deposit, so you can still find the installer if they stop picking your calls.",
+  "A wiring choice on installation day that decides what your inverter has to carry when NEPA takes light.",
+  "A fire risk that comes from saving money in the wrong place on installation day.",
+  "Why the spot where your batteries sit can make them fail sooner.",
+  "What a quick light bulb test does not prove, and how the system should be tested before you pay the balance.",
+  "The papers you should have in your hand before the installer leaves, because a spoken promise is not a warranty.",
+  "Six red flags that mean you should walk away, including one thing some installers say about warranty that should end the conversation.",
 ];
 
 export default function FreeChecklistPage() {
@@ -59,36 +69,26 @@ export default function FreeChecklistPage() {
               {DEFAULT_LEAD_MAGNET.title}
             </h1>
             <p className="mt-5 max-w-xl text-lg leading-relaxed text-charcoal/75">
-              Most bad installations in Lagos go wrong for the same few reasons: the installer disappears after
-              collecting the deposit, the battery is sized by guesswork, or the changeover switch is wired wrong.
-              This free checklist gives you the questions that catch these problems before you pay.
+              Most bad installations in Lagos don&apos;t fail because the equipment was bad. They fail because
+              nobody asked the right question at the right time, and you only find out after you&apos;ve paid.
+              This checklist gives you those questions, one stage at a time.
             </p>
 
             <div className="mt-10 rounded-[28px] bg-white p-7 shadow-[0_1px_2px_rgba(9,43,76,0.06),0_10px_24px_-16px_rgba(9,43,76,0.16)]">
               <h2 className="font-display text-lg font-bold text-navy">What&apos;s inside</h2>
-              <ol className="mt-5 space-y-4">
-                {STAGES.map((stage, i) => (
-                  <li key={stage.name} className="flex items-start gap-4">
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-orange to-yellow font-mono-num text-sm font-bold text-white">
-                      {i + 1}
-                    </span>
-                    <div>
-                      <p className="font-semibold text-navy">
-                        {stage.name}{" "}
-                        <span className="font-mono-num text-xs font-medium text-charcoal/50">
-                          {stage.count} questions
-                        </span>
-                      </p>
-                      <p className="mt-0.5 text-sm leading-relaxed text-charcoal/70">{stage.body}</p>
-                    </div>
+              <p className="mt-2 text-sm text-charcoal/60">
+                21 questions in 5 stages, from before you call anyone to the day you pay the balance.
+                Here&apos;s some of what you&apos;ll find:
+              </p>
+              <ul className="mt-5 space-y-3.5">
+                {TEASERS.map((teaser) => (
+                  <li key={teaser} className="flex items-start gap-3">
+                    <CheckIcon className="mt-0.5 h-5 w-5 shrink-0 text-orange" />
+                    <span className="text-[15px] leading-relaxed text-charcoal/80">{teaser}</span>
                   </li>
                 ))}
-              </ol>
-              <p className="mt-6 flex items-start gap-3 border-t border-line pt-5 text-sm text-charcoal/75">
-                <CheckIcon className="mt-0.5 h-5 w-5 shrink-0 text-orange" />
-                At the end: the red flags that mean you should walk away.
-              </p>
-              <p className="mt-2 text-xs text-charcoal/50">Two pages. Print it, or keep it on your phone.</p>
+              </ul>
+              <p className="mt-6 border-t border-line pt-5 text-xs text-charcoal/50">Two pages. Print it, or keep it on your phone.</p>
             </div>
           </Reveal>
 

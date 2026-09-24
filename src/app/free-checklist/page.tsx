@@ -30,18 +30,12 @@ export const metadata: Metadata = {
 // red flag that is in the PDF, without giving the answer away (only the
 // download does). If the PDF changes, check every bullet is still true.
 const TEASERS = [
-  "Why \"How long has your company been around?\" can point you to the wrong installer, and what to ask instead.",
-  "One kind of proof that tells you more than a phone full of finished-job photos.",
   "A warning sign that shows up before you even get a price, and tells you your system is being sized by guesswork.",
-  "What every line of a proper quote should name, so the parts that arrive at your house are the parts you paid for.",
   "Four costs that may or may not be inside your quoted price, and the one question that settles it.",
   "How a simple WhatsApp message can protect your deposit, if it says the right things.",
   "Three details to collect before you pay a deposit, so you can still find the installer if they stop picking your calls.",
   "A wiring choice on installation day that decides what your inverter has to carry when NEPA takes light.",
   "A fire risk that comes from saving money in the wrong place on installation day.",
-  "Why the spot where your batteries sit can make them fail sooner.",
-  "What a quick light bulb test does not prove, and how the system should be tested before you pay the balance.",
-  "The papers you should have in your hand before the installer leaves, because a spoken promise is not a warranty.",
   "Six red flags that mean you should walk away, including one thing some installers say about warranty that should end the conversation.",
 ];
 
@@ -78,7 +72,7 @@ export default function FreeChecklistPage() {
               <h2 className="font-display text-lg font-bold text-navy">What&apos;s inside</h2>
               <p className="mt-2 text-sm text-charcoal/60">
                 21 questions in 5 stages, from before you call anyone to the day you pay the balance.
-                Here&apos;s some of what you&apos;ll find:
+                Here&apos;s a taste of what you&apos;ll find:
               </p>
               <ul className="mt-5 space-y-3.5">
                 {TEASERS.map((teaser) => (
@@ -87,6 +81,7 @@ export default function FreeChecklistPage() {
                     <span className="text-[15px] leading-relaxed text-charcoal/80">{teaser}</span>
                   </li>
                 ))}
+                <li className="pl-8 font-display text-[15px] font-bold text-orange-dark">And lots more!</li>
               </ul>
               <p className="mt-6 border-t border-line pt-5 text-xs text-charcoal/50">Two pages. Print it, or keep it on your phone.</p>
             </div>

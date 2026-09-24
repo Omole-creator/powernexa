@@ -2,9 +2,9 @@
 
 import type { ProjectVideo } from "@/lib/projects-data";
 
-// Vertical phone footage in an elevated card. The watermark is burned into
-// the video file itself; hiding the download button and the right-click menu
-// just stops the casual "save video as".
+// Vertical phone footage in an elevated card. The PowerNexa watermark is
+// burned into the video file itself, so the videos are free to download and
+// share (owner request, Sept 2026).
 export function ProjectVideoCard({
   project,
   priority = false,
@@ -24,9 +24,8 @@ export function ProjectVideoCard({
           controls
           playsInline
           preload={priority ? "metadata" : "none"}
-          controlsList="nodownload noplaybackrate"
+          controlsList="noplaybackrate"
           disablePictureInPicture
-          onContextMenu={(e) => e.preventDefault()}
           aria-label={`${project.title} installed by PowerNexa Solutions in ${project.location}`}
         />
       </div>
@@ -34,6 +33,17 @@ export function ProjectVideoCard({
         <p className="text-xs font-semibold uppercase tracking-[0.12em] text-orange-dark">{project.location}</p>
         <h3 className="mt-1.5 font-display text-lg font-bold leading-tight text-navy">{project.title}</h3>
         <p className="mt-1.5 text-sm leading-relaxed text-charcoal/70">{project.specs}</p>
+        <a
+          href={project.video}
+          download={`powernexa-${project.slug}.mp4`}
+          className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-orange-dark hover:text-orange"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4" aria-hidden="true">
+            <path d="M12 3v12M7 10l5 5 5-5M5 21h14" />
+          </svg>
+          Download video
+          <span className="sr-only">: {project.title}, {project.location}</span>
+        </a>
       </figcaption>
     </figure>
   );

@@ -10,7 +10,7 @@ import { ConditionalChrome } from "@/components/layout/ConditionalChrome";
 import { AnalyticsBeacon } from "@/components/analytics/AnalyticsBeacon";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { businessJsonLd } from "@/lib/seo";
-import { SITE_NAME, SITE_TAGLINE, SITE_URL } from "@/lib/constants";
+import { SITE_NAME, SITE_TAGLINE, SITE_URL, SOCIAL_HANDLE } from "@/lib/constants";
 
 const archivo = Archivo({
   variable: "--font-archivo",
@@ -56,6 +56,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
+    site: SOCIAL_HANDLE,
     title: `${SITE_NAME} | ${SITE_TAGLINE}`,
     description: "Solar, inverter, and battery installation for homes and businesses across Lagos.",
   },

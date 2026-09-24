@@ -1,4 +1,4 @@
-import { BUSINESS_ADDRESS, CONTACT_EMAIL, PHONE_E164, SITE_NAME, SITE_URL } from "./constants";
+import { BUSINESS_ADDRESS, CONTACT_EMAIL, PHONE_E164, SITE_NAME, SITE_URL, SOCIAL_LINKS } from "./constants";
 import type { BlogPost } from "./blog";
 
 export function businessJsonLd() {
@@ -13,6 +13,7 @@ export function businessJsonLd() {
     telephone: PHONE_E164,
     email: CONTACT_EMAIL,
     priceRange: "₦₦₦",
+    sameAs: SOCIAL_LINKS.map((link) => link.url),
     address: {
       "@type": "PostalAddress",
       streetAddress: BUSINESS_ADDRESS.street,

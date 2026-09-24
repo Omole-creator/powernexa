@@ -12,8 +12,11 @@ import {
   SERVICES,
   SITE_NAME,
   SITE_TAGLINE,
+  SOCIAL_HANDLE,
+  SOCIAL_LINKS,
 } from "@/lib/constants";
 import { EmailLink } from "./EmailLink";
+import { SocialIcon } from "./SocialIcon";
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -42,6 +45,20 @@ export function Footer() {
             {PHONE_DISPLAY_2}
           </a>
           <EmailLink className="mt-1 block text-sm text-white/80 hover:text-orange" />
+          <div className="mt-5 flex gap-3">
+            {SOCIAL_LINKS.map((link) => (
+              <a
+                key={link.network}
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${SITE_NAME} on ${link.label} (${SOCIAL_HANDLE})`}
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white transition hover:-translate-y-0.5 hover:bg-orange"
+              >
+                <SocialIcon network={link.network} className="h-[18px] w-[18px]" />
+              </a>
+            ))}
+          </div>
         </div>
 
         <div>

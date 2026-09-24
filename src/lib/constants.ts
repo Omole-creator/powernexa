@@ -12,6 +12,13 @@ export const QUOTE_WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_QUOTE_WHATSAPP_NUMB
 
 export const CONTACT_EMAIL = "powernexas@gmail.com";
 
+export const SOCIAL_HANDLE = "@powernexas";
+export const SOCIAL_LINKS = [
+  { network: "x", label: "X", url: "https://x.com/powernexas" },
+  { network: "tiktok", label: "TikTok", url: "https://www.tiktok.com/@powernexas" },
+  { network: "instagram", label: "Instagram", url: "https://www.instagram.com/powernexas" },
+] as const;
+
 export const BUSINESS_ADDRESS = {
   street: "11 Idris Ogunlaja Drive",
   area: "Sangotedo",

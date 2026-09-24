@@ -103,6 +103,7 @@ export function Footer() {
             <li><Link href="/blog" className="hover:text-white">Blog</Link></li>
             <li><Link href="/faq" className="hover:text-white">FAQ</Link></li>
             <li><Link href="/get-a-quote" className="hover:text-white">Get a quote</Link></li>
+            <li><Link href="/free-checklist" className="hover:text-white">Free installer checklist</Link></li>
           </ul>
           <div className="mt-5 text-xs text-white/50">
             {BUSINESS_HOURS.map((h) => (

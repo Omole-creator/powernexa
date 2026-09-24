@@ -200,31 +200,46 @@ export type JobEstimate = {
 
 export type AccessoryCosts = ReturnType<typeof defaultAccessoryCosts>;
 
+// Costs typed in by hand for one job, used instead of the supplier price
+// lists. Inverter and battery are the total cost; panels are the price of one.
+export type ManualEquipmentCosts = Partial<{ inverter: number; battery: number; panelEach: number }>;
+
 export function estimateJob(options: {
   spec: SystemSpec;
   priceBook: PriceSourceItem[];
   accessories?: AccessoryCosts;
   services?: ServiceCosts;
   sourceFilter?: string; // only use this supplier, e.g. "Nexus"
+  manual?: ManualEquipmentCosts;
 }): JobEstimate {
   const { spec } = options;
+  const manual = options.manual ?? {};
   const book = options.sourceFilter
     ? options.priceBook.filter((item) => item.source === options.sourceFilter)
     : options.priceBook;
 
-  const inverter = pickCheapest(
-    book.filter((i) => i.category === "inverter"),
-    spec.inverterKva
-  );
-  const battery = pickCheapest(
-    book.filter((i) => i.category === "battery" && (i.chemistry ?? null) === spec.batteryChemistry),
-    spec.batteryKwh
-  );
-  const panels = pickPanel(
-    book.filter((i) => i.category === "panel"),
-    spec.panelWatts,
-    spec.panelCount
-  );
+  const inverter: PickedItem | null =
+    manual.inverter !== undefined
+      ? handTyped(manual.inverter, 1, spec.inverterKva)
+      : pickCheapest(
+          book.filter((i) => i.category === "inverter"),
+          spec.inverterKva
+        );
+  const battery: PickedItem | null =
+    manual.battery !== undefined
+      ? handTyped(manual.battery, 1, spec.batteryKwh)
+      : pickCheapest(
+          book.filter((i) => i.category === "battery" && (i.chemistry ?? null) === spec.batteryChemistry),
+          spec.batteryKwh
+        );
+  const panels: PickedItem | null =
+    manual.panelEach !== undefined
+      ? handTyped(manual.panelEach, spec.panelCount, spec.panelWatts * spec.panelCount)
+      : pickPanel(
+          book.filter((i) => i.category === "panel"),
+          spec.panelWatts,
+          spec.panelCount
+        );
 
   const equipment: CostLine[] = [];
   const missing: string[] = [];
@@ -286,6 +301,17 @@ export function roundQuote(value: number): number {
 
 export function formatNaira(value: number): string {
   return `₦${Math.round(value).toLocaleString("en-NG")}`;
+}
+
+function handTyped(unitPrice: number, quantity: number, providedSize: number): PickedItem {
+  return {
+    source: "typed in by hand",
+    name: quantity > 1 ? `${formatNaira(unitPrice)} each` : "Your cost",
+    quantity,
+    unitPrice,
+    cost: unitPrice * quantity,
+    providedSize,
+  };
 }
 
 function sum(values: number[]): number {

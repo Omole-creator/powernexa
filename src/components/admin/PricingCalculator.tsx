@@ -11,6 +11,7 @@ import {
   roundQuote,
   type AccessoryCosts,
   type Chemistry,
+  type ManualEquipmentCosts,
   type PackageKey,
   type PriceSourceItem,
   type ServiceCosts,
@@ -24,6 +25,12 @@ const ACCESSORY_FIELDS: { key: keyof AccessoryCosts; label: string }[] = [
   { key: "cables", label: "Cables and MC4" },
   { key: "protection", label: "Breakers, isolators, SPD" },
   { key: "earthing", label: "Earthing kit" },
+];
+
+const MANUAL_FIELDS: { key: keyof ManualEquipmentCosts; label: string }[] = [
+  { key: "inverter", label: "Inverter, total cost" },
+  { key: "battery", label: "Battery, total cost" },
+  { key: "panelEach", label: "Price of one panel" },
 ];
 
 const SERVICE_FIELDS: { key: keyof ServiceCosts; label: string; hint: string }[] = [
@@ -53,6 +60,7 @@ export function PricingCalculator({
   const [source, setSource] = useState("");
   const [accessoryOverrides, setAccessoryOverrides] = useState<Partial<Record<keyof AccessoryCosts, string>>>({});
   const [serviceOverrides, setServiceOverrides] = useState<Partial<Record<keyof ServiceCosts, string>>>({});
+  const [manualInputs, setManualInputs] = useState<Partial<Record<keyof ManualEquipmentCosts, string>>>({});
 
   const sources = useMemo(() => [...new Set(priceBook.map((i) => i.source))], [priceBook]);
 
@@ -76,7 +84,13 @@ export function PricingCalculator({
     transport: numberOr(serviceOverrides.transport, serviceDefaults.transport),
     siteSurvey: numberOr(serviceOverrides.siteSurvey, serviceDefaults.siteSurvey),
   };
-  const estimate = estimateJob({ spec, priceBook, accessories, services, sourceFilter: source || undefined });
+  // A blank box means "use the price list" for that item.
+  const manual: ManualEquipmentCosts = {};
+  for (const { key } of MANUAL_FIELDS) {
+    const raw = manualInputs[key]?.trim();
+    if (raw && Number.isFinite(Number(raw))) manual[key] = Number(raw);
+  }
+  const estimate = estimateJob({ spec, priceBook, accessories, services, sourceFilter: source || undefined, manual });
 
   const applyPreset = (key: PackageKey | "custom") => {
     setPreset(key);
@@ -101,7 +115,7 @@ export function PricingCalculator({
       <p className="mt-1 text-sm text-charcoal/60">
         Supplier cost, your markups (inverter 10%, battery 20%, panels 10%, accessories 35%), then labour,
         transport and the site survey, which you can change for each job. It picks the cheapest price on file
-        for each item unless you choose one supplier.
+        for each item unless you choose one supplier or type the cost in yourself.
       </p>
 
       <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -156,6 +170,27 @@ export function PricingCalculator({
           </div>
         </label>
       </div>
+
+      <details className="mt-4 rounded-xl border border-line px-4 py-3">
+        <summary className="cursor-pointer text-xs font-semibold text-navy">
+          Type equipment costs by hand (leave a box empty to use the price lists)
+        </summary>
+        <div className="mt-3 grid gap-3 sm:grid-cols-3">
+          {MANUAL_FIELDS.map((field) => (
+            <label key={field.key} className="text-xs font-semibold text-navy">
+              {field.label} (₦)
+              <input
+                type="number"
+                min="0"
+                placeholder="From price list"
+                value={manualInputs[field.key] ?? ""}
+                onChange={(e) => setManualInputs((prev) => ({ ...prev, [field.key]: e.target.value }))}
+                className={`${inputClass} mt-1`}
+              />
+            </label>
+          ))}
+        </div>
+      </details>
 
       <details className="mt-4 rounded-xl border border-line px-4 py-3">
         <summary className="cursor-pointer text-xs font-semibold text-navy">

@@ -17,7 +17,8 @@ export const metadata: Metadata = {
 const WHAT_HAPPENS_NEXT = [
   "We review your request and confirm details on WhatsApp, usually the same day during business hours.",
   "We book a site assessment at a time that suits you. There's a small fee, and we take it off your installation price when you go ahead with us.",
-  "You receive a written quote with sizing and pricing explained, no pressure to decide on the spot.",
+  "You get a written quote listing what the system will carry and for how many hours. The price is fixed, and there's no pressure to decide on the spot.",
+  "Your deposit covers the equipment. You pay the balance after installation, once you see it working.",
   "We buy and bring every panel, inverter, and battery ourselves. You don't source anything.",
 ];
 

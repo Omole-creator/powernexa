@@ -1,3 +1,4 @@
+import { Promises } from "@/components/marketing/Promises";
 import type { Metadata } from "next";
 import { Container, SectionHeading, Eyebrow } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
@@ -37,8 +38,8 @@ const FACTORS = [
     body: "Roof type, height, access, and the distance between your panels, inverter, and battery room all affect labour and material costs.",
   },
   {
-    title: "Warranty and backup duration",
-    body: "A longer written warranty and a system designed for extended backup hours (for frequent, long outages) typically costs more than a basic short-backup setup.",
+    title: "Backup duration",
+    body: "A system built for long backup hours (for frequent, long outages) needs more battery, so it costs more than a basic short-backup setup.",
   },
 ];
 
@@ -175,6 +176,8 @@ export default function PricingPage() {
           </Reveal>
         </Container>
       </section>
+
+      <Promises className="bg-mist" />
 
       <CtaBand
         title="Get your exact price, not an estimate"

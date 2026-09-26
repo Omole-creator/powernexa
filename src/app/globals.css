@@ -178,3 +178,17 @@ h4,
   outline: 2px solid var(--color-orange);
   outline-offset: 2px;
 }
+
+/* Customer quotes (/admin/quote, /my-system/.../quote) print to A4 PDF. */
+@page {
+  size: A4;
+  margin: 14mm;
+}
+
+@media print {
+  body {
+    background: #ffffff !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}

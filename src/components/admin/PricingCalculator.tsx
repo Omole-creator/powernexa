@@ -16,6 +16,7 @@ import {
   type PriceSourceItem,
   type ServiceCosts,
 } from "@/lib/costing";
+import { CustomerQuoteBuilder } from "./CustomerQuoteBuilder";
 
 const inputClass =
   "w-full rounded-xl border border-line px-3 py-2 text-sm outline-none focus:border-orange focus:ring-2 focus:ring-orange/20";
@@ -110,6 +111,7 @@ export function PricingCalculator({
   };
 
   return (
+    <>
     <div className="rounded-2xl border border-line bg-white p-6">
       <h2 className="font-display text-lg font-bold text-navy">Job cost calculator</h2>
       <p className="mt-1 text-sm text-charcoal/60">
@@ -277,9 +279,9 @@ export function PricingCalculator({
           <span className="font-mono-num">{formatNaira(roundQuote(estimate.finalPrice))}</span>
         </div>
         <div className="flex justify-between text-xs text-charcoal/60">
-          <span>60% to 70% deposit</span>
+          <span>Deposit (covers the equipment), balance after installation</span>
           <span className="font-mono-num">
-            {formatNaira(roundQuote(estimate.finalPrice) * 0.6)} to {formatNaira(roundQuote(estimate.finalPrice) * 0.7)}
+            {formatNaira(roundQuote(estimate.finalPrice) - estimate.labour - estimate.transport - estimate.siteSurvey)}
           </span>
         </div>
         <div className="flex justify-between text-xs font-semibold text-green-700">
@@ -289,10 +291,13 @@ export function PricingCalculator({
       </div>
 
       <p className="mt-4 rounded-xl border border-orange/30 bg-orange/5 px-4 py-3 text-xs font-medium text-navy">
-        Internal figure only. Do not read this number to a customer. Their written quote still comes from the site
-        visit, marked &quot;valid for 7 days&quot;.
+        Internal figures only. Don&apos;t read them to a customer. After the site assessment, fill in the customer
+        quote below and send them the PDF.
       </p>
     </div>
+
+    <CustomerQuoteBuilder estimate={estimate} spec={spec} />
+    </>
   );
 }
 

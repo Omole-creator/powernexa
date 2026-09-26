@@ -61,12 +61,22 @@ const GROUPS: { title: string; items: { question: string; answer: string }[] }[]
       {
         question: "What happens if something breaks after installation?",
         answer:
-          "Our workmanship is covered by a written warranty, and equipment is covered by the manufacturer's warranty. Contact us and we'll diagnose the issue, and if it's a warranty matter, we'll handle the repair or replacement per the warranty terms.",
+          "Message us on WhatsApp. During working hours we reply within 2 hours, and a technician comes to you within 48 hours. Faults caused by our work are covered free for 2 years. Equipment faults are covered by each maker's warranty.",
+      },
+      {
+        question: "When do I pay?",
+        answer:
+          "Your deposit covers the equipment, which we buy for your job. You pay the balance after we install the system and you see it working. The price on your written quote doesn't change unless you add appliances.",
+      },
+      {
+        question: "What if the system can't carry what you said it would?",
+        answer:
+          "Your quote lists every appliance the system will power and for how many hours. If it can't do that in the first 30 days, we adjust it or add to it at our own cost.",
       },
       {
         question: "Do you offer ongoing maintenance?",
         answer:
-          "Yes, both one-off maintenance visits and scheduled maintenance plans, especially useful for estates and businesses managing multiple systems.",
+          "Every system we install gets two free check-ups, at 6 and 12 months. After that, or for systems someone else installed, we do one-off visits and maintenance plans, which suit estates and businesses with several systems.",
       },
     ],
   },

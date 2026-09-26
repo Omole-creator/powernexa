@@ -190,6 +190,48 @@ alter table leads enable row level security;
 alter table analytics_events enable row level security;
 alter table audit_log enable row level security;
 
+-- My System pages (/my-system/<token>, managed in /admin/systems): one private
+-- page per installed customer, reached only by the random link we send them.
+-- Photos live in the private "system-photos" storage bucket (created by the
+-- upload route on first use) and are shown through short-lived signed links.
+create table if not exists customer_systems (
+  id bigint generated always as identity primary key,
+  token text not null unique,
+  customer_name text not null,
+  phone text,
+  address text,
+  system_summary text,
+  installed_on date,
+  equipment jsonb not null default '[]',
+  load_items jsonb not null default '[]',
+  quote jsonb,
+  notes text,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+alter table customer_systems enable row level security;
+
+create table if not exists customer_system_events (
+  id bigint generated always as identity primary key,
+  system_id bigint not null references customer_systems (id) on delete cascade,
+  event_date date not null,
+  kind text not null check (kind in ('checkup', 'repair', 'visit', 'note')),
+  description text not null,
+  created_at timestamptz not null default now()
+);
+create index if not exists idx_customer_system_events_system on customer_system_events (system_id, event_date);
+alter table customer_system_events enable row level security;
+
+create table if not exists customer_system_photos (
+  id bigint generated always as identity primary key,
+  system_id bigint not null references customer_systems (id) on delete cascade,
+  path text not null,
+  caption text,
+  created_at timestamptz not null default now()
+);
+create index if not exists idx_customer_system_photos_system on customer_system_photos (system_id);
+alter table customer_system_photos enable row level security;
+
 -- Dashboard aggregate functions, called from the admin dashboard via
 -- supabase.rpc(...). Kept as SQL functions so the heavy GROUP BY work runs
 -- inside Postgres instead of being pulled row-by-row into the app.

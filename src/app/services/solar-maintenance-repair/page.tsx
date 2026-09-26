@@ -27,7 +27,7 @@ export default function MaintenancePage() {
       slug="solar-maintenance-repair"
       heroDescription="Solar and inverter systems lose efficiency quietly. Dust builds up on panels, connections loosen, and batteries degrade, until one day the system just doesn't perform. Scheduled maintenance catches this before it becomes a breakdown."
       benefits={[
-        "Scheduled visits to clean panels and inspect wiring before problems start.",
+        "Every system we install gets two free check-ups, at 6 and 12 months, to clean panels and inspect wiring before problems start.",
         "Fast-response repairs for inverters that are tripping, beeping, or underperforming.",
         "Honest diagnosis, we tell you when a part needs replacing, not just servicing.",
         "Maintenance plans for estates and businesses with multiple systems to manage.",

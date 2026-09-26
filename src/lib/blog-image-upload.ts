@@ -48,7 +48,9 @@ async function shrink(file: File, img: HTMLImageElement): Promise<{ file: File; 
   return { file: new File([blob], name, { type: "image/jpeg" }), width, height };
 }
 
-export async function uploadBlogImage(file: File): Promise<UploadedImage> {
+// Checks the file is an image, scales it down if needed and enforces the 5MB
+// cap. Shared with the My System photo upload.
+export async function prepareImage(file: File): Promise<{ file: File; width: number; height: number }> {
   if (!file.type.startsWith("image/")) {
     throw new Error("Only image files can be uploaded.");
   }
@@ -64,7 +66,11 @@ export async function uploadBlogImage(file: File): Promise<UploadedImage> {
   if (toSend.size > MAX_UPLOAD_BYTES) {
     throw new Error(`"${file.name}" is larger than 5MB.`);
   }
+  return { file: toSend, width, height };
+}
 
+export async function uploadBlogImage(file: File): Promise<UploadedImage> {
+  const { file: toSend, width, height } = await prepareImage(file);
   const body = new FormData();
   body.append("file", toSend);
   const res = await fetch("/api/admin/blog-image", { method: "POST", body });

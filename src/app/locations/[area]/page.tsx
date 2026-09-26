@@ -130,8 +130,8 @@ export default async function LocationPage({ params }: { params: Promise<{ area:
             <ul className="mt-4 space-y-3 text-sm leading-relaxed text-charcoal/75">
               <li>We calculate your actual load before recommending any system.</li>
               <li>Every quote is written down, with sizing and pricing explained.</li>
-              <li>Workmanship is backed by a written warranty.</li>
-              <li>Our Sangotedo base keeps response times short across Lagos.</li>
+              <li>2-year written workmanship warranty and two free check-ups.</li>
+              <li>WhatsApp reply within 2 hours, technician within 48 hours if something goes wrong.</li>
             </ul>
           </Reveal>
         </Container>

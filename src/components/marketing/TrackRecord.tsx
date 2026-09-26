@@ -5,8 +5,9 @@ import { GlowOrb } from "@/components/ui/GlowOrb";
 import { CountUp } from "@/components/ui/CountUp";
 import { HeadsetIcon, ProjectsIcon, ShieldIcon, SmileIcon } from "./Icons";
 import { PROJECTS_COMPLETED } from "@/lib/projects-data";
+import { PROMISE_TERMS } from "@/lib/promises";
 
-// The owner's four headline figures (Sept 2026). Each counts up from 1.
+// The owner's headline figures (Sept 2026). Each counts up from 1.
 const STATS: {
   to: number;
   suffix: string;
@@ -16,7 +17,8 @@ const STATS: {
   { to: PROJECTS_COMPLETED, suffix: "+", label: "Projects completed", icon: ProjectsIcon },
   { to: 99, suffix: "%+", label: "Customer satisfaction", icon: SmileIcon },
   { to: 100, suffix: "%", label: "Installation warranty", icon: ShieldIcon },
-  { to: 24, suffix: "/7", label: "Customer support", icon: HeadsetIcon },
+  // Response promise from src/lib/promises.ts (owner, Sept 2026), replacing "24/7".
+  { to: PROMISE_TERMS.replyHours, suffix: "hr", label: `WhatsApp reply, technician in ${PROMISE_TERMS.onSiteHours}hr`, icon: HeadsetIcon },
 ];
 
 export function TrackRecord() {

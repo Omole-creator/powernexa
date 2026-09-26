@@ -6,6 +6,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { GlowOrb } from "@/components/ui/GlowOrb";
 import { HeroCollage } from "@/components/marketing/HeroCollage";
 import { TrackRecord } from "@/components/marketing/TrackRecord";
+import { Promises } from "@/components/marketing/Promises";
 import { FeaturedProjects } from "@/components/marketing/FeaturedProjects";
 import { ChevronIcon } from "@/components/marketing/Icons";
 import { TrustedBy } from "@/components/marketing/TrustedBy";
@@ -41,7 +42,7 @@ const HOME_FAQS = [
   {
     question: "Do you offer a warranty?",
     answer:
-      "Yes. Every installation comes with a written workmanship warranty, in addition to the manufacturer warranty on panels, inverters, and batteries. We'll walk you through exactly what's covered before you pay a deposit.",
+      "Yes. Every installation comes with a 2-year written workmanship warranty. If a fault comes from our work, we fix it free. That's on top of the maker's warranty on your panels, inverter and batteries. You also get two free check-ups, at 6 and 12 months.",
   },
 ];
 
@@ -54,7 +55,7 @@ const PROCESS_STEPS = [
   {
     step: "02",
     title: "Site visit & quote",
-    body: "We visit, measure your space and wiring, and hand you a written quote with sizing and pricing explained.",
+    body: "We visit, measure your load and wiring, and send a written quote that lists what the system will carry and for how many hours. That price is final.",
   },
   {
     step: "03",
@@ -64,7 +65,7 @@ const PROCESS_STEPS = [
   {
     step: "04",
     title: "Commission & warranty",
-    body: "We walk you through the system, hand over your warranty, and schedule your first maintenance check.",
+    body: "We show you how it works and send you a private page with your warranty and check-up dates. You pay the balance once you see it working.",
   },
 ];
 
@@ -194,6 +195,8 @@ export default function HomePage() {
           </div>
         </Container>
       </section>
+
+      <Promises />
 
       {/* Second proof image: safety, isolated from the first by two full sections. */}
       <section className="py-24">

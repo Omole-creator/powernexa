@@ -26,7 +26,14 @@ export type AuditAction =
   | "update_expense"
   | "delete_expense"
   | "add_founder_repayment"
-  | "delete_founder_repayment";
+  | "delete_founder_repayment"
+  | "add_customer_system"
+  | "update_customer_system"
+  | "delete_customer_system"
+  | "add_system_event"
+  | "delete_system_event"
+  | "add_system_photo"
+  | "delete_system_photo";
 
 export async function logAudit(actorEmail: string, action: AuditAction, detail?: string): Promise<void> {
   const { error } = await supabase.from("audit_log").insert({

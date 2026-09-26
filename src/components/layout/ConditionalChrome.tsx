@@ -19,7 +19,9 @@ export function ConditionalChrome({
   children: ReactNode;
 }) {
   const pathname = usePathname();
-  const isAdmin = pathname?.startsWith("/admin");
+  // Admin and customers' private My System pages get no site chrome (and no
+  // analytics, so private links never land in the page-view table).
+  const isAdmin = pathname?.startsWith("/admin") || pathname?.startsWith("/my-system");
 
   if (isAdmin) {
     return <>{children}</>;

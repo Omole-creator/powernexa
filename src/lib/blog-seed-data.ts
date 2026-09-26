@@ -845,4 +845,135 @@ Adding up watts gets you close. An installer should also look at your wiring, yo
 
 You can send your list to us on WhatsApp and ask questions at no cost. When you're ready, [get a quote](/get-a-quote). We'll book a site assessment and give you a written plan for your [inverter installation](/services/inverter-installation).`,
   },
+  {
+    slug: "inverter-not-charging",
+    title: "Inverter Not Charging? What to Check Before You Call a Technician in Lagos",
+    excerpt:
+      "NEPA is on but your battery isn't filling up. Here are the checks you can do safely yourself, what each one tells you, and when to stop and call a technician.",
+    category: "Guides",
+    tags: ["inverter", "repairs", "batteries"],
+    focusKeyword: "inverter not charging",
+    metaTitle: "Inverter Not Charging? What to Check First in Lagos",
+    metaDescription:
+      "Inverter not charging even when NEPA is on? Check the input voltage, charge settings, battery cables and fuses yourself, then know when to call a technician.",
+    featuredImageAlt: "Inverter not charging: checking the inverter display and battery cables in a Lagos home",
+    authorName: "PowerNexa Solutions Team",
+    publishedDaysAgo: 0,
+    content: `NEPA brings light in the afternoon, so you expect a full battery at night. Then by 10pm the inverter starts beeping for low battery. An inverter not charging when there's light is one of the most common backup problems in Lagos, and the cause is often simple. It can be a setting, a tripped breaker, a loose cable or low NEPA voltage. This guide shows you what to check yourself, in order, and when to stop and call a technician.
+
+## Stay safe before you touch anything
+
+Some of these checks are just reading the screen. Others mean touching cables, so take a few minutes to do them safely.
+
+- Don't open the inverter's case. Some parts inside can hold a charge even after you switch it off.
+- Battery cables carry heavy current. A spanner that touches two terminals at once can spark and burn you. Take off rings and watches first.
+- Switch off the inverter and the battery breaker before you tighten any cable.
+- If you smell burning, hear hissing, or see a battery that has swollen or is leaking, stop. Call a technician.
+
+## First, make sure it's not just charging slowly
+
+Look at the inverter's screen while NEPA is on. Most inverters show a charging icon, and many show the charging current in amps.
+
+When the battery is nearly full, the charging current drops very low. That's normal, and it can look like nothing is happening.
+
+Also think about how long the light stayed. Say your battery bank needs about 5kWh to fill up again and the charger puts in about 1kW. That takes at least five hours. If NEPA only came for two hours, the battery was charging. It just didn't have enough time.
+
+If the screen shows no charging at all while NEPA is on, work through the checks below.
+
+## Check 1: Is NEPA reaching the inverter?
+
+Your house can have light while the inverter gets nothing. The screen will show no grid icon, or an input voltage of zero.
+
+Look at your distribution board for a tripped breaker on the line that feeds the inverter. Check your changeover switch too, and make sure it's on the NEPA side.
+
+If your house has three-phase supply, the inverter is usually fed from one phase. That one phase can be off while the others are on. Your fridge may be working on another phase while the inverter sees nothing.
+
+## Check 2: Is NEPA voltage too low?
+
+This is a common reason for an inverter not charging in Lagos. Every inverter only accepts grid power within a set voltage range. When NEPA's voltage drops below that range, the inverter ignores it and keeps running on battery. So the battery drains even though the light is on.
+
+Check the input voltage on the inverter's screen. If your house has a stabiliser with a display, you can read it there too.
+
+Many inverters have an input setting with two choices. "UPS" accepts a narrow voltage range and is meant for computers. "APL" (appliance) accepts a wider range, so the inverter can take lower voltage. The same setting often helps when the inverter won't charge from a generator whose power keeps going up and down.
+
+Your manual shows where this setting is. If you're not sure, ask your installer before you change it.
+
+## Check 3: Look at the charging settings
+
+Hybrid inverters let you choose where the battery charges from. The name changes from brand to brand. You'll often see "charger source priority" with choices like solar first, solar and utility, or solar only.
+
+If it's set to solar only, the inverter will never charge from NEPA. Settings like this sometimes change after a reset, or when someone presses the wrong button.
+
+Two other settings matter here:
+
+- The maximum charging current. If it's set very low, the battery charges, but too slowly to fill up.
+- The battery type. Lithium and tubular batteries need different charging voltages. The wrong type can stop charging too early, or make a lithium battery switch itself off.
+
+If you don't know the right values, don't guess. Take a photo of the settings screen and send it to your installer.
+
+## Check 4: Battery cables, fuses and breakers
+
+With everything switched off, look at each battery terminal. Watch for white or green powder, a cable end you can move by hand, or melted plastic around a cable. A loose cable gets hot and can stop the battery charging properly.
+
+Next, check the DC breaker or fuse between the batteries and the inverter. If it has tripped, switch it back on once. If it trips again, or the fuse has blown, something caused it.
+
+Never replace a fuse with a bigger one, and never join the gap with wire. The fuse is there to stop a fire.
+
+## Check 5: Is one battery weak?
+
+Tubular battery banks are made of 12V batteries joined together, usually two for a 24V system or four for a 48V system. One weak battery drags the whole bank down.
+
+If you have a multimeter, switch everything off and let the batteries rest for an hour. Then measure each battery. They should read close to each other. If three read about 12.6V and one reads 11.5V, that battery is the likely problem.
+
+For tubular batteries, also check the water level. Top up only with distilled water, never tap water.
+
+Old batteries can take a charge and still not last the night. That's a worn-out battery, not a charging fault. Our guide to [lithium vs tubular batteries](/blog/solar-battery-types-lithium-vs-tubular) explains how each type wears.
+
+## Check 6: Lithium battery protection
+
+Every lithium battery has a built-in controller called a BMS. It switches the battery off if it gets too flat, too hot, or finds a fault.
+
+If the battery was run down too far, the BMS may shut it off completely. Some inverters then can't see the battery, so they won't charge it.
+
+Check that the battery's own power switch is on. Look at its lights or screen for an alarm. Many lithium batteries also talk to the inverter through a data cable. If that cable is loose, or set up for the wrong battery brand, the inverter may refuse to charge. Fixing that is a job for your installer.
+
+## Check 7: If it's not charging from solar
+
+If NEPA charging works but solar doesn't, look at the solar side.
+
+- Panels give much less power early in the morning, late in the afternoon and on heavy rainy-season days.
+- Dust, bird droppings and shade from a new building or water tank all cut output.
+- Check the solar breaker or isolator. It's usually a switch near the inverter.
+- In bright daylight, the screen should show a solar (PV) input voltage. If it shows zero, power from the panels isn't reaching the inverter. A loose connector on the roof is a common cause.
+
+Don't climb onto a roof that isn't safe to stand on. Call someone with the right ladder and harness.
+
+## Inverter not charging after all these checks? Call a technician
+
+Stop checking and call a technician if:
+
+- You smell burning, or a battery is hot, swollen or leaking
+- The inverter shows a fault code that won't clear
+- A fuse or breaker keeps tripping after you reset it
+- NEPA voltage is fine, the settings are right, the cables are tight, and it still won't charge
+
+That last case often means a fault inside the inverter, in the part that does the charging. It needs testing with proper tools.
+
+## What to tell the technician
+
+You'll save time if you send these on WhatsApp before the visit:
+
+- A photo of the inverter's screen, and of any fault code
+- The make and model of your inverter and batteries
+- How old the batteries are
+- When it stopped charging, and what you've already checked
+
+## How to stop it happening again
+
+Most of these problems build up slowly. Terminals loosen, settings get changed and batteries wear. A check-up every six months catches them early. Every system we install gets two free check-ups, at 6 and 12 months.
+
+If your inverter still won't charge after these checks, send us a photo of the screen on WhatsApp. Asking questions costs nothing. You can also book a repair visit through our [maintenance and repair service](/services/solar-maintenance-repair).
+
+If the batteries are the problem, see our [battery replacement service](/services/battery-replacement-storage). If your system is too small for what you run, our guide on [what size inverter you need](/blog/what-size-inverter-do-i-need) shows you how to work out the right size.`,
+  },
 ];

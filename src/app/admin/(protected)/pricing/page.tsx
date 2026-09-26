@@ -85,7 +85,15 @@ export default async function AdminPricingPage({
         priceBook={priceBook}
         initialPackage={initialPackage}
         initialCalc={savedCalc?.calc}
-        savedQuote={saved ? { id: saved.id, draft: savedCalc?.draft } : undefined}
+        savedQuote={
+          saved
+            ? {
+                id: saved.id,
+                draft: savedCalc?.draft,
+                totals: { equipment: saved.quote.equipmentTotal, installation: saved.quote.installationTotal },
+              }
+            : undefined
+        }
       />
 
       <section className="space-y-4">

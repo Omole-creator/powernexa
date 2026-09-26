@@ -26,6 +26,10 @@ type Draft = {
   notes: string;
 };
 
+type SavedTotals = { equipment: number; installation: number };
+
+export type SavedQuoteInput = { id: number; draft: unknown; totals: SavedTotals };
+
 function freshDraft(): Draft {
   return {
     number: newQuoteNumber(),
@@ -54,10 +58,13 @@ export function CustomerQuoteBuilder({
   estimate: JobEstimate;
   spec: SystemSpec;
   calc: CalcState;
-  savedQuote?: { id: number; draft: unknown };
+  savedQuote?: SavedQuoteInput;
 }) {
   const [draft, setDraft] = useState<Draft>(() => ({ ...freshDraft(), ...((savedQuote?.draft as Partial<Draft>) ?? {}) }));
   const [savedId, setSavedId] = useState<number | null>(savedQuote?.id ?? null);
+  // The totals as last saved. When today's price lists give different
+  // figures, the editor warns before the saved (possibly sent) quote changes.
+  const [savedTotals, setSavedTotals] = useState<SavedTotals | null>(savedQuote?.totals ?? null);
   const [saveStatus, setSaveStatus] = useState<{ ok?: string; error?: string }>({});
   const [isSaving, startSaving] = useTransition();
   const set = <K extends keyof Draft>(key: K, value: Draft[K]) => {
@@ -106,6 +113,7 @@ export function CustomerQuoteBuilder({
   };
   const pay = paymentSchedule(quote);
   const savings = quote.fuel ? fuelSavings(quote.fuel, pay.total) : null;
+  const quoteHref = `/admin/quote?d=${encodeQuote(quote)}${savedId ? `&id=${savedId}` : ""}`;
 
   const blocker = !quote.customer.name
     ? "Enter the customer's name first."
@@ -115,7 +123,19 @@ export function CustomerQuoteBuilder({
         ? "Add at least one appliance to the load list. The carry guarantee is based on it."
         : null;
 
-  const save = () =>
+  const priceChanged =
+    savedTotals !== null &&
+    (savedTotals.equipment !== quote.equipmentTotal || savedTotals.installation !== quote.installationTotal);
+
+  const save = () => {
+    if (
+      priceChanged &&
+      !confirm(
+        `The price has changed since this quote was saved (${formatNaira(savedTotals.equipment + savedTotals.installation)} then, ${formatNaira(pay.total)} now). If the customer already has this quote, saving changes their price. Save the new price?`
+      )
+    ) {
+      return;
+    }
     startSaving(async () => {
       const result = await saveQuoteAction(savedId, JSON.stringify(quote), JSON.stringify({ calc, draft }));
       if (result.error || !result.id) {
@@ -123,14 +143,17 @@ export function CustomerQuoteBuilder({
         return;
       }
       setSavedId(result.id);
+      setSavedTotals({ equipment: quote.equipmentTotal, installation: quote.installationTotal });
       window.history.replaceState(null, "", `/admin/pricing?quote=${result.id}`);
       setSaveStatus({ ok: `Saved as ${draft.number}.` });
     });
+  };
 
   const startNew = () => {
     if (!confirm("Start a new quote? Anything not saved on this one is lost.")) return;
     setDraft(freshDraft());
     setSavedId(null);
+    setSavedTotals(null);
     setSaveStatus({});
     window.history.replaceState(null, "", "/admin/pricing");
   };
@@ -142,10 +165,6 @@ export function CustomerQuoteBuilder({
           <h2 className="font-display text-lg font-bold text-navy">
             Customer quote <span className="font-mono-num text-sm font-medium text-charcoal/50">{draft.number}</span>
           </h2>
-          <p className="mt-1 text-sm text-charcoal/60">
-            The written quote the customer gets, as a PDF. It shows the equipment list, one equipment total and one
-            installation total. Your costs, markups and suppliers never appear on it.
-          </p>
         </div>
         {savedId ? (
           <button type="button" onClick={startNew} className="text-xs font-semibold text-orange">
@@ -238,6 +257,30 @@ export function CustomerQuoteBuilder({
         <textarea value={draft.notes} onChange={(e) => set("notes", e.target.value)} rows={2} className={inputClass} />
       </Section>
 
+      {priceChanged ? (
+        <div className="mt-5 rounded-xl border-2 border-red-200 bg-red-50 p-4 text-sm text-red-800">
+          <p className="font-semibold">The price has changed since this quote was saved.</p>
+          <div className="mt-2 grid gap-1 font-mono-num text-xs sm:grid-cols-3">
+            <span />
+            <span className="font-sans font-semibold">As saved</span>
+            <span className="font-sans font-semibold">Now</span>
+            <span className="font-sans">Equipment and materials</span>
+            <span>{formatNaira(savedTotals.equipment)}</span>
+            <span>{formatNaira(quote.equipmentTotal)}</span>
+            <span className="font-sans">Installation and commissioning</span>
+            <span>{formatNaira(savedTotals.installation)}</span>
+            <span>{formatNaira(quote.installationTotal)}</span>
+            <span className="font-sans font-semibold">Total</span>
+            <span className="font-semibold">{formatNaira(savedTotals.equipment + savedTotals.installation)}</span>
+            <span className="font-semibold">{formatNaira(pay.total)}</span>
+          </div>
+          <p className="mt-2 text-xs">
+            A supplier price or a calculator figure is different from when you saved. If the customer already has this
+            quote, their price is the one as saved: open it from Saved quotes. Saving here changes it.
+          </p>
+        </div>
+      ) : null}
+
       <div className="mt-5 space-y-1.5 rounded-xl bg-mist p-5 text-sm">
         <Line label="Equipment and materials" value={quote.equipmentTotal} />
         <Line label="Installation and commissioning" value={quote.installationTotal} />
@@ -254,33 +297,40 @@ export function CustomerQuoteBuilder({
       </div>
 
       <div className="mt-5 flex flex-wrap items-center gap-3">
-        {blocker ? (
-          <p className="text-xs font-medium text-red-600">{blocker}</p>
-        ) : (
-          <>
-            <button
-              type="button"
-              onClick={save}
-              disabled={isSaving}
-              className="rounded-full bg-navy px-6 py-2.5 text-sm font-semibold text-white hover:bg-navy/90 disabled:opacity-60"
-            >
-              {isSaving ? "Saving..." : savedId ? "Save changes" : "Save quote"}
-            </button>
-            <a
-              href={`/admin/quote?d=${encodeQuote(quote)}${savedId ? `&id=${savedId}` : ""}`}
-              target="_blank"
-              rel="noopener"
-              className="rounded-full bg-orange px-6 py-2.5 text-sm font-semibold text-white hover:bg-orange-dark"
-            >
-              Open customer quote
-            </a>
-          </>
-        )}
+        {/* Always visible, greyed out until the quote has what it needs. */}
+        <a
+          href={blocker ? undefined : `${quoteHref}&print=1`}
+          target="_blank"
+          rel="noopener"
+          aria-disabled={blocker ? true : undefined}
+          className={`rounded-full px-6 py-2.5 text-sm font-semibold text-white ${blocker ? "cursor-not-allowed bg-orange/40" : "bg-orange hover:bg-orange-dark"}`}
+        >
+          Download PDF
+        </a>
+        <a
+          href={blocker ? undefined : quoteHref}
+          target="_blank"
+          rel="noopener"
+          aria-disabled={blocker ? true : undefined}
+          className={`rounded-full border px-6 py-2.5 text-sm font-semibold ${blocker ? "cursor-not-allowed border-line text-charcoal/35" : "border-navy/20 text-navy hover:border-orange"}`}
+        >
+          Preview
+        </a>
+        <button
+          type="button"
+          onClick={save}
+          disabled={isSaving || blocker !== null}
+          className="rounded-full bg-navy px-6 py-2.5 text-sm font-semibold text-white hover:bg-navy/90 disabled:cursor-not-allowed disabled:opacity-40"
+        >
+          {isSaving ? "Saving..." : savedId ? "Save changes" : "Save quote"}
+        </button>
+        {blocker ? <p className="w-full text-xs font-medium text-red-600">{blocker}</p> : null}
         {saveStatus.ok ? <span className="text-xs font-medium text-green-700">{saveStatus.ok}</span> : null}
         {saveStatus.error ? <span className="text-xs font-medium text-red-600">{saveStatus.error}</span> : null}
         {!saveStatus.ok && !saveStatus.error ? (
           <span className="text-xs text-charcoal/50">
-            {savedId ? "Save changes to update it under Saved quotes." : "Save it to find it again under Saved quotes."}
+            Download PDF opens the print window: choose &quot;Save as PDF&quot;, then send it on WhatsApp.
+            {savedId ? " Save changes to update it under Saved quotes." : " Save it to find it again under Saved quotes."}
           </span>
         ) : null}
       </div>

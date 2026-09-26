@@ -16,7 +16,7 @@ import {
   type PriceSourceItem,
   type ServiceCosts,
 } from "@/lib/costing";
-import { CustomerQuoteBuilder } from "./CustomerQuoteBuilder";
+import { CustomerQuoteBuilder, type SavedQuoteInput } from "./CustomerQuoteBuilder";
 
 const inputClass =
   "w-full rounded-xl border border-line px-3 py-2 text-sm outline-none focus:border-orange focus:ring-2 focus:ring-orange/20";
@@ -68,7 +68,7 @@ export function PricingCalculator({
   priceBook: PriceSourceItem[];
   initialPackage?: PackageKey;
   initialCalc?: Partial<CalcState>;
-  savedQuote?: { id: number; draft: unknown };
+  savedQuote?: SavedQuoteInput;
 }) {
   const start = PACKAGES[initialPackage].spec;
   const [preset, setPreset] = useState<PackageKey | "custom">(initialCalc?.preset ?? initialPackage);

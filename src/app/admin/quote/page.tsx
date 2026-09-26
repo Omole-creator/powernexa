@@ -3,7 +3,7 @@ import Link from "next/link";
 import { requireAdmin } from "@/lib/dal";
 import { decodeQuote } from "@/lib/quote";
 import { QuoteDocument } from "@/components/quote/QuoteDocument";
-import { PrintButton } from "@/components/quote/PrintButton";
+import { AutoPrint, PrintButton } from "@/components/quote/PrintButton";
 import { createSystemFromQuoteAction } from "@/actions/customer-systems";
 import { encodeQuote } from "@/lib/quote";
 import { getSavedQuote } from "@/lib/saved-quotes";
@@ -12,9 +12,9 @@ export const metadata: Metadata = { title: "Customer Quote", robots: { index: fa
 
 // Sits outside the (protected) group so it prints without the admin sidebar,
 // but is still admin-only.
-export default async function AdminQuotePage({ searchParams }: { searchParams: Promise<{ d?: string; id?: string }> }) {
+export default async function AdminQuotePage({ searchParams }: { searchParams: Promise<{ d?: string; id?: string; print?: string }> }) {
   await requireAdmin();
-  const { d, id } = await searchParams;
+  const { d, id, print } = await searchParams;
   // ?d= carries the quote as typed; ?id= is a saved quote (both when a saved
   // quote is opened straight from the builder).
   const savedId = Number(id) > 0 ? Number(id) : null;
@@ -34,6 +34,7 @@ export default async function AdminQuotePage({ searchParams }: { searchParams: P
 
   return (
     <div className="min-h-screen bg-mist py-6 print:bg-white print:py-0">
+      {print === "1" ? <AutoPrint /> : null}
       <div className="mx-auto mb-4 flex max-w-[800px] flex-wrap items-center gap-3 px-4 print:hidden">
         <PrintButton />
         <form action={createSystemFromQuoteAction}>

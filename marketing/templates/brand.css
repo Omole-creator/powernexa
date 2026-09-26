@@ -1,0 +1,95 @@
+/* PowerNexa social slides: 1080 x 1350 (4:5, Instagram and TikTok photo mode).
+   Every slide links this file, so the feed looks like one brand. */
+@import url("https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=IBM+Plex+Mono:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap");
+
+:root {
+  --navy: #092b4c;
+  --navy-ink: #061a30;
+  --orange: #f58220;
+  --yellow: #ffc857;
+  --charcoal: #17212b;
+  --mist: #eef3f8;
+  --white: #ffffff;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body { width: 1080px; height: 1350px; overflow: hidden; }
+
+body {
+  font-family: "IBM Plex Sans", sans-serif;
+  color: var(--charcoal);
+  background: var(--white);
+}
+
+.slide {
+  position: relative;
+  width: 1080px;
+  height: 1350px;
+  padding: 96px 88px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Backgrounds */
+.slide.navy { background: radial-gradient(circle at 85% 10%, #123e6a 0%, var(--navy) 45%, var(--navy-ink) 100%); color: var(--white); }
+.slide.white { background: var(--white); }
+.slide.mist { background: var(--mist); }
+.slide.orange { background: linear-gradient(150deg, var(--orange) 0%, #e96d0c 100%); color: var(--white); }
+
+/* Full-bleed photo with a navy fade so text stays readable */
+.slide.photo { color: var(--white); background: var(--navy); }
+.slide.photo > img.bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+.slide.photo::after { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(6,26,48,0.15) 0%, rgba(6,26,48,0.55) 45%, rgba(6,26,48,0.95) 100%); }
+.slide.photo > *:not(img.bg):not(.brandbar) { position: relative; z-index: 2; }
+
+/* Ambient glow orbs, same as the website */
+.orb { position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.55; z-index: 0; }
+.orb.orange { background: var(--orange); }
+.orb.yellow { background: var(--yellow); }
+.slide > *:not(.orb):not(.brandbar) { position: relative; z-index: 1; }
+
+/* Type */
+.eyebrow { font-family: "IBM Plex Mono", monospace; font-size: 26px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange); }
+.navy .eyebrow, .photo .eyebrow { color: var(--yellow); }
+.orange .eyebrow { color: var(--navy); }
+h1 { font-family: "Archivo", sans-serif; font-weight: 900; font-size: 104px; line-height: 1.0; letter-spacing: -0.035em; }
+h2 { font-family: "Archivo", sans-serif; font-weight: 800; font-size: 72px; line-height: 1.05; letter-spacing: -0.03em; }
+h3 { font-family: "Archivo", sans-serif; font-weight: 800; font-size: 44px; line-height: 1.1; letter-spacing: -0.02em; }
+p, li { font-size: 36px; line-height: 1.4; }
+.big-num { font-family: "IBM Plex Mono", monospace; font-weight: 700; font-size: 170px; line-height: 1; letter-spacing: -0.04em; color: var(--orange); }
+.navy .big-num, .photo .big-num { color: var(--yellow); }
+.hl { color: var(--orange); }
+.navy .hl, .photo .hl { color: var(--yellow); }
+.muted { opacity: 0.72; }
+.mt-s { margin-top: 24px; } .mt-m { margin-top: 48px; } .mt-l { margin-top: 80px; }
+.grow { flex: 1; }
+
+/* Elevated card, same look as the site cards */
+.card { background: var(--white); color: var(--charcoal); border-radius: 36px; padding: 44px 48px; box-shadow: 0 40px 80px -40px rgba(9,43,76,0.45); }
+.navy .card.glass, .photo .card.glass { background: rgba(255,255,255,0.08); color: var(--white); border: 2px solid rgba(255,255,255,0.14); box-shadow: none; }
+
+/* Numbered list with gradient badges */
+.steps { list-style: none; display: flex; flex-direction: column; gap: 30px; }
+.steps li { display: flex; gap: 30px; align-items: flex-start; }
+.steps .n { flex: none; width: 72px; height: 72px; border-radius: 22px; background: linear-gradient(135deg, var(--orange), var(--yellow)); color: var(--white); font-family: "IBM Plex Mono", monospace; font-weight: 700; font-size: 34px; display: flex; align-items: center; justify-content: center; }
+
+/* Tick / cross lists */
+.ticks { list-style: none; display: flex; flex-direction: column; gap: 26px; }
+.ticks li { padding-left: 64px; position: relative; }
+.ticks li::before { content: "✓"; position: absolute; left: 0; top: 0; width: 44px; height: 44px; border-radius: 50%; background: var(--orange); color: var(--white); font-size: 26px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+.ticks li.no::before { content: "✕"; background: #c0392b; }
+
+/* Footer brand bar on every slide */
+.brandbar { position: absolute; left: 88px; right: 88px; bottom: 64px; display: flex; align-items: center; justify-content: space-between; font-family: "IBM Plex Mono", monospace; font-size: 24px; font-weight: 600; z-index: 3; }
+.brandbar .logo { background: var(--white); border-radius: 20px; padding: 6px 18px; }
+.brandbar .logo img { height: 96px; width: auto; display: block; }
+.brandbar .page { opacity: 0.7; }
+
+/* Waveform motif: jagged grid power resolving into a smooth sine */
+.wave { width: 100%; height: 120px; }
+
+/* CTA pill */
+.pill { display: inline-flex; align-items: center; gap: 16px; background: var(--orange); color: var(--white); font-family: "Archivo", sans-serif; font-weight: 800; font-size: 40px; padding: 26px 44px; border-radius: 999px; }
+.orange .pill { background: var(--navy); }

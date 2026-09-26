@@ -37,6 +37,17 @@ product or architecture changes. Summary:
 - Homepage hero is modelled on designskonstruct.com (owner's chosen template, Sept 2026): centred pill badge, the locked headline (white-to-white/65 gradient text), subtext, "Get a Quote" and "See Our Services" on one line even on phones (`flex-nowrap`, `flex-1` below `sm`), then `HeroCollage`, three overlapping 4:5 photo cards (sides tilted ±6° and tucked behind a larger centre card) that rise in one by one and drift slightly on scroll, over a bottom fade to white. Entrance animations are the `.hero-fade-in` / `.hero-rise` / `.hero-zoom` classes in `globals.css` (reduced-motion safe). There is no stat strip under the hero any more. Section order after it: TrustedBy, Services, **Our track record** (`TrackRecord.tsx`, navy, 4 glass stat cards counting up from 1: 125+ projects completed, 99%+ customer satisfaction, 100% installation warranty, 24/7 customer support, the owner's own figures, don't point it at a single project), **Featured Projects** (`FeaturedProjects.tsx`, "A look at work we've completed", a scroll-snap video carousel with a prev/next arrow at each end, 4:5 cropped cards via `ProjectVideoCard compact`, starting one video pauses the others), then How it works, and so on. `Reveal` transitions `translate`/`scale`/`filter` (Tailwind v4 uses those standalone properties, not `transform`, so listing only `transform` made everything jump into place).
 - Projects: `/projects` (in the main nav) shows the owner's install videos from `PROJECT_VIDEOS` in `src/lib/projects-data.ts`, framed as a small sample of the total (`PROJECTS_COMPLETED`, currently 125, the owner's count, also used by the track record). Videos in `public/videos/projects/` are 720p re-encodes with the PowerNexa logo burned in, faint (about 28% opacity) and centred, plus a poster JPG. Make new ones the same way (ffmpeg overlay of an alpha-faded crop of `logo-transparent.png` at 380px wide, `-crf 28 -maxrate 850k`, `+faststart`). Keep the source phone videos out of git (`/*.mp4` is gitignored). The videos are downloadable (owner request, Sept 2026, since they're watermarked): each `ProjectVideoCard` has a "Download video" link (saves as `powernexa-<slug>.mp4`), and the player's own download option and right-click menu are no longer blocked. Labels use only the owner's own captions; Mowe-Ibafo came with a location only, so its label names visible parts without sizes.
 
+## Social media ("post for today")
+
+When the owner types **"post for today"**, act as brand/content strategist and
+senior social media manager and make one finished post for @powernexas
+(Instagram, TikTok, X) by following `marketing/STRATEGY.md` section 9: pick the
+pillar/series from the rotation and `marketing/POSTS-LOG.md`, write the copy
+(humanizer, house style, provable claims only), build HTML slides on
+`marketing/templates/brand.css`, render them to PNG with
+`node marketing/render.mjs <folder>` (headless Edge), check each PNG, write
+`caption.md`, log it, commit and push. **Carousels are 3 slides at most.**
+
 ## Blog topic roadmap (SEO content, re-validated Sept 2026)
 
 Full evidence, the owner's top-50 keyword list, and the rules below are in

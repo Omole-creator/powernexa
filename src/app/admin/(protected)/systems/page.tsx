@@ -4,6 +4,8 @@ import { CUSTOMER_SYSTEMS_SQL, listSystems } from "@/lib/customer-systems";
 import { checkupSchedule, todayLagos, workmanshipWarrantyEnds } from "@/lib/aftercare";
 import { addDays, formatDate } from "@/lib/quote";
 import { SystemForm } from "@/components/admin/systems/SystemForm";
+import { InstallStatus } from "@/components/admin/systems/InstallStatus";
+import { DeleteSystemButton } from "@/components/admin/systems/SystemLinkCard";
 
 export const metadata: Metadata = { title: "My System Pages", robots: { index: false } };
 
@@ -71,20 +73,21 @@ export default async function AdminSystemsPage({ searchParams }: { searchParams:
       ) : null}
 
       <div className="overflow-x-auto rounded-2xl border border-line bg-white">
-        <table className="w-full min-w-[720px] text-left text-sm">
+        <table className="w-full min-w-[980px] text-left text-sm">
           <thead className="text-xs uppercase tracking-wide text-charcoal/45">
             <tr className="border-b border-line">
               <th className="px-4 py-3">Customer</th>
               <th className="px-4 py-3">System</th>
               <th className="px-4 py-3">Installed</th>
               <th className="px-4 py-3">Next check-up</th>
-              <th className="px-4 py-3">Workmanship warranty ends</th>
+              <th className="px-4 py-3">Warranty ends</th>
+              <th className="px-4 py-3" />
             </tr>
           </thead>
           <tbody className="divide-y divide-line">
             {rows.length === 0 ? (
               <tr>
-                <td colSpan={5} className="px-4 py-6 text-center text-charcoal/50">
+                <td colSpan={6} className="px-4 py-6 text-center text-charcoal/50">
                   No My System pages yet.
                 </td>
               </tr>
@@ -99,7 +102,7 @@ export default async function AdminSystemsPage({ searchParams }: { searchParams:
                   </td>
                   <td className="px-4 py-2.5 text-charcoal/70">{system.system_summary}</td>
                   <td className="whitespace-nowrap px-4 py-2.5 text-charcoal/70">
-                    {system.installed_on ? formatDate(system.installed_on) : <span className="text-orange">Not yet</span>}
+                    <InstallStatus systemId={system.id} installedOn={system.installed_on} compact />
                   </td>
                   <td className="whitespace-nowrap px-4 py-2.5 text-charcoal/70">
                     {next ? (
@@ -117,6 +120,14 @@ export default async function AdminSystemsPage({ searchParams }: { searchParams:
                   </td>
                   <td className="whitespace-nowrap px-4 py-2.5 text-charcoal/70">
                     {system.installed_on ? formatDate(workmanshipWarrantyEnds(system.installed_on)) : "-"}
+                  </td>
+                  <td className="px-4 py-2.5">
+                    <div className="flex items-center justify-end gap-3 whitespace-nowrap">
+                      <Link href={`/admin/systems/${system.id}`} className="text-xs font-semibold text-orange">
+                        Open / edit
+                      </Link>
+                      <DeleteSystemButton id={system.id} label={system.customer_name} short />
+                    </div>
                   </td>
                 </tr>
               ))

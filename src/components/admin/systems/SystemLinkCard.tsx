@@ -42,7 +42,7 @@ export function SystemLinkCard({ link, whatsappUrl }: { link: string; whatsappUr
   );
 }
 
-export function DeleteSystemButton({ id, label }: { id: number; label: string }) {
+export function DeleteSystemButton({ id, label, short = false }: { id: number; label: string; short?: boolean }) {
   const [isPending, startTransition] = useTransition();
   return (
     <button
@@ -53,9 +53,9 @@ export function DeleteSystemButton({ id, label }: { id: number; label: string })
           startTransition(() => deleteSystemAction(id, label));
         }
       }}
-      className="text-xs font-semibold text-charcoal/50 hover:text-red-600"
+      className="rounded-full border border-red-200 bg-white px-4 py-1.5 text-xs font-semibold text-red-600 hover:bg-red-50 disabled:opacity-60"
     >
-      {isPending ? "Deleting..." : "Delete this page"}
+      {isPending ? "Deleting..." : short ? "Delete" : "Delete this page"}
     </button>
   );
 }

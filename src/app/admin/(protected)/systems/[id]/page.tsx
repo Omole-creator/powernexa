@@ -10,6 +10,7 @@ import { SystemForm } from "@/components/admin/systems/SystemForm";
 import { EventLog } from "@/components/admin/systems/EventLog";
 import { PhotoManager } from "@/components/admin/systems/PhotoManager";
 import { DeleteSystemButton, SystemLinkCard } from "@/components/admin/systems/SystemLinkCard";
+import { InstallStatus } from "@/components/admin/systems/InstallStatus";
 
 export const metadata: Metadata = { title: "My System Page", robots: { index: false } };
 
@@ -36,8 +37,15 @@ export default async function AdminSystemPage({ params }: { params: Promise<{ id
           <h1 className="mt-1 font-display text-2xl font-bold text-navy">{system.customer_name}</h1>
           <p className="text-sm text-charcoal/55">{system.system_summary}</p>
         </div>
-        <DeleteSystemButton id={system.id} label={system.customer_name} />
+        <div className="flex items-center gap-3">
+          <a href="#details" className="rounded-full border border-navy/20 bg-white px-4 py-1.5 text-xs font-semibold text-navy hover:border-orange">
+            Edit details
+          </a>
+          <DeleteSystemButton id={system.id} label={system.customer_name} />
+        </div>
       </div>
+
+      <InstallStatus systemId={system.id} installedOn={system.installed_on} />
 
       <SystemLinkCard link={link} whatsappUrl={whatsappUrl} />
 
@@ -53,7 +61,7 @@ export default async function AdminSystemPage({ params }: { params: Promise<{ id
         <div className="rounded-2xl border border-line bg-white p-4">
           <p className="text-xs font-semibold uppercase tracking-wide text-charcoal/45">Free check-ups</p>
           {schedule.length === 0 ? (
-            <p className="mt-1 text-sm text-orange">Add the installation date</p>
+            <p className="mt-1 text-sm text-orange">Start when installed</p>
           ) : (
             <ul className="mt-1 space-y-0.5 text-sm">
               {schedule.map((c) => (
@@ -66,7 +74,7 @@ export default async function AdminSystemPage({ params }: { params: Promise<{ id
         </div>
       </div>
 
-      <section className="rounded-2xl border border-line bg-white p-6">
+      <section id="details" className="scroll-mt-6 rounded-2xl border border-line bg-white p-6">
         <h2 className="mb-4 font-display text-lg font-bold text-navy">Details</h2>
         <SystemForm system={system} />
       </section>
@@ -106,7 +114,7 @@ function DateCard({ label, value }: { label: string; value: string | null }) {
     <div className="rounded-2xl border border-line bg-white p-4">
       <p className="text-xs font-semibold uppercase tracking-wide text-charcoal/45">{label}</p>
       <p className={`mt-1 text-sm font-semibold ${value ? "text-navy" : "text-orange"}`}>
-        {value ?? "Add the installation date"}
+        {value ?? "Starts when installed"}
       </p>
     </div>
   );

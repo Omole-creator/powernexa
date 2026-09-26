@@ -11,6 +11,7 @@ import {
   deleteEvent,
   deletePhoto,
   deleteSystem,
+  setInstalledOn,
   updateSystem,
   type EquipmentItem,
   type SystemInput,
@@ -45,8 +46,10 @@ const positive = (v: unknown) => {
 function parseSystem(formData: FormData): SystemInput | string {
   const customerName = requiredString(formData.get("customerName"), 120);
   if (!customerName) return "Enter the customer's name.";
+  // Only the "add a customer" form has a date box; editing leaves the date to
+  // the "Mark as installed" control.
   const installedRaw = formData.get("installedOn");
-  const installedOn = installedRaw ? parseDate(installedRaw) : null;
+  const installedOn = !formData.has("installedOn") ? undefined : installedRaw ? parseDate(installedRaw) : null;
   if (installedRaw && !installedOn) return "The installation date isn't a valid date.";
 
   const equipment: EquipmentItem[] = parseJsonList(formData.get("equipment"))
@@ -134,6 +137,25 @@ export async function createSystemFromQuoteAction(formData: FormData) {
   await logAudit(admin.email, "add_customer_system", `${quote.customer.name}, from quote ${quote.number}`);
   refresh();
   redirect(`/admin/systems/${id}`);
+}
+
+export async function setInstalledAction(id: number, installedOn: string | null): Promise<{ error?: string }> {
+  const admin = await requireAdmin();
+  if (installedOn !== null && !parseDate(installedOn)) return { error: "Pick a valid date." };
+  try {
+    await setInstalledOn(id, installedOn);
+  } catch (error) {
+    console.error("Set installed date failed", error);
+    return { error: "Could not save. Please try again." };
+  }
+  await logAudit(
+    admin.email,
+    "update_customer_system",
+    installedOn ? `#${id} marked installed on ${installedOn}` : `#${id} marked not installed`
+  );
+  refresh(id);
+  revalidatePath("/admin", "layout");
+  return {};
 }
 
 export async function deleteSystemAction(id: number, label: string) {

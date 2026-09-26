@@ -35,11 +35,13 @@ export function SystemForm({ system }: { system?: SystemRecord }) {
           Address
           <input name="address" defaultValue={system?.address ?? ""} className={`${inputClass} mt-1`} />
         </label>
-        <label className="text-xs font-semibold text-navy">
-          Installed on
-          <input type="date" name="installedOn" defaultValue={system?.installed_on ?? ""} className={`${inputClass} mt-1`} />
-          <span className="mt-1 block font-normal text-charcoal/50">Sets the warranty and check-up dates.</span>
-        </label>
+        {system ? null : (
+          <label className="text-xs font-semibold text-navy">
+            Installed on (leave empty if not yet)
+            <input type="date" name="installedOn" className={`${inputClass} mt-1`} />
+            <span className="mt-1 block font-normal text-charcoal/50">Sets the warranty and check-up dates.</span>
+          </label>
+        )}
         <label className="text-xs font-semibold text-navy sm:col-span-2 lg:col-span-4">
           System, in one line
           <input

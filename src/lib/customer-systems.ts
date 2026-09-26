@@ -38,7 +38,9 @@ export type SystemInput = {
   phone: string | null;
   address: string | null;
   systemSummary: string | null;
-  installedOn: string | null;
+  // undefined leaves the saved date alone (the edit form has no date box;
+  // the date is set with the "Mark as installed" control).
+  installedOn?: string | null;
   equipment: EquipmentItem[];
   loadItems: LoadItem[];
   notes: string | null;
@@ -180,7 +182,7 @@ function toRow(input: SystemInput) {
     phone: input.phone,
     address: input.address,
     system_summary: input.systemSummary,
-    installed_on: input.installedOn,
+    ...(input.installedOn !== undefined ? { installed_on: input.installedOn } : {}),
     equipment: input.equipment,
     load_items: input.loadItems,
     notes: input.notes,
@@ -201,6 +203,14 @@ export async function updateSystem(id: number, input: SystemInput): Promise<void
   const { error } = await supabase
     .from("customer_systems")
     .update({ ...toRow(input), updated_at: new Date().toISOString() })
+    .eq("id", id);
+  if (error) throw error;
+}
+
+export async function setInstalledOn(id: number, installedOn: string | null): Promise<void> {
+  const { error } = await supabase
+    .from("customer_systems")
+    .update({ installed_on: installedOn, updated_at: new Date().toISOString() })
     .eq("id", id);
   if (error) throw error;
 }

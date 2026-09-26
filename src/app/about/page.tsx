@@ -26,8 +26,8 @@ const PRINCIPLES = [
     body: "Your quote lists the panels, inverter and battery, what the system will carry and for how many hours, in plain words. The price on it is the price you pay.",
   },
   {
-    title: "2 years on our work, in writing",
-    body: "If a fault comes from our installation, we fix it free for 2 years. We also come back for two free check-ups, at 6 and 12 months. That's on top of the maker's warranty on your equipment.",
+    title: "A year of cover on our work, in writing",
+    body: "If a fault comes from our installation, we fix it free for your first year. In that same year we come back for two free check-ups, at 6 and 12 months. That's on top of the maker's warranty on your equipment.",
   },
   {
     title: "We're based in Lagos, for Lagos",

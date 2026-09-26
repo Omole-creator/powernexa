@@ -42,7 +42,7 @@ const HOME_FAQS = [
   {
     question: "Do you offer a warranty?",
     answer:
-      "Yes. Every installation comes with a 2-year written workmanship warranty. If a fault comes from our work, we fix it free. That's on top of the maker's warranty on your panels, inverter and batteries. You also get two free check-ups, at 6 and 12 months.",
+      "Yes. Every installation comes with a 1-year written workmanship warranty. If a fault comes from our work, we fix it free. That's on top of the maker's warranty on your panels, inverter and batteries. In that same year you get two free check-ups, at 6 and 12 months.",
   },
 ];
 

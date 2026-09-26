@@ -89,7 +89,8 @@ export function QuoteDocument({ quote }: { quote: CustomerQuote }) {
         <SectionTitle>Price</SectionTitle>
         <div className="space-y-1.5">
           <MoneyRow label="Equipment and materials" value={quote.equipmentTotal} />
-          <MoneyRow label="Installation, transport and commissioning" value={quote.installationTotal} />
+          <MoneyRow label="Installation and commissioning" value={quote.installationTotal} />
+          <p className="text-xs text-charcoal/60">Includes workmanship, transport to your site, setup and testing.</p>
           <MoneyRow label="Total" value={pay.total} strong />
           {quote.assessmentFeePaid > 0 ? (
             <>
@@ -150,8 +151,8 @@ export function QuoteDocument({ quote }: { quote: CustomerQuote }) {
             </p>
           ) : null}
           <p className="mt-2 text-xs text-charcoal/60">
-            &quot;After&quot; assumes your generator runs about {quote.fuel.generatorHoursPerDay} hours a day, using{" "}
-            {quote.fuel.litresPerHour} litres an hour, with fuel at {formatNaira(quote.fuel.pricePerLitre)} a litre. If
+            &quot;After&quot; assumes your generator runs about {plural(quote.fuel.generatorHoursPerDay, "hour")} a day,
+            using {plural(quote.fuel.litresPerHour, "litre")} an hour, with fuel at {formatNaira(quote.fuel.pricePerLitre)} a litre. If
             fuel prices go up, you save more.
           </p>
         </section>
@@ -170,7 +171,7 @@ export function QuoteDocument({ quote }: { quote: CustomerQuote }) {
           ))}
         </ol>
         <p className="mt-3 text-xs text-charcoal/60">
-          Workmanship warranty ({PROMISE_TERMS.workmanshipYears} years from installation): {WORKMANSHIP_TERMS}
+          Workmanship warranty ({PROMISE_TERMS.workmanshipYears === 1 ? "1 year" : `${PROMISE_TERMS.workmanshipYears} years`} from installation): {WORKMANSHIP_TERMS}
         </p>
       </section>
 
@@ -203,4 +204,8 @@ function MoneyRow({ label, value, strong }: { label: string; value: number; stro
       </span>
     </div>
   );
+}
+
+function plural(n: number, word: string): string {
+  return `${n} ${word}${n === 1 ? "" : "s"}`;
 }

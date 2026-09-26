@@ -102,7 +102,18 @@ export default async function AdminSystemsPage({ searchParams }: { searchParams:
                     {system.installed_on ? formatDate(system.installed_on) : <span className="text-orange">Not yet</span>}
                   </td>
                   <td className="whitespace-nowrap px-4 py-2.5 text-charcoal/70">
-                    {next ? formatDate(next.dueOn) : system.installed_on ? "Both done" : "-"}
+                    {next ? (
+                      <>
+                        {next.number}: {formatDate(next.dueOn)}
+                        <span className={`block text-xs ${next.dueOn < today ? "font-semibold text-red-600" : "text-charcoal/50"}`}>
+                          {countdown(next.dueOn, today)}
+                        </span>
+                      </>
+                    ) : system.installed_on ? (
+                      "Both done"
+                    ) : (
+                      "-"
+                    )}
                   </td>
                   <td className="whitespace-nowrap px-4 py-2.5 text-charcoal/70">
                     {system.installed_on ? formatDate(workmanshipWarrantyEnds(system.installed_on)) : "-"}
@@ -127,4 +138,11 @@ export default async function AdminSystemsPage({ searchParams }: { searchParams:
       ) : null}
     </div>
   );
+}
+
+function countdown(dueOn: string, today: string): string {
+  const days = Math.round((Date.parse(`${dueOn}T00:00:00Z`) - Date.parse(`${today}T00:00:00Z`)) / 86_400_000);
+  if (days < 0) return `${-days} days overdue`;
+  if (days === 0) return "Due today";
+  return `In ${days} day${days === 1 ? "" : "s"}`;
 }

@@ -5,15 +5,21 @@ import { decodeQuote } from "@/lib/quote";
 import { QuoteDocument } from "@/components/quote/QuoteDocument";
 import { PrintButton } from "@/components/quote/PrintButton";
 import { createSystemFromQuoteAction } from "@/actions/customer-systems";
+import { encodeQuote } from "@/lib/quote";
+import { getSavedQuote } from "@/lib/saved-quotes";
 
 export const metadata: Metadata = { title: "Customer Quote", robots: { index: false } };
 
 // Sits outside the (protected) group so it prints without the admin sidebar,
 // but is still admin-only.
-export default async function AdminQuotePage({ searchParams }: { searchParams: Promise<{ d?: string }> }) {
+export default async function AdminQuotePage({ searchParams }: { searchParams: Promise<{ d?: string; id?: string }> }) {
   await requireAdmin();
-  const { d } = await searchParams;
-  const quote = decodeQuote(d);
+  const { d, id } = await searchParams;
+  // ?d= carries the quote as typed; ?id= is a saved quote (both when a saved
+  // quote is opened straight from the builder).
+  const savedId = Number(id) > 0 ? Number(id) : null;
+  const saved = savedId ? await getSavedQuote(savedId) : null;
+  const quote = decodeQuote(d) ?? saved?.quote ?? null;
 
   if (!quote) {
     return (
@@ -31,12 +37,13 @@ export default async function AdminQuotePage({ searchParams }: { searchParams: P
       <div className="mx-auto mb-4 flex max-w-[800px] flex-wrap items-center gap-3 px-4 print:hidden">
         <PrintButton />
         <form action={createSystemFromQuoteAction}>
-          <input type="hidden" name="quote" value={d} />
+          <input type="hidden" name="quote" value={encodeQuote(quote)} />
+          {savedId ? <input type="hidden" name="quoteId" value={savedId} /> : null}
           <button
             type="submit"
             className="rounded-full border border-navy/20 bg-white px-5 py-2 text-sm font-semibold text-navy hover:border-orange"
           >
-            Customer said yes: create their My System page
+            {saved?.system_id ? "My System page already made: make another" : "Customer said yes: create their My System page"}
           </button>
         </form>
         <p className="w-full text-xs text-charcoal/55">

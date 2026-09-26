@@ -12,7 +12,7 @@ import {
 } from "@/lib/aftercare";
 import { formatDate } from "@/lib/quote";
 import { PROMISE_TERMS, WORKMANSHIP_TERMS } from "@/lib/promises";
-import { BUSINESS_HOURS, PHONE_DISPLAY, PHONE_DISPLAY_2, PHONE_E164, PHONE_E164_2, SITE_NAME } from "@/lib/constants";
+import { PHONE_DISPLAY, PHONE_DISPLAY_2, PHONE_E164, PHONE_E164_2, SITE_NAME } from "@/lib/constants";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
 
 export const metadata: Metadata = {
@@ -89,7 +89,7 @@ export default async function MySystemPage({ params }: { params: Promise<{ token
               body="If the system can't power the appliances on your list for the hours listed, we adjust or add to it at our cost."
             />
             <PromiseCard
-              title="Two free check-ups"
+              title="Two free check-ups in your first year"
               status={
                 schedule.length === 0
                   ? `At ${PROMISE_TERMS.checkupMonths[0]} and ${PROMISE_TERMS.checkupMonths[1]} months`
@@ -102,7 +102,7 @@ export default async function MySystemPage({ params }: { params: Promise<{ token
             <PromiseCard
               title="Fast help"
               status={`Reply in ${PROMISE_TERMS.replyHours} hours, technician in ${PROMISE_TERMS.onSiteHours}`}
-              body={`WhatsApp replies within ${PROMISE_TERMS.replyHours} hours during working hours (${BUSINESS_HOURS[0].days}, ${BUSINESS_HOURS[0].hours}). If something is wrong, a technician comes to you within ${PROMISE_TERMS.onSiteHours} hours.`}
+              body={`Message us on WhatsApp any time, day or night. We reply within ${PROMISE_TERMS.replyHours} hours. If something is wrong, a technician comes to you within ${PROMISE_TERMS.onSiteHours} hours.`}
             />
           </div>
           <p className="mt-3 text-xs text-charcoal/55">{WORKMANSHIP_TERMS}</p>

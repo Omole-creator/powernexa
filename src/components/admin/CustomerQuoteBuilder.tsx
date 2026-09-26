@@ -1,53 +1,91 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
+import { saveQuoteAction } from "@/actions/saved-quotes";
 import { formatNaira, roundQuote, type JobEstimate, type SystemSpec } from "@/lib/costing";
 import { encodeQuote, fuelSavings, newQuoteNumber, paymentSchedule, type CustomerQuote } from "@/lib/quote";
 import { LOAD_COLUMNS, RowsEditor, type Row } from "./RowsEditor";
+import type { CalcState } from "./PricingCalculator";
 
 const inputClass =
   "w-full rounded-xl border border-line bg-white px-3 py-2 text-sm outline-none focus:border-orange focus:ring-2 focus:ring-orange/20";
 
 const MAIN_ITEMS = ["inverter", "battery", "panel"];
 
+// Everything typed into this form, saved with the quote so it can be edited later.
+type Draft = {
+  number: string;
+  customer: { name: string; phone: string; address: string };
+  date: string;
+  summary: string;
+  descriptions: Record<string, string>;
+  warranties: Record<string, string>;
+  load: Row[];
+  feePaid: string;
+  fuel: { monthlyNow: string; generatorHoursPerDay: string; litresPerHour: string; pricePerLitre: string };
+  notes: string;
+};
+
+function freshDraft(): Draft {
+  return {
+    number: newQuoteNumber(),
+    customer: { name: "", phone: "", address: "" },
+    date: new Date().toISOString().slice(0, 10),
+    summary: "",
+    descriptions: {},
+    warranties: {},
+    load: [{}],
+    feePaid: "",
+    fuel: { monthlyNow: "", generatorHoursPerDay: "", litresPerHour: "", pricePerLitre: "" },
+    notes: "",
+  };
+}
+
 // Turns the calculator's figures into the written quote the customer gets.
 // Only two totals go across: equipment (rounded price minus the service
 // lines) and installation (labour, transport, survey). No per-item prices,
 // costs, markups or supplier names.
-export function CustomerQuoteBuilder({ estimate, spec }: { estimate: JobEstimate; spec: SystemSpec }) {
-  const [today] = useState(() => new Date().toISOString().slice(0, 10));
-  const [number] = useState(() => newQuoteNumber());
-  const [customer, setCustomer] = useState({ name: "", phone: "", address: "" });
-  const [date, setDate] = useState(today);
-  const [summary, setSummary] = useState("");
-  const [descriptions, setDescriptions] = useState<Record<string, string>>({});
-  const [warranties, setWarranties] = useState<Record<string, string>>({});
-  const [load, setLoad] = useState<Row[]>([{}]);
-  const [feePaid, setFeePaid] = useState("");
-  const [fuel, setFuel] = useState({ monthlyNow: "", generatorHoursPerDay: "", litresPerHour: "", pricePerLitre: "" });
-  const [notes, setNotes] = useState("");
+export function CustomerQuoteBuilder({
+  estimate,
+  spec,
+  calc,
+  savedQuote,
+}: {
+  estimate: JobEstimate;
+  spec: SystemSpec;
+  calc: CalcState;
+  savedQuote?: { id: number; draft: unknown };
+}) {
+  const [draft, setDraft] = useState<Draft>(() => ({ ...freshDraft(), ...((savedQuote?.draft as Partial<Draft>) ?? {}) }));
+  const [savedId, setSavedId] = useState<number | null>(savedQuote?.id ?? null);
+  const [saveStatus, setSaveStatus] = useState<{ ok?: string; error?: string }>({});
+  const [isSaving, startSaving] = useTransition();
+  const set = <K extends keyof Draft>(key: K, value: Draft[K]) => {
+    setDraft((d) => ({ ...d, [key]: value }));
+    setSaveStatus({});
+  };
 
   const defaultSummary = `${spec.inverterKva}kVA inverter, ${spec.batteryKwh}kWh ${spec.batteryChemistry} battery, ${spec.panelCount} x ${spec.panelWatts}W solar panels`;
   const total = roundQuote(estimate.finalPrice);
   const installationTotal = estimate.labour + estimate.transport + estimate.siteSurvey;
 
   const quote: CustomerQuote = {
-    number,
-    date,
+    number: draft.number,
+    date: draft.date,
     customer: {
-      name: customer.name.trim(),
-      phone: customer.phone.trim() || undefined,
-      address: customer.address.trim() || undefined,
+      name: draft.customer.name.trim(),
+      phone: draft.customer.phone.trim() || undefined,
+      address: draft.customer.address.trim() || undefined,
     },
-    systemSummary: summary.trim() || defaultSummary,
+    systemSummary: draft.summary.trim() || defaultSummary,
     items: estimate.equipment.map((line) => ({
-      description: descriptions[line.key]?.trim() || customerLabel(line.key, line.label),
-      warranty: warranties[line.key]?.trim() || undefined,
+      description: draft.descriptions[line.key]?.trim() || customerLabel(line.key, line.label),
+      warranty: draft.warranties[line.key]?.trim() || undefined,
     })),
     equipmentTotal: total - installationTotal,
     installationTotal,
-    assessmentFeePaid: toNumber(feePaid),
-    load: load
+    assessmentFeePaid: toNumber(draft.feePaid),
+    load: draft.load
       .filter((r) => r.appliance?.trim())
       .map((r) => ({
         appliance: r.appliance.trim(),
@@ -56,73 +94,103 @@ export function CustomerQuoteBuilder({ estimate, spec }: { estimate: JobEstimate
         hours: toNumber(r.hours),
       })),
     fuel:
-      toNumber(fuel.monthlyNow) > 0
+      toNumber(draft.fuel.monthlyNow) > 0
         ? {
-            monthlyNow: toNumber(fuel.monthlyNow),
-            generatorHoursPerDay: toNumber(fuel.generatorHoursPerDay),
-            litresPerHour: toNumber(fuel.litresPerHour),
-            pricePerLitre: toNumber(fuel.pricePerLitre),
+            monthlyNow: toNumber(draft.fuel.monthlyNow),
+            generatorHoursPerDay: toNumber(draft.fuel.generatorHoursPerDay),
+            litresPerHour: toNumber(draft.fuel.litresPerHour),
+            pricePerLitre: toNumber(draft.fuel.pricePerLitre),
           }
         : undefined,
-    notes: notes.trim() || undefined,
+    notes: draft.notes.trim() || undefined,
   };
   const pay = paymentSchedule(quote);
   const savings = quote.fuel ? fuelSavings(quote.fuel, pay.total) : null;
 
   const blocker = !quote.customer.name
-    ? "Enter the customer's name to open the quote."
+    ? "Enter the customer's name first."
     : estimate.missing.length > 0
       ? `Add a price for: ${estimate.missing.join(", ")}.`
       : quote.load.length === 0
         ? "Add at least one appliance to the load list. The carry guarantee is based on it."
         : null;
 
-  return (
-    <div className="mt-6 rounded-2xl border-2 border-navy/10 bg-white p-6">
-      <h2 className="font-display text-lg font-bold text-navy">Customer quote</h2>
-      <p className="mt-1 text-sm text-charcoal/60">
-        The written quote the customer gets, as a PDF. It shows the equipment list, one equipment total and one
-        installation total. Your costs, markups and suppliers never appear on it.
-      </p>
+  const save = () =>
+    startSaving(async () => {
+      const result = await saveQuoteAction(savedId, JSON.stringify(quote), JSON.stringify({ calc, draft }));
+      if (result.error || !result.id) {
+        setSaveStatus({ error: result.error ?? "Could not save." });
+        return;
+      }
+      setSavedId(result.id);
+      window.history.replaceState(null, "", `/admin/pricing?quote=${result.id}`);
+      setSaveStatus({ ok: `Saved as ${draft.number}.` });
+    });
 
-      <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <Field label="Customer name">
-          <input value={customer.name} onChange={(e) => setCustomer({ ...customer, name: e.target.value })} className={inputClass} />
-        </Field>
-        <Field label="Phone">
-          <input value={customer.phone} onChange={(e) => setCustomer({ ...customer, phone: e.target.value })} className={inputClass} />
-        </Field>
-        <Field label="Address">
-          <input value={customer.address} onChange={(e) => setCustomer({ ...customer, address: e.target.value })} className={inputClass} />
-        </Field>
-        <Field label="Quote date">
-          <input type="date" value={date} onChange={(e) => setDate(e.target.value || today)} className={inputClass} />
-        </Field>
-        <Field label="System, in one line" className="sm:col-span-2 lg:col-span-4">
-          <input value={summary} placeholder={defaultSummary} onChange={(e) => setSummary(e.target.value)} className={inputClass} />
-        </Field>
+  const startNew = () => {
+    if (!confirm("Start a new quote? Anything not saved on this one is lost.")) return;
+    setDraft(freshDraft());
+    setSavedId(null);
+    setSaveStatus({});
+    window.history.replaceState(null, "", "/admin/pricing");
+  };
+
+  return (
+    <div id="customer-quote" className="mt-6 rounded-2xl border-2 border-navy/10 bg-white p-6">
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <h2 className="font-display text-lg font-bold text-navy">
+            Customer quote <span className="font-mono-num text-sm font-medium text-charcoal/50">{draft.number}</span>
+          </h2>
+          <p className="mt-1 text-sm text-charcoal/60">
+            The written quote the customer gets, as a PDF. It shows the equipment list, one equipment total and one
+            installation total. Your costs, markups and suppliers never appear on it.
+          </p>
+        </div>
+        {savedId ? (
+          <button type="button" onClick={startNew} className="text-xs font-semibold text-orange">
+            + New quote
+          </button>
+        ) : null}
       </div>
 
-      <details className="mt-4 rounded-xl border border-line px-4 py-3">
-        <summary className="cursor-pointer text-xs font-semibold text-navy">
-          Equipment as the customer sees it (add brand, model and the maker&apos;s warranty)
-        </summary>
-        <div className="mt-3 space-y-2">
+      <Section title="Customer details" summary={draft.customer.name || "Not filled in"} defaultOpen>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <Field label="Customer name">
+            <input value={draft.customer.name} onChange={(e) => set("customer", { ...draft.customer, name: e.target.value })} className={inputClass} />
+          </Field>
+          <Field label="Phone">
+            <input value={draft.customer.phone} onChange={(e) => set("customer", { ...draft.customer, phone: e.target.value })} className={inputClass} />
+          </Field>
+          <Field label="Address">
+            <input value={draft.customer.address} onChange={(e) => set("customer", { ...draft.customer, address: e.target.value })} className={inputClass} />
+          </Field>
+          <Field label="Quote date">
+            <input type="date" value={draft.date} onChange={(e) => set("date", e.target.value || draft.date)} className={inputClass} />
+          </Field>
+          <Field label="System, in one line" className="sm:col-span-2 lg:col-span-4">
+            <input value={draft.summary} placeholder={defaultSummary} onChange={(e) => set("summary", e.target.value)} className={inputClass} />
+          </Field>
+        </div>
+      </Section>
+
+      <Section title="Equipment as the customer sees it" summary="Brand, model and the maker's warranty">
+        <div className="space-y-2">
           {estimate.equipment.map((line) => (
             <div key={line.key} className="grid gap-2 sm:grid-cols-[2fr_1fr]">
               <input
                 aria-label={`${line.label} description`}
-                value={descriptions[line.key] ?? ""}
+                value={draft.descriptions[line.key] ?? ""}
                 placeholder={customerLabel(line.key, line.label)}
-                onChange={(e) => setDescriptions({ ...descriptions, [line.key]: e.target.value })}
+                onChange={(e) => set("descriptions", { ...draft.descriptions, [line.key]: e.target.value })}
                 className={inputClass}
               />
               {MAIN_ITEMS.includes(line.key) ? (
                 <input
                   aria-label={`${line.label} warranty`}
-                  value={warranties[line.key] ?? ""}
+                  value={draft.warranties[line.key] ?? ""}
                   placeholder="Maker's warranty, e.g. 5 years"
-                  onChange={(e) => setWarranties({ ...warranties, [line.key]: e.target.value })}
+                  onChange={(e) => set("warranties", { ...draft.warranties, [line.key]: e.target.value })}
                   className={inputClass}
                 />
               ) : (
@@ -131,44 +199,48 @@ export function CustomerQuoteBuilder({ estimate, spec }: { estimate: JobEstimate
             </div>
           ))}
         </div>
-      </details>
+      </Section>
 
-      <div className="mt-5">
-        <p className="text-xs font-semibold text-navy">What the system will carry (from the site assessment)</p>
+      <Section title="What the system will carry" summary={`${quote.load.length} appliance${quote.load.length === 1 ? "" : "s"}`} defaultOpen>
         <p className="mb-2 text-xs text-charcoal/55">
-          Backed by the 30-day carry guarantee, so only list what you measured.
+          From the site assessment. Backed by the 30-day carry guarantee, so only list what you measured.
         </p>
-        <RowsEditor columns={LOAD_COLUMNS} rows={load} onChange={setLoad} addLabel="Add appliance" />
-      </div>
+        <RowsEditor columns={LOAD_COLUMNS} rows={draft.load} onChange={(rows) => set("load", rows)} addLabel="Add appliance" />
+      </Section>
 
-      <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-        <Field label="Current fuel spend a month (₦)">
-          <input inputMode="numeric" value={fuel.monthlyNow} onChange={(e) => setFuel({ ...fuel, monthlyNow: e.target.value })} className={inputClass} placeholder="Customer tells you" />
-        </Field>
-        <Field label="Generator hours a day after">
-          <input inputMode="decimal" value={fuel.generatorHoursPerDay} onChange={(e) => setFuel({ ...fuel, generatorHoursPerDay: e.target.value })} className={inputClass} placeholder="0 if none" />
-        </Field>
-        <Field label="Litres an hour">
-          <input inputMode="decimal" value={fuel.litresPerHour} onChange={(e) => setFuel({ ...fuel, litresPerHour: e.target.value })} className={inputClass} />
-        </Field>
-        <Field label="Price per litre (₦)">
-          <input inputMode="numeric" value={fuel.pricePerLitre} onChange={(e) => setFuel({ ...fuel, pricePerLitre: e.target.value })} className={inputClass} />
-        </Field>
-        <Field label="Assessment fee paid (₦)">
-          <input inputMode="numeric" value={feePaid} onChange={(e) => setFeePaid(e.target.value)} className={inputClass} placeholder="Comes off the total" />
-        </Field>
-      </div>
-      <p className="mt-1 text-xs text-charcoal/50">
-        Fuel is optional. Leave &quot;current fuel spend&quot; empty and the fuel section stays off the quote.
-      </p>
+      <Section
+        title="Fuel savings and assessment fee"
+        summary={savings ? `Saves ${formatNaira(savings.monthlySaving)} a month` : "Optional"}
+      >
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+          <Field label="Current fuel spend a month (₦)">
+            <input inputMode="numeric" value={draft.fuel.monthlyNow} onChange={(e) => set("fuel", { ...draft.fuel, monthlyNow: e.target.value })} className={inputClass} placeholder="Customer tells you" />
+          </Field>
+          <Field label="Generator hours a day after">
+            <input inputMode="decimal" value={draft.fuel.generatorHoursPerDay} onChange={(e) => set("fuel", { ...draft.fuel, generatorHoursPerDay: e.target.value })} className={inputClass} placeholder="0 if none" />
+          </Field>
+          <Field label="Litres an hour">
+            <input inputMode="decimal" value={draft.fuel.litresPerHour} onChange={(e) => set("fuel", { ...draft.fuel, litresPerHour: e.target.value })} className={inputClass} />
+          </Field>
+          <Field label="Price per litre (₦)">
+            <input inputMode="numeric" value={draft.fuel.pricePerLitre} onChange={(e) => set("fuel", { ...draft.fuel, pricePerLitre: e.target.value })} className={inputClass} />
+          </Field>
+          <Field label="Assessment fee paid (₦)">
+            <input inputMode="numeric" value={draft.feePaid} onChange={(e) => set("feePaid", e.target.value)} className={inputClass} placeholder="Comes off the total" />
+          </Field>
+        </div>
+        <p className="mt-1 text-xs text-charcoal/50">
+          Leave &quot;current fuel spend&quot; empty and the fuel section stays off the quote.
+        </p>
+      </Section>
 
-      <Field label="Notes on the quote (optional)" className="mt-4">
-        <textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows={2} className={inputClass} />
-      </Field>
+      <Section title="Notes on the quote" summary={draft.notes ? "Added" : "Optional"}>
+        <textarea value={draft.notes} onChange={(e) => set("notes", e.target.value)} rows={2} className={inputClass} />
+      </Section>
 
       <div className="mt-5 space-y-1.5 rounded-xl bg-mist p-5 text-sm">
         <Line label="Equipment and materials" value={quote.equipmentTotal} />
-        <Line label="Installation, transport and commissioning" value={quote.installationTotal} />
+        <Line label="Installation and commissioning" value={quote.installationTotal} />
         <Line label="Total on the quote" value={pay.total} strong />
         {quote.assessmentFeePaid > 0 ? <Line label="Amount to pay after assessment fee" value={pay.amountDue} /> : null}
         <Line label="Deposit (covers the equipment)" value={pay.deposit} />
@@ -185,16 +257,32 @@ export function CustomerQuoteBuilder({ estimate, spec }: { estimate: JobEstimate
         {blocker ? (
           <p className="text-xs font-medium text-red-600">{blocker}</p>
         ) : (
-          <a
-            href={`/admin/quote?d=${encodeQuote(quote)}`}
-            target="_blank"
-            rel="noopener"
-            className="rounded-full bg-orange px-6 py-2.5 text-sm font-semibold text-white hover:bg-orange-dark"
-          >
-            Open customer quote
-          </a>
+          <>
+            <button
+              type="button"
+              onClick={save}
+              disabled={isSaving}
+              className="rounded-full bg-navy px-6 py-2.5 text-sm font-semibold text-white hover:bg-navy/90 disabled:opacity-60"
+            >
+              {isSaving ? "Saving..." : savedId ? "Save changes" : "Save quote"}
+            </button>
+            <a
+              href={`/admin/quote?d=${encodeQuote(quote)}${savedId ? `&id=${savedId}` : ""}`}
+              target="_blank"
+              rel="noopener"
+              className="rounded-full bg-orange px-6 py-2.5 text-sm font-semibold text-white hover:bg-orange-dark"
+            >
+              Open customer quote
+            </a>
+          </>
         )}
-        <span className="text-xs text-charcoal/50">Opens in a new tab with a Download PDF button.</span>
+        {saveStatus.ok ? <span className="text-xs font-medium text-green-700">{saveStatus.ok}</span> : null}
+        {saveStatus.error ? <span className="text-xs font-medium text-red-600">{saveStatus.error}</span> : null}
+        {!saveStatus.ok && !saveStatus.error ? (
+          <span className="text-xs text-charcoal/50">
+            {savedId ? "Save changes to update it under Saved quotes." : "Save it to find it again under Saved quotes."}
+          </span>
+        ) : null}
       </div>
     </div>
   );
@@ -210,6 +298,33 @@ function customerLabel(key: string, label: string): string {
 function toNumber(value: string | undefined): number {
   const n = Number(String(value ?? "").replace(/[₦,\s]/g, ""));
   return Number.isFinite(n) && n > 0 ? n : 0;
+}
+
+function Section({
+  title,
+  summary,
+  defaultOpen = false,
+  children,
+}: {
+  title: string;
+  summary: string;
+  defaultOpen?: boolean;
+  children: React.ReactNode;
+}) {
+  return (
+    <details open={defaultOpen} className="group mt-4 rounded-xl border border-line px-4 py-3">
+      <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-sm font-semibold text-navy">
+        <span>{title}</span>
+        <span className="flex items-center gap-2 text-xs font-normal text-charcoal/50">
+          <span className="truncate">{summary}</span>
+          <span className="transition-transform group-open:rotate-180" aria-hidden="true">
+            ▾
+          </span>
+        </span>
+      </summary>
+      <div className="mt-3">{children}</div>
+    </details>
+  );
 }
 
 function Field({ label, className = "", children }: { label: string; className?: string; children: React.ReactNode }) {

@@ -2,6 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { requireAdmin } from "@/lib/dal";
 import { logout } from "@/actions/auth";
+import { listDueCheckups } from "@/lib/customer-systems";
+import { todayLagos } from "@/lib/aftercare";
+import { CheckupAlerts } from "@/components/admin/CheckupAlerts";
+
+// Check-up alerts start this many days before each free check-up is due.
+const CHECKUP_ALERT_DAYS = 14;
 
 const NAV = [
   { href: "/admin", label: "Dashboard", icon: "📊" },
@@ -17,6 +23,14 @@ const NAV = [
 
 export default async function AdminProtectedLayout({ children }: { children: React.ReactNode }) {
   const user = await requireAdmin();
+  const dueCheckups = await listDueCheckups(CHECKUP_ALERT_DAYS, todayLagos());
+  const badge = (href: string) =>
+    href === "/admin/systems" && dueCheckups.length > 0 ? (
+      <span className="relative ml-auto flex h-2.5 w-2.5">
+        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-orange opacity-75" />
+        <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-orange" />
+      </span>
+    ) : null;
 
   return (
     <div className="flex min-h-screen bg-mist">
@@ -41,6 +55,7 @@ export default async function AdminProtectedLayout({ children }: { children: Rea
             >
               <span aria-hidden="true">{item.icon}</span>
               {item.label}
+              {badge(item.href)}
             </Link>
           ))}
         </nav>
@@ -72,6 +87,15 @@ export default async function AdminProtectedLayout({ children }: { children: Rea
             </button>
           </form>
         </header>
+        {/* One bell for every screen size, so it only pops up once. */}
+        <div className="flex items-center justify-end gap-3 border-b border-line bg-white px-5 py-2 lg:px-8 lg:py-3">
+          {dueCheckups.length > 0 ? (
+            <span className="text-xs font-semibold text-orange">
+              {dueCheckups.length} check-up{dueCheckups.length === 1 ? "" : "s"} to book
+            </span>
+          ) : null}
+          <CheckupAlerts items={dueCheckups} windowDays={CHECKUP_ALERT_DAYS} />
+        </div>
         <nav className="flex gap-1 overflow-x-auto border-b border-line bg-white px-3 py-2 lg:hidden">
           {NAV.map((item) => (
             <Link
@@ -80,6 +104,9 @@ export default async function AdminProtectedLayout({ children }: { children: Rea
               className="whitespace-nowrap rounded-lg px-3 py-1.5 text-xs font-medium text-navy hover:bg-mist"
             >
               {item.icon} {item.label}
+              {item.href === "/admin/systems" && dueCheckups.length > 0 ? (
+                <span className="ml-1 inline-block h-2 w-2 animate-pulse rounded-full bg-orange align-middle" />
+              ) : null}
             </Link>
           ))}
         </nav>

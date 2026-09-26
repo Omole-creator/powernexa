@@ -2,6 +2,7 @@ import "server-only";
 import { randomBytes } from "node:crypto";
 import { supabase } from "./supabase";
 import { parseQuote, type CustomerQuote, type LoadItem } from "./quote";
+import { checkupSchedule } from "./aftercare";
 
 // My System pages: one private page per installed customer at
 // /my-system/<token>, reached only through the link we send them. The token
@@ -79,7 +80,20 @@ create table if not exists customer_system_photos (
   created_at timestamptz not null default now()
 );
 create index if not exists idx_customer_system_photos_system on customer_system_photos (system_id);
-alter table customer_system_photos enable row level security;`;
+alter table customer_system_photos enable row level security;
+
+create table if not exists customer_quotes (
+  id bigint generated always as identity primary key,
+  number text not null,
+  customer_name text not null,
+  quote jsonb not null,
+  calc jsonb,
+  system_id bigint references customer_systems (id) on delete set null,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+create index if not exists idx_customer_quotes_created on customer_quotes (created_at desc);
+alter table customer_quotes enable row level security;`;
 
 function isMissingTable(error: { code?: string; message?: string }): boolean {
   return error.code === "42P01" || error.code === "PGRST205" || /does not exist|schema cache/i.test(error.message ?? "");
@@ -221,4 +235,44 @@ export async function deletePhoto(id: number): Promise<void> {
   const { data, error } = await supabase.from("customer_system_photos").delete().eq("id", id).select("path").maybeSingle();
   if (error) throw error;
   if (data?.path) await supabase.storage.from(PHOTO_BUCKET).remove([data.path]);
+}
+
+export type DueCheckup = {
+  systemId: number;
+  customerName: string;
+  address: string | null;
+  number: number;
+  dueOn: string;
+  daysLeft: number; // negative when overdue
+};
+
+// Check-ups not yet logged whose due date is within `windowDays` or already
+// past. Drives the blinking alert across the admin. Never throws: an admin
+// page must still load if this table isn't set up yet.
+export async function listDueCheckups(windowDays: number, today: string): Promise<DueCheckup[]> {
+  try {
+    const { systems, events, tableMissing } = await listSystems();
+    if (tableMissing) return [];
+    const todayMs = Date.parse(`${today}T00:00:00Z`);
+    const due: DueCheckup[] = [];
+    for (const system of systems) {
+      const schedule = checkupSchedule(system.installed_on, events.filter((e) => e.system_id === system.id));
+      const next = schedule.find((c) => !c.doneOn);
+      if (!next) continue;
+      const daysLeft = Math.round((Date.parse(`${next.dueOn}T00:00:00Z`) - todayMs) / 86_400_000);
+      if (daysLeft > windowDays) continue;
+      due.push({
+        systemId: system.id,
+        customerName: system.customer_name,
+        address: system.address,
+        number: next.number,
+        dueOn: next.dueOn,
+        daysLeft,
+      });
+    }
+    return due.sort((a, b) => a.daysLeft - b.daysLeft);
+  } catch (error) {
+    console.error("listDueCheckups failed", error);
+    return [];
+  }
 }

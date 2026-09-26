@@ -130,7 +130,7 @@ export default async function LocationPage({ params }: { params: Promise<{ area:
             <ul className="mt-4 space-y-3 text-sm leading-relaxed text-charcoal/75">
               <li>We calculate your actual load before recommending any system.</li>
               <li>Every quote is written down, with sizing and pricing explained.</li>
-              <li>2-year written workmanship warranty and two free check-ups.</li>
+              <li>1-year written workmanship warranty and two free check-ups in that year.</li>
               <li>WhatsApp reply within 2 hours, technician within 48 hours if something goes wrong.</li>
             </ul>
           </Reveal>

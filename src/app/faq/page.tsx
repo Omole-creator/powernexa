@@ -61,7 +61,7 @@ const GROUPS: { title: string; items: { question: string; answer: string }[] }[]
       {
         question: "What happens if something breaks after installation?",
         answer:
-          "Message us on WhatsApp. During working hours we reply within 2 hours, and a technician comes to you within 48 hours. Faults caused by our work are covered free for 2 years. Equipment faults are covered by each maker's warranty.",
+          "Message us on WhatsApp, any time of day. We reply within 2 hours, and a technician comes to you within 48 hours. Faults caused by our work are covered free for your first year. Equipment faults are covered by each maker's warranty.",
       },
       {
         question: "When do I pay?",

@@ -24,7 +24,7 @@ export default function InverterInstallationPage() {
         "Pure sine wave inverters that run sensitive electronics and AC compressors safely.",
         "Proper changeover wiring so switching between grid and inverter power happens without a flicker.",
         "Battery bank matched to your inverter for the backup hours you actually need.",
-        "2-year written warranty on our installation, on top of the inverter maker's warranty.",
+        "1-year written warranty on our installation, on top of the inverter maker's warranty.",
       ]}
       pricingNote={
         <p>

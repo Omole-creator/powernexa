@@ -232,6 +232,22 @@ create table if not exists customer_system_photos (
 create index if not exists idx_customer_system_photos_system on customer_system_photos (system_id);
 alter table customer_system_photos enable row level security;
 
+-- Customer quotes saved from /admin/pricing. quote is exactly what the
+-- customer sees (no costs or markups); calc is the calculator and builder
+-- state, so a saved quote can be reopened and edited.
+create table if not exists customer_quotes (
+  id bigint generated always as identity primary key,
+  number text not null,
+  customer_name text not null,
+  quote jsonb not null,
+  calc jsonb,
+  system_id bigint references customer_systems (id) on delete set null,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+create index if not exists idx_customer_quotes_created on customer_quotes (created_at desc);
+alter table customer_quotes enable row level security;
+
 -- Dashboard aggregate functions, called from the admin dashboard via
 -- supabase.rpc(...). Kept as SQL functions so the heavy GROUP BY work runs
 -- inside Postgres instead of being pulled row-by-row into the app.

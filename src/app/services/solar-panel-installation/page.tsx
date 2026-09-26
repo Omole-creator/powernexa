@@ -22,7 +22,7 @@ export default function SolarPanelInstallationPage() {
         "Monocrystalline or polycrystalline panels, matched to your budget and available space.",
         "Structural mounting rated for Lagos wind and rain, not a bracket kit from a hardware stall.",
         "Full wiring, earthing, and safety isolation done to standard, not shortcuts to save time.",
-        "2-year written workmanship warranty plus the maker's warranty on the panels themselves.",
+        "1-year written workmanship warranty plus the maker's warranty on the panels themselves.",
       ]}
       pricingNote={
         <p>

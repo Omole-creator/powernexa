@@ -4,13 +4,19 @@
 // everywhere. Working hours come from BUSINESS_HOURS in constants.ts.
 
 export const PROMISE_TERMS = {
-  workmanshipYears: 2,
+  // Owner decision (Sept 2026): the warranty covers the same first year as
+  // the two free check-ups.
+  workmanshipYears: 1,
   checkupMonths: [6, 12],
   replyHours: 2,
   onSiteHours: 48,
   carryGuaranteeDays: 30,
   quoteValidDays: 7,
 } as const;
+
+// "your first year" / "your first 2 years", for sentences.
+export const WARRANTY_PERIOD =
+  PROMISE_TERMS.workmanshipYears === 1 ? "your first year" : `your first ${PROMISE_TERMS.workmanshipYears} years`;
 
 export type CustomerPromise = { key: string; title: string; body: string };
 
@@ -33,17 +39,17 @@ export const PROMISES: CustomerPromise[] = [
   {
     key: "warranty",
     title: `${PROMISE_TERMS.workmanshipYears}-year workmanship warranty, in writing`,
-    body: `If a fault comes from our work, like a loose connection, bad wiring or poor mounting, we fix it free for ${PROMISE_TERMS.workmanshipYears} years. That's on top of the maker's warranty on your equipment.`,
+    body: `If a fault comes from our work, like a loose connection, bad wiring or poor mounting, we fix it free for ${WARRANTY_PERIOD}. That's on top of the maker's warranty on your equipment.`,
   },
   {
     key: "checkups",
-    title: "Two free check-ups",
+    title: "Two free check-ups in your first year",
     body: `We come back at ${PROMISE_TERMS.checkupMonths[0]} months and ${PROMISE_TERMS.checkupMonths[1]} months to check your panels, inverter, battery and wiring, so a small problem doesn't turn into a big one.`,
   },
   {
     key: "response",
     title: `A reply in ${PROMISE_TERMS.replyHours} hours, a technician in ${PROMISE_TERMS.onSiteHours}`,
-    body: `Message us on WhatsApp during working hours and we reply within ${PROMISE_TERMS.replyHours} hours. If something is wrong, a technician comes to you within ${PROMISE_TERMS.onSiteHours} hours.`,
+    body: `Message us on WhatsApp any time, day or night, and we reply within ${PROMISE_TERMS.replyHours} hours. If something is wrong, a technician comes to you within ${PROMISE_TERMS.onSiteHours} hours.`,
   },
 ];
 

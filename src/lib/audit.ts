@@ -33,7 +33,9 @@ export type AuditAction =
   | "add_system_event"
   | "delete_system_event"
   | "add_system_photo"
-  | "delete_system_photo";
+  | "delete_system_photo"
+  | "save_customer_quote"
+  | "delete_customer_quote";
 
 export async function logAudit(actorEmail: string, action: AuditAction, detail?: string): Promise<void> {
   const { error } = await supabase.from("audit_log").insert({

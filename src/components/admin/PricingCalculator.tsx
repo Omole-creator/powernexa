@@ -44,24 +44,61 @@ const SERVICE_FIELDS: { key: keyof ServiceCosts; label: string; hint: string }[]
   { key: "siteSurvey", label: "Site survey visit", hint: "What the assessment cost us" },
 ];
 
+// Everything typed into the calculator, saved with a customer quote so the
+// quote can be reopened with the same figures.
+export type CalcState = {
+  preset: PackageKey | "custom";
+  inverterKva: string;
+  batteryKwh: string;
+  chemistry: Chemistry;
+  panelCount: string;
+  panelWatts: string;
+  source: string;
+  accessoryOverrides: Partial<Record<keyof AccessoryCosts, string>>;
+  serviceOverrides: Partial<Record<keyof ServiceCosts, string>>;
+  manualInputs: Partial<Record<keyof ManualEquipmentCosts, string>>;
+};
+
 export function PricingCalculator({
   priceBook,
   initialPackage = "medium",
+  initialCalc,
+  savedQuote,
 }: {
   priceBook: PriceSourceItem[];
   initialPackage?: PackageKey;
+  initialCalc?: Partial<CalcState>;
+  savedQuote?: { id: number; draft: unknown };
 }) {
   const start = PACKAGES[initialPackage].spec;
-  const [preset, setPreset] = useState<PackageKey | "custom">(initialPackage);
-  const [inverterKva, setInverterKva] = useState(String(start.inverterKva));
-  const [batteryKwh, setBatteryKwh] = useState(String(start.batteryKwh));
-  const [chemistry, setChemistry] = useState<Chemistry>(start.batteryChemistry);
-  const [panelCount, setPanelCount] = useState(String(start.panelCount));
-  const [panelWatts, setPanelWatts] = useState(String(start.panelWatts));
-  const [source, setSource] = useState("");
-  const [accessoryOverrides, setAccessoryOverrides] = useState<Partial<Record<keyof AccessoryCosts, string>>>({});
-  const [serviceOverrides, setServiceOverrides] = useState<Partial<Record<keyof ServiceCosts, string>>>({});
-  const [manualInputs, setManualInputs] = useState<Partial<Record<keyof ManualEquipmentCosts, string>>>({});
+  const [preset, setPreset] = useState<PackageKey | "custom">(initialCalc?.preset ?? initialPackage);
+  const [inverterKva, setInverterKva] = useState(initialCalc?.inverterKva ?? String(start.inverterKva));
+  const [batteryKwh, setBatteryKwh] = useState(initialCalc?.batteryKwh ?? String(start.batteryKwh));
+  const [chemistry, setChemistry] = useState<Chemistry>(initialCalc?.chemistry ?? start.batteryChemistry);
+  const [panelCount, setPanelCount] = useState(initialCalc?.panelCount ?? String(start.panelCount));
+  const [panelWatts, setPanelWatts] = useState(initialCalc?.panelWatts ?? String(start.panelWatts));
+  const [source, setSource] = useState(initialCalc?.source ?? "");
+  const [accessoryOverrides, setAccessoryOverrides] = useState<Partial<Record<keyof AccessoryCosts, string>>>(
+    initialCalc?.accessoryOverrides ?? {}
+  );
+  const [serviceOverrides, setServiceOverrides] = useState<Partial<Record<keyof ServiceCosts, string>>>(
+    initialCalc?.serviceOverrides ?? {}
+  );
+  const [manualInputs, setManualInputs] = useState<Partial<Record<keyof ManualEquipmentCosts, string>>>(
+    initialCalc?.manualInputs ?? {}
+  );
+  const calcState: CalcState = {
+    preset,
+    inverterKva,
+    batteryKwh,
+    chemistry,
+    panelCount,
+    panelWatts,
+    source,
+    accessoryOverrides,
+    serviceOverrides,
+    manualInputs,
+  };
 
   const sources = useMemo(() => [...new Set(priceBook.map((i) => i.source))], [priceBook]);
 
@@ -296,7 +333,7 @@ export function PricingCalculator({
       </p>
     </div>
 
-    <CustomerQuoteBuilder estimate={estimate} spec={spec} />
+    <CustomerQuoteBuilder estimate={estimate} spec={spec} calc={calcState} savedQuote={savedQuote} />
     </>
   );
 }

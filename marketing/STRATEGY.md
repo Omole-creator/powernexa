@@ -24,8 +24,8 @@ it. We don't attack other installers by name.
 **Our proof (only claims we can back):**
 - The six written promises in `src/lib/promises.ts`: fixed price, 30-day carry
   guarantee, deposit covers equipment and the balance is paid after it's working,
-  2-year workmanship warranty, free check-ups at 6 and 12 months, WhatsApp reply
-  in 2 hours and a technician in 48.
+  1-year workmanship warranty, two free check-ups in that year (6 and 12 months),
+  WhatsApp reply in 2 hours any time of day, and a technician in 48.
 - 125+ projects completed (the owner's own count, `PROJECTS_COMPLETED`).
 - Install videos and posters in `public/videos/projects/` (Ikoyi, GRA Ikeja,
   Elegushi Lekki, Okun Aja, Mowe-Ibafo).

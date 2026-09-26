@@ -17,6 +17,7 @@ import {
 } from "@/lib/customer-systems";
 import { EVENT_KINDS } from "@/lib/aftercare";
 import { decodeQuote, type LoadItem } from "@/lib/quote";
+import { linkQuoteToSystem } from "@/lib/saved-quotes";
 
 export type SystemFormState = { error?: string; success?: string };
 
@@ -125,6 +126,10 @@ export async function createSystemFromQuoteAction(formData: FormData) {
   } catch (error) {
     console.error("Create system from quote failed", error);
     redirect("/admin/systems?error=save");
+  }
+  const quoteId = Number(formData.get("quoteId"));
+  if (Number.isInteger(quoteId) && quoteId > 0) {
+    await linkQuoteToSystem(quoteId, id).catch((error) => console.error("Link quote to system failed", error));
   }
   await logAudit(admin.email, "add_customer_system", `${quote.customer.name}, from quote ${quote.number}`);
   refresh();

@@ -1,7 +1,10 @@
+import Link from "next/link";
 import type { Metadata } from "next";
 import { buildPriceBook, listSupplierPrices } from "@/lib/supplier-prices";
 import { PACKAGES, type PackageKey } from "@/lib/costing";
-import { PricingCalculator } from "@/components/admin/PricingCalculator";
+import { PricingCalculator, type CalcState } from "@/components/admin/PricingCalculator";
+import { SavedQuotesList } from "@/components/admin/SavedQuotesList";
+import { getSavedQuote, listSavedQuotes } from "@/lib/saved-quotes";
 import { SupplierPriceTable } from "@/components/admin/SupplierPriceTable";
 import { AddSupplierPriceForm } from "@/components/admin/AddSupplierPriceForm";
 import { SUPPLIER_PRICE_LISTS } from "@/lib/supplier-seed-data";
@@ -28,9 +31,12 @@ alter table leads add column if not exists load_profile text;`;
 export default async function AdminPricingPage({
   searchParams,
 }: {
-  searchParams: Promise<{ package?: string }>;
+  searchParams: Promise<{ package?: string; quote?: string }>;
 }) {
-  const { package: packageParam } = await searchParams;
+  const { package: packageParam, quote: quoteParam } = await searchParams;
+  const quoteId = Number(quoteParam) > 0 ? Number(quoteParam) : null;
+  const [saved, savedQuotes] = await Promise.all([quoteId ? getSavedQuote(quoteId) : null, listSavedQuotes()]);
+  const savedCalc = (saved?.calc ?? null) as { calc?: Partial<CalcState>; draft?: unknown } | null;
   const initialPackage: PackageKey =
     packageParam && packageParam in PACKAGES ? (packageParam as PackageKey) : "medium";
   const supplierPrices = await listSupplierPrices();
@@ -62,7 +68,25 @@ export default async function AdminPricingPage({
         </div>
       ) : null}
 
-      <PricingCalculator key={initialPackage} priceBook={priceBook} initialPackage={initialPackage} />
+      {savedQuotes.tableMissing ? (
+        <p className="rounded-2xl border border-orange/40 bg-orange/5 px-5 py-4 text-sm text-navy">
+          Saving quotes needs a one-time setup. Run the SQL shown on{" "}
+          <Link href="/admin/systems" className="font-semibold text-orange">
+            My System Pages
+          </Link>{" "}
+          in Supabase. You can still open and download quotes without it.
+        </p>
+      ) : (
+        <SavedQuotesList quotes={savedQuotes.quotes} activeId={saved ? saved.id : null} />
+      )}
+
+      <PricingCalculator
+        key={saved ? `quote-${saved.id}` : initialPackage}
+        priceBook={priceBook}
+        initialPackage={initialPackage}
+        initialCalc={savedCalc?.calc}
+        savedQuote={saved ? { id: saved.id, draft: savedCalc?.draft } : undefined}
+      />
 
       <section className="space-y-4">
         <div>

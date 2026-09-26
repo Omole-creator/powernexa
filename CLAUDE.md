@@ -46,7 +46,20 @@ pillar/series from the rotation and `marketing/POSTS-LOG.md`, write the copy
 (humanizer, house style, provable claims only), build HTML slides on
 `marketing/templates/brand.css`, render them to PNG with
 `node marketing/render.mjs <folder>` (headless Edge), check each PNG, write
-`caption.md`, log it, commit and push. **Carousels are 3 slides at most.**
+`caption.md` and log it. **Carousels are 3 slides at most.**
+
+**All social media assets stay off GitHub** (owner, Sept 2026): the whole
+`marketing/` folder is gitignored and lives only on the owner's computer. Never
+commit or push anything from it, and never put social media files anywhere
+else in the repo.
+
+**AI videos** (Sept 2026): short problem-solving videos made in Flow (free,
+8-second clips) and joined in CapCut, aimed at 8 installations a month. The
+playbook, hook formula ("You guys, ... zero idea ..."), the Presenter Card that
+keeps clips consistent, and the script batches live in
+`marketing/VIDEO-SCRIPTS.md` (`STRATEGY.md` section 10). The presenter speaks
+for PowerNexa, never as a made-up customer, and posts carry the AI-generated
+label. When the owner types **"video scripts"**, write the next batch there.
 
 ## Blog topic roadmap (SEO content, re-validated Sept 2026)
 

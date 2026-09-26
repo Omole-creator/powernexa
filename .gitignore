@@ -56,3 +56,6 @@ next-env.d.ts
 # public/videos/projects are committed, and the pricing guide stays private
 /*.mp4
 /*.docx
+
+# Social media assets stay local, never on GitHub (owner, Sept 2026)
+/marketing/

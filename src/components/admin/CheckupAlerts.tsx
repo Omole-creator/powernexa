@@ -50,7 +50,7 @@ export function CheckupAlerts({ items, windowDays }: { items: DueCheckup[]; wind
       <button
         type="button"
         onClick={() => toggle(!open)}
-        aria-label={items.length ? `${items.length} check-ups need booking` : "No check-ups due"}
+        aria-label={items.length ? `${items.length} check-up${items.length === 1 ? "" : "s"} to book` : "No check-ups due"}
         className="relative flex h-10 w-10 items-center justify-center rounded-full border border-line bg-white text-lg hover:border-orange"
       >
         <span aria-hidden="true">🔔</span>

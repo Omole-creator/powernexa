@@ -140,8 +140,14 @@ errors, just retry the exact same command.
 ## Known open items
 
 - My System SQL (`customer_systems`, `customer_system_events`,
-  `customer_system_photos`) added Sept 2026, must be pasted into the Supabase
-  SQL editor once (it's shown on `/admin/systems` until then). Unconfirmed.
+  `customer_system_photos`, `customer_quotes`) was run in Supabase and
+  confirmed by the owner on 26 Sept 2026. The full flow (save and reopen a
+  quote, quote PDF, create a My System page, check-up alert, photo upload,
+  customer page, logging a check-up, deletes) was tested end to end in a
+  headless Edge browser the same day, and the QA records were deleted.
+- A QA admin login exists, `qa@powernexasolutions.site` (name "QA Tester"),
+  created 26 Sept 2026 for browser testing. The owner has the password.
+  Delete it from `admin_users` if it's no longer wanted.
 
 - Supplier price SQL (`supplier_price_items`, `leads.load_profile`) was run
   in Supabase and the Nexus Sept 2026 list (18 items) loaded, Sept 2026.

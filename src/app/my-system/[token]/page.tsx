@@ -95,7 +95,7 @@ export default async function MySystemPage({ params }: { params: Promise<{ token
                   ? `At ${PROMISE_TERMS.checkupMonths[0]} and ${PROMISE_TERMS.checkupMonths[1]} months`
                   : schedule
                       .map((c) => (c.doneOn ? `${c.number}: done ${formatDate(c.doneOn)}` : `${c.number}: due ${formatDate(c.dueOn)}`))
-                      .join(" · ")
+                      .join("\n")
               }
               body="We check your panels, inverter, battery and wiring. We'll message you to book each one."
             />
@@ -240,7 +240,7 @@ function PromiseCard({ title, status, body }: { title: string; status: string; b
   return (
     <div className="rounded-2xl bg-mist p-4">
       <p className="font-semibold text-navy">{title}</p>
-      <p className="mt-0.5 text-sm font-semibold text-orange">{status}</p>
+      <p className="mt-0.5 whitespace-pre-line text-sm font-semibold text-orange">{status}</p>
       <p className="mt-1 text-xs text-charcoal/65">{body}</p>
     </div>
   );

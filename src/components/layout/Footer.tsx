@@ -16,6 +16,7 @@ import {
   SOCIAL_LINKS,
 } from "@/lib/constants";
 import { EmailLink } from "./EmailLink";
+import { HomeFooterPhone } from "./HomeFooterPhone";
 import { SocialIcon } from "./SocialIcon";
 
 export function Footer() {
@@ -44,6 +45,7 @@ export function Footer() {
           <a href={`tel:${PHONE_E164_2}`} className="mt-0.5 block font-mono-num text-sm text-white hover:text-orange">
             {PHONE_DISPLAY_2}
           </a>
+          <HomeFooterPhone />
           <EmailLink className="mt-1 block text-sm text-white/80 hover:text-orange" />
           <div className="mt-5 flex gap-3">
             {SOCIAL_LINKS.map((link) => (

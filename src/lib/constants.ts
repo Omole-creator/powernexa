@@ -8,6 +8,11 @@ export const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "23481
 
 export const PHONE_DISPLAY_2 = "0708 695 0312";
 export const PHONE_E164_2 = "+2347086950312";
+// Owner's number on the Google Business Profile. Shown only in the homepage
+// footer so the site matches the profile.
+export const PHONE_DISPLAY_GBP = "0904 874 4395";
+export const PHONE_E164_GBP = "+2349048744395";
+
 export const QUOTE_WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_QUOTE_WHATSAPP_NUMBER || "2347086950312";
 
 export const CONTACT_EMAIL = "powernexas@gmail.com";

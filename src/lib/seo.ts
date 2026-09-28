@@ -1,4 +1,13 @@
-import { BUSINESS_ADDRESS, CONTACT_EMAIL, PHONE_E164, SITE_NAME, SITE_URL, SOCIAL_LINKS } from "./constants";
+import {
+  BUSINESS_ADDRESS,
+  CONTACT_EMAIL,
+  PHONE_E164,
+  PHONE_E164_2,
+  SERVICES,
+  SITE_NAME,
+  SITE_URL,
+  SOCIAL_LINKS,
+} from "./constants";
 import type { BlogPost } from "./blog";
 
 export function businessJsonLd() {
@@ -10,14 +19,46 @@ export function businessJsonLd() {
     image: `${SITE_URL}/images/logo.png`,
     logo: `${SITE_URL}/images/logo.png`,
     url: SITE_URL,
+    description:
+      "PowerNexa Solutions installs solar panels, inverters and battery backup for homes and businesses in Lagos, Nigeria. We buy and bring every part, size each system from a site assessment, and give a written workmanship warranty.",
+    slogan: "Solar and inverter power that never blinks.",
     telephone: PHONE_E164,
     email: CONTACT_EMAIL,
+    contactPoint: [PHONE_E164, PHONE_E164_2].map((telephone) => ({
+      "@type": "ContactPoint",
+      telephone,
+      contactType: "customer service",
+      areaServed: "NG",
+      availableLanguage: ["en"],
+    })),
+    knowsAbout: [
+      "Solar panel installation",
+      "Inverter installation",
+      "Hybrid inverters",
+      "Lithium and tubular inverter batteries",
+      "Solar and inverter maintenance and repair",
+      "Commercial solar for offices, shops and clinics",
+    ],
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Solar and inverter services in Lagos",
+      itemListElement: SERVICES.map((service) => ({
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: service.name,
+          description: service.summary,
+          url: `${SITE_URL}/services/${service.slug}`,
+          areaServed: { "@type": "City", name: "Lagos" },
+        },
+      })),
+    },
     priceRange: "₦₦₦",
     sameAs: SOCIAL_LINKS.map((link) => link.url),
     address: {
       "@type": "PostalAddress",
       streetAddress: BUSINESS_ADDRESS.street,
-      addressLocality: BUSINESS_ADDRESS.area,
+      addressLocality: `${BUSINESS_ADDRESS.area}, ${BUSINESS_ADDRESS.city}`,
       addressRegion: BUSINESS_ADDRESS.region,
       addressCountry: BUSINESS_ADDRESS.country,
     },

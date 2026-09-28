@@ -976,4 +976,185 @@ If your inverter still won't charge after these checks, send us a photo of the s
 
 If the batteries are the problem, see our [battery replacement service](/services/battery-replacement-storage). If your system is too small for what you run, our guide on [what size inverter you need](/blog/what-size-inverter-do-i-need) shows you how to work out the right size.`,
   },
+  {
+    slug: "inverter-beeping",
+    title: "Inverter Beeping? What the Beeps Mean in Lekki, Ikeja and Across Lagos",
+    excerpt:
+      "Your inverter keeps beeping and you're not sure if it's normal or a warning. Here's what each kind of beep usually means, what you can check safely, and when to call a technician.",
+    category: "Guides",
+    tags: ["inverter", "repairs", "troubleshooting"],
+    focusKeyword: "inverter beeping",
+    metaTitle: "Inverter Beeping? What the Beeps Mean in Lagos Homes",
+    metaDescription:
+      "Inverter beeping after NEPA takes light, while charging, or with a red light? Learn what each beep usually means, what to check safely, and when to get help.",
+    featuredImage: "https://www.powernexasolutions.site/images/blog/inverter-beeping-wall-system.jpg",
+    featuredImageAlt: "Inverter beeping: a wall-mounted inverter and battery system with its display and breakers",
+    authorName: "PowerNexa Solutions Team",
+    publishedDaysAgo: 0,
+    content: `An inverter beeps to tell you something has changed. It might be telling you NEPA has taken light, the battery is running low, or something in the system needs attention.
+
+But when it's 11pm in your flat in Yaba or your duplex in Lekki and the inverter beeping won't stop, you may be wondering: is this normal, or is something about to go wrong?
+
+The answer depends on how it beeps and what the screen shows at the same time.
+
+A few beeps when the power source changes is normal. Beeping that won't stop, beeping with a red light, or beeping followed by the inverter shutting off is a warning. Most warnings have a simple cause you can check yourself. A few need a technician.
+
+## Why Is My Inverter Beeping? The Usual Reasons in Lagos Homes
+
+In most homes, inverter beeping comes from one of five things:
+
+1. NEPA has gone off (or come back) and the inverter is switching over.
+2. The battery is running low.
+3. You're running more load than the inverter can carry.
+4. The power from NEPA or the generator is unsteady, so the inverter keeps switching.
+5. The inverter has found a fault, such as overheating or a wiring problem.
+
+The screen or the lights usually tell you which one it is. That's why the first step is always the same: look at the display before you touch anything.
+
+## Is It Dangerous When My Inverter Keeps Beeping?
+
+Not always.
+
+Many inverters beep on purpose, as a reminder, the whole time they're running on battery. That can be annoying, but it isn't a fault.
+
+It becomes a concern when the beeping comes with any of these:
+
+- A red fault light or an error code on the screen
+- A burning smell
+- A battery that is hot, swollen or leaking
+- The inverter switching itself off
+
+If you smell burning or see a swollen or leaking battery, switch off the inverter and the battery breaker if it's safe to reach, and call a technician. Don't keep using it to see what happens.
+
+## Why Does My Inverter Beep When NEPA Takes Light?
+
+This one is usually normal.
+
+When NEPA goes, the inverter switches to the battery and beeps to let you know. When NEPA comes back, it switches again and may beep again.
+
+Some models keep beeping every few seconds or minutes for as long as they're on battery. Whether you live in Surulere or Ikorodu, if your appliances are working and the screen shows no fault, this beep is only information.
+
+Many inverters let you turn the buzzer off in the settings menu. The name of the setting changes from brand to brand, so check your manual. Keep in mind that muting the buzzer only stops the sound. You'll no longer hear the low battery warning either.
+
+## Inverter Beeping for Low Battery: Why It Starts Before Morning
+
+This is one of the most common beeps.
+
+When the battery drops close to its lowest safe level, the inverter beeps faster or longer to warn you. If nothing changes, it shuts off to protect the battery.
+
+![Close-up of battery terminals on a row of batteries](/images/blog/inverter-beeping-battery-terminals.jpg)
+
+*Photo: Unsplash*
+
+If the low battery beep now starts much earlier than it used to, the usual causes are:
+
+- The batteries are wearing out. Tubular batteries lose capacity with age. A set that once carried your home through the night may now last only a few hours.
+- The batteries aren't getting a full charge. Short NEPA supply, a weak generator or poor sun on rainy days can leave them half full before the night starts. Our guide on an [inverter not charging](/blog/inverter-not-charging) walks through this.
+- You're running more at night than before. A new freezer or an extra fan adds up over eight hours.
+- The system was too small to begin with. If it has never lasted the night, it may never have been sized for your home.
+
+For a family in a 3-bedroom flat in Ikeja, switching off the freezer overnight or cutting a few fans can buy hours. It won't fix a worn-out battery, though.
+
+## Inverter Beeping and Showing Overload
+
+This beep means you're asking the inverter for more power than it can give.
+
+It often starts the moment something big comes on: a pressing iron, a microwave, an electric kettle, a pumping machine or an AC. The inverter beeps fast and may show "overload" or "OL." If the load stays too high, it shuts off.
+
+What to do:
+
+1. Switch off the last big appliance you turned on.
+2. Wait for the beeping to stop.
+3. If the inverter has shut off, switch it back on after the load is reduced.
+
+If it shows overload with only lights and fans on, don't keep resetting it. That points to a wiring fault or a fault inside the inverter, and it needs a technician.
+
+A common mix-up is thinking a 3.5kVA inverter can carry 3,500 watts. It usually carries less, because kVA and watts are not the same thing. Our guide on [what size inverter you need](/blog/what-size-inverter-do-i-need) explains the difference in plain words.
+
+## Inverter Beeping While Charging From a Generator in Ikorodu or Ajah
+
+When the generator is on, the inverter may beep on and off every few seconds. If you charge from a generator, in Ikorodu, Ajah or anywhere else, you may have seen this.
+
+The usual reason is that the generator's voltage or frequency keeps moving up and down. The inverter sees it, decides the power isn't steady enough, and switches back to battery. Then it tries the generator again. Each switch comes with a beep.
+
+What can help:
+
+- Check the generator first. A small, old or badly serviced generator often gives unsteady power.
+- Look at the input setting. Many inverters have a setting for how strict they are about incoming power, often labelled "UPS" (strict) and "APL" or "appliance" (more relaxed). The relaxed setting often works better with a generator. Check your manual for the exact name.
+- Reduce what the generator is carrying. A generator running the whole house and charging batteries at the same time can struggle.
+
+If you're not sure which setting is safe for your system, ask your installer before changing it.
+
+## Why Is My Inverter Beeping With a Red Light?
+
+A red light usually means the inverter has found a fault and has stopped, or is about to.
+
+Common causes include:
+
+- The inverter is too hot, often because it's in a closed cabinet or under the staircase with no air flow
+- Battery voltage is too high or too low
+- A short circuit or wiring fault on the output
+- A fault inside the inverter itself
+
+Most inverters also show an error code, such as "09" or "04." These codes are not the same across brands. Error 09 on one brand can mean something completely different on another. So find your inverter's model, then look the code up in its manual or on the maker's website.
+
+Guessing from a code you saw online for a different brand can send you in the wrong direction.
+
+## Why Does My Inverter Beep and Shut Off?
+
+Not necessarily because it's broken.
+
+An inverter that beeps and then shuts off is usually protecting itself or the battery. The three most common reasons are:
+
+- The battery reached its lowest safe level
+- The load was too high for too long
+- The inverter got too hot
+
+Once you've reduced the load, let it cool or let the battery charge, it should come back on. If it keeps shutting off with little load and a charged battery, that's a job for a technician.
+
+If you're not sure your system is the right size for your home, PowerNexa can check it for you.
+
+## Can You Fix Inverter Beeping Yourself?
+
+Some of it, yes.
+
+Fine to check yourself:
+
+- Read the screen and write down any code
+- Switch off heavy appliances and see if the beeping stops
+- Make sure the inverter has space around it and isn't boxed in
+- Mute the buzzer in the settings, if the beeping is only the "on battery" reminder
+- Check that the generator is running steadily
+
+Leave to a technician:
+
+- Opening the inverter's case
+- Anything with a burning smell, sparks, or hot or swollen batteries
+- Fault codes that come back after a reset
+- Overload with almost nothing switched on
+- Tightening or changing battery cables, unless you know how to do it safely
+
+Please don't open the inverter's case. Some parts inside can hold a dangerous charge even after it's switched off.
+
+## What to Tell a Technician in Surulere, Ajah or Anywhere in Lagos
+
+If you need help, a few details save time and money:
+
+- A photo or short video of the screen while it's beeping
+- The make and model of your inverter and batteries
+- How old the batteries are
+- When the beeping started and what was running at the time
+
+You can send these to us on WhatsApp. Asking questions costs nothing. If the system needs work, you can book a visit through our [maintenance and repair service](/services/solar-maintenance-repair). If the batteries are the problem, see our [battery replacement service](/services/battery-replacement-storage).
+
+## The Bottom Line: Why Is My Inverter Beeping?
+
+Most of the time, inverter beeping is the system doing its job. It's telling you the power source changed, the battery is low, or you've switched on too much at once.
+
+The simplest way to tell the difference:
+
+A beep with no warning light is usually information. A beep with a red light, a smell or a shutdown is a warning.
+
+Start with the screen, reduce the load, and give the inverter space to breathe. If the beeping still won't stop, you don't have to live with it or guess. A quick check from a technician usually finds the cause.`,
+  },
 ];

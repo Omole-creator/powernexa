@@ -77,17 +77,74 @@ page, service pages and one pillar post (#3 below); the blog's long-tail posts
 come from autocomplete evidence.
 
 Rules for every post:
-- Title says "Lagos" (or one specific area, only in that area's post). Never list
-  several areas in one title; use area names in the body where they fit.
+- **Only problem and how-to posts** (owner rule, 28 Sept 2026): every topic
+  is a problem or a "how to" that Lagos homeowners and businesses search for in
+  large numbers, e.g. "inverter beeping", "inverter battery not giving backup",
+  "how to calculate inverter battery backup time". No comparisons ("X vs Y"),
+  area posts, brand posts or "what size for a 3-bedroom" guides as standalone
+  topics. Before proposing one, show the Nigerian Google autocomplete
+  (`gl=ng`) evidence; the more variations autocomplete returns for the problem,
+  the more it's searched. Skip DIY installation how-tos ("how to connect solar
+  panel to inverter", "how to make inverter"): those searchers install it
+  themselves and never hire.
+- **Lagos areas in every post** (owner rule, 28 Sept 2026, replaces the old
+  "one area per title" rule): embed different parts of Lagos strategically,
+  first in the headline (e.g. "Inverter Beeping? What the Beeps Mean in Lekki,
+  Ikeja and Across Lagos"), then in several H2s ("...From a Generator in
+  Ikorodu or Ajah", "What to Tell a Technician in Surulere, Ajah or Anywhere
+  in Lagos"), and in the body where a heading can't take it ("your flat in
+  Yaba"). Rotate areas across posts (Lekki, Ajah, Sangotedo, VI, Ikoyi, Ikeja,
+  Surulere, Yaba, Gbagada, Ikorodu, Magodo, Festac...). Use them as where the
+  reader lives, never as a claim about that area (no "Ajah gets less light")
+  unless it's provable. Keep the focus keyword in the title.
+- **Images in every post** (owner request, 28 Sept 2026): a featured image plus
+  at least one in-body image, from Unsplash (free Unsplash License only, never
+  Unsplash+ / premium). Unsplash's site blocks scripted search, so find photos
+  with web search/WebFetch of unsplash.com pages, then download from
+  images.unsplash.com (`?w=1920&q=80&fm=jpg`) into `public/images/blog/<slug>-*.jpg`
+  and look at each one before using it. Featured image is set via
+  `featuredImage` (absolute www URL) in the seed data; body images are Markdown
+  with a `*Photo: Unsplash*` line under them. Alt text stays generic and must
+  not present a stock photo as PowerNexa's own work or equipment. Push the
+  images and let Vercel deploy **before** running `npm run seed:blog`, or the
+  post goes live with broken images.
 - "Near me" keywords belong on the home page, `/locations`, location pages and the
   Google Business Profile, not in blog titles.
 - Use Nigerian phrasing: kVA sizes, "can it carry", "NEPA", "light", "pumping machine".
-- Only write area posts for areas with search evidence: Lekki, Ajah, Victoria
-  Island, Ikeja. Ikoyi, VGC and Sangotedo have none, their location pages cover them.
 - No public price posts until the owner decides (see `docs/KEYWORD-RESEARCH.md` section 6).
 - Run each post through `computeSeoChecklist()` and the `humanizer` skill before publishing.
 
-**Published (11, all in `src/lib/blog-seed-data.ts`, seeded via `npm run seed:blog`):**
+**Blog tone (owner rule, 28 Sept 2026, applies to every new post):** model the
+owner's reference post ("Is Zobo Good for Diabetes?"). What that means here:
+- Open by explaining the thing in one or two plain sentences, then ask the
+  reader's own question in their words ("But if NEPA takes light every night,
+  you may be wondering: ..."). Answer it straight away, with the honest
+  condition ("The answer depends largely on ...").
+- H2s are the real questions people search, phrased as questions. The first
+  line under each one answers it directly: "Yes, ...", "Not necessarily.",
+  "They can, but ...". Then explain.
+- Calm, measured and honest. Say what something can do and where it stops.
+  Never overclaim ("will cut your bill in half"); name the limits and why
+  results vary from home to home. Separate "can fit your needs" from "fixes
+  everything."
+- Correct common local mix-ups gently, the way the zobo post explains that
+  "zobo leaf" is really the calyx (e.g. kVA vs watts, "inverter battery" vs
+  lithium bank).
+- Use "Better choice / Less suitable choice" style lists where a reader is
+  choosing between options.
+- Safety note where it applies, in the same calm voice as "don't replace your
+  medication": don't open the inverter, call a technician.
+- One soft, one-line product mention mid-post (like "check GluFloat for
+  personalised food guidance"), e.g. "If you're not sure what your home needs,
+  PowerNexa can size it for you." Plus the normal end-of-post lead magnet. No
+  hard selling.
+- End with "The Bottom Line: <title question>?": restate the answer, give the
+  single simplest distinction on its own line, and close on a reassuring,
+  practical note.
+- Short paragraphs, often one sentence. Plain words. "You", not "customers".
+  House style still applies (no em dashes, provable claims only).
+
+**Published (12, all in `src/lib/blog-seed-data.ts`, seeded via `npm run seed:blog`):**
 solar panel installation cost in Lagos; best solar installers in Lagos; solar and
 inverter installation in Lagos (complete guide); inverter vs generator in Lagos;
 lithium vs tubular battery in Lagos; how long solar installation takes in Lagos;
@@ -96,7 +153,7 @@ score 92, the slug check warns only because slugify strips the dot); what can a
 5kVA inverter carry (`/blog/what-can-a-5kva-inverter-carry`, score 100); solar
 energy for home in Lagos (`/blog/solar-energy-for-home-in-lagos`, the pillar post
 for the 5,000/month home terms, score 100); what size inverter do I need
-(`/blog/what-size-inverter-do-i-need`, score 100). All four went live 23 Sept 2026. Inverter not charging (`/blog/inverter-not-charging`, score 100, a 7-step fault checklist with safety notes and when to call a technician) went live 26 Sept 2026.
+(`/blog/what-size-inverter-do-i-need`, score 100). All four went live 23 Sept 2026. Inverter not charging (`/blog/inverter-not-charging`, score 100, a 7-step fault checklist with safety notes and when to call a technician) went live 26 Sept 2026. Inverter beeping (`/blog/inverter-beeping`, score 100, the first post in the zobo tone with Lagos areas in the headline and H2s, and Unsplash featured + body images) went live 28 Sept 2026.
 Home-size starting points in these posts follow the owner's `PACKAGES` in
 `src/lib/costing.ts` (1.5kVA + 2 panels, 3.5kVA + 4, 5kVA + 6, 10kVA + 12, all
 550W), so keep future posts on the same pairings. The 5kVA post's panel range was
@@ -106,37 +163,40 @@ assume ~4 peak sun hours/day (about 3 in July/August), 75% panel yield, 10%
 inverter loss, tubular used to 50% and lithium to ~85%; keep later kVA posts
 (1.5kVA, 10kVA) on the same assumptions so the numbers agree across posts.
 
-**Next, in this order** (focus keyword in brackets):
+**Next, in this order** (problem/how-to only, re-planned 28 Sept 2026 from
+Nigerian autocomplete; focus keyword in brackets, then the autocomplete variants
+the post should answer as H2 questions):
 
-1. Hybrid Inverter vs Normal Inverter: Which Is Better for Lagos Power Cuts? [hybrid inverter vs normal inverter] (also covers off-grid vs hybrid)
-2. Band A Electricity Tariff in Lagos: Is Solar Now Cheaper Than NEPA? [band a electricity tariff in lagos]
-3. Solar Company in Lekki: What to Check Before You Hire One [solar company in lekki]
-4. Solar Company in Ajah: Solar and Inverter Options for Ajah and Sangotedo Homes [solar company in ajah]
-5. How Long Does an Inverter Battery Last in Lagos? Per Night and in Years [how long does inverter battery last] (includes signs it needs replacing)
-6. Why Is My Inverter Beeping? Beeps and Fault Lights Explained [inverter beeping]
-7. Grade A Lithium Battery in Nigeria: How to Spot Fake or Used Cells [grade a lithium battery in nigeria]
-8. Can Your Inverter Run a Pumping Machine? Borehole Power in Lagos [can inverter carry pumping machine]
-9. Solar System for a 3-Bedroom House in Lagos: What Size You Need [solar system for 3 bedroom house]
-10. What Can a 1.5kVA Inverter Carry? (Small Flats and Self-Contains in Lagos) [what can a 1.5kva inverter carry]
-11. 10kVA Solar System in Lagos: What It Carries and Who Needs One [10kva solar system]
-12. Solar Companies in Victoria Island: Backup Power for Homes and Offices [solar companies in victoria island]
-13. Solar Companies in Ikeja: How to Choose an Installer [solar companies in ikeja]
-14. Diesel Generator vs Solar for Businesses in Lagos [diesel generator vs solar power]
-15. Solar for Offices, Shops and Clinics in Lagos: How to Size It [solar system for office]
-16. Can Solar Power an AC in Lagos? [can solar power run ac]
-17. Solar Warranty in Nigeria: What Your Installer Should Put in Writing [solar warranty]
-18. Monocrystalline vs Polycrystalline Solar Panels in Lagos Heat [monocrystalline vs polycrystalline]
-19. How Long Do Solar Panels Last in Lagos? [how long does solar panel last]
+1. (published 28 Sept 2026, was: Why Is My Inverter Beeping?)
+2. Inverter Showing Overload: What It Means and What to Do [inverter overload] (overload without load, how to reset inverter overload, what causes it, can inverter carry iron/microwave/blender)
+3. Inverter Battery Not Giving Backup? Why It Drains Fast [inverter battery not giving backup] (draining fast, not holding charge, tubular battery not holding charge, battery suddenly draining fast; also how long an inverter battery should last)
+4. Inverter Showing Fault or Red Light: What the Error Codes Mean [inverter showing fault] (fault light, red light, error 09/04/15, short circuit, BP, how to reset inverter fault)
+5. Why Does My Inverter Keep Tripping or Switching On and Off? [inverter keeps tripping] (tripping breaker, earth leakage, switching on and off, turning off, shuts down randomly)
+6. Solar Panel Not Charging Battery: Causes and What to Check [solar panel not charging battery] (solar not generating power, not producing full power, charge controller not charging, solar not charging at all; link to the live inverter-not-charging post)
+7. How to Calculate Inverter Battery Backup Time [how to calculate inverter battery backup time] (backup time, battery capacity; same runtime assumptions as the kVA posts)
+8. Inverter Not Turning On: What to Check [inverter not turning on] (solar inverter not turning on, not working after power cut, not giving output)
+9. Can an Inverter Carry a Pumping Machine? [can inverter carry pumping machine] (can solar power a pumping machine, can 3.5kVA/5kVA carry pumping machine)
+10. Lithium Battery Not Communicating With Inverter [lithium battery not communicating with inverter] (not charging to 100, not fully charging, not taking charge)
+11. Inverter Making Noise: Humming, Buzzing and Fan Sounds [inverter making noise] (humming continuously, noise after power cut, loud noise, fan keeps running)
+12. How to Charge an Inverter Battery With a Generator [how to charge inverter battery with generator] (generator not charging inverter, how to charge inverter battery without electricity)
+13. Inverter Heating Up or Smelling Burnt: When to Worry [inverter heating up] (heating problem, battery heating, smells burnt)
+14. Inverter Battery Water: How and When to Top It Up [inverter battery water] (tubular battery maintenance, water draining fast, which water to use)
+15. Band A Tariff in Lagos: Why Your Light Bill Went Up and What You Can Do [band a electricity tariff in lagos] (band a areas in lagos, how to reduce electricity bill at home)
 
-**Update, not a new post:** add "solar companies in lagos" / "best solar company in
-lagos" as secondary keywords to the live "best solar installers in Lagos" post
-(same search intent, a second post would compete with it).
+**Instead of new posts, fold these searches into live posts:** "can 3.5kva
+inverter carry ac" into the 3.5kVA post, "can 5kva inverter carry ac / freezer /
+pressing iron" into the 5kVA post, "how to calculate inverter load / size" into
+"what size inverter do I need", "solar companies in lagos" into "best solar
+installers in Lagos".
 
-**Brand comparisons are allowed** (owner: PowerNexa installs any brand):
-"Felicity vs Deye Inverter", "Felicity vs Growatt", "Felicity vs Cworth lithium
-battery" all have strong autocomplete. Compare on published specs and warranty.
+**Dropped 28 Sept 2026** (not problems/how-tos): hybrid vs normal inverter, area
+posts (Lekki, Ajah, VI, Ikeja; location pages cover them), grade A lithium,
+3-bedroom sizing, 1.5kVA and 10kVA "what can it carry", diesel vs solar for
+business, solar for offices, solar warranty, mono vs poly, how long solar panels
+last, brand comparisons.
 
-**Needs owner input first:** any "Xkva inverter price in nigeria" post (price rule).
+**Volumes:** autocomplete shows what's searched, not how much. For exact Lagos
+numbers, run the focus keywords through the owner's Google Keyword Planner.
 
 ## Deployment (already done, for reference)
 

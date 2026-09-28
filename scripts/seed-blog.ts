@@ -45,6 +45,7 @@ async function main() {
       focus_keyword: post.focusKeyword,
       meta_title: post.metaTitle,
       meta_description: post.metaDescription,
+      featured_image: post.featuredImage ?? null,
       featured_image_alt: post.featuredImageAlt ?? null,
       author_name: post.authorName,
       status: "published",

@@ -1,6 +1,8 @@
 "use server";
 
+import { after } from "next/server";
 import { createLead } from "@/lib/leads";
+import { sendLeadAlert } from "@/lib/notify";
 import { recordEvent } from "@/lib/analytics";
 import { quoteWhatsAppMessage, buildWhatsAppUrl } from "@/lib/whatsapp";
 import { requiredString, optionalString, isValidNigerianPhone } from "@/lib/validation";
@@ -55,6 +57,22 @@ export async function submitQuote(_prevState: QuoteFormState, formData: FormData
     utmMedium,
     utmCampaign,
   });
+
+  // Email the owner once the customer's reply has been sent. A mail failure
+  // is logged, never shown to the customer: the lead is already saved.
+  after(() =>
+    sendLeadAlert({
+      name: name!,
+      phone: phone!,
+      area: area!,
+      propertyType: propertyType!,
+      serviceInterest: serviceInterest!,
+      budgetRange,
+      loadProfile: loadProfileLabel(loadProfile) ?? undefined,
+      message,
+      sourcePage,
+    }).catch((error) => console.error("Lead alert email failed:", error))
+  );
 
   await recordEvent({
     eventType: "quote_form_submit",

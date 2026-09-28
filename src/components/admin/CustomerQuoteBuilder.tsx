@@ -3,14 +3,13 @@
 import { useState, useTransition } from "react";
 import { saveQuoteAction } from "@/actions/saved-quotes";
 import { formatNaira, roundQuote, type JobEstimate, type SystemSpec } from "@/lib/costing";
-import { encodeQuote, fuelSavings, newQuoteNumber, paymentSchedule, type CustomerQuote } from "@/lib/quote";
+import { encodeQuote, fuelSavings, newQuoteNumber, paymentSchedule, priceItems, type CustomerQuote } from "@/lib/quote";
+import { ShareQuoteButton } from "@/components/quote/ShareQuoteButton";
 import { LOAD_COLUMNS, RowsEditor, type Row } from "./RowsEditor";
 import type { CalcState } from "./PricingCalculator";
 
 const inputClass =
   "w-full rounded-xl border border-line bg-white px-3 py-2 text-sm outline-none focus:border-orange focus:ring-2 focus:ring-orange/20";
-
-const MAIN_ITEMS = ["inverter", "battery", "panel"];
 
 // Everything typed into this form, saved with the quote so it can be edited later.
 type Draft = {
@@ -46,9 +45,10 @@ function freshDraft(): Draft {
 }
 
 // Turns the calculator's figures into the written quote the customer gets.
-// Only two totals go across: equipment (rounded price minus the service
-// lines) and installation (labour, transport, survey). No per-item prices,
-// costs, markups or supplier names.
+// What goes across: each item's selling price (after markup, scaled to the
+// rounded total), the equipment total (rounded price minus the service lines)
+// and installation (labour, transport, assessment). Never supplier costs,
+// markup rates or supplier names.
 export function CustomerQuoteBuilder({
   estimate,
   spec,
@@ -72,9 +72,11 @@ export function CustomerQuoteBuilder({
     setSaveStatus({});
   };
 
-  const defaultSummary = `${spec.inverterKva}kVA inverter, ${spec.batteryKwh}kWh ${spec.batteryChemistry} battery, ${spec.panelCount} x ${spec.panelWatts}W solar panels`;
+  const times = (n: number | undefined) => ((n ?? 1) > 1 ? `${n} x ` : "");
+  const defaultSummary = `${times(spec.inverterCount)}${spec.inverterKva}kVA inverter, ${times(spec.batteryCount)}${spec.batteryKwh}kWh ${spec.batteryChemistry} battery, ${spec.panelCount} x ${spec.panelWatts}W solar panels`;
   const total = roundQuote(estimate.finalPrice);
   const installationTotal = estimate.labour + estimate.transport + estimate.siteSurvey;
+  const itemPrices = priceItems(estimate.equipment, total - installationTotal);
 
   const quote: CustomerQuote = {
     number: draft.number,
@@ -85,9 +87,10 @@ export function CustomerQuoteBuilder({
       address: draft.customer.address.trim() || undefined,
     },
     systemSummary: draft.summary.trim() || defaultSummary,
-    items: estimate.equipment.map((line) => ({
-      description: draft.descriptions[line.key]?.trim() || customerLabel(line.key, line.label),
+    items: estimate.equipment.map((line, index) => ({
+      description: draft.descriptions[line.key]?.trim() || customerLabel(line, spec.batteryChemistry),
       warranty: draft.warranties[line.key]?.trim() || undefined,
+      ...itemPrices[index],
     })),
     equipmentTotal: total - installationTotal,
     installationTotal,
@@ -176,13 +179,13 @@ export function CustomerQuoteBuilder({
       <Section title="Customer details" summary={draft.customer.name || "Not filled in"} defaultOpen>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <Field label="Customer name">
-            <input value={draft.customer.name} onChange={(e) => set("customer", { ...draft.customer, name: e.target.value })} className={inputClass} />
+            <input value={draft.customer.name} placeholder="e.g. Mrs Funke Adeyemi" onChange={(e) => set("customer", { ...draft.customer, name: e.target.value })} className={inputClass} />
           </Field>
           <Field label="Phone">
-            <input value={draft.customer.phone} onChange={(e) => set("customer", { ...draft.customer, phone: e.target.value })} className={inputClass} />
+            <input value={draft.customer.phone} placeholder="e.g. 0803 123 4567" inputMode="tel" onChange={(e) => set("customer", { ...draft.customer, phone: e.target.value })} className={inputClass} />
           </Field>
           <Field label="Address">
-            <input value={draft.customer.address} onChange={(e) => set("customer", { ...draft.customer, address: e.target.value })} className={inputClass} />
+            <input value={draft.customer.address} placeholder="e.g. 14 Admiralty Way, Lekki Phase 1" onChange={(e) => set("customer", { ...draft.customer, address: e.target.value })} className={inputClass} />
           </Field>
           <Field label="Quote date">
             <input type="date" value={draft.date} onChange={(e) => set("date", e.target.value || draft.date)} className={inputClass} />
@@ -193,28 +196,37 @@ export function CustomerQuoteBuilder({
         </div>
       </Section>
 
-      <Section title="Equipment as the customer sees it" summary="Brand, model and the maker's warranty">
+      <Section title="Equipment as the customer sees it" summary="Brand, model, maker's warranty and price" defaultOpen>
+        <p className="mb-2 text-xs text-charcoal/55">
+          Name one unit, the quantity is its own column on the quote. Leave a box empty to use the grey wording. Prices
+          are after your markup, never the cost.
+        </p>
         <div className="space-y-2">
-          {estimate.equipment.map((line) => (
-            <div key={line.key} className="grid gap-2 sm:grid-cols-[2fr_1fr]">
+          <div className="hidden gap-2 text-[11px] font-semibold uppercase tracking-wide text-charcoal/45 sm:grid sm:grid-cols-[2fr_1fr_auto]">
+            <span>Item, as the customer reads it</span>
+            <span>Maker&apos;s warranty</span>
+            <span className="text-right">Price on the quote</span>
+          </div>
+          {estimate.equipment.map((line, index) => (
+            <div key={line.key} className="grid items-center gap-2 sm:grid-cols-[2fr_1fr_auto]">
               <input
                 aria-label={`${line.label} description`}
                 value={draft.descriptions[line.key] ?? ""}
-                placeholder={customerLabel(line.key, line.label)}
+                placeholder={`${customerLabel(line, spec.batteryChemistry)}${EXAMPLES[line.key] ? `, e.g. ${EXAMPLES[line.key]}` : ""}`}
                 onChange={(e) => set("descriptions", { ...draft.descriptions, [line.key]: e.target.value })}
                 className={inputClass}
               />
-              {MAIN_ITEMS.includes(line.key) ? (
-                <input
-                  aria-label={`${line.label} warranty`}
-                  value={draft.warranties[line.key] ?? ""}
-                  placeholder="Maker's warranty, e.g. 5 years"
-                  onChange={(e) => set("warranties", { ...draft.warranties, [line.key]: e.target.value })}
-                  className={inputClass}
-                />
-              ) : (
-                <span />
-              )}
+              <input
+                aria-label={`${line.label} maker's warranty`}
+                value={draft.warranties[line.key] ?? ""}
+                placeholder={`Maker's warranty, e.g. ${WARRANTY_EXAMPLES[line.key] ?? "1 year (optional)"}`}
+                onChange={(e) => set("warranties", { ...draft.warranties, [line.key]: e.target.value })}
+                className={inputClass}
+              />
+              <span className="whitespace-nowrap text-right font-mono-num text-xs text-charcoal/70">
+                {itemPrices[index].quantity} x {formatNaira(itemPrices[index].unitPrice)} ={" "}
+                <span className="font-semibold text-navy">{formatNaira(itemPrices[index].amount)}</span>
+              </span>
             </div>
           ))}
         </div>
@@ -233,19 +245,19 @@ export function CustomerQuoteBuilder({
       >
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
           <Field label="Current fuel spend a month (₦)">
-            <input inputMode="numeric" value={draft.fuel.monthlyNow} onChange={(e) => set("fuel", { ...draft.fuel, monthlyNow: e.target.value })} className={inputClass} placeholder="Customer tells you" />
+            <input inputMode="numeric" value={draft.fuel.monthlyNow} onChange={(e) => set("fuel", { ...draft.fuel, monthlyNow: e.target.value })} className={inputClass} placeholder="e.g. 120000 (ask the customer)" />
           </Field>
           <Field label="Generator hours a day after">
-            <input inputMode="decimal" value={draft.fuel.generatorHoursPerDay} onChange={(e) => set("fuel", { ...draft.fuel, generatorHoursPerDay: e.target.value })} className={inputClass} placeholder="0 if none" />
+            <input inputMode="decimal" value={draft.fuel.generatorHoursPerDay} onChange={(e) => set("fuel", { ...draft.fuel, generatorHoursPerDay: e.target.value })} className={inputClass} placeholder="e.g. 2, or 0 if none" />
           </Field>
           <Field label="Litres an hour">
-            <input inputMode="decimal" value={draft.fuel.litresPerHour} onChange={(e) => set("fuel", { ...draft.fuel, litresPerHour: e.target.value })} className={inputClass} />
+            <input inputMode="decimal" value={draft.fuel.litresPerHour} onChange={(e) => set("fuel", { ...draft.fuel, litresPerHour: e.target.value })} className={inputClass} placeholder="e.g. 1.5" />
           </Field>
           <Field label="Price per litre (₦)">
-            <input inputMode="numeric" value={draft.fuel.pricePerLitre} onChange={(e) => set("fuel", { ...draft.fuel, pricePerLitre: e.target.value })} className={inputClass} />
+            <input inputMode="numeric" value={draft.fuel.pricePerLitre} onChange={(e) => set("fuel", { ...draft.fuel, pricePerLitre: e.target.value })} className={inputClass} placeholder="e.g. 1000" />
           </Field>
           <Field label="Assessment fee paid (₦)">
-            <input inputMode="numeric" value={draft.feePaid} onChange={(e) => set("feePaid", e.target.value)} className={inputClass} placeholder="Comes off the total" />
+            <input inputMode="numeric" value={draft.feePaid} onChange={(e) => set("feePaid", e.target.value)} className={inputClass} placeholder={`e.g. ${estimate.siteSurvey || 20000}, comes off the total`} />
           </Field>
         </div>
         <p className="mt-1 text-xs text-charcoal/50">
@@ -254,7 +266,13 @@ export function CustomerQuoteBuilder({
       </Section>
 
       <Section title="Notes on the quote" summary={draft.notes ? "Added" : "Optional"}>
-        <textarea value={draft.notes} onChange={(e) => set("notes", e.target.value)} rows={2} className={inputClass} />
+        <textarea
+          value={draft.notes}
+          onChange={(e) => set("notes", e.target.value)}
+          rows={2}
+          className={inputClass}
+          placeholder="e.g. Panels go on the back roof. Price includes moving the old inverter to the store."
+        />
       </Section>
 
       {priceChanged ? (
@@ -286,8 +304,8 @@ export function CustomerQuoteBuilder({
         <Line label="Installation and commissioning" value={quote.installationTotal} />
         <Line label="Total on the quote" value={pay.total} strong />
         {quote.assessmentFeePaid > 0 ? <Line label="Amount to pay after assessment fee" value={pay.amountDue} /> : null}
-        <Line label="Deposit (covers the equipment)" value={pay.deposit} />
-        <Line label="Balance, after installation" value={pay.balance} />
+        <Line label={`Deposit (covers the equipment), ${pay.depositPercent}%`} value={pay.deposit} />
+        <Line label={`Balance, after installation is done, ${pay.balancePercent}%`} value={pay.balance} />
         {savings ? (
           <p className="pt-2 text-xs text-charcoal/70">
             Saves {formatNaira(savings.monthlySaving)} a month on fuel
@@ -298,15 +316,7 @@ export function CustomerQuoteBuilder({
 
       <div className="mt-5 flex flex-wrap items-center gap-3">
         {/* Always visible, greyed out until the quote has what it needs. */}
-        <a
-          href={blocker ? undefined : `${quoteHref}&print=1`}
-          target="_blank"
-          rel="noopener"
-          aria-disabled={blocker ? true : undefined}
-          className={`rounded-full px-6 py-2.5 text-sm font-semibold text-white ${blocker ? "cursor-not-allowed bg-orange/40" : "bg-orange hover:bg-orange-dark"}`}
-        >
-          Download PDF
-        </a>
+        <ShareQuoteButton quote={quote} disabled={blocker !== null} />
         <a
           href={blocker ? undefined : quoteHref}
           target="_blank"
@@ -329,7 +339,7 @@ export function CustomerQuoteBuilder({
         {saveStatus.error ? <span className="text-xs font-medium text-red-600">{saveStatus.error}</span> : null}
         {!saveStatus.ok && !saveStatus.error ? (
           <span className="text-xs text-charcoal/50">
-            Download PDF opens the print window: choose &quot;Save as PDF&quot;, then send it on WhatsApp.
+            On a phone, pick WhatsApp in the share sheet, then the customer.
             {savedId ? " Save changes to update it under Saved quotes." : " Save it to find it again under Saved quotes."}
           </span>
         ) : null}
@@ -338,11 +348,22 @@ export function CustomerQuoteBuilder({
   );
 }
 
-// Plain customer wording for each calculator line (no supplier or model names
-// unless typed in above).
-function customerLabel(key: string, label: string): string {
-  if (key === "panel") return label.replace("panels", "solar panels");
-  return label;
+const WARRANTY_EXAMPLES: Record<string, string> = { inverter: "2 years", battery: "5 years", panel: "25 years" };
+
+const EXAMPLES: Record<string, string> = {
+  inverter: "Luxsun 6.2kVA hybrid inverter",
+  battery: "Luxsun 5.12kWh lithium battery",
+  panel: "Jinko 550W mono solar panel",
+};
+
+// Plain customer wording for one unit of each calculator line (no supplier or
+// model names unless typed in above). The quantity has its own column.
+function customerLabel(line: JobEstimate["equipment"][number], chemistry: string): string {
+  const size = line.unitSize ? Number(line.unitSize.toFixed(2)) : null;
+  if (size && line.key === "inverter") return `${size}kVA inverter`;
+  if (size && line.key === "battery") return `${size}kWh ${chemistry} battery`;
+  if (size && line.key === "panel") return `${size}W solar panel`;
+  return line.label;
 }
 
 function toNumber(value: string | undefined): number {

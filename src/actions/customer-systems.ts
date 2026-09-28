@@ -120,7 +120,10 @@ export async function createSystemFromQuoteAction(formData: FormData) {
         address: quote.customer.address ?? null,
         systemSummary: quote.systemSummary || null,
         installedOn: null,
-        equipment: quote.items.map((i) => ({ item: i.description, warranty: i.warranty })),
+        equipment: quote.items.map((i) => ({
+          item: i.quantity && i.quantity > 1 ? `${i.quantity} x ${i.description}` : i.description,
+          warranty: i.warranty,
+        })),
         loadItems: quote.load,
         notes: null,
       },

@@ -16,6 +16,7 @@ import {
   type PriceSourceItem,
   type ServiceCosts,
 } from "@/lib/costing";
+import { splitPayment } from "@/lib/quote";
 import { CustomerQuoteBuilder, type SavedQuoteInput } from "./CustomerQuoteBuilder";
 
 const inputClass =
@@ -29,8 +30,8 @@ const ACCESSORY_FIELDS: { key: keyof AccessoryCosts; label: string }[] = [
 ];
 
 const MANUAL_FIELDS: { key: keyof ManualEquipmentCosts; label: string }[] = [
-  { key: "inverter", label: "Inverter, total cost" },
-  { key: "battery", label: "Battery, total cost" },
+  { key: "inverter", label: "Price of one inverter" },
+  { key: "battery", label: "Price of one battery" },
   { key: "panelEach", label: "Price of one panel" },
 ];
 
@@ -41,7 +42,11 @@ const SERVICE_FIELDS: { key: keyof ServiceCosts; label: string; hint: string }[]
     hint: `Starts at ₦${JOB_COSTS.labourPerKva.toLocaleString("en-NG")} per kVA, min ₦${JOB_COSTS.labourMinimum.toLocaleString("en-NG")}`,
   },
   { key: "transport", label: "Transport and logistics", hint: "Depends on distance and load" },
-  { key: "siteSurvey", label: "Site survey visit", hint: "What the assessment cost us" },
+  {
+    key: "siteSurvey",
+    label: "Site assessment fee",
+    hint: "The same fee the customer pays for the visit. If they've paid it, enter it under \"Assessment fee paid\" in the quote below and it comes off, so they only pay it once",
+  },
 ];
 
 // Everything typed into the calculator, saved with a customer quote so the
@@ -49,7 +54,9 @@ const SERVICE_FIELDS: { key: keyof ServiceCosts; label: string; hint: string }[]
 export type CalcState = {
   preset: PackageKey | "custom";
   inverterKva: string;
+  inverterCount?: string;
   batteryKwh: string;
+  batteryCount?: string;
   chemistry: Chemistry;
   panelCount: string;
   panelWatts: string;
@@ -73,7 +80,9 @@ export function PricingCalculator({
   const start = PACKAGES[initialPackage].spec;
   const [preset, setPreset] = useState<PackageKey | "custom">(initialCalc?.preset ?? initialPackage);
   const [inverterKva, setInverterKva] = useState(initialCalc?.inverterKva ?? String(start.inverterKva));
+  const [inverterCount, setInverterCount] = useState(initialCalc?.inverterCount ?? "1");
   const [batteryKwh, setBatteryKwh] = useState(initialCalc?.batteryKwh ?? String(start.batteryKwh));
+  const [batteryCount, setBatteryCount] = useState(initialCalc?.batteryCount ?? "1");
   const [chemistry, setChemistry] = useState<Chemistry>(initialCalc?.chemistry ?? start.batteryChemistry);
   const [panelCount, setPanelCount] = useState(initialCalc?.panelCount ?? String(start.panelCount));
   const [panelWatts, setPanelWatts] = useState(initialCalc?.panelWatts ?? String(start.panelWatts));
@@ -90,7 +99,9 @@ export function PricingCalculator({
   const calcState: CalcState = {
     preset,
     inverterKva,
+    inverterCount,
     batteryKwh,
+    batteryCount,
     chemistry,
     panelCount,
     panelWatts,
@@ -108,6 +119,8 @@ export function PricingCalculator({
     batteryChemistry: chemistry,
     panelCount: Number(panelCount) || 0,
     panelWatts: Number(panelWatts) || 0,
+    inverterCount: Math.max(1, Math.round(Number(inverterCount) || 1)),
+    batteryCount: Math.max(1, Math.round(Number(batteryCount) || 1)),
   };
   const defaults = defaultAccessoryCosts(spec.inverterKva, spec.panelCount);
   const accessories: AccessoryCosts = {
@@ -130,12 +143,17 @@ export function PricingCalculator({
   }
   const estimate = estimateJob({ spec, priceBook, accessories, services, sourceFilter: source || undefined, manual });
 
+  const rounded = roundQuote(estimate.finalPrice);
+  const pay = splitPayment(rounded, rounded - estimate.labour - estimate.transport - estimate.siteSurvey);
+
   const applyPreset = (key: PackageKey | "custom") => {
     setPreset(key);
     if (key === "custom") return;
     const p = PACKAGES[key].spec;
     setInverterKva(String(p.inverterKva));
     setBatteryKwh(String(p.batteryKwh));
+    setInverterCount("1");
+    setBatteryCount("1");
     setChemistry(p.batteryChemistry);
     setPanelCount(String(p.panelCount));
     setPanelWatts(String(p.panelWatts));
@@ -181,13 +199,17 @@ export function PricingCalculator({
           </select>
         </label>
         <label className="text-xs font-semibold text-navy">
-          Inverter (kVA)
-          <input type="number" min="0" step="0.1" value={inverterKva} onChange={edit(setInverterKva)} className={`${inputClass} mt-1`} />
+          Inverter (kVA each x how many)
+          <div className="mt-1 flex gap-2">
+            <input type="number" min="0" step="0.1" placeholder="e.g. 5" aria-label="Inverter size in kVA" value={inverterKva} onChange={edit(setInverterKva)} className={inputClass} />
+            <input type="number" min="1" step="1" placeholder="Qty, e.g. 1" aria-label="How many inverters" value={inverterCount} onChange={edit(setInverterCount)} className={`${inputClass} max-w-24`} />
+          </div>
         </label>
         <label className="text-xs font-semibold text-navy">
-          Battery (kWh)
+          Battery (kWh each x how many)
           <div className="mt-1 flex gap-2">
-            <input type="number" min="0" step="0.1" value={batteryKwh} onChange={edit(setBatteryKwh)} className={inputClass} />
+            <input type="number" min="0" step="0.1" placeholder="e.g. 5" aria-label="Battery size in kWh" value={batteryKwh} onChange={edit(setBatteryKwh)} className={inputClass} />
+            <input type="number" min="1" step="1" placeholder="Qty, e.g. 2" aria-label="How many batteries" value={batteryCount} onChange={edit(setBatteryCount)} className={`${inputClass} max-w-24`} />
             <select
               value={chemistry}
               onChange={(e) => {
@@ -204,8 +226,8 @@ export function PricingCalculator({
         <label className="text-xs font-semibold text-navy">
           Panels (count x watts)
           <div className="mt-1 flex gap-2">
-            <input type="number" min="0" value={panelCount} onChange={edit(setPanelCount)} className={inputClass} />
-            <input type="number" min="0" step="10" value={panelWatts} onChange={edit(setPanelWatts)} className={inputClass} />
+            <input type="number" min="0" placeholder="Count, e.g. 6" aria-label="Number of panels" value={panelCount} onChange={edit(setPanelCount)} className={inputClass} />
+            <input type="number" min="0" step="10" placeholder="Watts, e.g. 550" aria-label="Watts per panel" value={panelWatts} onChange={edit(setPanelWatts)} className={inputClass} />
           </div>
         </label>
       </div>
@@ -221,7 +243,7 @@ export function PricingCalculator({
               <input
                 type="number"
                 min="0"
-                placeholder="From price list"
+                placeholder="Empty = price list, e.g. 850000"
                 value={manualInputs[field.key] ?? ""}
                 onChange={(e) => setManualInputs((prev) => ({ ...prev, [field.key]: e.target.value }))}
                 className={`${inputClass} mt-1`}
@@ -316,10 +338,12 @@ export function PricingCalculator({
           <span className="font-mono-num">{formatNaira(roundQuote(estimate.finalPrice))}</span>
         </div>
         <div className="flex justify-between text-xs text-charcoal/60">
-          <span>Deposit (covers the equipment), balance after installation</span>
-          <span className="font-mono-num">
-            {formatNaira(roundQuote(estimate.finalPrice) - estimate.labour - estimate.transport - estimate.siteSurvey)}
-          </span>
+          <span>Deposit (covers the equipment), {pay.depositPercent}%</span>
+          <span className="font-mono-num">{formatNaira(pay.deposit)}</span>
+        </div>
+        <div className="flex justify-between text-xs text-charcoal/60">
+          <span>Balance, after installation is done, {pay.balancePercent}%</span>
+          <span className="font-mono-num">{formatNaira(pay.balance)}</span>
         </div>
         <div className="flex justify-between text-xs font-semibold text-green-700">
           <span>Expected margin (equipment markups)</span>

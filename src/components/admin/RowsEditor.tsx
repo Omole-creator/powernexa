@@ -101,10 +101,10 @@ export function RowsField({
 }
 
 export const LOAD_COLUMNS: RowColumn[] = [
-  { key: "appliance", label: "Appliance", placeholder: "e.g. Fridge", wide: true },
-  { key: "quantity", label: "Qty", type: "number" },
-  { key: "watts", label: "Watts each", type: "number" },
-  { key: "hours", label: "Hours on battery", type: "number" },
+  { key: "appliance", label: "Appliance", placeholder: "e.g. Fridge, ceiling fan, 1.5HP AC", wide: true },
+  { key: "quantity", label: "Qty", type: "number", placeholder: "Qty, e.g. 2" },
+  { key: "watts", label: "Watts each", type: "number", placeholder: "Watts, e.g. 150" },
+  { key: "hours", label: "Hours on battery", type: "number", placeholder: "Hours, e.g. 8" },
 ];
 
 export function toRows<T extends object>(items: T[]): Row[] {

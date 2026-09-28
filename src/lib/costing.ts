@@ -57,6 +57,10 @@ export type SystemSpec = {
   batteryChemistry: Chemistry;
   panelCount: number;
   panelWatts: number;
+  // How many inverters / batteries of the size above the customer is buying
+  // (e.g. 2 x 5kVA). Missing means 1.
+  inverterCount?: number;
+  batteryCount?: number;
 };
 
 // Typical pairings from the guide (step 2), plus the tubular budget option.
@@ -179,6 +183,8 @@ export type CostLine = {
   key: string;
   label: string;
   detail?: string;
+  quantity: number; // units on the customer's quote (1 for accessory lots)
+  unitSize?: number; // kVA / kWh / W of one unit, for the customer's wording
   cost: number;
   markupRate: number;
   price: number;
@@ -201,7 +207,7 @@ export type JobEstimate = {
 export type AccessoryCosts = ReturnType<typeof defaultAccessoryCosts>;
 
 // Costs typed in by hand for one job, used instead of the supplier price
-// lists. Inverter and battery are the total cost; panels are the price of one.
+// lists. Each is the price of one unit, multiplied by how many are bought.
 export type ManualEquipmentCosts = Partial<{ inverter: number; battery: number; panelEach: number }>;
 
 export function estimateJob(options: {
@@ -218,19 +224,27 @@ export function estimateJob(options: {
     ? options.priceBook.filter((item) => item.source === options.sourceFilter)
     : options.priceBook;
 
+  const inverterCount = Math.max(1, Math.round(spec.inverterCount ?? 1));
+  const batteryCount = Math.max(1, Math.round(spec.batteryCount ?? 1));
   const inverter: PickedItem | null =
     manual.inverter !== undefined
-      ? handTyped(manual.inverter, 1, spec.inverterKva)
-      : pickCheapest(
-          book.filter((i) => i.category === "inverter"),
-          spec.inverterKva
+      ? handTyped(manual.inverter, inverterCount, spec.inverterKva * inverterCount)
+      : times(
+          pickCheapest(
+            book.filter((i) => i.category === "inverter"),
+            spec.inverterKva
+          ),
+          inverterCount
         );
   const battery: PickedItem | null =
     manual.battery !== undefined
-      ? handTyped(manual.battery, 1, spec.batteryKwh)
-      : pickCheapest(
-          book.filter((i) => i.category === "battery" && (i.chemistry ?? null) === spec.batteryChemistry),
-          spec.batteryKwh
+      ? handTyped(manual.battery, batteryCount, spec.batteryKwh * batteryCount)
+      : times(
+          pickCheapest(
+            book.filter((i) => i.category === "battery" && (i.chemistry ?? null) === spec.batteryChemistry),
+            spec.batteryKwh
+          ),
+          batteryCount
         );
   const panels: PickedItem | null =
     manual.panelEach !== undefined
@@ -254,14 +268,17 @@ export function estimateJob(options: {
       key,
       label,
       detail,
+      quantity: picked.quantity,
+      unitSize: picked.quantity > 0 ? picked.providedSize / picked.quantity : undefined,
       cost: picked.cost,
       markupRate: MARKUPS[key],
       price: picked.cost * (1 + MARKUPS[key]),
     });
   };
 
-  addPicked("inverter", `${spec.inverterKva}kVA inverter`, inverter);
-  addPicked("battery", `${spec.batteryKwh}kWh ${spec.batteryChemistry} battery`, battery);
+  const countPrefix = (n: number) => (n > 1 ? `${n} x ` : "");
+  addPicked("inverter", `${countPrefix(inverterCount)}${spec.inverterKva}kVA inverter`, inverter);
+  addPicked("battery", `${countPrefix(batteryCount)}${spec.batteryKwh}kWh ${spec.batteryChemistry} battery`, battery);
   addPicked("panel", `${spec.panelCount} x ${spec.panelWatts}W panels`, panels);
 
   const accessories = options.accessories ?? defaultAccessoryCosts(spec.inverterKva, spec.panelCount);
@@ -273,7 +290,7 @@ export function estimateJob(options: {
   };
   for (const key of Object.keys(accessoryLabels) as (keyof AccessoryCosts)[]) {
     const cost = accessories[key];
-    equipment.push({ key, label: accessoryLabels[key], cost, markupRate: MARKUPS[key], price: cost * (1 + MARKUPS[key]) });
+    equipment.push({ key, label: accessoryLabels[key], quantity: 1, cost, markupRate: MARKUPS[key], price: cost * (1 + MARKUPS[key]) });
   }
 
   const equipmentCost = sum(equipment.map((l) => l.cost));
@@ -311,6 +328,16 @@ function handTyped(unitPrice: number, quantity: number, providedSize: number): P
     unitPrice,
     cost: unitPrice * quantity,
     providedSize,
+  };
+}
+
+function times(picked: PickedItem | null, count: number): PickedItem | null {
+  if (!picked || count === 1) return picked;
+  return {
+    ...picked,
+    quantity: picked.quantity * count,
+    cost: picked.cost * count,
+    providedSize: picked.providedSize * count,
   };
 }
 

@@ -18,15 +18,19 @@ import {
 } from "@/lib/quote";
 
 // The written quote a customer receives. Laid out for A4 so "Download PDF"
-// (the browser's print to PDF) gives a clean document. Shows totals only,
-// never supplier costs or markups: those aren't in CustomerQuote at all.
+// (the browser's print to PDF) gives a clean document. Shows the selling price
+// of each item, never supplier costs or markups: those aren't in
+// CustomerQuote at all. Inner layout uses container queries (@2xl), not screen
+// breakpoints, so the PDF made on a phone (ShareQuoteButton) looks the same as
+// one made on a laptop.
 export function QuoteDocument({ quote }: { quote: CustomerQuote }) {
   const pay = paymentSchedule(quote);
   const fuel = quote.fuel ? fuelSavings(quote.fuel, pay.total) : null;
+  const priced = quote.items.length > 0 && quote.items.every((i) => i.amount !== undefined);
 
   return (
-    <article className="mx-auto max-w-[800px] bg-white p-8 text-[13px] leading-relaxed text-charcoal sm:p-12 print:max-w-none print:p-0">
-      <header className="flex flex-col gap-6 border-b-2 border-navy pb-6 sm:flex-row sm:items-start sm:justify-between">
+    <article className="mx-auto max-w-[800px] bg-white p-8 text-[13px] leading-relaxed text-charcoal sm:p-12 print:max-w-none print:p-0 @container">
+      <header className="flex flex-col gap-6 border-b-2 border-navy pb-6 @2xl:flex-row @2xl:items-start @2xl:justify-between">
         <div>
           <Image src="/images/logo.png" alt={SITE_NAME} width={1536} height={1024} className="h-14 w-auto" priority />
           <p className="mt-3 text-xs text-charcoal/70">
@@ -37,7 +41,7 @@ export function QuoteDocument({ quote }: { quote: CustomerQuote }) {
             {SITE_URL.replace(/^https?:\/\//, "")}
           </p>
         </div>
-        <div className="sm:text-right">
+        <div className="@2xl:text-right">
           <h1 className="font-display text-3xl font-extrabold tracking-tight text-navy">Quote</h1>
           <dl className="mt-2 space-y-0.5 text-xs">
             {quote.number ? (
@@ -58,7 +62,7 @@ export function QuoteDocument({ quote }: { quote: CustomerQuote }) {
         </div>
       </header>
 
-      <section className="mt-6 grid gap-6 sm:grid-cols-2">
+      <section className="mt-6 grid gap-6 @2xl:grid-cols-2">
         <div>
           <SectionTitle>Prepared for</SectionTitle>
           <p className="font-semibold text-navy">{quote.customer.name}</p>
@@ -75,6 +79,31 @@ export function QuoteDocument({ quote }: { quote: CustomerQuote }) {
 
       <section className="mt-8 break-inside-avoid">
         <SectionTitle>What we supply and install</SectionTitle>
+        {priced ? (
+          <table className="w-full text-left">
+            <thead className="text-xs text-charcoal/60">
+              <tr className="border-b border-line">
+                <th className="py-1.5 font-medium">Item</th>
+                <th className="py-1.5 text-right font-medium">Qty</th>
+                <th className="py-1.5 text-right font-medium">Unit price</th>
+                <th className="py-1.5 text-right font-medium">Amount</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-line">
+              {quote.items.map((item, index) => (
+                <tr key={index} className="align-top">
+                  <td className="py-2 pr-3">
+                    {item.description}
+                    {item.warranty ? <span className="block text-xs text-charcoal/60">Warranty: {item.warranty}</span> : null}
+                  </td>
+                  <td className="py-2 text-right font-mono-num">{item.quantity ?? 1}</td>
+                  <td className="py-2 pl-3 text-right font-mono-num whitespace-nowrap">{formatNaira(item.unitPrice ?? item.amount ?? 0)}</td>
+                  <td className="py-2 pl-3 text-right font-mono-num whitespace-nowrap">{formatNaira(item.amount ?? 0)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
         <ul className="divide-y divide-line border-y border-line">
           {quote.items.map((item, index) => (
             <li key={index} className="flex justify-between gap-4 py-2">
@@ -83,6 +112,7 @@ export function QuoteDocument({ quote }: { quote: CustomerQuote }) {
             </li>
           ))}
         </ul>
+        )}
       </section>
 
       <section className="mt-8 break-inside-avoid">
@@ -102,8 +132,8 @@ export function QuoteDocument({ quote }: { quote: CustomerQuote }) {
         <div className="mt-4 rounded-xl bg-mist p-4 print:border print:border-line print:bg-white">
           <p className="text-xs font-semibold uppercase tracking-wide text-navy">How you pay</p>
           <div className="mt-2 space-y-1.5">
-            <MoneyRow label="Deposit, to buy your equipment" value={pay.deposit} />
-            <MoneyRow label="Balance, after installation once you see it working" value={pay.balance} />
+            <MoneyRow label={`Deposit (${pay.depositPercent}%), covers your equipment`} value={pay.deposit} />
+            <MoneyRow label={`Balance (${pay.balancePercent}%), after installation once you see it working`} value={pay.balance} />
           </div>
         </div>
       </section>
@@ -160,7 +190,7 @@ export function QuoteDocument({ quote }: { quote: CustomerQuote }) {
 
       <section className="mt-8 break-inside-avoid">
         <SectionTitle>Our promises to you</SectionTitle>
-        <ol className="grid gap-3 sm:grid-cols-2">
+        <ol className="grid gap-3 @2xl:grid-cols-2">
           {PROMISES.map((promise, index) => (
             <li key={promise.key} className="rounded-xl border border-line p-3">
               <p className="font-semibold text-navy">

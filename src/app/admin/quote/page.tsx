@@ -4,6 +4,7 @@ import { requireAdmin } from "@/lib/dal";
 import { decodeQuote } from "@/lib/quote";
 import { QuoteDocument } from "@/components/quote/QuoteDocument";
 import { AutoPrint, PrintButton } from "@/components/quote/PrintButton";
+import { ShareQuoteButton } from "@/components/quote/ShareQuoteButton";
 import { createSystemFromQuoteAction } from "@/actions/customer-systems";
 import { encodeQuote } from "@/lib/quote";
 import { getSavedQuote } from "@/lib/saved-quotes";
@@ -36,6 +37,7 @@ export default async function AdminQuotePage({ searchParams }: { searchParams: P
     <div className="min-h-screen bg-mist py-6 print:bg-white print:py-0">
       {print === "1" ? <AutoPrint /> : null}
       <div className="mx-auto mb-4 flex max-w-[800px] flex-wrap items-center gap-3 px-4 print:hidden">
+        <ShareQuoteButton quote={quote} />
         <PrintButton />
         <form action={createSystemFromQuoteAction}>
           <input type="hidden" name="quote" value={encodeQuote(quote)} />
@@ -48,7 +50,7 @@ export default async function AdminQuotePage({ searchParams }: { searchParams: P
           </button>
         </form>
         <p className="w-full text-xs text-charcoal/55">
-          Download PDF opens the print window. Choose &quot;Save as PDF&quot;, then send the file on WhatsApp.
+          Send PDF on WhatsApp makes the PDF and opens the share sheet: pick WhatsApp, then the customer. Download PDF opens the print window instead.
         </p>
       </div>
       <div className="mx-auto max-w-[800px] shadow-[0_20px_50px_-24px_rgba(9,43,76,0.25)] print:max-w-none print:shadow-none">

@@ -1,13 +1,16 @@
 // The customer-facing quote, built in /admin/pricing from the job cost
 // calculator. It carries only what the customer is allowed to see: the
-// equipment list (no per-item prices, no supplier names), one equipment total
-// and one installation total. Supplier costs and markups never enter this
-// object, so they can't leak onto the printed quote or a My System page.
+// equipment list with the selling price of each item (after markup), one
+// equipment total and one installation total. Supplier costs, markup rates
+// and supplier names never enter this object, so they can't leak onto the
+// printed quote or a My System page.
 // Pure functions, safe on the client and the server.
 
 import { PROMISE_TERMS } from "./promises";
 
-export type QuoteItem = { description: string; warranty?: string };
+// quantity / unitPrice / amount are missing on quotes saved before item
+// prices were shown; those print as a plain list.
+export type QuoteItem = { description: string; warranty?: string; quantity?: number; unitPrice?: number; amount?: number };
 
 export type LoadItem = { appliance: string; quantity: number; watts?: number; hours: number };
 
@@ -36,13 +39,52 @@ export function quoteTotal(quote: CustomerQuote): number {
   return quote.equipmentTotal + quote.installationTotal;
 }
 
-// The deposit covers the equipment, the balance is paid once the system is
-// installed and working. The site assessment fee comes off what's left.
+// The deposit always covers the equipment. Owner's preference is a 70/30
+// split, used whenever 70% is enough to cover the equipment; otherwise the
+// deposit is the equipment total. The balance is paid once the system is
+// installed and working.
+export const PREFERRED_DEPOSIT_SHARE = 0.7;
+
+export function splitPayment(amountDue: number, equipmentTotal: number) {
+  const preferred = Math.ceil((amountDue * PREFERRED_DEPOSIT_SHARE) / 1000) * 1000;
+  const deposit = Math.min(amountDue, Math.max(equipmentTotal, preferred));
+  const balance = amountDue - deposit;
+  const depositPercent = amountDue > 0 ? Math.round((deposit / amountDue) * 100) : 0;
+  return { deposit, balance, depositPercent, balancePercent: amountDue > 0 ? 100 - depositPercent : 0 };
+}
+
+// The site assessment fee comes off the total before the split.
 export function paymentSchedule(quote: CustomerQuote) {
   const total = quoteTotal(quote);
   const amountDue = Math.max(0, total - quote.assessmentFeePaid);
-  const deposit = Math.min(quote.equipmentTotal, amountDue);
-  return { total, amountDue, deposit, balance: amountDue - deposit };
+  return { total, amountDue, ...splitPayment(amountDue, quote.equipmentTotal) };
+}
+
+// Customer prices for each equipment line. The calculator's marked-up prices
+// are scaled so they add up exactly to the rounded equipment total, and unit
+// prices are kept to whole ₦1,000s. What's left over from rounding goes on a
+// single-unit line, so every row still reads quantity x unit price = amount.
+export function priceItems(
+  lines: { quantity: number; price: number }[],
+  equipmentTotal: number
+): { quantity: number; unitPrice: number; amount: number }[] {
+  const raw = lines.reduce((a, l) => a + l.price, 0);
+  const scale = raw > 0 ? equipmentTotal / raw : 0;
+  const priced = lines.map((l) => {
+    const quantity = Math.max(1, l.quantity);
+    const unitPrice = Math.round((l.price * scale) / quantity / 1000) * 1000;
+    return { quantity, unitPrice, amount: unitPrice * quantity };
+  });
+  const leftover = equipmentTotal - priced.reduce((a, p) => a + p.amount, 0);
+  if (leftover !== 0) {
+    const singles = priced.filter((p) => p.quantity === 1 && p.amount + leftover > 0);
+    const target = singles.sort((a, b) => b.amount - a.amount)[0];
+    if (target) {
+      target.amount += leftover;
+      target.unitPrice = target.amount;
+    }
+  }
+  return priced;
 }
 
 export function fuelSavings(fuel: FuelInputs, systemPrice: number) {
@@ -117,7 +159,13 @@ export function parseQuote(raw: unknown): CustomerQuote | null {
   const items = Array.isArray(q.items)
     ? q.items.slice(0, 30).map((i) => {
         const item = (i ?? {}) as Record<string, unknown>;
-        return { description: str(item.description, 200), warranty: str(item.warranty, 120) || undefined };
+        return {
+          description: str(item.description, 200),
+          warranty: str(item.warranty, 120) || undefined,
+          quantity: num(item.quantity) || undefined,
+          unitPrice: num(item.unitPrice) || undefined,
+          amount: num(item.amount) || undefined,
+        };
       })
     : [];
   const load = Array.isArray(q.load)

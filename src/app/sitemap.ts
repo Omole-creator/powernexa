@@ -2,6 +2,10 @@ import type { MetadataRoute } from "next";
 import { SITE_URL, LAGOS_AREAS, SERVICES } from "@/lib/constants";
 import { listPublishedPosts, listCategories } from "@/lib/blog";
 
+// Rebuild every 5 minutes so posts published straight to Supabase (npm run
+// seed:blog) show up without a redeploy. Admin publishes also revalidate it.
+export const revalidate = 300;
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes = [
     "",

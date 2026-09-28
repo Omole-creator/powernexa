@@ -856,6 +856,7 @@ You can send your list to us on WhatsApp and ask questions at no cost. When you'
     metaTitle: "Inverter Not Charging? What to Check First in Lagos",
     metaDescription:
       "Inverter not charging even when NEPA is on? Check the input voltage, charge settings, battery cables and fuses yourself, then know when to call a technician.",
+    featuredImage: "https://www.powernexasolutions.site/images/blog/inverter-not-charging-generator-inverters.jpg",
     featuredImageAlt: "Inverter not charging: checking the inverter display and battery cables in a Lagos home",
     authorName: "PowerNexa Solutions Team",
     publishedDaysAgo: 0,
@@ -919,6 +920,10 @@ Next, check the DC breaker or fuse between the batteries and the inverter. If it
 
 Never replace a fuse with a bigger one, and never join the gap with wire. The fuse is there to stop a fire.
 
+![Battery terminal with a red charging clamp attached](/images/blog/inverter-not-charging-battery-clamps.jpg)
+
+*Photo: Unsplash*
+
 ## Check 5: Is one battery weak?
 
 Tubular battery banks are made of 12V batteries joined together, usually two for a 24V system or four for a 48V system. One weak battery drags the whole bank down.
@@ -945,6 +950,10 @@ If NEPA charging works but solar doesn't, look at the solar side.
 - Dust, bird droppings and shade from a new building or water tank all cut output.
 - Check the solar breaker or isolator. It's usually a switch near the inverter.
 - In bright daylight, the screen should show a solar (PV) input voltage. If it shows zero, power from the panels isn't reaching the inverter. A loose connector on the roof is a common cause.
+
+![Close-up of solar panels on a tiled roof](/images/blog/inverter-not-charging-solar-panels.jpg)
+
+*Photo: Unsplash*
 
 Don't climb onto a roof that isn't safe to stand on. Call someone with the right ladder and harness.
 

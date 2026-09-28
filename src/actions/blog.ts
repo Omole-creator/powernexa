@@ -69,6 +69,8 @@ export async function createPostAction(_prevState: PostFormState, formData: Form
 
   revalidatePath("/blog");
   revalidatePath("/");
+  revalidatePath("/sitemap.xml");
+  revalidatePath("/llms.txt");
   redirect("/admin/blog");
 }
 
@@ -96,6 +98,8 @@ export async function updatePostAction(
   revalidatePath("/blog");
   revalidatePath(`/blog/${input.slug}`);
   revalidatePath("/");
+  revalidatePath("/sitemap.xml");
+  revalidatePath("/llms.txt");
   redirect("/admin/blog");
 }
 
@@ -106,4 +110,6 @@ export async function deletePostAction(postId: number, title: string, slug: stri
   revalidatePath("/blog");
   revalidatePath(`/blog/${slug}`);
   revalidatePath("/admin/blog");
+  revalidatePath("/sitemap.xml");
+  revalidatePath("/llms.txt");
 }

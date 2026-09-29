@@ -13,7 +13,7 @@ export const PHONE_E164_2 = "+2347086950312";
 export const PHONE_DISPLAY_GBP = "0904 874 4395";
 export const PHONE_E164_GBP = "+2349048744395";
 
-export const QUOTE_WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_QUOTE_WHATSAPP_NUMBER || "2347086950312";
+export const QUOTE_WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_QUOTE_WHATSAPP_NUMBER || "2348132097317";
 
 export const CONTACT_EMAIL = "powernexas@gmail.com";
 

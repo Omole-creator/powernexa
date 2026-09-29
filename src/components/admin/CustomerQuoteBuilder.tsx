@@ -91,7 +91,7 @@ export function CustomerQuoteBuilder({
     },
     systemSummary: draft.summary.trim() || defaultSummary,
     items: estimate.equipment.map((line, index) => ({
-      description: draft.descriptions[line.key]?.trim() || customerLabel(line, spec.batteryChemistry),
+      description: customerLabel(line, spec.batteryChemistry),
       warranty: draft.warranties[line.key]?.trim() || undefined,
       ...itemPrices[index],
     })),
@@ -202,8 +202,9 @@ export function CustomerQuoteBuilder({
 
       <Section title="Equipment as the customer sees it" summary="Brand, model, maker's warranty and price" defaultOpen>
         <p className="mb-2 text-xs text-charcoal/55">
-          Filled in from the calculator: the model from the price list, quantity and price. Type over the grey wording
-          only if you want different words. Prices are after your markup, never the cost.
+          Item names, quantities and prices come from the calculator above and can only be changed there (for a brand
+          that isn&apos;t on your price lists, type its name next to its cost in the calculator). Only the maker&apos;s
+          warranty is typed here. Prices are after your markup, never the cost.
         </p>
         <div className="space-y-2">
           <div className="hidden gap-2 text-[11px] font-semibold uppercase tracking-wide text-charcoal/45 sm:grid sm:grid-cols-[2fr_1fr_auto]">
@@ -213,13 +214,7 @@ export function CustomerQuoteBuilder({
           </div>
           {estimate.equipment.map((line, index) => (
             <div key={line.key} className="grid items-center gap-2 sm:grid-cols-[2fr_1fr_auto]">
-              <input
-                aria-label={`${line.label} description`}
-                value={draft.descriptions[line.key] ?? ""}
-                placeholder={customerLabel(line, spec.batteryChemistry)}
-                onChange={(e) => set("descriptions", { ...draft.descriptions, [line.key]: e.target.value })}
-                className={inputClass}
-              />
+              <p className="rounded-xl bg-mist px-3 py-2 text-sm text-navy">{customerLabel(line, spec.batteryChemistry)}</p>
               <input
                 aria-label={`${line.label} maker's warranty`}
                 value={draft.warranties[line.key] ?? ""}

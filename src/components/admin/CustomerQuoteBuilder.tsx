@@ -20,7 +20,8 @@ type Draft = {
   descriptions: Record<string, string>;
   warranties: Record<string, string>;
   load: Row[];
-  feePaid: string;
+  feePaid: string; // quotes saved before 29 Sept 2026 typed the amount here
+  feeAlreadyPaid?: boolean;
   fuel: { monthlyNow: string; generatorHoursPerDay: string; litresPerHour: string; pricePerLitre: string };
   notes: string;
 };
@@ -39,6 +40,7 @@ function freshDraft(): Draft {
     warranties: {},
     load: [{}],
     feePaid: "",
+    feeAlreadyPaid: false,
     fuel: { monthlyNow: "", generatorHoursPerDay: "", litresPerHour: "", pricePerLitre: "" },
     notes: "",
   };
@@ -72,6 +74,7 @@ export function CustomerQuoteBuilder({
     setSaveStatus({});
   };
 
+  const feeAlreadyPaid = draft.feeAlreadyPaid ?? toNumber(draft.feePaid) > 0;
   const times = (n: number | undefined) => ((n ?? 1) > 1 ? `${n} x ` : "");
   const defaultSummary = `${times(spec.inverterCount)}${spec.inverterKva}kVA inverter, ${times(spec.batteryCount)}${spec.batteryKwh}kWh ${spec.batteryChemistry} battery, ${spec.panelCount} x ${spec.panelWatts}W solar panels`;
   const total = roundQuote(estimate.finalPrice);
@@ -94,7 +97,8 @@ export function CustomerQuoteBuilder({
     })),
     equipmentTotal: total - installationTotal,
     installationTotal,
-    assessmentFeePaid: toNumber(draft.feePaid),
+    // The calculator's site assessment fee; ticking "already paid" takes it off.
+    assessmentFeePaid: feeAlreadyPaid ? estimate.siteSurvey : 0,
     load: draft.load
       .filter((r) => r.appliance?.trim())
       .map((r) => ({
@@ -198,8 +202,8 @@ export function CustomerQuoteBuilder({
 
       <Section title="Equipment as the customer sees it" summary="Brand, model, maker's warranty and price" defaultOpen>
         <p className="mb-2 text-xs text-charcoal/55">
-          Name one unit, the quantity is its own column on the quote. Leave a box empty to use the grey wording. Prices
-          are after your markup, never the cost.
+          Filled in from the calculator: the model from the price list, quantity and price. Type over the grey wording
+          only if you want different words. Prices are after your markup, never the cost.
         </p>
         <div className="space-y-2">
           <div className="hidden gap-2 text-[11px] font-semibold uppercase tracking-wide text-charcoal/45 sm:grid sm:grid-cols-[2fr_1fr_auto]">
@@ -212,7 +216,7 @@ export function CustomerQuoteBuilder({
               <input
                 aria-label={`${line.label} description`}
                 value={draft.descriptions[line.key] ?? ""}
-                placeholder={`${customerLabel(line, spec.batteryChemistry)}${EXAMPLES[line.key] ? `, e.g. ${EXAMPLES[line.key]}` : ""}`}
+                placeholder={customerLabel(line, spec.batteryChemistry)}
                 onChange={(e) => set("descriptions", { ...draft.descriptions, [line.key]: e.target.value })}
                 className={inputClass}
               />
@@ -240,7 +244,7 @@ export function CustomerQuoteBuilder({
       </Section>
 
       <Section
-        title="Fuel savings and assessment fee"
+        title="Fuel savings"
         summary={savings ? `Saves ${formatNaira(savings.monthlySaving)} a month` : "Optional"}
       >
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
@@ -255,9 +259,6 @@ export function CustomerQuoteBuilder({
           </Field>
           <Field label="Price per litre (₦)">
             <input inputMode="numeric" value={draft.fuel.pricePerLitre} onChange={(e) => set("fuel", { ...draft.fuel, pricePerLitre: e.target.value })} className={inputClass} placeholder="e.g. 1000" />
-          </Field>
-          <Field label="Assessment fee paid (₦)">
-            <input inputMode="numeric" value={draft.feePaid} onChange={(e) => set("feePaid", e.target.value)} className={inputClass} placeholder={`e.g. ${estimate.siteSurvey || 20000}, comes off the total`} />
           </Field>
         </div>
         <p className="mt-1 text-xs text-charcoal/50">
@@ -299,7 +300,22 @@ export function CustomerQuoteBuilder({
         </div>
       ) : null}
 
-      <div className="mt-5 space-y-1.5 rounded-xl bg-mist p-5 text-sm">
+      <label className="mt-5 flex items-start gap-3 rounded-xl border border-line px-4 py-3 text-sm text-navy">
+        <input
+          type="checkbox"
+          checked={feeAlreadyPaid}
+          onChange={(e) => set("feeAlreadyPaid", e.target.checked)}
+          className="mt-0.5 h-4 w-4 accent-orange"
+        />
+        <span>
+          <span className="font-semibold">Customer has already paid the site assessment fee ({formatNaira(estimate.siteSurvey)})</span>
+          <span className="block text-xs text-charcoal/55">
+            The amount comes from the calculator. Ticked, it comes off what they pay, so they pay it once.
+          </span>
+        </span>
+      </label>
+
+      <div className="mt-3 space-y-1.5 rounded-xl bg-mist p-5 text-sm">
         <Line label="Equipment and materials" value={quote.equipmentTotal} />
         <Line label="Installation and commissioning" value={quote.installationTotal} />
         <Line label="Total on the quote" value={pay.total} strong />
@@ -350,15 +366,17 @@ export function CustomerQuoteBuilder({
 
 const WARRANTY_EXAMPLES: Record<string, string> = { inverter: "2 years", battery: "5 years", panel: "25 years" };
 
-const EXAMPLES: Record<string, string> = {
-  inverter: "Luxsun 6.2kVA hybrid inverter",
-  battery: "Luxsun 5.12kWh lithium battery",
-  panel: "Jinko 550W mono solar panel",
-};
+const NOUNS: Record<string, string> = { inverter: "inverter", battery: "battery", panel: "solar panel" };
 
-// Plain customer wording for one unit of each calculator line (no supplier or
-// model names unless typed in above). The quantity has its own column.
+// Customer wording for one unit of each calculator line: the model name from
+// the price list when there is one (e.g. "Nexus 11kVA 48V inverter"), else the
+// size. The quantity has its own column.
 function customerLabel(line: JobEstimate["equipment"][number], chemistry: string): string {
+  const noun = NOUNS[line.key];
+  if (line.model && noun) {
+    const model = line.model.replace(/\bpanel\b/i, "solar panel");
+    return new RegExp(noun.split(" ").pop()!, "i").test(model) ? model : `${model} ${noun}`;
+  }
   const size = line.unitSize ? Number(line.unitSize.toFixed(2)) : null;
   if (size && line.key === "inverter") return `${size}kVA inverter`;
   if (size && line.key === "battery") return `${size}kWh ${chemistry} battery`;

@@ -5,6 +5,7 @@ import {
   JOB_COSTS,
   PACKAGES,
   defaultAccessoryCosts,
+  defaultAccessoryQuantities,
   defaultServiceCosts,
   estimateJob,
   formatNaira,
@@ -61,7 +62,9 @@ export type CalcState = {
   panelCount: string;
   panelWatts: string;
   source: string;
-  accessoryOverrides: Partial<Record<keyof AccessoryCosts, string>>;
+  accessoryEach?: Partial<Record<keyof AccessoryCosts, string>>; // price of one
+  accessoryQty?: Partial<Record<keyof AccessoryCosts, string>>;
+  accessoryOverrides?: Partial<Record<keyof AccessoryCosts, string>>; // quotes saved before 29 Sept 2026: line totals
   serviceOverrides: Partial<Record<keyof ServiceCosts, string>>;
   manualInputs: Partial<Record<keyof ManualEquipmentCosts, string>>;
 };
@@ -87,8 +90,14 @@ export function PricingCalculator({
   const [panelCount, setPanelCount] = useState(initialCalc?.panelCount ?? String(start.panelCount));
   const [panelWatts, setPanelWatts] = useState(initialCalc?.panelWatts ?? String(start.panelWatts));
   const [source, setSource] = useState(initialCalc?.source ?? "");
-  const [accessoryOverrides, setAccessoryOverrides] = useState<Partial<Record<keyof AccessoryCosts, string>>>(
-    initialCalc?.accessoryOverrides ?? {}
+  // Older saved quotes stored each accessory as one total: open those as
+  // quantity 1 at that price, so their figures don't change.
+  const legacy = initialCalc?.accessoryEach ? {} : (initialCalc?.accessoryOverrides ?? {});
+  const [accessoryEach, setAccessoryEach] = useState<Partial<Record<keyof AccessoryCosts, string>>>(
+    initialCalc?.accessoryEach ?? legacy
+  );
+  const [accessoryQty, setAccessoryQty] = useState<Partial<Record<keyof AccessoryCosts, string>>>(
+    initialCalc?.accessoryQty ?? Object.fromEntries(Object.keys(legacy).map((k) => [k, "1"]))
   );
   const [serviceOverrides, setServiceOverrides] = useState<Partial<Record<keyof ServiceCosts, string>>>(
     initialCalc?.serviceOverrides ?? {}
@@ -106,7 +115,8 @@ export function PricingCalculator({
     panelCount,
     panelWatts,
     source,
-    accessoryOverrides,
+    accessoryEach,
+    accessoryQty,
     serviceOverrides,
     manualInputs,
   };
@@ -123,12 +133,15 @@ export function PricingCalculator({
     batteryCount: Math.max(1, Math.round(Number(batteryCount) || 1)),
   };
   const defaults = defaultAccessoryCosts(spec.inverterKva, spec.panelCount);
-  const accessories: AccessoryCosts = {
-    mounting: numberOr(accessoryOverrides.mounting, defaults.mounting),
-    cables: numberOr(accessoryOverrides.cables, defaults.cables),
-    protection: numberOr(accessoryOverrides.protection, defaults.protection),
-    earthing: numberOr(accessoryOverrides.earthing, defaults.earthing),
-  };
+  const defaultQty = defaultAccessoryQuantities(spec.panelCount);
+  const accessoryQuantities = {} as Record<keyof AccessoryCosts, number>;
+  const accessoryDefaultEach = {} as Record<keyof AccessoryCosts, number>;
+  const accessories = {} as AccessoryCosts;
+  for (const { key } of ACCESSORY_FIELDS) {
+    accessoryDefaultEach[key] = Math.round(defaults[key] / defaultQty[key]);
+    accessoryQuantities[key] = Math.max(1, Math.round(numberOr(accessoryQty[key], defaultQty[key])));
+    accessories[key] = numberOr(accessoryEach[key], accessoryDefaultEach[key]) * accessoryQuantities[key];
+  }
   const serviceDefaults = defaultServiceCosts(spec.inverterKva);
   const services: ServiceCosts = {
     labour: numberOr(serviceOverrides.labour, serviceDefaults.labour),
@@ -141,7 +154,15 @@ export function PricingCalculator({
     const raw = manualInputs[key]?.trim();
     if (raw && Number.isFinite(Number(raw))) manual[key] = Number(raw);
   }
-  const estimate = estimateJob({ spec, priceBook, accessories, services, sourceFilter: source || undefined, manual });
+  const estimate = estimateJob({
+    spec,
+    priceBook,
+    accessories,
+    accessoryQuantities,
+    services,
+    sourceFilter: source || undefined,
+    manual,
+  });
 
   const rounded = roundQuote(estimate.finalPrice);
   const pay = splitPayment(rounded, rounded - estimate.labour - estimate.transport - estimate.siteSurvey);
@@ -157,7 +178,8 @@ export function PricingCalculator({
     setChemistry(p.batteryChemistry);
     setPanelCount(String(p.panelCount));
     setPanelWatts(String(p.panelWatts));
-    setAccessoryOverrides({});
+    setAccessoryEach({});
+    setAccessoryQty({});
     setServiceOverrides({});
   };
   const edit = (setter: (v: string) => void) => (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -236,6 +258,10 @@ export function PricingCalculator({
         <summary className="cursor-pointer text-xs font-semibold text-navy">
           Type equipment costs by hand (leave a box empty to use the price lists)
         </summary>
+        <p className="mt-2 text-xs text-charcoal/55">
+          For a custom quote, when the brand isn&apos;t on your price lists: type the cost of one here, then type the
+          brand and model once in the customer quote&apos;s item box below. The quantity boxes above still apply.
+        </p>
         <div className="mt-3 grid gap-3 sm:grid-cols-3">
           {MANUAL_FIELDS.map((field) => (
             <label key={field.key} className="text-xs font-semibold text-navy">
@@ -255,20 +281,37 @@ export function PricingCalculator({
 
       <details className="mt-4 rounded-xl border border-line px-4 py-3">
         <summary className="cursor-pointer text-xs font-semibold text-navy">
-          Accessory costs (estimated from system size, edit if you have real figures)
+          Accessory costs, price each x quantity (estimated from system size, edit if you have real figures)
         </summary>
         <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {ACCESSORY_FIELDS.map((field) => (
-            <label key={field.key} className="text-xs font-semibold text-navy">
-              {field.label} (₦)
-              <input
-                type="number"
-                min="0"
-                value={accessoryOverrides[field.key] ?? String(defaults[field.key])}
-                onChange={(e) => setAccessoryOverrides((prev) => ({ ...prev, [field.key]: e.target.value }))}
-                className={`${inputClass} mt-1`}
-              />
-            </label>
+            <div key={field.key} className="text-xs font-semibold text-navy">
+              {field.label}
+              <div className="mt-1 flex gap-2">
+                <input
+                  type="number"
+                  min="0"
+                  aria-label={`${field.label}, cost of one (₦)`}
+                  placeholder="Cost of one (₦)"
+                  value={accessoryEach[field.key] ?? String(accessoryDefaultEach[field.key])}
+                  onChange={(e) => setAccessoryEach((prev) => ({ ...prev, [field.key]: e.target.value }))}
+                  className={inputClass}
+                />
+                <input
+                  type="number"
+                  min="1"
+                  step="1"
+                  aria-label={`${field.label}, quantity`}
+                  placeholder="Qty"
+                  value={accessoryQty[field.key] ?? String(defaultQty[field.key])}
+                  onChange={(e) => setAccessoryQty((prev) => ({ ...prev, [field.key]: e.target.value }))}
+                  className={`${inputClass} max-w-20`}
+                />
+              </div>
+              <span className="mt-1 block font-normal text-charcoal/50">
+                {field.key === "mounting" ? "Cost of one, x quantity (starts at one set per panel)" : "Cost of one, x quantity"}
+              </span>
+            </div>
           ))}
         </div>
       </details>

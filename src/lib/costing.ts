@@ -49,6 +49,12 @@ export function defaultAccessoryCosts(inverterKva: number, panelCount: number) {
   };
 }
 
+// How many of each accessory a job starts with: one mounting set per panel,
+// the rest bought as one lot. Editable per job in the calculator.
+export function defaultAccessoryQuantities(panelCount: number): Record<keyof ReturnType<typeof defaultAccessoryCosts>, number> {
+  return { mounting: Math.max(1, panelCount), cables: 1, protection: 1, earthing: 1 };
+}
+
 export type Chemistry = "lithium" | "tubular";
 
 export type SystemSpec = {
@@ -183,8 +189,9 @@ export type CostLine = {
   key: string;
   label: string;
   detail?: string;
-  quantity: number; // units on the customer's quote (1 for accessory lots)
+  quantity: number; // units on the customer's quote
   unitSize?: number; // kVA / kWh / W of one unit, for the customer's wording
+  model?: string; // model name from the price list (not set when typed by hand)
   cost: number;
   markupRate: number;
   price: number;
@@ -213,7 +220,8 @@ export type ManualEquipmentCosts = Partial<{ inverter: number; battery: number; 
 export function estimateJob(options: {
   spec: SystemSpec;
   priceBook: PriceSourceItem[];
-  accessories?: AccessoryCosts;
+  accessories?: AccessoryCosts; // total cost of each accessory line
+  accessoryQuantities?: Partial<Record<keyof AccessoryCosts, number>>;
   services?: ServiceCosts;
   sourceFilter?: string; // only use this supplier, e.g. "Nexus"
   manual?: ManualEquipmentCosts;
@@ -270,6 +278,7 @@ export function estimateJob(options: {
       detail,
       quantity: picked.quantity,
       unitSize: picked.quantity > 0 ? picked.providedSize / picked.quantity : undefined,
+      model: picked.source === HAND_TYPED ? undefined : picked.name,
       cost: picked.cost,
       markupRate: MARKUPS[key],
       price: picked.cost * (1 + MARKUPS[key]),
@@ -288,9 +297,10 @@ export function estimateJob(options: {
     protection: "Breakers, isolators and surge protection",
     earthing: "Earthing kit",
   };
+  const quantities = { ...defaultAccessoryQuantities(spec.panelCount), ...options.accessoryQuantities };
   for (const key of Object.keys(accessoryLabels) as (keyof AccessoryCosts)[]) {
     const cost = accessories[key];
-    equipment.push({ key, label: accessoryLabels[key], quantity: 1, cost, markupRate: MARKUPS[key], price: cost * (1 + MARKUPS[key]) });
+    equipment.push({ key, label: accessoryLabels[key], quantity: Math.max(1, Math.round(quantities[key] ?? 1)), cost, markupRate: MARKUPS[key], price: cost * (1 + MARKUPS[key]) });
   }
 
   const equipmentCost = sum(equipment.map((l) => l.cost));
@@ -320,9 +330,11 @@ export function formatNaira(value: number): string {
   return `₦${Math.round(value).toLocaleString("en-NG")}`;
 }
 
+const HAND_TYPED = "typed in by hand";
+
 function handTyped(unitPrice: number, quantity: number, providedSize: number): PickedItem {
   return {
-    source: "typed in by hand",
+    source: HAND_TYPED,
     name: quantity > 1 ? `${formatNaira(unitPrice)} each` : "Your cost",
     quantity,
     unitPrice,

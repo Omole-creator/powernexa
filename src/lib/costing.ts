@@ -265,7 +265,16 @@ export function estimateJob(options: {
   const equipment: CostLine[] = [];
   const missing: string[] = [];
 
-  const addPicked = (key: "inverter" | "battery" | "panel", label: string, picked: PickedItem | null) => {
+  // With no supplier chosen ("Other brands"), the price list is only a guide
+  // cost: the customer's quote shows the size and quantity typed into the
+  // calculator, never the size of whichever listed model happened to be cheapest.
+  const asTyped = !options.sourceFilter;
+  const addPicked = (
+    key: "inverter" | "battery" | "panel",
+    label: string,
+    picked: PickedItem | null,
+    typed: { quantity: number; size: number }
+  ) => {
     if (!picked) {
       missing.push(label);
       return;
@@ -275,8 +284,8 @@ export function estimateJob(options: {
       key,
       label,
       detail,
-      quantity: picked.quantity,
-      unitSize: picked.quantity > 0 ? picked.providedSize / picked.quantity : undefined,
+      quantity: asTyped ? typed.quantity : picked.quantity,
+      unitSize: asTyped ? typed.size : picked.quantity > 0 ? picked.providedSize / picked.quantity : undefined,
       cost: picked.cost,
       markupRate: MARKUPS[key],
       price: picked.cost * (1 + MARKUPS[key]),
@@ -284,9 +293,15 @@ export function estimateJob(options: {
   };
 
   const countPrefix = (n: number) => (n > 1 ? `${n} x ` : "");
-  addPicked("inverter", `${countPrefix(inverterCount)}${spec.inverterKva}kVA inverter`, inverter);
-  addPicked("battery", `${countPrefix(batteryCount)}${spec.batteryKwh}kWh ${spec.batteryChemistry} battery`, battery);
-  addPicked("panel", `${spec.panelCount} x ${spec.panelWatts}W panels`, panels);
+  addPicked("inverter", `${countPrefix(inverterCount)}${spec.inverterKva}kVA inverter`, inverter, {
+    quantity: inverterCount,
+    size: spec.inverterKva,
+  });
+  addPicked("battery", `${countPrefix(batteryCount)}${spec.batteryKwh}kWh ${spec.batteryChemistry} battery`, battery, {
+    quantity: batteryCount,
+    size: spec.batteryKwh,
+  });
+  addPicked("panel", `${spec.panelCount} x ${spec.panelWatts}W panels`, panels, { quantity: spec.panelCount, size: spec.panelWatts });
 
   const accessories = options.accessories ?? defaultAccessoryCosts(spec.inverterKva, spec.panelCount);
   const accessoryLabels: Record<keyof AccessoryCosts, string> = {

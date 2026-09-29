@@ -191,7 +191,6 @@ export type CostLine = {
   detail?: string;
   quantity: number; // units on the customer's quote
   unitSize?: number; // kVA / kWh / W of one unit, for the customer's wording
-  model?: string; // model name from the price list (not set when typed by hand)
   cost: number;
   markupRate: number;
   price: number;
@@ -217,11 +216,6 @@ export type AccessoryCosts = ReturnType<typeof defaultAccessoryCosts>;
 // lists. Each is the price of one unit, multiplied by how many are bought.
 export type ManualEquipmentCosts = Partial<{ inverter: number; battery: number; panelEach: number }>;
 
-// Brand and model typed in the calculator for a custom quote (a brand that
-// isn't on the price lists). Shown on the customer's quote instead of the
-// price-list model name.
-export type ManualEquipmentNames = Partial<Record<"inverter" | "battery" | "panel", string>>;
-
 export function estimateJob(options: {
   spec: SystemSpec;
   priceBook: PriceSourceItem[];
@@ -230,7 +224,6 @@ export function estimateJob(options: {
   services?: ServiceCosts;
   sourceFilter?: string; // only use this supplier, e.g. "Nexus"
   manual?: ManualEquipmentCosts;
-  manualNames?: ManualEquipmentNames;
 }): JobEstimate {
   const { spec } = options;
   const manual = options.manual ?? {};
@@ -284,7 +277,6 @@ export function estimateJob(options: {
       detail,
       quantity: picked.quantity,
       unitSize: picked.quantity > 0 ? picked.providedSize / picked.quantity : undefined,
-      model: options.manualNames?.[key]?.trim() || (picked.source === HAND_TYPED ? undefined : picked.name),
       cost: picked.cost,
       markupRate: MARKUPS[key],
       price: picked.cost * (1 + MARKUPS[key]),

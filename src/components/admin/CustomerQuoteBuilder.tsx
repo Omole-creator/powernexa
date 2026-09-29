@@ -17,7 +17,8 @@ type Draft = {
   customer: { name: string; phone: string; address: string };
   date: string;
   summary: string;
-  descriptions: Record<string, string>;
+  descriptions: Record<string, string>; // no longer used, kept so old drafts load
+  brands?: Record<string, string>; // brand in front of the inverter, battery and panel wording
   warranties: Record<string, string>;
   load: Row[];
   feePaid: string; // quotes saved before 29 Sept 2026 typed the amount here
@@ -37,6 +38,7 @@ function freshDraft(): Draft {
     date: new Date().toISOString().slice(0, 10),
     summary: "",
     descriptions: {},
+    brands: {},
     warranties: {},
     load: [{}],
     feePaid: "",
@@ -74,6 +76,11 @@ export function CustomerQuoteBuilder({
     setSaveStatus({});
   };
 
+  // Brand in front of each main item: what was typed, else the supplier chosen
+  // in the calculator ("Other brands" leaves it empty to fill in).
+  const brandFor = (key: string) => (draft.brands?.[key] ?? calc.source).trim();
+  const describe = (line: JobEstimate["equipment"][number]) =>
+    [BRANDED.includes(line.key) ? brandFor(line.key) : "", customerLabel(line, spec.batteryChemistry)].filter(Boolean).join(" ");
   const feeAlreadyPaid = draft.feeAlreadyPaid ?? toNumber(draft.feePaid) > 0;
   const times = (n: number | undefined) => ((n ?? 1) > 1 ? `${n} x ` : "");
   const defaultSummary = `${times(spec.inverterCount)}${spec.inverterKva}kVA inverter, ${times(spec.batteryCount)}${spec.batteryKwh}kWh ${spec.batteryChemistry} battery, ${spec.panelCount} x ${spec.panelWatts}W solar panels`;
@@ -91,7 +98,7 @@ export function CustomerQuoteBuilder({
     },
     systemSummary: draft.summary.trim() || defaultSummary,
     items: estimate.equipment.map((line, index) => ({
-      description: customerLabel(line, spec.batteryChemistry),
+      description: describe(line),
       warranty: draft.warranties[line.key]?.trim() || undefined,
       ...itemPrices[index],
     })),
@@ -202,23 +209,36 @@ export function CustomerQuoteBuilder({
 
       <Section title="Equipment as the customer sees it" summary="Brand, model, maker's warranty and price" defaultOpen>
         <p className="mb-2 text-xs text-charcoal/55">
-          Item names, quantities and prices come from the calculator above and can only be changed there (for a brand
-          that isn&apos;t on your price lists, type its name next to its cost in the calculator). Only the maker&apos;s
-          warranty is typed here. Prices are after your markup, never the cost.
+          Sizes, quantities and prices come from the calculator above. Type only the brand in front of the inverter,
+          battery and panels (filled in for you when you pick a supplier) and the maker&apos;s warranty. Prices are after
+          your markup, never the cost.
         </p>
         <div className="space-y-2">
-          <div className="hidden gap-2 text-[11px] font-semibold uppercase tracking-wide text-charcoal/45 sm:grid sm:grid-cols-[2fr_1fr_auto]">
+          <div className="hidden gap-2 text-[11px] font-semibold uppercase tracking-wide text-charcoal/45 sm:grid sm:grid-cols-[minmax(0,2fr)_minmax(0,1fr)_15rem]">
             <span>Item, as the customer reads it</span>
             <span>Maker&apos;s warranty</span>
             <span className="text-right">Price on the quote</span>
           </div>
           {estimate.equipment.map((line, index) => (
-            <div key={line.key} className="grid items-center gap-2 sm:grid-cols-[2fr_1fr_auto]">
-              <p className="rounded-xl bg-mist px-3 py-2 text-sm text-navy">{customerLabel(line, spec.batteryChemistry)}</p>
+            <div key={line.key} className="grid items-center gap-2 sm:grid-cols-[minmax(0,2fr)_minmax(0,1fr)_15rem]">
+              {BRANDED.includes(line.key) ? (
+                <div className="flex items-center gap-2">
+                  <input
+                    aria-label={`${line.label} brand`}
+                    value={draft.brands?.[line.key] ?? calc.source}
+                    placeholder="Brand, e.g. Felicity"
+                    onChange={(e) => set("brands", { ...(draft.brands ?? {}), [line.key]: e.target.value })}
+                    className={`${inputClass} max-w-40`}
+                  />
+                  <span className="text-sm text-navy">{customerLabel(line, spec.batteryChemistry)}</span>
+                </div>
+              ) : (
+                <p className="rounded-xl bg-mist px-3 py-2 text-sm text-navy">{customerLabel(line, spec.batteryChemistry)}</p>
+              )}
               <input
                 aria-label={`${line.label} maker's warranty`}
                 value={draft.warranties[line.key] ?? ""}
-                placeholder={`Maker's warranty, e.g. ${WARRANTY_EXAMPLES[line.key] ?? "1 year (optional)"}`}
+                placeholder={WARRANTY_EXAMPLES[line.key] ? `Maker's warranty, e.g. ${WARRANTY_EXAMPLES[line.key]}` : "Warranty (optional)"}
                 onChange={(e) => set("warranties", { ...draft.warranties, [line.key]: e.target.value })}
                 className={inputClass}
               />
@@ -361,17 +381,11 @@ export function CustomerQuoteBuilder({
 
 const WARRANTY_EXAMPLES: Record<string, string> = { inverter: "2 years", battery: "5 years", panel: "25 years" };
 
-const NOUNS: Record<string, string> = { inverter: "inverter", battery: "battery", panel: "solar panel" };
+const BRANDED = ["inverter", "battery", "panel"];
 
-// Customer wording for one unit of each calculator line: the model name from
-// the price list when there is one (e.g. "Nexus 11kVA 48V inverter"), else the
-// size. The quantity has its own column.
+// Customer wording for one unit of each calculator line, by size (e.g.
+// "5kVA inverter"). The brand goes in front, the quantity has its own column.
 function customerLabel(line: JobEstimate["equipment"][number], chemistry: string): string {
-  const noun = NOUNS[line.key];
-  if (line.model && noun) {
-    const model = line.model.replace(/\bpanel\b/i, "solar panel");
-    return new RegExp(noun.split(" ").pop()!, "i").test(model) ? model : `${model} ${noun}`;
-  }
   const size = line.unitSize ? Number(line.unitSize.toFixed(2)) : null;
   if (size && line.key === "inverter") return `${size}kVA inverter`;
   if (size && line.key === "battery") return `${size}kWh ${chemistry} battery`;

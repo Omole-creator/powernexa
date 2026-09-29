@@ -13,7 +13,6 @@ import {
   type AccessoryCosts,
   type Chemistry,
   type ManualEquipmentCosts,
-  type ManualEquipmentNames,
   type PackageKey,
   type PriceSourceItem,
   type ServiceCosts,
@@ -31,10 +30,10 @@ const ACCESSORY_FIELDS: { key: keyof AccessoryCosts; label: string }[] = [
   { key: "earthing", label: "Earthing kit" },
 ];
 
-const MANUAL_FIELDS: { key: keyof ManualEquipmentCosts; nameKey: keyof ManualEquipmentNames; label: string; example: string }[] = [
-  { key: "inverter", nameKey: "inverter", label: "Price of one inverter", example: "e.g. Felicity 5kVA 48V hybrid inverter" },
-  { key: "battery", nameKey: "battery", label: "Price of one battery", example: "e.g. Felicity 5kWh lithium battery" },
-  { key: "panelEach", nameKey: "panel", label: "Price of one panel", example: "e.g. Jinko 550W mono solar panel" },
+const MANUAL_FIELDS: { key: keyof ManualEquipmentCosts; label: string }[] = [
+  { key: "inverter", label: "Price of one inverter" },
+  { key: "battery", label: "Price of one battery" },
+  { key: "panelEach", label: "Price of one panel" },
 ];
 
 const SERVICE_FIELDS: { key: keyof ServiceCosts; label: string; hint: string }[] = [
@@ -68,7 +67,6 @@ export type CalcState = {
   accessoryOverrides?: Partial<Record<keyof AccessoryCosts, string>>; // quotes saved before 29 Sept 2026: line totals
   serviceOverrides: Partial<Record<keyof ServiceCosts, string>>;
   manualInputs: Partial<Record<keyof ManualEquipmentCosts, string>>;
-  manualNames?: ManualEquipmentNames;
 };
 
 export function PricingCalculator({
@@ -107,13 +105,6 @@ export function PricingCalculator({
   const [manualInputs, setManualInputs] = useState<Partial<Record<keyof ManualEquipmentCosts, string>>>(
     initialCalc?.manualInputs ?? {}
   );
-  // Quotes saved before the item names were locked kept typed wording in the
-  // quote builder: carry it over as the brand and model for the main items.
-  const [manualNames, setManualNames] = useState<ManualEquipmentNames>(() => {
-    if (initialCalc?.manualNames) return initialCalc.manualNames;
-    const old = ((savedQuote?.draft as { descriptions?: Record<string, string> } | undefined)?.descriptions ?? {});
-    return { inverter: old.inverter, battery: old.battery, panel: old.panel };
-  });
   const calcState: CalcState = {
     preset,
     inverterKva,
@@ -128,7 +119,6 @@ export function PricingCalculator({
     accessoryQty,
     serviceOverrides,
     manualInputs,
-    manualNames,
   };
 
   const sources = useMemo(() => [...new Set(priceBook.map((i) => i.source))], [priceBook]);
@@ -172,7 +162,6 @@ export function PricingCalculator({
     services,
     sourceFilter: source || undefined,
     manual,
-    manualNames,
   });
 
   const rounded = roundQuote(estimate.finalPrice);
@@ -204,8 +193,9 @@ export function PricingCalculator({
       <h2 className="font-display text-lg font-bold text-navy">Job cost calculator</h2>
       <p className="mt-1 text-sm text-charcoal/60">
         Supplier cost, your markups (inverter 10%, battery 20%, panels 10%, accessories 35%), then labour,
-        transport and the site survey, which you can change for each job. It picks the cheapest price on file
-        for each item unless you choose one supplier or type the cost in yourself.
+        transport and the site survey, which you can change for each job. With &quot;Other brands&quot; it uses the
+        cheapest price on file as a guide cost, unless you choose one supplier or type the cost in yourself. The brand
+        name is added in the customer quote below.
       </p>
 
       <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -223,7 +213,7 @@ export function PricingCalculator({
         <label className="text-xs font-semibold text-navy">
           Price source
           <select value={source} onChange={(e) => setSource(e.target.value)} className={`${inputClass} mt-1`}>
-            <option value="">Cheapest on file</option>
+            <option value="">Other brands</option>
             {sources.map((s) => (
               <option key={s} value={s}>
                 {s} only
@@ -270,30 +260,22 @@ export function PricingCalculator({
           Type equipment costs by hand (leave a box empty to use the price lists)
         </summary>
         <p className="mt-2 text-xs text-charcoal/55">
-          For a custom quote, when the brand isn&apos;t on your price lists: type the cost of one and its brand and
-          model here. The name goes on the customer&apos;s quote as typed. The quantity boxes above still apply.
+          For a brand that isn&apos;t on your price lists: choose &quot;Other brands&quot;, type the cost of one here,
+          then add the brand name in the customer quote below. The quantity boxes above still apply.
         </p>
         <div className="mt-3 grid gap-3 sm:grid-cols-3">
           {MANUAL_FIELDS.map((field) => (
-            <div key={field.key} className="text-xs font-semibold text-navy">
+            <label key={field.key} className="text-xs font-semibold text-navy">
               {field.label} (₦)
               <input
                 type="number"
                 min="0"
-                aria-label={`${field.label} (₦)`}
                 placeholder="Empty = price list, e.g. 850000"
                 value={manualInputs[field.key] ?? ""}
                 onChange={(e) => setManualInputs((prev) => ({ ...prev, [field.key]: e.target.value }))}
                 className={`${inputClass} mt-1`}
               />
-              <input
-                aria-label={`${field.label}: brand and model on the quote`}
-                placeholder={`Brand and model, ${field.example}`}
-                value={manualNames[field.nameKey] ?? ""}
-                onChange={(e) => setManualNames((prev) => ({ ...prev, [field.nameKey]: e.target.value }))}
-                className={`${inputClass} mt-2 font-normal`}
-              />
-            </div>
+            </label>
           ))}
         </div>
       </details>

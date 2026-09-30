@@ -49,7 +49,7 @@ pillar/series from the rotation and `marketing/POSTS-LOG.md`, write the copy
 (humanizer, house style, provable claims only), build HTML slides on
 `marketing/templates/brand.css`, render them to PNG with
 `node marketing/render.mjs <folder>` (headless Edge), check each PNG, write
-`caption.md` and log it. **Carousels are 3 slides at most.**
+`caption.md` and log it. **Carousels are 3 slides at most.** Every carousel has a relevant Unsplash photo (always on slide 1), headlines use the hero type, and the only phone number on any social post is **0904 874 4395** (owner, 29 Sept 2026), never the website's 0813/0708 numbers. Captions follow the same "Is Zobo Good for Diabetes?" tone as the blog (owner, 29 Sept 2026; shape in `marketing/STRATEGY.md` section 7).
 
 **All social media assets stay off GitHub** (owner, Sept 2026): the whole
 `marketing/` folder is gitignored and lives only on the owner's computer. Never
@@ -63,6 +63,25 @@ keeps clips consistent, and the script batches live in
 `marketing/VIDEO-SCRIPTS.md` (`STRATEGY.md` section 10). The presenter speaks
 for PowerNexa, never as a made-up customer, and posts carry the AI-generated
 label. When the owner types **"video scripts"**, write the next batch there.
+
+**Story scripts** (Sept 2026): when the owner types **"todays script"**, write
+one finished Flow story script straight away, following the "Story scripts"
+section of `marketing/VIDEO-SCRIPTS.md`, whose shape comes from a breakdown of 17 top
+Nigerian skit and solar-seller videos (`marketing/research/VIDEO-RESEARCH.md`,
+Sept 2026): premise text on screen from frame 1, open mid-conflict, one
+problem played as comedy with one punchline, NEPA allowed as a character,
+PowerNexa enters inside the story once, twist ending, then a sales CTA
+(comment keyword, follow for the next part, or WhatsApp 0904 874 4395, per
+the CTA rules there); at most 7 clips told as one connected story (one main
+room, each clip picking up where the last stopped), each one continuous
+8-second shot with no cuts, one speaker saying 5 to 12 words, emotions inside
+the action lines, the same family (@Dad, @Mum, @Tolu) and @Installer with
+their saved image prompts. The chat reply is one single copy-paste text block
+(premise text, character image prompts, CLIP 1 to 7) with nothing
+unnecessary around it; caption, CTA and CapCut notes go in the saved file.
+Growth goal (owner, 30 Sept 2026): every page to 10k followers by 31 Dec
+2026 while hitting the sales target (8 installations a month); the plan is
+in the same file.
 
 ## Blog topic roadmap (SEO content, re-validated Sept 2026)
 

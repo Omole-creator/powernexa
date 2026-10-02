@@ -17,6 +17,14 @@ export const QUOTE_WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_QUOTE_WHATSAPP_NUMB
 
 export const CONTACT_EMAIL = "powernexas@gmail.com";
 
+// Where customers pay deposits and balances. Printed at the top of every
+// customer quote (QuoteDocument).
+export const BANK_DETAILS = {
+  bank: "Moniepoint",
+  accountName: "PowerNexa Solutions",
+  accountNumber: "4006212259",
+};
+
 export const SOCIAL_HANDLE = "@powernexas";
 export const SOCIAL_LINKS = [
   { network: "x", label: "X", url: "https://x.com/powernexas" },

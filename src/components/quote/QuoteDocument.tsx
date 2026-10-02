@@ -1,5 +1,6 @@
 import Image from "next/image";
 import {
+  BANK_DETAILS,
   BUSINESS_ADDRESS,
   CONTACT_EMAIL,
   PHONE_DISPLAY,
@@ -61,6 +62,33 @@ export function QuoteDocument({ quote }: { quote: CustomerQuote }) {
           </dl>
         </div>
       </header>
+
+      <section
+        aria-label="Payment details"
+        className="mt-6 overflow-hidden rounded-2xl bg-navy text-white break-inside-avoid"
+      >
+        <div className="h-1 bg-gradient-to-r from-orange via-yellow to-orange" />
+        <div className="grid gap-4 px-5 py-4 @2xl:grid-cols-[auto_1fr_auto] @2xl:items-center @2xl:gap-8">
+          <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-yellow">
+            Pay into
+            <span className="block font-medium normal-case tracking-normal text-white/60">our business account</span>
+          </p>
+          <dl className="grid grid-cols-2 gap-4">
+            <div>
+              <dt className="text-[11px] uppercase tracking-wide text-white/60">Bank</dt>
+              <dd className="font-display text-base font-bold">{BANK_DETAILS.bank}</dd>
+            </div>
+            <div>
+              <dt className="text-[11px] uppercase tracking-wide text-white/60">Account name</dt>
+              <dd className="font-display text-base font-bold">{BANK_DETAILS.accountName}</dd>
+            </div>
+          </dl>
+          <div className="@2xl:text-right">
+            <p className="text-[11px] uppercase tracking-wide text-white/60">Account number</p>
+            <p className="font-mono-num text-2xl font-bold tracking-[0.08em] text-orange">{BANK_DETAILS.accountNumber}</p>
+          </div>
+        </div>
+      </section>
 
       <section className="mt-6 grid gap-6 @2xl:grid-cols-2">
         <div>

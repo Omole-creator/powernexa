@@ -29,9 +29,7 @@ export function QuoteDocument({ quote }: { quote: CustomerQuote }) {
   const pay = paymentSchedule(quote);
   const fuel = quote.fuel ? fuelSavings(quote.fuel, pay.total) : null;
   const installationOnly = isInstallationOnly(quote);
-  // Installation-only items have no price of their own, so they print as a
-  // plain list of what we're installing.
-  const priced = !installationOnly && quote.items.length > 0 && quote.items.every((i) => i.amount !== undefined);
+  const priced = quote.items.length > 0 && quote.items.every((i) => i.amount !== undefined);
 
   return (
     <article className="mx-auto max-w-[800px] bg-white p-8 text-[13px] leading-relaxed text-charcoal sm:p-12 print:max-w-none print:p-0 @container">
@@ -67,32 +65,34 @@ export function QuoteDocument({ quote }: { quote: CustomerQuote }) {
         </div>
       </header>
 
-      <section
-        aria-label="Payment details"
-        className="mt-6 overflow-hidden rounded-2xl bg-navy text-white break-inside-avoid"
-      >
-        <div className="h-1 bg-gradient-to-r from-orange via-yellow to-orange" />
-        <div className="grid gap-4 px-5 py-4 @2xl:grid-cols-[auto_1fr_auto] @2xl:items-center @2xl:gap-8">
-          <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-yellow">
-            Pay into
-            <span className="block font-medium normal-case tracking-normal text-white/60">our business account</span>
-          </p>
-          <dl className="grid grid-cols-2 gap-4">
-            <div>
-              <dt className="text-[11px] uppercase tracking-wide text-white/60">Bank</dt>
-              <dd className="font-display text-base font-bold">{BANK_DETAILS.bank}</dd>
+      {/* Wrapped so the WhatsApp PDF (ShareQuoteButton) captures a plain block:
+          it paints a white background onto each block it captures, which on
+          the navy box itself hid the white bank and account name. */}
+      <div className="mt-6 break-inside-avoid">
+        <section aria-label="Payment details" className="overflow-hidden rounded-2xl bg-navy text-white">
+          <div className="h-1 bg-gradient-to-r from-orange via-yellow to-orange" />
+          <div className="grid gap-4 px-5 py-4 @2xl:grid-cols-[auto_1fr_auto] @2xl:items-center @2xl:gap-8">
+            <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-yellow">
+              Pay into
+              <span className="block font-medium normal-case tracking-normal text-white/60">our business account</span>
+            </p>
+            <dl className="grid grid-cols-2 gap-4">
+              <div>
+                <dt className="text-[11px] uppercase tracking-wide text-white/60">Bank</dt>
+                <dd className="font-display text-base font-bold">{BANK_DETAILS.bank}</dd>
+              </div>
+              <div>
+                <dt className="text-[11px] uppercase tracking-wide text-white/60">Account name</dt>
+                <dd className="font-display text-base font-bold">{BANK_DETAILS.accountName}</dd>
+              </div>
+            </dl>
+            <div className="@2xl:text-right">
+              <p className="text-[11px] uppercase tracking-wide text-white/60">Account number</p>
+              <p className="font-mono-num text-2xl font-bold tracking-[0.08em] text-orange">{BANK_DETAILS.accountNumber}</p>
             </div>
-            <div>
-              <dt className="text-[11px] uppercase tracking-wide text-white/60">Account name</dt>
-              <dd className="font-display text-base font-bold">{BANK_DETAILS.accountName}</dd>
-            </div>
-          </dl>
-          <div className="@2xl:text-right">
-            <p className="text-[11px] uppercase tracking-wide text-white/60">Account number</p>
-            <p className="font-mono-num text-2xl font-bold tracking-[0.08em] text-orange">{BANK_DETAILS.accountNumber}</p>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
 
       <section className="mt-6 grid gap-6 @2xl:grid-cols-2">
         <div>
@@ -150,17 +150,12 @@ export function QuoteDocument({ quote }: { quote: CustomerQuote }) {
       <section className="mt-8 break-inside-avoid">
         <SectionTitle>Price</SectionTitle>
         <div className="space-y-1.5">
+          <MoneyRow label="Equipment and materials" value={quote.equipmentTotal} />
+          <MoneyRow label={installationOnly ? "Labour" : "Installation and commissioning"} value={quote.installationTotal} />
           {installationOnly ? null : (
-            <>
-              <MoneyRow label="Equipment and materials" value={quote.equipmentTotal} />
-              <MoneyRow label="Installation and commissioning" value={quote.installationTotal} />
-            </>
+            <p className="text-xs text-charcoal/60">Includes workmanship, transport to your site, setup and testing.</p>
           )}
           <MoneyRow label="Total" value={pay.total} strong />
-          <p className="text-xs text-charcoal/60">
-            {installationOnly ? "Installation and commissioning: " : "Installation "}includes workmanship, transport to
-            your site, setup and testing.
-          </p>
           {quote.assessmentFeePaid > 0 ? (
             <>
               <MoneyRow label="Less site assessment fee already paid" value={-quote.assessmentFeePaid} />

@@ -36,7 +36,7 @@ export type CustomerQuote = {
 };
 
 // The customer supplies their own equipment and we only install, so there's
-// no equipment for a deposit to cover: the quote shows just the total.
+// no equipment for a deposit to cover: the quote has no deposit and balance.
 export function isInstallationOnly(quote: Pick<CustomerQuote, "equipmentTotal">): boolean {
   return quote.equipmentTotal <= 0;
 }
@@ -152,6 +152,8 @@ export function decodeQuote(encoded: string | undefined | null): CustomerQuote |
 
 const str = (v: unknown, max = 300) => (typeof v === "string" ? v.trim().slice(0, max) : "");
 const num = (v: unknown) => (typeof v === "number" && Number.isFinite(v) && v >= 0 ? v : 0);
+// Like num, but missing stays missing: a ₦0 price is a price, not "no price".
+const optNum = (v: unknown) => (typeof v === "number" && Number.isFinite(v) && v >= 0 ? v : undefined);
 
 // Rebuilds a quote from untrusted JSON (a URL or a database row), keeping
 // only the known fields.
@@ -170,8 +172,8 @@ export function parseQuote(raw: unknown): CustomerQuote | null {
           description: str(item.description, 200),
           warranty: str(item.warranty, 120) || undefined,
           quantity: num(item.quantity) || undefined,
-          unitPrice: num(item.unitPrice) || undefined,
-          amount: num(item.amount) || undefined,
+          unitPrice: optNum(item.unitPrice),
+          amount: optNum(item.amount),
         };
       })
     : [];

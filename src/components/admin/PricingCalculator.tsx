@@ -9,7 +9,7 @@ import {
   defaultServiceCosts,
   estimateJob,
   formatNaira,
-  roundQuote,
+  quotedPrice,
   type AccessoryCosts,
   type Chemistry,
   type ManualEquipmentCosts,
@@ -164,8 +164,9 @@ export function PricingCalculator({
     manual,
   });
 
-  const rounded = roundQuote(estimate.finalPrice);
-  const pay = splitPayment(rounded, rounded - estimate.labour - estimate.transport - estimate.siteSurvey);
+  const rounded = quotedPrice(estimate);
+  const equipmentOnQuote = rounded - estimate.labour - estimate.transport - estimate.siteSurvey;
+  const pay = splitPayment(rounded, equipmentOnQuote);
 
   const applyPreset = (key: PackageKey | "custom") => {
     setPreset(key);
@@ -379,16 +380,22 @@ export function PricingCalculator({
         </div>
         <div className="flex justify-between text-xs text-charcoal/60">
           <span>Rounded for the written quote</span>
-          <span className="font-mono-num">{formatNaira(roundQuote(estimate.finalPrice))}</span>
+          <span className="font-mono-num">{formatNaira(rounded)}</span>
         </div>
-        <div className="flex justify-between text-xs text-charcoal/60">
-          <span>Deposit (covers the equipment), {pay.depositPercent}%</span>
-          <span className="font-mono-num">{formatNaira(pay.deposit)}</span>
-        </div>
-        <div className="flex justify-between text-xs text-charcoal/60">
-          <span>Balance, after installation is done, {pay.balancePercent}%</span>
-          <span className="font-mono-num">{formatNaira(pay.balance)}</span>
-        </div>
+        {equipmentOnQuote > 0 ? (
+          <>
+            <div className="flex justify-between text-xs text-charcoal/60">
+              <span>Deposit (covers the equipment), {pay.depositPercent}%</span>
+              <span className="font-mono-num">{formatNaira(pay.deposit)}</span>
+            </div>
+            <div className="flex justify-between text-xs text-charcoal/60">
+              <span>Balance, after installation is done, {pay.balancePercent}%</span>
+              <span className="font-mono-num">{formatNaira(pay.balance)}</span>
+            </div>
+          </>
+        ) : (
+          <p className="text-xs text-charcoal/60">Installation only: no equipment, so the quote shows just the total, with no deposit and balance.</p>
+        )}
         <div className="flex justify-between text-xs font-semibold text-green-700">
           <span>Expected margin (equipment markups)</span>
           <span className="font-mono-num">{formatNaira(estimate.expectedMargin)}</span>

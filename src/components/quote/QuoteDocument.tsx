@@ -13,6 +13,7 @@ import { CARRY_GUARANTEE_TERMS, PROMISES, PROMISE_TERMS, WORKMANSHIP_TERMS } fro
 import {
   formatDate,
   fuelSavings,
+  isInstallationOnly,
   paymentSchedule,
   quoteValidUntil,
   type CustomerQuote,
@@ -27,7 +28,10 @@ import {
 export function QuoteDocument({ quote }: { quote: CustomerQuote }) {
   const pay = paymentSchedule(quote);
   const fuel = quote.fuel ? fuelSavings(quote.fuel, pay.total) : null;
-  const priced = quote.items.length > 0 && quote.items.every((i) => i.amount !== undefined);
+  const installationOnly = isInstallationOnly(quote);
+  // Installation-only items have no price of their own, so they print as a
+  // plain list of what we're installing.
+  const priced = !installationOnly && quote.items.length > 0 && quote.items.every((i) => i.amount !== undefined);
 
   return (
     <article className="mx-auto max-w-[800px] bg-white p-8 text-[13px] leading-relaxed text-charcoal sm:p-12 print:max-w-none print:p-0 @container">
@@ -106,7 +110,7 @@ export function QuoteDocument({ quote }: { quote: CustomerQuote }) {
       </section>
 
       <section className="mt-8 break-inside-avoid">
-        <SectionTitle>What we supply and install</SectionTitle>
+        <SectionTitle>{installationOnly ? "What we install" : "What we supply and install"}</SectionTitle>
         {priced ? (
           <table className="w-full text-left">
             <thead className="text-xs text-charcoal/60">
@@ -146,10 +150,17 @@ export function QuoteDocument({ quote }: { quote: CustomerQuote }) {
       <section className="mt-8 break-inside-avoid">
         <SectionTitle>Price</SectionTitle>
         <div className="space-y-1.5">
-          <MoneyRow label="Equipment and materials" value={quote.equipmentTotal} />
-          <MoneyRow label="Installation and commissioning" value={quote.installationTotal} />
-          <p className="text-xs text-charcoal/60">Includes workmanship, transport to your site, setup and testing.</p>
+          {installationOnly ? null : (
+            <>
+              <MoneyRow label="Equipment and materials" value={quote.equipmentTotal} />
+              <MoneyRow label="Installation and commissioning" value={quote.installationTotal} />
+            </>
+          )}
           <MoneyRow label="Total" value={pay.total} strong />
+          <p className="text-xs text-charcoal/60">
+            {installationOnly ? "Installation and commissioning: " : "Installation "}includes workmanship, transport to
+            your site, setup and testing.
+          </p>
           {quote.assessmentFeePaid > 0 ? (
             <>
               <MoneyRow label="Less site assessment fee already paid" value={-quote.assessmentFeePaid} />
@@ -157,13 +168,15 @@ export function QuoteDocument({ quote }: { quote: CustomerQuote }) {
             </>
           ) : null}
         </div>
-        <div className="mt-4 rounded-xl bg-mist p-4 print:border print:border-line print:bg-white">
-          <p className="text-xs font-semibold uppercase tracking-wide text-navy">How you pay</p>
-          <div className="mt-2 space-y-1.5">
-            <MoneyRow label={`Deposit (${pay.depositPercent}%), covers your equipment`} value={pay.deposit} />
-            <MoneyRow label={`Balance (${pay.balancePercent}%), after installation once you see it working`} value={pay.balance} />
+        {installationOnly ? null : (
+          <div className="mt-4 rounded-xl bg-mist p-4 print:border print:border-line print:bg-white">
+            <p className="text-xs font-semibold uppercase tracking-wide text-navy">How you pay</p>
+            <div className="mt-2 space-y-1.5">
+              <MoneyRow label={`Deposit (${pay.depositPercent}%), covers your equipment`} value={pay.deposit} />
+              <MoneyRow label={`Balance (${pay.balancePercent}%), after installation once you see it working`} value={pay.balance} />
+            </div>
           </div>
-        </div>
+        )}
       </section>
 
       {quote.load.length > 0 ? (
@@ -189,9 +202,11 @@ export function QuoteDocument({ quote }: { quote: CustomerQuote }) {
               ))}
             </tbody>
           </table>
-          <p className="mt-2 text-xs text-charcoal/60">
-            This list is the one our carry guarantee covers. {CARRY_GUARANTEE_TERMS}
-          </p>
+          {installationOnly ? null : (
+            <p className="mt-2 text-xs text-charcoal/60">
+              This list is the one our carry guarantee covers. {CARRY_GUARANTEE_TERMS}
+            </p>
+          )}
         </section>
       ) : null}
 
@@ -216,6 +231,8 @@ export function QuoteDocument({ quote }: { quote: CustomerQuote }) {
         </section>
       ) : null}
 
+      {/* The promises assume we supply the equipment, so an installation-only quote leaves them out. */}
+      {installationOnly ? null : (
       <section className="mt-8 break-inside-avoid">
         <SectionTitle>Our promises to you</SectionTitle>
         <ol className="grid gap-3 @2xl:grid-cols-2">
@@ -232,6 +249,7 @@ export function QuoteDocument({ quote }: { quote: CustomerQuote }) {
           Workmanship warranty ({PROMISE_TERMS.workmanshipYears === 1 ? "1 year" : `${PROMISE_TERMS.workmanshipYears} years`} from installation): {WORKMANSHIP_TERMS}
         </p>
       </section>
+      )}
 
       {quote.notes ? (
         <section className="mt-8 break-inside-avoid">

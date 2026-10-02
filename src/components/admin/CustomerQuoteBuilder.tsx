@@ -2,8 +2,8 @@
 
 import { useState, useTransition } from "react";
 import { saveQuoteAction } from "@/actions/saved-quotes";
-import { formatNaira, roundQuote, type JobEstimate, type SystemSpec } from "@/lib/costing";
-import { encodeQuote, fuelSavings, newQuoteNumber, paymentSchedule, priceItems, type CustomerQuote } from "@/lib/quote";
+import { formatNaira, quotedPrice, type JobEstimate, type SystemSpec } from "@/lib/costing";
+import { encodeQuote, fuelSavings, isInstallationOnly, newQuoteNumber, paymentSchedule, priceItems, type CustomerQuote } from "@/lib/quote";
 import { ShareQuoteButton } from "@/components/quote/ShareQuoteButton";
 import { LOAD_COLUMNS, RowsEditor, type Row } from "./RowsEditor";
 import type { CalcState } from "./PricingCalculator";
@@ -84,7 +84,7 @@ export function CustomerQuoteBuilder({
   const feeAlreadyPaid = draft.feeAlreadyPaid ?? toNumber(draft.feePaid) > 0;
   const times = (n: number | undefined) => ((n ?? 1) > 1 ? `${n} x ` : "");
   const defaultSummary = `${times(spec.inverterCount)}${spec.inverterKva}kVA inverter, ${times(spec.batteryCount)}${spec.batteryKwh}kWh ${spec.batteryChemistry} battery, ${spec.panelCount} x ${spec.panelWatts}W solar panels`;
-  const total = roundQuote(estimate.finalPrice);
+  const total = quotedPrice(estimate);
   const installationTotal = estimate.labour + estimate.transport + estimate.siteSurvey;
   const itemPrices = priceItems(estimate.equipment, total - installationTotal);
 
@@ -335,8 +335,14 @@ export function CustomerQuoteBuilder({
         <Line label="Installation and commissioning" value={quote.installationTotal} />
         <Line label="Total on the quote" value={pay.total} strong />
         {quote.assessmentFeePaid > 0 ? <Line label="Amount to pay after assessment fee" value={pay.amountDue} /> : null}
-        <Line label={`Deposit (covers the equipment), ${pay.depositPercent}%`} value={pay.deposit} />
-        <Line label={`Balance, after installation is done, ${pay.balancePercent}%`} value={pay.balance} />
+        {isInstallationOnly(quote) ? (
+          <p className="text-xs text-charcoal/60">Installation only: the PDF shows just the total, with no deposit and balance.</p>
+        ) : (
+          <>
+            <Line label={`Deposit (covers the equipment), ${pay.depositPercent}%`} value={pay.deposit} />
+            <Line label={`Balance, after installation is done, ${pay.balancePercent}%`} value={pay.balance} />
+          </>
+        )}
         {savings ? (
           <p className="pt-2 text-xs text-charcoal/70">
             Saves {formatNaira(savings.monthlySaving)} a month on fuel

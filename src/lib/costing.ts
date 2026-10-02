@@ -339,6 +339,14 @@ export function roundQuote(value: number): number {
   return Math.ceil(value / 50_000) * 50_000;
 }
 
+// The price written on the customer's quote. Rounding up only applies when we
+// supply equipment, since the extra lands on the equipment lines. An
+// installation-only job (customer has their own equipment) is quoted at exactly
+// the labour, transport and survey typed in.
+export function quotedPrice(estimate: Pick<JobEstimate, "equipmentPrice" | "finalPrice">): number {
+  return estimate.equipmentPrice > 0 ? roundQuote(estimate.finalPrice) : estimate.finalPrice;
+}
+
 export function formatNaira(value: number): string {
   return `₦${Math.round(value).toLocaleString("en-NG")}`;
 }

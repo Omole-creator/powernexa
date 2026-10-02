@@ -35,6 +35,12 @@ export type CustomerQuote = {
   notes?: string;
 };
 
+// The customer supplies their own equipment and we only install, so there's
+// no equipment for a deposit to cover: the quote shows just the total.
+export function isInstallationOnly(quote: Pick<CustomerQuote, "equipmentTotal">): boolean {
+  return quote.equipmentTotal <= 0;
+}
+
 export function quoteTotal(quote: CustomerQuote): number {
   return quote.equipmentTotal + quote.installationTotal;
 }
@@ -63,7 +69,8 @@ export function paymentSchedule(quote: CustomerQuote) {
 // Customer prices for each equipment line. The calculator's marked-up prices
 // are scaled so they add up exactly to the rounded equipment total, and unit
 // prices are kept to whole ₦1,000s. What's left over from rounding goes on a
-// single-unit line, so every row still reads quantity x unit price = amount.
+// single-unit line that already has a price (never a ₦0 line the customer
+// isn't paying for), so every row still reads quantity x unit price = amount.
 export function priceItems(
   lines: { quantity: number; price: number }[],
   equipmentTotal: number
@@ -77,7 +84,7 @@ export function priceItems(
   });
   const leftover = equipmentTotal - priced.reduce((a, p) => a + p.amount, 0);
   if (leftover !== 0) {
-    const singles = priced.filter((p) => p.quantity === 1 && p.amount + leftover > 0);
+    const singles = priced.filter((p) => p.quantity === 1 && p.amount > 0 && p.amount + leftover > 0);
     const target = singles.sort((a, b) => b.amount - a.amount)[0];
     if (target) {
       target.amount += leftover;

@@ -1166,4 +1166,163 @@ A beep with no warning light is usually information. A beep with a red light, a 
 
 Start with the screen, reduce the load, and give the inverter space to breathe. If the beeping still won't stop, you don't have to live with it or guess. A quick check from a technician usually finds the cause.`,
   },
+  {
+    slug: "inverter-overload",
+    title: "Inverter Overload? What It Means in Gbagada, Festac and Across Lagos",
+    excerpt:
+      "Your inverter is showing overload and switching off. Here's what overload means, why it can happen even with little switched on, how to reset it safely, and when to call a technician.",
+    category: "Guides",
+    tags: ["inverter", "repairs", "troubleshooting"],
+    focusKeyword: "inverter overload",
+    metaTitle: "Inverter Overload: What It Means and How to Reset It",
+    metaDescription:
+      "Inverter overload showing, even without load or after NEPA takes light? Learn what it means, how to reset it safely, and which appliances usually cause it.",
+    featuredImage: "https://www.powernexasolutions.site/images/blog/inverter-overload-power-strip.jpg",
+    featuredImageAlt: "Inverter overload: a power strip with a reset switch and a coiled cable",
+    authorName: "PowerNexa Solutions Team",
+    publishedDaysAgo: 0,
+    content: `Inverter overload means you're asking the inverter for more power than it was built to give. To protect itself, it beeps, shows "overload" or "OL" on the screen, and if the load doesn't drop, it switches off.
+
+But if your inverter in Gbagada or Festac shows overload with only a few bulbs and a fan on, you may be wondering: is the inverter too small, or is something wrong with it?
+
+The answer depends largely on what was running when the overload started.
+
+If it happened the moment something big came on, the inverter is usually doing its job. If it shows overload with almost nothing on, that points to a fault, and it needs a closer look.
+
+## What Does Inverter Overload Mean?
+
+It means the load is more than the inverter's limit.
+
+Every inverter has a rating, such as 1.5kVA, 3.5kVA or 5kVA. That rating is the most it can supply at one time. Go above it, even for a moment, and the inverter protects itself by cutting off.
+
+A common mix-up is thinking a 3.5kVA inverter carries 3,500 watts. It usually carries less, because kVA and watts are not the same thing. The watt figure is printed on the inverter's label or in its manual. Our guide on [what size inverter you need](/blog/what-size-inverter-do-i-need) explains the difference in plain words.
+
+## What Causes Inverter Overload in a Lagos Home?
+
+Usually, one big appliance, or a few at once.
+
+The appliances that most often cause it are the ones that heat or have a motor:
+
+- Pressing iron
+- Microwave
+- Electric kettle
+- Blender
+- Pumping machine
+- Air conditioner
+- Fridge and freezer, at the moment they start
+
+Heating appliances draw a lot of power the whole time they're on. A pressing iron alone can use 1,000 watts or more.
+
+Motors are different. A pumping machine, an AC or a freezer can draw several times its normal power for a second or two when it starts. That short jump is enough to trip a small inverter, even if the appliance runs fine once it's going.
+
+![A white steam pressing iron standing on an ironing board](/images/blog/inverter-overload-pressing-iron.jpg)
+
+*Photo: Unsplash*
+
+## Can an Inverter Carry a Pressing Iron, Microwave or Blender?
+
+It can, but only if the inverter is big enough and little else is on at the same time.
+
+It depends on three things: the inverter's size, the appliance's wattage (on its label) and what else is running.
+
+Better choice:
+
+- Iron or use the microwave when NEPA has light, or when the generator is on
+- Use one heavy appliance at a time
+- Switch off the AC or pumping machine before you iron
+
+Less suitable choice:
+
+- Ironing on battery at night while the freezer, fans and TV are on
+- Running the microwave and kettle together
+- Starting the pumping machine while the AC is running
+
+Heavy appliances also drain the battery fast. Even when the inverter can carry them, your backup will be shorter. Our guides on [what a 3.5kVA inverter can carry](/blog/what-can-a-3-5kva-inverter-carry) and [what a 5kVA inverter can carry](/blog/what-can-a-5kva-inverter-carry) go through common appliances one by one.
+
+## Why Is My Inverter Showing Overload Without Load?
+
+Not necessarily because the inverter is bad, but it's worth taking seriously.
+
+When the screen shows overload with almost nothing switched on, the usual causes are:
+
+- Something is on that you didn't count. A freezer or fridge compressor can start by itself, and a pumping machine on an automatic switch can come on when the tank runs low.
+- A faulty appliance. A damaged fan, an old freezer or a burnt extension box can draw far more than it should.
+- A wiring fault in the house. Water in a socket, a damaged cable or a short circuit on one circuit can look like a heavy load to the inverter.
+- A fault inside the inverter itself.
+
+To find out which, switch off every breaker on the inverter's output side, then switch the inverter back on. If the overload is gone, turn the breakers back on one at a time. The one that brings the overload back is where the problem is.
+
+If the inverter still shows overload with every output breaker off, the fault is likely inside the inverter. Don't keep resetting it. That's a job for a technician.
+
+## Why Does My Inverter Show Overload After NEPA Takes Light?
+
+Because everything that was on switches to the inverter at the same moment.
+
+While NEPA has light, many inverters let the supply pass through to your home. The AC, the pumping machine and the freezer are all running from NEPA. When NEPA takes light, that whole load lands on the inverter at once, and motors may try to restart together.
+
+This often happens in homes in Magodo, Sangotedo and across Lagos where the AC or pumping machine is on the same circuit as the inverter.
+
+What helps:
+
+- Switch off the AC, pumping machine and other heavy loads before you go to bed or leave the house
+- Ask your installer to keep heavy appliances off the inverter's circuit, so they only run on NEPA or the generator
+
+## How to Reset Inverter Overload
+
+Most of the time, you reset it by reducing the load and restarting the inverter.
+
+1. Switch off the last big appliance you turned on, or anything heavy that's running.
+2. Switch the inverter off with its power button or switch.
+3. Wait about a minute.
+4. Switch it back on.
+5. Turn your appliances on one at a time, starting with the lights.
+
+Some inverters come back on by themselves once the load drops. Others need a restart. A few have a small reset button or breaker on the body. The steps change from brand to brand, so check your manual if the usual restart doesn't work.
+
+If you reset it and the overload comes back straight away with only light load, stop there. Resetting again and again won't fix a fault, and it can make it worse.
+
+If you're not sure your inverter is the right size for your home, PowerNexa can check it for you.
+
+## Why Is My Inverter Showing Overload and Low Battery Together?
+
+Usually, the battery is weak and can't keep up with the load.
+
+When a heavy appliance comes on, a weak or half-charged battery drops in voltage. On some inverters, that shows as overload, low battery, or both at once.
+
+If this keeps happening, the batteries may be wearing out or not getting a full charge. Our guide on an [inverter not charging](/blog/inverter-not-charging) walks through the charging side.
+
+## Is Inverter Overload Dangerous?
+
+Not usually. The overload cut-off is there to protect the inverter.
+
+It becomes a concern when it comes with any of these:
+
+- A burning smell
+- A hot, swollen or leaking battery
+- Sparks or a hot socket
+- A short circuit warning or a red fault light
+
+If you see any of these, switch off the inverter and the battery breaker if it's safe to reach, and call a technician. Please don't open the inverter's case. Some parts inside can hold a dangerous charge even after it's switched off.
+
+## When to Call a Technician in VI, Ikoyi or Anywhere in Lagos
+
+Call for help if:
+
+- The overload shows with almost nothing switched on
+- It still shows with every output breaker off
+- It comes back right after every reset
+- It comes with a smell, sparks or heat
+
+Before you call, a photo of the screen, the make and model of your inverter, and a list of what was running when it started will save time. You can send these to us on WhatsApp. Asking questions costs nothing. If the system needs work, you can book a visit through our [maintenance and repair service](/services/solar-maintenance-repair).
+
+## The Bottom Line: What Does Inverter Overload Mean?
+
+Inverter overload means the inverter is being asked for more than it can give, so it switches off to protect itself.
+
+The simplest way to tell the difference:
+
+Overload when something big comes on is a load problem. Overload with almost nothing on is a fault.
+
+Most of the time, the fix is to switch off the heavy appliance, restart the inverter, and use one big load at a time. If it keeps showing overload with light load, you don't have to keep guessing. A technician can find where the problem is.`,
+  },
 ];

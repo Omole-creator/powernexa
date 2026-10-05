@@ -127,6 +127,20 @@ export function CustomerQuoteBuilder({
   };
   const pay = paymentSchedule(quote);
   const savings = quote.fuel ? fuelSavings(quote.fuel, pay.total) : null;
+  // Shown under the fuel fields as soon as all four are typed in, so a fuel saving
+  // can be worked out on its own without filling in the rest of the quote.
+  const fuelFilled = Object.values(draft.fuel).every((v) => String(v ?? "").trim() !== "");
+  const fuelCheck = fuelFilled
+    ? fuelSavings(
+        {
+          monthlyNow: toNumber(draft.fuel.monthlyNow),
+          generatorHoursPerDay: toNumber(draft.fuel.generatorHoursPerDay),
+          litresPerHour: toNumber(draft.fuel.litresPerHour),
+          pricePerLitre: toNumber(draft.fuel.pricePerLitre),
+        },
+        pay.total,
+      )
+    : null;
   const quoteHref = `/admin/quote?d=${encodeQuote(quote)}${savedId ? `&id=${savedId}` : ""}`;
 
   const blocker = !quote.customer.name
@@ -272,9 +286,30 @@ export function CustomerQuoteBuilder({
           <Field label="Litres an hour">
             <input inputMode="decimal" value={draft.fuel.litresPerHour} onChange={(e) => set("fuel", { ...draft.fuel, litresPerHour: e.target.value })} className={inputClass} placeholder="e.g. 1.5" />
           </Field>
-          <Field label="Price per litre (₦)">
-            <input inputMode="numeric" value={draft.fuel.pricePerLitre} onChange={(e) => set("fuel", { ...draft.fuel, pricePerLitre: e.target.value })} className={inputClass} placeholder="e.g. 1000" />
-          </Field>
+          <div>
+            <Field label="Price per litre (₦)">
+              <input inputMode="numeric" value={draft.fuel.pricePerLitre} onChange={(e) => set("fuel", { ...draft.fuel, pricePerLitre: e.target.value })} className={inputClass} placeholder="e.g. 1000" />
+            </Field>
+            {fuelCheck ? (
+              <div className="mt-2 space-y-0.5 rounded-xl bg-mist px-3 py-2 text-xs text-charcoal/75">
+                <p>
+                  Fuel after: <span className="font-mono-num">{formatNaira(fuelCheck.monthlyAfter)}</span> a month
+                </p>
+                <p className="font-semibold text-navy">
+                  {fuelCheck.monthlySaving > 0 ? "Saves " : "Saving: "}
+                  <span className="font-mono-num">{formatNaira(fuelCheck.monthlySaving)}</span> a month
+                </p>
+                {fuelCheck.monthlySaving > 0 ? (
+                  <p>
+                    <span className="font-mono-num">{formatNaira(fuelCheck.monthlySaving * 12)}</span> a year
+                    {fuelCheck.paybackMonths && pay.total > 0 ? `, pays for itself in about ${fuelCheck.paybackMonths} months` : ""}
+                  </p>
+                ) : (
+                  <p>No saving, check the fuel figures.</p>
+                )}
+              </div>
+            ) : null}
+          </div>
         </div>
         <p className="mt-1 text-xs text-charcoal/50">
           Leave &quot;current fuel spend&quot; empty and the fuel section stays off the quote.

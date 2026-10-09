@@ -1325,4 +1325,162 @@ Overload when something big comes on is a load problem. Overload with almost not
 
 Most of the time, the fix is to switch off the heavy appliance, restart the inverter, and use one big load at a time. If it keeps showing overload with light load, you don't have to keep guessing. A technician can find where the problem is.`,
   },
+  {
+    slug: "inverter-battery-not-giving-backup",
+    title: "Inverter Battery Not Giving Backup? Why It Drains Fast in Surulere, Yaba and Across Lagos",
+    excerpt:
+      "Your inverter battery used to last the night and now it dies in a few hours. Here's why an inverter battery stops giving backup, what you can check, and when it's time to replace it.",
+    category: "Guides",
+    tags: ["battery", "inverter", "troubleshooting"],
+    focusKeyword: "inverter battery not giving backup",
+    metaTitle: "Inverter Battery Not Giving Backup? Why It Drains Fast",
+    metaDescription:
+      "Inverter battery not giving backup or draining fast? Learn the common causes, how long an inverter battery should last, and what to check before you replace it.",
+    featuredImage: "https://www.powernexasolutions.site/images/blog/inverter-battery-not-giving-backup-battery-terminals.jpg",
+    featuredImageAlt: "Inverter battery not giving backup: a row of battery terminals with red and blue caps",
+    authorName: "PowerNexa Solutions Team",
+    publishedDaysAgo: 0,
+    content: `An inverter battery stores power while NEPA has light or the sun is out, then gives it back to your home when the light goes. How long it lasts is called your backup time.
+
+But if your inverter battery in Surulere or Yaba used to carry you through the night and now dies before midnight, you may be wondering: is the battery finished, or is something else wrong?
+
+The answer depends largely on how old the battery is and whether it's getting a full charge.
+
+An inverter battery not giving backup is often a worn-out battery. But just as often, the battery is fine and simply isn't being charged fully, or it's carrying more load than it used to.
+
+## Why Is My Inverter Battery Draining Fast?
+
+Usually, it's one of a few things:
+
+- The battery is getting old. Every battery loses capacity with time, and the loss speeds up near the end.
+- It isn't getting a full charge. Short NEPA hours, too few solar panels or a wrong charge setting can leave it half full every night.
+- Your load has grown. A new freezer, a second TV or an AC on the inverter will drain the same battery faster.
+- It's drained too deep, too often. Running it until the inverter cuts off every night wears it out sooner.
+- The terminals are loose or rusty. A poor connection wastes power as heat and can make the inverter think the battery is flat.
+- The water is low in a tubular battery. When the plates inside aren't covered, the battery can't hold its full charge.
+
+More than one of these can be going on at once. The sections below will help you find which.
+
+## Why Is My New Inverter Battery Not Giving Backup?
+
+A new battery that drains fast is rarely a bad battery. It's usually one of these:
+
+- It was never charged fully at the start. A new battery needs a full first charge before it gives its full backup.
+- The battery bank is too small for the load. If the system was sized by guesswork, it may never have been big enough.
+- The inverter is set for the wrong battery type. A lithium battery on a tubular setting, or the other way round, may never fill up properly.
+- Old and new batteries were mixed. One new battery joined to an old one gets dragged down to the old one's level.
+
+If the battery is still under warranty, keep the receipt and call whoever sold or installed it before you do anything else.
+
+## How Long Should an Inverter Battery Last on a Charge?
+
+It depends on the size of the battery bank and how much you're running.
+
+Here's a rough guide for a typical night load of about 500 watts (fans, lights, TV, fridge and router):
+
+- Two 12V 200Ah tubular batteries store about 4.8kWh. You should only use about half of that, roughly 2.4kWh. That's about 4 hours at 500 watts.
+- One 24V 200Ah lithium battery also stores about 4.8kWh, but you can safely use most of it, around 4kWh. That's about 7 hours at 500 watts.
+
+Double the load and you roughly halve the time. The same tubular bank running 1,000 watts gives about 2 hours.
+
+A common mix-up is thinking a bigger inverter gives more backup. It doesn't. The inverter's kVA decides how much you can run at once. The battery decides how long it runs. Our guide on [what size inverter you need](/blog/what-size-inverter-do-i-need) explains the difference.
+
+![A single candle burning low in a dark room](/images/blog/inverter-battery-not-giving-backup-candle.jpg)
+
+*Photo: Unsplash*
+
+## How Long Does an Inverter Battery Last Before It Needs Replacing?
+
+It depends on the battery type, how deep you drain it and how well it's looked after.
+
+Lithium (LiFePO4) batteries are built for many more charge cycles than tubular batteries, so they usually last years longer. Some lithium batteries now come with a 5 to 10 year maker's warranty. Tubular batteries cost less to buy, but they wear out sooner, and sooner still if they're drained flat every night or left without water.
+
+The warranty on the label is a fair guide to the least you should expect. If your battery is well past its warranty and the backup keeps shrinking, it's most likely near the end of its life. Our [lithium vs tubular battery](/blog/solar-battery-types-lithium-vs-tubular) guide goes through the trade-offs.
+
+## Is My Inverter Battery Not Holding Charge Because It's Not Charging Fully?
+
+Often, yes. A battery can only give back what it was given.
+
+Signs it isn't getting a full charge:
+
+- The inverter screen never shows the battery as full, even after a long day of NEPA light or sun
+- Backup is short after a rainy day but fine after a sunny one
+- NEPA only comes for an hour or two at a time on your street
+
+In homes that depend on NEPA alone, the battery may not get enough charging hours. Solar panels help here, but only if there are enough of them for the battery size. Our guide on an [inverter not charging](/blog/inverter-not-charging) walks through the charging side step by step.
+
+If you're not sure your battery and panels are the right size for your home, PowerNexa can size it for you.
+
+## Why Is My Tubular Battery Not Holding Charge in Ikorodu or Ajah?
+
+Usually, the water is low, the battery is old, or it was left flat too long.
+
+Tubular batteries need distilled water topped up from time to time. Each one has small float indicators on top that show the water level. When they drop to the low mark, the battery loses capacity.
+
+Leaving a tubular battery flat for days, for example while you travel, also harms it. That's why so many people search for "inverter battery not used for long time." A battery left empty can lose a lot of its capacity for good.
+
+Better choice:
+
+- Check the water level indicators every month or two
+- Use only distilled or battery water, never tap water or borehole water
+- Keep the batteries charged, even when you travel
+- Recharge as soon as you can after a long outage
+
+Less suitable choice:
+
+- Adding tap water or "any clean water"
+- Leaving the batteries flat for days
+- Running them until the inverter cuts off every single night
+
+If you're not comfortable checking the water yourself, a technician can do it during a routine visit.
+
+## Can One Bad Battery Affect the Others?
+
+Yes. In a battery bank, the weakest battery sets the pace for all of them.
+
+If one battery in a bank of two or four is weak, the whole bank drains early. This is why replacing only one battery in an old bank often disappoints. The new one ends up working with the tired ones.
+
+Better choice: replace the whole bank at the same time, with the same brand, size and type.
+
+Less suitable choice: adding one new battery to old ones to "boost" backup.
+
+## How Can I Make My Inverter Battery Last Longer in Isolo or Ojodu?
+
+Start with how you use it at night.
+
+1. Keep heavy loads off the battery. Iron, use the microwave and run the pumping machine when NEPA has light or the generator is on.
+2. Switch off what you're not using at night, like extra bulbs and TVs.
+3. Don't let the battery run flat every night. Stopping at about half helps tubular batteries last longer.
+4. Keep the battery room cool and airy. Heat shortens battery life.
+5. Keep the terminals clean and tight. White or green powder on them means they need attention.
+
+## Is It Safe to Check the Battery Myself?
+
+You can look, but be careful about touching.
+
+Reading the inverter screen, checking the water indicators and noting how long your backup lasts are all safe. Tightening terminals or cleaning off rust is a job for a technician, because a battery can spark badly when a metal tool touches both terminals.
+
+Call a technician straight away if a battery is swollen, leaking, very hot or smells like rotten eggs. Switch off the inverter and the battery breaker if it's safe to reach, and keep children away. Please don't open the inverter's case.
+
+## When to Call a Technician in Ikeja, Lekki or Anywhere in Lagos
+
+Call for help if:
+
+- The backup keeps getting shorter week after week
+- The battery never shows full, even after a long charge
+- A new battery is giving less backup than it should
+- A battery is hot, swollen, leaking or smells
+
+Before you call, note how old the batteries are, the type (tubular or lithium), what usually runs at night, and how many hours the backup now lasts. A photo of the inverter screen helps too. You can send these to us on WhatsApp, and asking questions costs nothing. If the system needs work, you can book a visit through our [maintenance and repair service](/services/solar-maintenance-repair).
+
+## The Bottom Line: Why Is My Inverter Battery Not Giving Backup?
+
+An inverter battery stops giving backup when it's worn out, isn't getting a full charge, or is carrying more load than it was sized for.
+
+The simplest way to tell the difference:
+
+If backup is short even after a full charge, the battery is likely tired. If it never charges fully, the problem is the charging.
+
+Start with what you can see: the screen, the water level and what runs at night. Once you know which it is, you'll know whether you need a small fix or new batteries, and you won't pay for the wrong one.`,
+  },
 ];

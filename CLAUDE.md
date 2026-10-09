@@ -183,7 +183,7 @@ owner's reference post ("Is Zobo Good for Diabetes?"). What that means here:
 - Short paragraphs, often one sentence. Plain words. "You", not "customers".
   House style still applies (no em dashes, provable claims only).
 
-**Published (13, all in `src/lib/blog-seed-data.ts`, seeded via `npm run seed:blog`):**
+**Published (14, all in `src/lib/blog-seed-data.ts`, seeded via `npm run seed:blog`):**
 solar panel installation cost in Lagos; best solar installers in Lagos; solar and
 inverter installation in Lagos (complete guide); inverter vs generator in Lagos;
 lithium vs tubular battery in Lagos; how long solar installation takes in Lagos;
@@ -192,7 +192,7 @@ score 92, the slug check warns only because slugify strips the dot); what can a
 5kVA inverter carry (`/blog/what-can-a-5kva-inverter-carry`, score 100); solar
 energy for home in Lagos (`/blog/solar-energy-for-home-in-lagos`, the pillar post
 for the 5,000/month home terms, score 100); what size inverter do I need
-(`/blog/what-size-inverter-do-i-need`, score 100). All four went live 23 Sept 2026. Inverter not charging (`/blog/inverter-not-charging`, score 100, a 7-step fault checklist with safety notes and when to call a technician) went live 26 Sept 2026; Unsplash featured + 2 body images added 28 Sept 2026. Inverter beeping (`/blog/inverter-beeping`, score 100, the first post in the zobo tone with Lagos areas in the headline and H2s, and Unsplash featured + body images) went live 28 Sept 2026. Inverter overload (`/blog/inverter-overload`, score 100, zobo tone, Gbagada/Festac in the headline, Magodo/Sangotedo/VI/Ikoyi in H2s and body, Unsplash power strip featured + pressing iron body image) went live 3 Oct 2026.
+(`/blog/what-size-inverter-do-i-need`, score 100). All four went live 23 Sept 2026. Inverter not charging (`/blog/inverter-not-charging`, score 100, a 7-step fault checklist with safety notes and when to call a technician) went live 26 Sept 2026; Unsplash featured + 2 body images added 28 Sept 2026. Inverter beeping (`/blog/inverter-beeping`, score 100, the first post in the zobo tone with Lagos areas in the headline and H2s, and Unsplash featured + body images) went live 28 Sept 2026. Inverter overload (`/blog/inverter-overload`, score 100, zobo tone, Gbagada/Festac in the headline, Magodo/Sangotedo/VI/Ikoyi in H2s and body, Unsplash power strip featured + pressing iron body image) went live 3 Oct 2026.  Inverter battery not giving backup (`/blog/inverter-battery-not-giving-backup`, score 100, zobo tone, Surulere/Yaba in the headline, Ikorodu/Ajah/Isolo/Ojodu/Ikeja/Lekki in H2s, battery terminals featured + candle body image from Unsplash, runtime figures match the 3.5kVA post) went live 9 Oct 2026.
 Home-size starting points in these posts follow the owner's `PACKAGES` in
 `src/lib/costing.ts` (1.5kVA + 2 panels, 3.5kVA + 4, 5kVA + 6, 10kVA + 12, all
 550W), so keep future posts on the same pairings. The 5kVA post's panel range was
@@ -208,7 +208,7 @@ the post should answer as H2 questions):
 
 1. (published 28 Sept 2026, was: Why Is My Inverter Beeping?)
 2. (published 3 Oct 2026 as `/blog/inverter-overload`, score 100, was: Inverter Showing Overload)
-3. Inverter Battery Not Giving Backup? Why It Drains Fast [inverter battery not giving backup] (draining fast, not holding charge, tubular battery not holding charge, battery suddenly draining fast; also how long an inverter battery should last)
+3. (published 9 Oct 2026 as `/blog/inverter-battery-not-giving-backup`, score 100, was: Inverter Battery Not Giving Backup? Why It Drains Fast)
 4. Inverter Showing Fault or Red Light: What the Error Codes Mean [inverter showing fault] (fault light, red light, error 09/04/15, short circuit, BP, how to reset inverter fault)
 5. Why Does My Inverter Keep Tripping or Switching On and Off? [inverter keeps tripping] (tripping breaker, earth leakage, switching on and off, turning off, shuts down randomly)
 6. Solar Panel Not Charging Battery: Causes and What to Check [solar panel not charging battery] (solar not generating power, not producing full power, charge controller not charging, solar not charging at all; link to the live inverter-not-charging post)

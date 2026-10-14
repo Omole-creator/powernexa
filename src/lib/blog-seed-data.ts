@@ -1483,4 +1483,177 @@ If backup is short even after a full charge, the battery is likely tired. If it 
 
 Start with what you can see: the screen, the water level and what runs at night. Once you know which it is, you'll know whether you need a small fix or new batteries, and you won't pay for the wrong one.`,
   },
+  {
+    slug: "inverter-showing-fault",
+    title: "Inverter Showing Fault or Red Light? What It Means in Ogba, Ajah and Across Lagos",
+    excerpt:
+      "Your inverter has a red light on, or the screen shows a fault code like 04, 07 or 09. Here's what the common codes mean, how to reset a fault safely, and when to stop and call a technician.",
+    category: "Guides",
+    tags: ["inverter", "repairs", "troubleshooting"],
+    focusKeyword: "inverter showing fault",
+    metaTitle: "Inverter Showing Fault? What the Red Light and Codes Mean",
+    metaDescription:
+      "Inverter showing fault, a red light or error 04, 07 or 09? Learn what common inverter fault codes mean, how to reset a fault safely, and when to call for help.",
+    featuredImage: "https://www.powernexasolutions.site/images/blog/inverter-showing-fault-red-display.jpg",
+    featuredImageAlt: "Inverter showing fault: red digital readings on a row of electrical meters",
+    authorName: "PowerNexa Solutions Team",
+    publishedDaysAgo: 0,
+    content: `An inverter showing fault is telling you it found a problem and stopped, or is about to stop, to protect itself. Most inverters do this with a red light, a word like "FAULT" on the screen, a number code, or all three.
+
+But if your inverter in Ogba or Ajah suddenly goes quiet with a red light on and a code you've never seen, you may be wondering: is the inverter damaged, or is this something you can clear yourself?
+
+The answer depends largely on what the code is and whether it comes back.
+
+Some faults are the inverter reacting to something outside it, like too much load, a flat battery or a hot room. Those often clear once the cause is gone. Others point to a problem inside the inverter, and those need a technician.
+
+## What Does a Red Light on an Inverter Mean?
+
+It usually means a fault or a warning.
+
+On many hybrid inverters, a red light that stays on means the inverter has found a fault and may have cut power to your home. A red light that blinks, often with beeping, is usually a warning. The inverter is still working, but something needs your attention, such as low battery or too much load.
+
+The exact meaning changes from brand to brand. The section of your manual on lights and fault codes has the final word for your model. If you don't have the manual, most makers put it online. Search for the model number printed on the label at the side of the inverter.
+
+A common mix-up is treating every red light as a dead inverter. It often isn't. Our guide on [inverter beeping](/blog/inverter-beeping) explains the warning beeps that often come with a blinking light.
+
+## Why Is My Inverter Showing Fault?
+
+Usually, it's one of a few things:
+
+- Too much load, or a heavy appliance starting up
+- Battery voltage too low, or too high
+- The inverter is too hot, or its fan has stopped
+- A short circuit in the wiring or in an appliance
+- The battery isn't connected properly
+- A problem with a part inside the inverter
+
+The code on the screen tells you which one the inverter thinks it is. That's why it helps to write the code down, or take a photo, before you do anything else.
+
+## What Do Inverter Fault Codes 01 to 09 Mean?
+
+Many hybrid inverters sold in Lagos share the same set of fault codes. If yours shows a two-digit number with a fault icon, this list is a good place to start:
+
+- 01 means the fan is stuck or not spinning.
+- 02 means the inverter is too hot.
+- 03 means the battery voltage is too high.
+- 04 means the battery voltage is too low.
+- 05 means a short circuit on the output, or parts inside are too hot.
+- 06 means the output voltage is not normal.
+- 07 means overload: too much load ran for too long.
+- 08 means the voltage inside the inverter is too high.
+- 09 means the inverter couldn't start its internal power stage.
+
+On bigger models of the same family, you may also see higher numbers: 51 (too much current or a surge), 52 (voltage inside too low), 53 (the inverter couldn't start up), 56 (the battery isn't connected), 57 (a sensor inside has failed) and 58 (output voltage too low).
+
+Please treat this list as a guide, not a final answer. Codes like error 15 aren't on it, and some brands use the same number for something else. Check your manual for your exact model.
+
+## Which Inverter Faults Can I Clear Myself?
+
+The ones caused by something outside the inverter. You can often clear these by removing the cause and restarting.
+
+Faults you can usually deal with:
+
+- Overload (07). Switch off the heavy appliance, then restart. Our guide on [inverter overload](/blog/inverter-overload) goes through it step by step.
+- Low battery (04). Let the battery charge from NEPA, the generator or the sun. If it keeps happening, the battery may not be charging fully or may be wearing out. Our guide on an [inverter battery not giving backup](/blog/inverter-battery-not-giving-backup) can help.
+- Too hot (02) or a stuck fan (01). Switch off, let it cool, and clear anything blocking the vents.
+
+Faults that need a technician:
+
+- 05 or a short circuit warning that comes back after a reset
+- 08, 09, 52, 53 or 57, which usually point to a part inside the inverter
+- 03 (battery voltage too high), which can be a charging problem or a wrong battery setting
+- Any fault that comes with a burning smell, smoke or a hot, swollen battery
+
+## How Do I Reset an Inverter Fault in Ikotun or Egbeda?
+
+Most of the time, you reset it by switching everything off, waiting, and switching back on.
+
+1. Switch off your appliances, especially heavy ones like the pressing iron, AC and pumping machine.
+2. Switch the inverter off with its power button or switch.
+3. If your installer fitted breakers for the solar panels, NEPA and the battery, switch them off too, if you can reach them safely.
+4. Wait about five minutes.
+5. Switch the breakers back on. Many inverters want the battery on first, but check your manual for the right order.
+6. Switch the inverter on, then turn your appliances on one at a time.
+
+![A row of circuit breakers inside an open electrical box](/images/blog/inverter-showing-fault-breakers.jpg)
+
+*Photo: Unsplash*
+
+If the fault clears and stays gone, it was likely a one-off, such as a surge when NEPA brought light back. If it comes back straight away with only a few lights on, stop there. Resetting again and again won't fix a problem inside the inverter, and it can make it worse.
+
+## Why Is My Inverter Showing Short Circuit?
+
+Usually, something on the output side is faulty, such as an appliance, a socket or a cable.
+
+Water in a socket after rain, a burnt extension box or a damaged cable can all cause it. So can a faulty appliance, like an old fan or freezer.
+
+To find out where it is, switch off every breaker on the inverter's output side, then restart the inverter. If the short circuit warning is gone, turn the breakers back on one at a time. The one that brings it back is where the problem is. Leave that circuit off and call a technician.
+
+If it still shows short circuit with every output breaker off, the fault is likely inside the inverter. Don't keep restarting it.
+
+## What Does "BP" Mean on My Inverter?
+
+On many inverters, "BP" means the inverter can't find the battery.
+
+It can show up when:
+
+- A battery cable is loose, or a terminal is rusty
+- The battery breaker or fuse is off or blown
+- The battery is so flat that the inverter can't see it
+- A lithium battery has switched itself off to protect itself
+
+Check that the battery breaker is on and the battery isn't completely flat. Leave the terminals and cables to a technician, because a battery can spark badly if a metal tool touches both terminals.
+
+If you're not sure what the code on your screen means, PowerNexa can check it for you.
+
+## Why Does My Inverter Show Fault Only When NEPA Brings Light?
+
+Often, because of the jump in voltage when NEPA comes back.
+
+When light returns, the voltage can rise or fall sharply for a few seconds. Some inverters see that as a fault and stop for a moment. Homes in Maryland, Ilupeju and across Lagos where the voltage swings a lot may see this more often.
+
+If the fault clears by itself and comes back only now and then, it may not be serious. If it happens every time and the inverter won't switch back to NEPA, a technician should check the input settings and wiring. Our guide on an [inverter not charging](/blog/inverter-not-charging) covers what to check when the inverter won't take NEPA or solar.
+
+## Is It Safe to Keep Using an Inverter That Shows Fault?
+
+Not if the fault keeps coming back.
+
+A one-off fault that clears after a restart and doesn't return is usually fine. A fault that keeps returning means something is wrong, and using it like that can damage the inverter, the battery or your appliances.
+
+Switch off the inverter and the battery breaker if it's safe to reach, and call a technician straight away if you notice:
+
+- A burning smell or smoke
+- A hot, swollen or leaking battery
+- Sparks, or a hot socket or plug
+- The inverter case is very hot to touch
+
+Please don't open the inverter's case. Some parts inside can hold a dangerous charge even after it's switched off.
+
+![A technician testing an electrical panel with a multimeter](/images/blog/inverter-showing-fault-technician.jpg)
+
+*Photo: Unsplash*
+
+## What to Tell a Technician in Lekki, Chevron or Anywhere in Lagos
+
+Call for help if:
+
+- The same fault comes back after every reset
+- It shows a short circuit with every output breaker off
+- The code points to a part inside the inverter
+- The fault comes with a smell, smoke, sparks or heat
+
+Before you call, take a photo of the screen showing the code, and note the make and model of the inverter, how old it is, and what was running when the fault started. This saves time and helps the technician bring the right parts.
+
+You can send these to us on WhatsApp. Asking questions costs nothing. If the system needs work, you can book a visit through our [maintenance and repair service](/services/solar-maintenance-repair).
+
+## The Bottom Line: What Does It Mean When Your Inverter Is Showing Fault?
+
+An inverter showing fault has found a problem and stopped to protect itself, your battery and your appliances.
+
+The simplest way to tell the difference:
+
+A fault that clears after you remove the cause and restart was the inverter doing its job. A fault that keeps coming back means something needs fixing.
+
+Start with the code. Write it down, check what it means, and deal with the simple causes first: too much load, a flat battery or a hot room. If it still won't clear, you don't have to keep guessing. A technician can find the cause and tell you whether it's a small fix or a bigger repair.`,
+  },
 ];

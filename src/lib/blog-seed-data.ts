@@ -1656,4 +1656,204 @@ A fault that clears after you remove the cause and restart was the inverter doin
 
 Start with the code. Write it down, check what it means, and deal with the simple causes first: too much load, a flat battery or a hot room. If it still won't clear, you don't have to keep guessing. A technician can find the cause and tell you whether it's a small fix or a bigger repair.`,
   },
+  {
+    slug: "inverter-keeps-tripping",
+    title: "Inverter Keeps Tripping or Switching Off? Why It Happens in Ketu, Sangotedo and Across Lagos",
+    excerpt:
+      "Your inverter keeps tripping the breaker or the earth leakage, or it switches off and on by itself. Here's what usually causes it, how to find the problem safely, and when to call a technician.",
+    category: "Guides",
+    tags: ["inverter", "repairs", "troubleshooting"],
+    focusKeyword: "inverter keeps tripping",
+    metaTitle: "Inverter Keeps Tripping? Why It Happens and What to Check",
+    metaDescription:
+      "Inverter keeps tripping the breaker or earth leakage, or switching on and off? Learn the common causes, how to find the fault safely, and when to call for help.",
+    featuredImage: "https://www.powernexasolutions.site/images/blog/inverter-keeps-tripping-breakers.jpg",
+    featuredImageAlt: "Inverter keeps tripping: a row of circuit breakers in an open electrical panel",
+    authorName: "PowerNexa Solutions Team",
+    publishedDaysAgo: 0,
+    content: `When your inverter keeps tripping, something is cutting the power to your home over and over. Sometimes it's the inverter switching itself off. Sometimes it's a breaker or the earth leakage switch in your distribution box.
+
+But if the lights in your home in Ketu or Sangotedo keep going off every few minutes, even with the inverter on, you may be wondering: is the inverter faulty, or is something else causing it?
+
+The answer depends largely on what trips and when it trips.
+
+Most of the time, the inverter and the breakers are doing their job. They cut power because they found too much load, a short circuit or current leaking where it shouldn't. The cause is often an appliance, a socket or the wiring, not the inverter itself.
+
+## What Does It Mean When Your Inverter Keeps Tripping?
+
+It means a protection device keeps cutting power. The first step is to find out which one.
+
+There are three common ones:
+
+- The inverter itself. It switches off, often with a beep, a red light or a code on the screen.
+- A breaker in your distribution box or near the inverter. Its switch drops down to "off".
+- The earth leakage switch, often called the ELCB or RCD. It's usually the wider switch in the box, with a small "test" button on it.
+
+People often call all three "the inverter tripping". But each one points to a different cause, so it helps to look before you reset anything. Walk to the box and note which switch is down.
+
+## Why Does My Inverter Keep Tripping?
+
+Usually, it's one of these:
+
+- Too much load, or a heavy appliance starting up
+- A short circuit in an appliance, a socket or a cable
+- Current leaking to earth, often from water or a faulty appliance
+- A breaker or cable that's too small for the load on it
+- A loose or burnt connection
+- A low battery, which makes the inverter cut off
+- The inverter getting too hot
+
+If the inverter itself shows "overload" or a code, start with our guide on [inverter overload](/blog/inverter-overload). If it shows another code, our guide on an [inverter showing fault](/blog/inverter-showing-fault) explains the common ones.
+
+## Why Does My Inverter Breaker Keep Tripping?
+
+Usually, because the breaker is carrying more current than it's rated for.
+
+A breaker has a number on it, such as 16A, 32A or 63A. That's how much current it can carry before it trips. If the appliances on that circuit draw more, it trips. That's what it's meant to do.
+
+This often happens when:
+
+- A pressing iron, kettle, microwave or AC runs on the same circuit as other heavy things
+- An extension box has too many things plugged into it
+- An appliance with a motor, such as a pumping machine or freezer, pulls a big surge when it starts
+
+![Two plugs in one wall socket](/images/blog/inverter-keeps-tripping-plugs.jpg)
+
+*Photo: Unsplash*
+
+Sometimes the breaker itself is the problem. An old or cheap breaker can trip too early. A loose cable at the breaker can heat up and make it trip. You may notice the breaker feels warm or looks brown around the screws.
+
+A breaker that trips again straight away with nothing switched on usually means a short circuit somewhere on that line. Leave it off and call a technician.
+
+## Why Does My Inverter Trip the Earth Leakage?
+
+Because the earth leakage switch found current escaping from the wiring, usually through water or a faulty appliance.
+
+This switch watches the current going out to your home and the current coming back. If some of it leaks out along the way, through a damp wall, a wet socket or a person, it cuts the power fast. It's there to stop shocks and fires.
+
+Common causes in homes across Lagos:
+
+- Rain getting into an outside socket, a light fitting or a wall
+- An old freezer, fridge, water heater or pumping machine with a leak inside
+- A pressing iron or kettle that has started to fail
+- Damaged cable inside a wall or ceiling
+- A mistake in how the inverter's neutral and earth were wired into the house
+
+On that last point: many inverters treat the neutral and earth wires in a certain way when they run on battery. If your house wiring doesn't match how the inverter works, the earth leakage switch can trip every time the inverter takes over. This is a wiring job for a technician, not something to change yourself.
+
+Please don't remove or bypass the earth leakage switch to stop it tripping. It protects your family from shocks.
+
+## Why Does My Inverter Trip When NEPA Brings Light?
+
+Often, because of what happens in the few seconds when light comes back.
+
+When NEPA restores power, the inverter switches from battery back to NEPA. At that moment:
+
+- The voltage can jump or dip sharply for a few seconds
+- Fridges, freezers and ACs may all try to start at once
+- The inverter starts charging the battery, which adds more load on the input
+
+Any of these can trip a breaker. If the earth leakage trips only at this moment, the cause is often the neutral and earth wiring we talked about above, or the way the changeover was connected.
+
+It helps to change one habit. When NEPA takes light, switch off the AC and other heavy appliances. Turn them back on one at a time a few minutes after light returns.
+
+If it still trips every time, a technician should check the input wiring and the changeover.
+
+## Why Is My Inverter Tripping Off While Charging?
+
+Usually, because the input side is carrying too much at once.
+
+When NEPA or your generator is on, it does two jobs. It powers your home, and it charges the battery through the inverter. The charging can add a lot of current on top of your normal load.
+
+So the input breaker, or a small generator, can trip or struggle. This is common when a small generator in Abule Egba or anywhere else is asked to carry a full house and charge a big battery bank at the same time.
+
+What can help:
+
+- Run fewer appliances while the battery charges
+- Ask a technician to lower the inverter's charging current setting, if your model allows it
+- Check that the input breaker and generator are big enough for the inverter
+
+If the inverter won't take a charge at all, our guide on an [inverter not charging](/blog/inverter-not-charging) walks through what to check.
+
+## Why Does My Inverter Keep Switching On and Off?
+
+Often, it's the battery.
+
+When a battery is weak or nearly flat, its voltage drops as soon as the inverter puts load on it. The inverter sees the low voltage and switches off. Without load, the voltage climbs back up a little, so the inverter switches on again. Then it drops again. This cycle can repeat many times.
+
+Other causes include:
+
+- A loose or rusty battery cable, which makes the voltage jump up and down
+- The inverter getting too hot, switching off to cool, then starting again
+- An overload that the inverter keeps trying to restart
+- NEPA voltage swinging so much that the inverter keeps moving between NEPA and battery
+
+If it happens mostly at night, or when the battery has been running for a while, the battery is the first thing to check. Our guide on an [inverter battery not giving backup](/blog/inverter-battery-not-giving-backup) covers how to tell if a battery is wearing out.
+
+If you're not sure what's causing it, PowerNexa can check your system and tell you.
+
+## Why Does My Inverter Keep Blowing Fuses?
+
+Usually, because of a short circuit, a surge or a fuse that's too small.
+
+A fuse is a one-time safety device. If it blows once after a storm or a big surge, replacing it with the same size may be enough. If it keeps blowing, something is drawing too much current.
+
+Please never replace a fuse with a bigger one, or with a piece of wire, to stop it blowing. That removes the protection and can start a fire. A technician should find what's blowing it.
+
+## How Do I Find What Is Tripping My Inverter in Ogudu or Oshodi?
+
+Start simple, and work one step at a time.
+
+1. Note what trips: the inverter, a breaker or the earth leakage switch.
+2. Note what was running when it tripped, and whether it had just rained.
+3. Unplug the appliance you suspect, such as the pressing iron, pumping machine or freezer.
+4. Switch off all the breakers for your home's circuits.
+5. Reset the one that tripped, or restart the inverter.
+6. Turn the circuit breakers back on one at a time, waiting a minute between each.
+
+If it trips when one breaker goes back on, the problem is on that circuit. Leave it off. Then plug appliances back in one at a time on the other circuits to see if one of them sets it off.
+
+![An opened wall socket with wires showing](/images/blog/inverter-keeps-tripping-socket-wiring.jpg)
+
+*Photo: Unsplash*
+
+If it trips even with every circuit off, the problem is likely in the inverter, the battery connection or the main wiring. Stop resetting it at that point.
+
+## When Is a Tripping Inverter Dangerous?
+
+When it comes with heat, smoke or a burning smell.
+
+Switch off the inverter and the battery breaker if it's safe to reach, and call a technician straight away if you notice:
+
+- A burning smell, smoke or sparks
+- A socket, plug or breaker that's hot or brown
+- A tingle or shock from an appliance or a wall
+- A hot, swollen or leaking battery
+
+Please don't open the inverter's case or the distribution box. Parts inside can still hold a dangerous charge even when the power is off.
+
+## What to Tell a Technician in Agege, Ikota or Anywhere in Lagos
+
+Call for help if:
+
+- The same breaker or earth leakage switch trips again right after you reset it
+- It trips even with every circuit switched off
+- It trips every time NEPA brings light or the inverter takes over
+- The inverter keeps switching on and off with a fully charged battery
+- You smell burning or see heat damage
+
+Before you call, note which switch trips, when it happens, what was running, and the make and model of your inverter and battery. A photo of the distribution box and the inverter screen helps too.
+
+You can send these to us on WhatsApp. Asking questions costs nothing. If the system needs work, you can book a visit through our [maintenance and repair service](/services/solar-maintenance-repair).
+
+## The Bottom Line: Why Does Your Inverter Keep Tripping?
+
+When your inverter keeps tripping, a safety device is cutting power because it found too much load, a short circuit, a leak to earth or a battery problem.
+
+The simplest way to tell them apart:
+
+If it trips when you switch something on, it's usually the load. If it trips after rain or when NEPA brings light, it's usually leakage or wiring. If it switches on and off by itself, check the battery first.
+
+Start by finding which switch trips and when. Deal with the simple causes first: too many appliances, one faulty appliance, a flat battery. If it still won't stay on, you don't have to keep resetting it. A technician can trace the fault and tell you whether it's a quick fix or a bigger job.`,
+  },
 ];

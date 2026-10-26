@@ -1856,4 +1856,200 @@ If it trips when you switch something on, it's usually the load. If it trips aft
 
 Start by finding which switch trips and when. Deal with the simple causes first: too many appliances, one faulty appliance, a flat battery. If it still won't stay on, you don't have to keep resetting it. A technician can trace the fault and tell you whether it's a quick fix or a bigger job.`,
   },
+  {
+    slug: "solar-panel-not-charging-battery",
+    title: "Solar Panel Not Charging Battery? Causes and What to Check in Ikorodu, Lekki and Across Lagos",
+    excerpt:
+      "The sun is out but your battery isn't filling up. Here's how to tell if your panels are charging at all, the common reasons they stop, what you can check safely, and when to call a technician.",
+    category: "Guides",
+    tags: ["solar panels", "batteries", "troubleshooting"],
+    focusKeyword: "solar panel not charging battery",
+    metaTitle: "Solar Panel Not Charging Battery? Causes and What to Check",
+    metaDescription:
+      "Solar panel not charging battery? Learn the common causes, from dirt and shade to settings and loose connectors, what to check safely, and when to get help.",
+    featuredImage: "https://www.powernexasolutions.site/images/blog/solar-panel-not-charging-battery-rooftop.jpg",
+    featuredImageAlt: "Solar panel not charging battery: rows of solar panels on a flat roof under a grey sky",
+    authorName: "PowerNexa Solutions Team",
+    publishedDaysAgo: 0,
+    content: `Your solar panels turn sunlight into power, and the inverter or charge controller sends that power into your battery. So a solar panel not charging battery banks fully, or at all, means something along that path has stopped the power or slowed it down.
+
+But if the sun was out all afternoon in Ikorodu or Lekki and your battery still dies before midnight, you may be wondering: are the panels faulty, or is something else wrong?
+
+The answer depends largely on whether the panels are making power at all.
+
+Most of the time, the panels are fine. The cause is often dirt, shade, a setting, a loose connector or simply too few panels for what the house uses. A panel that has truly died is less common than people think.
+
+## How Do I Know If My Solar Panel Is Charging the Battery?
+
+Look at the inverter's screen in bright daylight. It will tell you.
+
+Most hybrid inverters show a solar or "PV" reading. You may see:
+
+- PV voltage, the voltage coming from the panels
+- PV power, in watts, how much the panels are giving right now
+- A charging icon, or the charging current in amps
+
+If PV voltage shows zero in bright sun, power from the panels isn't reaching the inverter. That points to the wiring, a breaker or a connector.
+
+If PV voltage is there but PV power is very low, the panels are connected but something is holding them back. That could be dirt, shade, a setting or a full battery.
+
+One thing to know: when the battery is nearly full, charging slows right down. A low reading in the late afternoon, after a sunny day, can be normal.
+
+## Solar Panel Not Charging Battery: Why Does It Happen?
+
+Usually, it's one of these:
+
+- The solar breaker or isolator is off
+- A loose, burnt or wet connector on the roof
+- Dirt, bird droppings or shade on the panels
+- A setting on the inverter that blocks or limits solar charging
+- The panels are wired in a way the inverter can't accept
+- The battery's own protection has switched it off
+- Too few panels for what the home uses
+
+## Is the Solar Breaker Off?
+
+Check this first. It's the simplest cause.
+
+Most systems have a solar breaker or isolator, a switch between the panels and the inverter. It's usually on the wall near the inverter, sometimes in a small box marked "PV" or "DC".
+
+If it's off, switch it on once. If it trips again, leave it off and call a technician. Something on the solar side is wrong, and a DC fault can get hot fast.
+
+## Why Is My Solar Inverter Charging From NEPA But Not From Solar?
+
+Often, it's a setting or a connection on the solar side.
+
+Hybrid inverters have a setting for where the battery charges from. Brands name it differently, but you'll often see "charger source priority" with choices like solar first, solar and utility, or utility only. If it's set to utility only, the panels won't charge the battery, even in full sun. A reset or a wrong button press can change it.
+
+Other common causes:
+
+- A connector on the roof has come loose, burnt or let in water. The round plug-in connectors between panels, often called MC4, are a common weak point.
+- Rats have chewed the solar cable in the ceiling. It happens in homes in Gbagada, Festac and across Lagos, and the panels stop charging even though they look fine.
+- The panels give a voltage outside what the inverter accepts. If too many or too few panels are joined together, the inverter may ignore them. Your manual lists the accepted "PV input" range.
+
+If NEPA charging is also not working, start with our guide on an [inverter not charging](/blog/inverter-not-charging), which covers both sides.
+
+## Why Is My Solar Panel Not Producing Full Power?
+
+Because panels almost never give their full rated power on a roof.
+
+A 550W panel is tested in lab conditions. On a Lagos roof, heat, dust and the angle of the sun all cut what it gives. On a good sunny day, you may see something like 300W to 450W from a 550W panel around midday, and less in the morning and evening. That's normal.
+
+It drops further when:
+
+- Dust, sand or bird droppings sit on the glass
+- A tree, water tank, wall or new building shades part of the panels
+- Leaves collect at the bottom edge
+- The panels face the wrong way or lie too flat
+- One panel or connector in a string is faulty
+
+Shade can do a lot of harm. When panels are joined in a string, shade on one panel can pull down the output of the whole string, not just that one panel.
+
+![Solar panels being cleaned with a long-handled brush](/images/blog/solar-panel-not-charging-battery-cleaning.jpg)
+
+*Photo: Unsplash*
+
+Cleaning helps if the panels are dirty. Use clean water and a soft brush or sponge, early in the morning or late in the evening when the glass is cool. Don't use soap powder, a hard brush or a pressure washer. And please don't climb a roof that isn't safe to stand on.
+
+## Why Is My Solar Not Charging the Battery Fully?
+
+Usually, because the panels make less power than the home uses during the day.
+
+The panels are working, but the house uses most of their power before any reaches the battery.
+
+In the daytime, the panels do two jobs. They run your fridge, TV, fans and anything else that's on, and they charge the battery with whatever is left. If you run a pressing iron, a pumping machine or an AC in the afternoon, there may be nothing left for the battery.
+
+As a rough guide, one 550W panel gives about 1.6kWh on a good day in Lagos, based on about 4 hours of strong sun. In the rainy season, especially July and August, it's closer to 1.2kWh. A home in Yaba or Surulere running a fridge, fans, TV and lights can use that much in a few hours.
+
+Other reasons a battery may not fill up:
+
+- The battery is old and can no longer hold its full charge
+- The battery type set on the inverter is wrong, so charging stops too early
+- The maximum charging current is set too low
+- Too few panels were installed for the battery size
+
+If your battery charges but still doesn't last the night, our guide on an [inverter battery not giving backup](/blog/inverter-battery-not-giving-backup) explains how to tell if the battery is wearing out.
+
+If you're not sure whether your system has enough panels, PowerNexa can check it and tell you.
+
+## Can Rain, Clouds or Harmattan Stop Solar From Charging?
+
+They can slow it down a lot, but they rarely stop it completely.
+
+![Wet solar panels after rain](/images/blog/solar-panel-not-charging-battery-rain.jpg)
+
+*Photo: Unsplash*
+
+On a heavy, cloudy day in the rainy season, panels can give a small part of what they give on a sunny day. A battery that fills by 2pm in December may not fill at all on a grey day in July.
+
+Harmattan haze also cuts sunlight, and the fine dust it leaves on panels cuts it more. A gentle clean after harmattan can help.
+
+So a slow week of charging in the rains doesn't always mean a fault. If charging stays poor on clear, sunny days, that's when to look further.
+
+## Why Is My Charge Controller Not Charging the Battery?
+
+If your system uses a separate charge controller, the cause is often the wiring order, the settings or the panel voltage.
+
+Some older or smaller systems have the panels going into a separate box, the charge controller, instead of a hybrid inverter. Common reasons it won't charge:
+
+- The battery wasn't connected to the controller before the panels. Many controllers need to see the battery first to know its voltage.
+- The battery voltage setting is wrong, for example set to 12V on a 24V bank
+- The panels give too much voltage for the controller, or too little to charge
+- A small PWM controller is paired with panels it wasn't made for
+- A blown fuse or loose cable between the controller and the battery
+
+Check the controller's lights or screen and its manual. If you see an error, or anything looks burnt, call a technician rather than swapping cables yourself.
+
+## Why Is My Solar Not Charging My Lithium Battery?
+
+Often, it's the battery's own protection, called the BMS, or a communication problem between the battery and the inverter.
+
+A lithium battery can switch itself off if it got too flat, too hot or found a fault. Some inverters then can't see the battery, so they won't charge it from any source.
+
+Many lithium batteries also talk to the inverter through a data cable. If that cable is loose, or set up for the wrong battery brand, the inverter may stop charging early or refuse to charge. Check that the battery's power switch is on and look at its lights for an alarm. Fixing the communication settings is a job for your installer.
+
+## Is It Safe to Check Solar Panels Myself?
+
+Some checks are safe. Others are not.
+
+Safe for you to do:
+
+- Read the inverter or controller screen
+- Check if the solar breaker is on
+- Look at the panels from the ground for dirt, leaves or shade
+- Note what's running in the house during the day
+
+Leave to a technician:
+
+- Unplugging or replacing roof connectors
+- Opening the inverter, the controller or any DC box
+- Working on the roof itself
+- Testing panels with a meter
+
+Solar panels make power whenever light hits them. You can't switch them off at the panel. Pulling apart a connector while current flows can cause a spark that burns you or starts a fire. Please don't open the inverter, and don't touch bare solar cables.
+
+## What to Tell a Technician in Isolo, Ojodu or Anywhere in Lagos
+
+Call for help if:
+
+- PV voltage shows zero in bright sun and the solar breaker is on
+- The solar breaker trips again after you reset it
+- You see a burnt or melted connector, or smell burning near the inverter
+- Charging stays poor on clear days after the panels are cleaned
+- A lithium battery shows an alarm or won't switch on
+
+Before you call, take a photo of the inverter screen around midday, showing PV voltage and PV power. Note the make and model of your inverter and battery, how many panels you have and their size, and when the problem started.
+
+You can send these to us on WhatsApp. Asking questions costs nothing. If the system needs work, you can book a visit through our [maintenance and repair service](/services/solar-maintenance-repair). If you simply need more panels, see our [solar panel installation](/services/solar-panel-installation) service.
+
+## The Bottom Line: Why Is Your Solar Panel Not Charging Your Battery?
+
+When a solar panel is not charging the battery, the cause is usually a switch, a setting, a connector, dirt or shade, or a home that uses more power in the day than the panels make.
+
+The simplest way to tell them apart:
+
+If the screen shows zero PV voltage in full sun, it's the wiring or a breaker. If it shows power but the battery still won't fill, it's the load, the panels' size or the settings.
+
+Start with the screen and the solar breaker. Clean the panels if they're dirty, and watch what runs in the afternoon. If it still won't charge on a clear day, you don't have to keep guessing. A technician can test the panels and wiring and tell you whether it's a quick fix or your system needs more panels.`,
+  },
 ];

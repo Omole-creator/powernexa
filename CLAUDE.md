@@ -48,9 +48,9 @@ senior social media manager and make one finished post for @powernexas
 (Instagram, TikTok, X) by following `marketing/STRATEGY.md` section 9: pick the
 pillar/series from the rotation and `marketing/POSTS-LOG.md`, write the copy
 (humanizer, house style, provable claims only), build HTML slides on
-`marketing/templates/brand.css`, render them to PNG with
+`marketing/templates/inhouse.css`, render them to PNG with
 `node marketing/render.mjs <folder>` (headless Edge), check each PNG, write
-`caption.md` and log it. **Carousels are 3 slides at most.** Every carousel has a relevant Unsplash photo (always on slide 1), headlines use the hero type, and the only phone number on any social post is **0904 874 4395** (owner, 29 Sept 2026), never the website's 0813/0708 numbers. Captions follow the same "Is Zobo Good for Diabetes?" tone as the blog (owner, 29 Sept 2026; shape in `marketing/STRATEGY.md` section 7).
+`caption.md` and log it. **Carousels are 3 slides at most.** Every image and carousel follows the in-house template (`marketing/inhouse design.jpg`, built on `marketing/templates/inhouse.css`, owner 27 Oct 2026): one people photo melting into a navy/orange wash, Title Case headline in the template's font (Inter Tight), "Read Caption" pill, logo bottom-left, WhatsApp pill bottom-right, brand colours only. Slides and captions use plain 5th-grade English, **no pidgin** (owner, 27 Oct 2026; NEPA, gen and light are fine), that sounds like a person talking (no AI filler), and **captions are 100 words or less**, each given in its own code block so it copies in one go. The only phone number on any social post is **0904 874 4395** (owner, 29 Sept 2026), never the website's 0813/0708 numbers. Captions keep the "Is Zobo Good for Diabetes?" shape from the blog (owner, 29 Sept 2026), cut down to fit the 100 words (`marketing/STRATEGY.md` section 7).
 
 **All social media assets stay off GitHub** (owner, Sept 2026): the whole
 `marketing/` folder is gitignored and lives only on the owner's computer. Never
@@ -183,7 +183,7 @@ owner's reference post ("Is Zobo Good for Diabetes?"). What that means here:
 - Short paragraphs, often one sentence. Plain words. "You", not "customers".
   House style still applies (no em dashes, provable claims only).
 
-**Published (17, all in `src/lib/blog-seed-data.ts`, seeded via `npm run seed:blog`):**
+**Published (18, all in `src/lib/blog-seed-data.ts`, seeded via `npm run seed:blog`):**
 solar panel installation cost in Lagos; best solar installers in Lagos; solar and
 inverter installation in Lagos (complete guide); inverter vs generator in Lagos;
 lithium vs tubular battery in Lagos; how long solar installation takes in Lagos;
@@ -212,7 +212,7 @@ the post should answer as H2 questions):
 4. (published 14 Oct 2026 as `/blog/inverter-showing-fault`, score 100, was: Inverter Showing Fault or Red Light)
 5. (published 17 Oct 2026 as `/blog/inverter-keeps-tripping`, score 100, was: Why Does My Inverter Keep Tripping or Switching On and Off?)
 6. (published 26 Oct 2026 as `/blog/solar-panel-not-charging-battery`, score 100, was: Solar Panel Not Charging Battery)
-7. How to Calculate Inverter Battery Backup Time [how to calculate inverter battery backup time] (backup time, battery capacity; same runtime assumptions as the kVA posts)
+7. (published 1 Nov 2026 as `/blog/how-to-calculate-inverter-battery-backup-time`, score 100, was: How to Calculate Inverter Battery Backup Time)
 8. Inverter Not Turning On: What to Check [inverter not turning on] (solar inverter not turning on, not working after power cut, not giving output)
 9. Can an Inverter Carry a Pumping Machine? [can inverter carry pumping machine] (can solar power a pumping machine, can 3.5kVA/5kVA carry pumping machine)
 10. Lithium Battery Not Communicating With Inverter [lithium battery not communicating with inverter] (not charging to 100, not fully charging, not taking charge)

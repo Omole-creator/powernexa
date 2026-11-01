@@ -2052,4 +2052,220 @@ If the screen shows zero PV voltage in full sun, it's the wiring or a breaker. I
 
 Start with the screen and the solar breaker. Clean the panels if they're dirty, and watch what runs in the afternoon. If it still won't charge on a clear day, you don't have to keep guessing. A technician can test the panels and wiring and tell you whether it's a quick fix or your system needs more panels.`,
   },
+  {
+    slug: "how-to-calculate-inverter-battery-backup-time",
+    title: "How to Calculate Inverter Battery Backup Time for Homes in Ikeja, Ikoyi and Across Lagos",
+    excerpt:
+      "Want to know if your batteries will carry you till morning? Here's a simple way to work out inverter battery backup time with four numbers and a phone calculator, with worked examples for common Lagos battery banks.",
+    category: "Guides",
+    tags: ["battery", "inverter", "how-to"],
+    focusKeyword: "how to calculate inverter battery backup time",
+    metaTitle: "How to Calculate Inverter Battery Backup Time (Easy Way)",
+    metaDescription:
+      "Learn how to calculate inverter battery backup time in four steps, with worked examples for tubular and lithium batteries and why your backup may run shorter.",
+    featuredImage: "https://www.powernexasolutions.site/images/blog/how-to-calculate-inverter-battery-backup-time-calculator.jpg",
+    featuredImageAlt: "How to calculate inverter battery backup time: a calculator, notebook and pencil on a desk",
+    authorName: "PowerNexa Solutions Team",
+    publishedDaysAgo: 0,
+    content: `Inverter battery backup time is how long your batteries can keep things running after NEPA takes light. Learning how to calculate inverter battery backup time takes four numbers and the calculator on your phone.
+
+But if you live in Ikeja or Ikoyi and you want to know whether your batteries will carry you till morning, before you buy them or before you blame them, you may be wondering: is there a simple way to work it out?
+
+Yes, there is. The answer depends largely on three things: how much power your batteries hold, how much of it you can safely use, and what you switch on at night.
+
+The result is an estimate, not a promise. But it gets you close enough to plan, and close enough to notice when something is wrong.
+
+## What Is the Formula for Inverter Battery Backup Time?
+
+Here it is in one line:
+
+**Backup time (hours) = battery volts × amp-hours × usable share × 0.9 ÷ load in watts**
+
+What each part means:
+
+- Battery volts and amp-hours (Ah) are printed on the battery label. Multiply them and you get the power stored, in watt-hours (Wh).
+- Usable share is how much of that you can safely use. Use 0.5 (half) for tubular and other lead-acid batteries, and about 0.85 for lithium.
+- 0.9 allows for the inverter's own losses. Turning battery power into the 220V your home uses wastes about 10%.
+- Load in watts is what is switched on while the battery is running.
+
+Many online calculators leave out the usable share. That's why their answers often look better than what happens in your home.
+
+## How to Calculate Inverter Battery Backup Time, Step by Step
+
+Take a common setup: two 12V 200Ah tubular batteries.
+
+### Step 1: Find how much power your batteries store
+
+Multiply the volts by the amp-hours for one battery, then add up all the batteries.
+
+One 12V 200Ah battery stores 12 × 200 = 2,400Wh. Two of them store 4,800Wh, or 4.8kWh.
+
+For lithium, use the voltage printed on the label. Many batteries sold as "24V" say 25.6V on the label, and many "48V" ones say 51.2V.
+
+### Step 2: Work out how much you can safely use
+
+Multiply by 0.5 for tubular, or 0.85 for lithium.
+
+For our example: 4,800 × 0.5 = 2,400Wh.
+
+Draining a tubular battery flat night after night is one of the quickest ways to shorten its life. That's why only about half of it counts.
+
+### Step 3: Allow for the inverter's losses
+
+Multiply by 0.9.
+
+2,400 × 0.9 = 2,160Wh. This is what's left for your appliances.
+
+### Step 4: Add up your night load
+
+List what stays on after NEPA takes light, and find each one's watts on its label. If you can't find it, these figures are typical:
+
+| Appliance | Typical running watts |
+|---|---|
+| LED bulb | 7 to 12W each |
+| Standing or ceiling fan | 50 to 80W each |
+| TV and decoder | 80 to 150W |
+| Wi-Fi router | 10 to 20W |
+| Fridge | 100 to 200W |
+| Chest freezer | 100 to 200W |
+| 1HP inverter AC | 600 to 900W |
+
+A fridge or freezer doesn't run its motor all the time. It switches on and off through the night, so as a rough guide, count about half its watts.
+
+For our example, say six bulbs (60W), three fans (210W), the TV and decoder (120W), the router (15W) and a fridge counted at 100W. That's about 500 watts.
+
+There's an easier way, too. Many inverters show the load in watts on their screen. Check it at night with your usual things switched on, and you have your number.
+
+### Step 5: Divide
+
+2,160 ÷ 500 = 4.3 hours.
+
+So two 12V 200Ah tubular batteries carrying about 500 watts should give you about 4 hours of backup.
+
+## Do Two 12V 200Ah Batteries Give 400Ah?
+
+Not always. It depends on how they're joined.
+
+This is a common mix-up. Two 12V 200Ah batteries joined in series make a 24V 200Ah bank. Joined in parallel, they make a 12V 400Ah bank. Your inverter decides which one is used.
+
+But the power stored is the same either way: 4,800Wh. That's why it's easier to work in watt-hours. Volts times amp-hours gives the same answer however the batteries are joined.
+
+## Does a Bigger Inverter Give More Backup?
+
+No. The inverter's size decides how much you can run at once. The battery decides how long it runs.
+
+A 5kVA inverter on two batteries will not last longer than a 3.5kVA inverter on the same two batteries. A bigger inverter can even use a little more power just to stay switched on. Our guide on [what size inverter you need](/blog/what-size-inverter-do-i-need) explains how to choose both.
+
+## How Long Will My Inverter Battery Last in Okota or Ogudu?
+
+Here are worked answers for common battery banks in Lagos homes. The small load is about 500 watts (fans, lights, TV, fridge and router). The AC load adds a 1HP inverter AC, for about 1,200 watts.
+
+| Battery bank | Usable power after losses | About 500W | About 1,200W (with AC) |
+|---|---|---|---|
+| Two 12V 200Ah tubular | about 2.2kWh | about 4 hours | under 2 hours |
+| Four 12V 200Ah tubular | about 4.3kWh | about 8 hours | about 3 to 4 hours |
+| 25.6V 200Ah lithium ("24V") | about 3.9kWh | about 7 to 8 hours | about 3 hours |
+| 51.2V 200Ah lithium ("48V") | about 7.8kWh | about 15 hours | about 6 to 7 hours |
+
+These figures are for healthy batteries that started the night full. The AC makes the biggest difference. The same batteries last less than half as long once it's on.
+
+## Why Is My Backup Time Shorter Than the Calculation?
+
+Usually, because the battery wasn't full, it's getting old, or the load is bigger than you counted.
+
+![A light bulb hanging from the ceiling, switched off](/images/blog/how-to-calculate-inverter-battery-backup-time-bulb.jpg)
+
+*Photo: Unsplash*
+
+Common reasons:
+
+- The battery didn't charge fully. If NEPA only came for two hours, the night starts with a half-full battery.
+- The battery is getting old. Every battery holds less as it ages.
+- There are loads you forgot. Phone chargers, a security light outside, a TV left on standby, or someone switching on the pumping machine.
+- Heavy loads drain lead-acid batteries faster than the sum suggests. A tubular battery gives back less of its stored power when it's drained quickly.
+- The inverter cuts off early. It switches off when battery voltage drops to a set level, which can come before the battery is at the half mark.
+
+If your backup has been shrinking week after week, our guide on an [inverter battery not giving backup](/blog/inverter-battery-not-giving-backup) helps you find out why.
+
+## How Do I Work Out How Many Batteries I Need?
+
+Run the same formula backwards.
+
+1. Multiply your night load by the hours you want. 500 watts × 8 hours = 4,000Wh.
+2. Divide by 0.9 for the inverter's losses. 4,000 ÷ 0.9 = about 4,450Wh.
+3. Divide by the usable share. For tubular, 4,450 ÷ 0.5 = about 8,900Wh. For lithium, 4,450 ÷ 0.85 = about 5,200Wh.
+
+So for 8 hours at 500 watts, you'd need about four 12V 200Ah tubular batteries (9.6kWh), or a lithium battery of around 5kWh. A 51.2V 100Ah lithium battery stores about 5.1kWh, so it comes close, at a little under 8 hours.
+
+If you're not sure what size battery bank your home needs, PowerNexa can size it for you.
+
+Better choice:
+
+- Size the batteries for the load you really run at night, including the AC if you use one
+- Leave some room for things you'll add later, like a second fridge
+- Use the battery's usable share, not the full label size
+
+Less suitable choice:
+
+- Counting the full label size of a tubular battery
+- Sizing for the hours you'd like, then running an AC on it too
+- Adding one new battery to old ones to stretch the backup
+
+## Can Solar Panels Increase My Backup Time?
+
+Not at night, but they help in another way.
+
+Once the sun goes down, panels give nothing, so they can't add hours after dark. What they do is make sure the battery starts the night full. They also carry your daytime load, so the battery isn't being used up in the afternoon.
+
+That matters a lot in homes that get only a few hours of NEPA light. In the rainy season, especially July and August, panels give less, so a battery may start some nights only partly charged. Our guide on a [solar panel not charging the battery](/blog/solar-panel-not-charging-battery) covers what to check.
+
+## How Can I Make My Battery Last Longer at Night in Ikota or Victoria Island?
+
+Cut the load, and the hours go up. Halving your load roughly doubles your backup time.
+
+1. Iron, run the washing machine and pump water when there's NEPA light or strong sun.
+2. Use LED bulbs, and switch off the ones nobody needs.
+3. If you run an AC at night, set its timer to go off after a few hours.
+4. Switch off TVs and decoders at the socket, not just with the remote.
+5. Make sure the battery is fully charged before evening.
+
+## Is It Safe to Check My Battery Myself?
+
+Some checks are safe. Others are not.
+
+Safe for you to do:
+
+- Read the labels on your batteries and appliances
+- Read the inverter screen for load and battery level
+- Time how long your backup lasts on a normal night
+
+Leave to a technician:
+
+- Testing the battery terminals with a meter
+- Changing how the batteries are joined
+- Opening the inverter or the battery box
+
+A battery can spark badly when a metal tool touches both terminals. If a battery is swollen, very hot, leaking or smells like rotten eggs, switch off the inverter if it's safe to reach and call a technician. Please don't open the inverter's case.
+
+## When to Ask a Technician in Gbagada, Festac or Anywhere in Lagos
+
+Ask for help if:
+
+- Your backup is much shorter than your calculation, for example half or less
+- The battery never shows full, even after a long charge
+- You're planning new batteries and want the size right the first time
+- You want to add an AC or a freezer and aren't sure the batteries can take it
+
+Before you call, note the battery type, size and number, how old they are, what runs at night, and how long your backup now lasts. A photo of the inverter screen helps too. You can send these to us on WhatsApp, and asking questions costs nothing. If the batteries need replacing, see our [battery replacement service](/services/battery-replacement-storage). For repairs, you can book through our [maintenance and repair service](/services/solar-maintenance-repair).
+
+## The Bottom Line: How Do You Calculate Inverter Battery Backup Time?
+
+Multiply your battery's volts by its amp-hours. Multiply by 0.5 for tubular or 0.85 for lithium, then by 0.9 for the inverter. Divide by your load in watts. The answer is your backup time in hours.
+
+The simplest way to see it:
+
+The battery decides how much power you have. Your load decides how fast you use it.
+
+Work out your own numbers once, and you'll know what to expect each night. If your nights fall far short of the sum, you'll know it's time to look at the battery, the charging or the load, instead of guessing.`,
+  },
 ];

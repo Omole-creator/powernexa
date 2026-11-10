@@ -2268,4 +2268,201 @@ The battery decides how much power you have. Your load decides how fast you use 
 
 Work out your own numbers once, and you'll know what to expect each night. If your nights fall far short of the sum, you'll know it's time to look at the battery, the charging or the load, instead of guessing.`,
   },
+  {
+    slug: "inverter-not-turning-on",
+    title: "Inverter Not Turning On? What to Check in Magodo, Victoria Island and Across Lagos",
+    excerpt:
+      "You press the switch and nothing happens, or the screen comes on but the house stays dark. Here's what usually stops an inverter from turning on, what you can check safely, and when to call a technician.",
+    category: "Guides",
+    tags: ["inverter", "repairs", "troubleshooting"],
+    focusKeyword: "inverter not turning on",
+    metaTitle: "Inverter Not Turning On? Common Causes and What to Check",
+    metaDescription:
+      "Inverter not turning on, or not working after a power cut? Learn the common causes, the simple checks you can do safely, and when to call a technician.",
+    featuredImage: "https://www.powernexasolutions.site/images/blog/inverter-not-turning-on-power-button.jpg",
+    featuredImageAlt: "Inverter not turning on: a glowing power symbol on a dark button",
+    authorName: "PowerNexa Solutions Team",
+    publishedDaysAgo: 0,
+    content: `An inverter not turning on is either not getting the power it needs to start, or something has told it to stay off. Sometimes the whole unit is dead. Sometimes the screen lights up, but nothing in the house comes on.
+
+But if NEPA has just taken light in Magodo or Victoria Island, and you press the switch and nothing happens, you may be wondering: is the inverter spoilt?
+
+Not necessarily. The answer depends largely on what you see when you try to start it.
+
+Many times, the cause is outside the inverter. A battery breaker is off, a cable is loose, or the battery is too flat to start it. These are things you can check without opening anything.
+
+## What Does It Mean When Your Inverter Is Not Turning On?
+
+It can mean two different things, and it helps to know which one you have.
+
+- The inverter is completely dead. No screen, no light, no fan, no beep.
+- The inverter comes on, but there's no light in the house. The screen works, but no power reaches your sockets.
+
+People call both of these "the inverter not coming on". But a dead inverter usually points to the battery side. An inverter that's on but not giving output usually points to a setting, a breaker or a fault. We'll go through both.
+
+## Why Is My Inverter Not Turning On?
+
+Usually, it's one of these:
+
+- The battery breaker or isolator is switched off or has tripped
+- A battery cable is loose, rusty or burnt at the terminal
+- The battery is too flat to start the inverter
+- A lithium battery has switched itself off to protect itself
+- A fuse between the battery and the inverter has blown
+- The inverter shut down after an overload, a short circuit or a surge
+- A fault inside the inverter itself
+
+Most of these are on the battery side, so that's the best place to start.
+
+## Is the Battery the Reason My Inverter Won't Turn On?
+
+Often, yes.
+
+An inverter that runs on battery needs enough voltage from the battery to wake up. If that voltage doesn't reach it, the inverter stays dead. Here's what to look at, without touching any bare metal:
+
+-  Many systems have a breaker or isolator switch between the battery and the inverter. If it's off or has dropped down, the inverter gets nothing. Someone may have switched it off by mistake.
+-  Look at the terminals. White or green powder, a cable that moves when you touch its cover, or a melted look around the bolt can all stop power getting through.
+-  If the battery ran down to nothing the night before, the inverter may refuse to start until NEPA, your generator or the sun charges it a little.
+
+If your inverter died in the night and won't come back on in the morning, a flat battery is the most likely reason. Our guide on an [inverter battery not giving backup](/blog/inverter-battery-not-giving-backup) explains why a battery starts running down faster than it used to.
+
+## Why Won't My Inverter Turn On With a Lithium Battery?
+
+Sometimes, because the battery has gone to sleep.
+
+A lithium battery has a small control board inside it, called the BMS. If the battery gets too low, too hot or overloaded, the BMS can switch the battery off to protect it. From the inverter's side, it looks like there's no battery at all.
+
+Many lithium batteries have their own power button or switch on the front. If it's off, the inverter won't start. Some need that button pressed after a deep drain to wake them up. Check your battery's manual, or ask your installer how yours is meant to be started.
+
+If the lithium battery is on but the inverter still won't talk to it or charge it, that's a different problem, often a settings or cable issue. A technician should look at it.
+
+## Why Is My Inverter Not Working After a Power Cut?
+
+Often, because it was never running on battery at all.
+
+This is common in homes across Lagos. The inverter seems fine while NEPA is on, because NEPA is passing straight through it. Then NEPA takes light, the inverter has to switch to battery, and everything goes off.
+
+When that happens, the usual reasons are:
+
+- The battery breaker was off the whole time, so the inverter had nothing to switch to
+- The battery wasn't charging, so it was already flat when NEPA went
+- The changeover switch is on the wrong side
+- The inverter is set to run only on NEPA
+
+The last one surprises people. Many hybrid inverters have a setting for which power they use first. If someone changed it, the inverter may not switch to battery when light goes. Don't change settings you're not sure about. Ask a technician to check them.
+
+If the battery isn't charging when NEPA or the generator is on, our guide on an [inverter not charging](/blog/inverter-not-charging) walks through what to check.
+
+## Why Is My Inverter On But Not Giving Output in Ojota or Igando?
+
+Usually, because something between the inverter and your sockets is off, or the inverter has stopped the output on purpose.
+
+Check these first:
+
+-  There's usually a breaker that carries power from the inverter into your house. If it has tripped, the inverter is on but nothing reaches your sockets.
+-  If it's in the middle or on the NEPA side while NEPA is off, your house gets nothing.
+-  Look for "overload", "fault", a code or a red light. The inverter may have turned off its output to protect itself.
+
+If you see "overload", our guide on [inverter overload](/blog/inverter-overload) explains what to do. If you see a code or a red light, our guide on an [inverter showing fault](/blog/inverter-showing-fault) covers the common ones.
+
+If you're not sure what your system needs, PowerNexa can check it for you and explain what we find.
+
+## Why Is My Inverter Not Turning On Automatically?
+
+It depends on why it went off in the first place.
+
+Many inverters switch off when the battery gets too low. That's normal. It stops the battery from being damaged. When NEPA comes back, or your generator starts, or the sun comes up on a solar system, the inverter should start charging and come back on by itself.
+
+If it doesn't:
+
+- The input breaker may be off, so NEPA or the generator isn't reaching it
+- The battery may be so low that the inverter won't restart without help
+- On a solar system, the panels may not be giving enough power yet, early in the morning, on a very cloudy day or in harmattan haze
+- Some inverters simply need you to press the power button again after a low battery shutdown
+
+If yours needs to be switched on by hand every time light returns, it's worth asking a technician whether that's how your model works or a sign of a problem.
+
+## Inverter Not Working After Overload or a Short Circuit?
+
+First, take away the cause, then restart it once.
+
+An inverter that shut down after an overload or a short circuit is often fine. It switched off to protect itself. To bring it back:
+
+1. Switch off or unplug the heavy appliances, like the AC, pressing iron or pumping machine.
+2. Switch the inverter off.
+3. Wait a minute or two.
+4. Switch it back on with nothing heavy running.
+5. Turn your appliances back on one at a time.
+
+If it turns on, the inverter is likely fine, and the problem was the load. If it shuts down again with nothing plugged in, or it won't turn on at all, stop there. A blown fuse or damage inside needs a technician. If your breakers keep dropping, our guide on why an [inverter keeps tripping](/blog/inverter-keeps-tripping) can help you find the cause.
+
+## Inverter Not Working After Lightning in Ipaja or Ebute Metta?
+
+Please be careful here.
+
+![Lightning strikes over a city at night](/images/blog/inverter-not-turning-on-lightning.jpg)
+
+*Photo: Unsplash*
+
+Lightning can send a big surge through the NEPA lines, the panels on your roof or the cables in the walls. That surge can damage boards inside the inverter, even if the house looks fine.
+
+If your inverter stopped working right after a storm:
+
+- Don't keep switching it on and off to "see if it will come back"
+- Check for a burning smell or dark marks around the inverter, breakers and sockets
+- Call a technician to test it before you use it again
+
+Many systems have a surge protection device, called an SPD, in the box near the inverter. It's there to take the hit instead of the inverter. If you don't know whether yours has one, ask when the system is checked.
+
+## How Do I Check Why My Inverter Won't Turn On?
+
+Start with the simple things, and work one step at a time. Don't open the inverter.
+
+1. Note what you see. Is it completely dead, or is the screen on?
+2. Check that the battery breaker or isolator is on.
+3. If you have a lithium battery, check that its own power switch is on.
+4. Look at the battery terminals for powder, loose cables or burn marks. Look only, don't touch.
+5. Check the inverter's output breaker and your changeover switch.
+6. Read the screen for any code, "overload" or "low battery" message.
+7. If the battery might be flat, wait until NEPA, the generator or the sun can charge it, then try again.
+
+In a small flat in Ilasamaja or a big house in Opebi, these checks are the same. Most of the time, one of them shows you the answer.
+
+## When Is an Inverter Not Turning On a Sign of Danger?
+
+When it comes with heat, smoke or a smell.
+
+Switch off the battery breaker if it's safe to reach, keep everyone away, and call a technician straight away if you notice:
+
+- A burning smell, smoke or sparks
+- A hot, swollen or leaking battery
+- A melted or black cable or terminal
+- A loud bang from the inverter before it went dead
+
+Please don't open the inverter's case. Parts inside can hold a dangerous charge even when everything is switched off. And don't join battery cables or replace a fuse with a piece of wire. That removes the protection.
+
+## What to Tell a Technician in Opebi, Ojota or Anywhere in Lagos
+
+Call for help if:
+
+- The inverter is still dead after the checks above
+- It turns on but shuts down again with nothing plugged in
+- It stopped working after lightning, a burning smell or a bang
+- It won't switch to battery when NEPA goes, even with the battery breaker on
+- A lithium battery won't wake up
+
+Before you call, note what you saw, when it stopped working, and anything that happened just before, like rain, a storm or NEPA coming back. A photo of the inverter screen, the battery and the breakers helps a lot.
+
+You can send these to us on WhatsApp. Asking questions costs nothing. If the system needs work, you can book a visit through our [maintenance and repair service](/services/solar-maintenance-repair).
+
+## The Bottom Line: Why Is Your Inverter Not Turning On?
+
+When your inverter is not turning on, the cause is often on the battery side: a breaker that's off, a loose cable, or a battery that's too flat or has switched itself off.
+
+The simplest way to tell them apart:
+
+If the inverter is completely dead, check the battery side first. If the screen is on but the house is dark, check the breakers, the changeover and the screen.
+
+Start with the simple checks, one at a time, and look before you touch. If it still won't come on, you don't have to keep guessing. A technician can test the battery and the inverter and tell you whether it's a quick fix or a bigger repair.`,
+  },
 ];

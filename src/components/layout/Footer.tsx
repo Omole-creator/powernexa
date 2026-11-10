@@ -8,15 +8,14 @@ import {
   PHONE_DISPLAY,
   PHONE_E164,
   PHONE_DISPLAY_2,
-  PHONE_E164_2,
   SERVICES,
   SITE_NAME,
   SITE_TAGLINE,
   SOCIAL_HANDLE,
   SOCIAL_LINKS,
+  WHATSAPP_NUMBER_2,
 } from "@/lib/constants";
 import { EmailLink } from "./EmailLink";
-import { HomeFooterPhone } from "./HomeFooterPhone";
 import { SocialIcon } from "./SocialIcon";
 
 export function Footer() {
@@ -39,13 +38,17 @@ export function Footer() {
           <p className="mt-5 text-sm text-white/70">
             {BUSINESS_ADDRESS.street}, {BUSINESS_ADDRESS.area}, {BUSINESS_ADDRESS.city}
           </p>
-          <a href={`tel:${PHONE_E164}`} className="mt-1 block font-mono-num text-sm text-white hover:text-orange">
+          <a
+            href={`https://wa.me/${WHATSAPP_NUMBER_2}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-1 block text-sm text-white hover:text-orange"
+          >
+            WhatsApp: <span className="font-mono-num">{PHONE_DISPLAY_2}</span>
+          </a>
+          <a href={`tel:${PHONE_E164}`} className="mt-0.5 block font-mono-num text-sm text-white hover:text-orange">
             {PHONE_DISPLAY}
           </a>
-          <a href={`tel:${PHONE_E164_2}`} className="mt-0.5 block font-mono-num text-sm text-white hover:text-orange">
-            {PHONE_DISPLAY_2}
-          </a>
-          <HomeFooterPhone />
           <EmailLink className="mt-1 block text-sm text-white/80 hover:text-orange" />
           <div className="mt-5 flex gap-3">
             {SOCIAL_LINKS.map((link) => (

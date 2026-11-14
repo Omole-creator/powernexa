@@ -2465,4 +2465,250 @@ If the inverter is completely dead, check the battery side first. If the screen 
 
 Start with the simple checks, one at a time, and look before you touch. If it still won't come on, you don't have to keep guessing. A technician can test the battery and the inverter and tell you whether it's a quick fix or a bigger repair.`,
   },
+  {
+    slug: "can-an-inverter-carry-a-pumping-machine",
+    title: "Can an Inverter Carry a Pumping Machine? Answers for Homes in Ikeja, Badore and Across Lagos",
+    excerpt:
+      "Which inverter size can start a 0.5HP, 1HP, 1.5HP or 2HP pumping machine, why pumps make inverters trip, how much battery a pump uses, and how to pump on solar.",
+    category: "Guides",
+    tags: ["inverter", "sizing", "pumping machine"],
+    focusKeyword: "inverter carry a pumping machine",
+    metaTitle: "Can an Inverter Carry a Pumping Machine? Size by Size",
+    metaDescription:
+      "Can an inverter carry a pumping machine? See which kVA can start a 0.5HP, 1HP, 1.5HP or 2HP pump, why pumps trip inverters, and how to pump on solar.",
+    featuredImage: "https://www.powernexasolutions.site/images/blog/can-an-inverter-carry-a-pumping-machine-water.jpg",
+    featuredImageAlt: "Can an inverter carry a pumping machine: water pouring out of a pipe from a pump",
+    authorName: "PowerNexa Solutions Team",
+    publishedDaysAgo: 0,
+    content: `A pumping machine is one of the hardest things you can ask an inverter to run. It doesn't use the most power once it's running. The trouble is the big jolt of power it needs in the first second or two, just to get started.
+
+But if NEPA has taken light in Ikeja or Badore and the tank is empty, you may be wondering: can an inverter carry a pumping machine at all?
+
+Yes, it can. The answer depends largely on two things: the size of your pump, and the size of your inverter. A small pump on a big inverter is easy. A big pump on a small inverter will keep tripping it.
+
+This guide goes size by size, so you can see where yours fits.
+
+## Why Is a Pumping Machine Hard for an Inverter to Carry?
+
+Because of the start-up surge.
+
+A pumping machine has an electric motor inside. When the motor starts, it pulls far more power than it uses once it's spinning. That surge is often three to five times its running power, for a second or two.
+
+So a 1HP pump that runs at about 1,000 watts can ask for 3,000 watts or more at the moment it starts.
+
+Most inverters can handle a short surge, often about twice their rated power for a few seconds. If the pump's surge, plus everything else already on, goes past that, the inverter shows "overload", beeps, or shuts down.
+
+That's why a pump can trip an inverter even when the numbers on paper look fine.
+
+## How Much Power Does a Pumping Machine Use?
+
+It depends on its horsepower (HP). These are typical running figures for the pumps most Lagos homes use:
+
+| Pumping machine | Typical running watts |
+|---|---|
+| 0.5HP | about 400 to 500W |
+| 1HP | about 750 to 1,000W |
+| 1.5HP | about 1,100 to 1,300W |
+| 2HP | about 1,500 to 1,900W |
+
+Add the start-up surge on top of each one. Check the label on your own pump, since models differ.
+
+People often mix up HP and watts. One HP is about 750 watts of work from the motor, but the pump pulls a bit more than that from the wall. That's why a 1HP pump can use close to 1,000 watts.
+
+## How Do You Know What Your Inverter Can Carry?
+
+Look at its watts, not just its kVA.
+
+Inverters are sold in kVA. Many give about 0.8 watts for every VA, so a 3.5kVA inverter gives about 2,800 watts. Some newer ones give the full figure. Look for "rated output power" on the label or in the manual. That watts figure is your true limit.
+
+Here's what the common sizes usually give:
+
+- 1.5kVA: about 1,200 watts
+- 2.5kVA: about 2,000 watts
+- 3kVA: about 2,400 watts
+- 3.5kVA: about 2,800 watts, some newer ones 3,000 or more
+- 5kVA: about 4,000 watts, many newer ones the full 5,000
+
+Our guide on [what size inverter you need](/blog/what-size-inverter-do-i-need) shows how to add up your whole home, surge included.
+
+## Can a 1.5kVA Inverter Carry a Pumping Machine?
+
+Only a small one, and not always.
+
+A 1.5kVA inverter gives about 1,200 watts. A 0.5HP pump may start on it if nothing else heavy is on, but many 1.5kVA inverters trip at that surge.
+
+A 1HP pumping machine is too much for a 1.5kVA. Its surge goes well past what this size can handle.
+
+## Can a 2kVA or 2.5kVA Inverter Carry a 1HP Pumping Machine?
+
+Sometimes, but it's tight.
+
+A 2.5kVA inverter gives about 2,000 watts. It can carry a 0.5HP pump without much trouble.
+
+A 1HP pump may start on some 2.5kVA inverters, but only with everything else heavy switched off. On others, it trips every time. If a 1HP pump is part of your plan, this isn't the size to build around.
+
+A 1.5HP pump is too much for a 2kVA or 2.5kVA inverter.
+
+## Can a 3kVA or 3.5kVA Inverter Carry a 1HP Pumping Machine in Ikorodu or Ojodu?
+
+Yes, in most cases, with the heavy loads off while it starts.
+
+A 3.5kVA inverter gives about 2,800 watts. A 0.5HP pump is easy for it. A 1HP pump can start on many 3.5kVA inverters, but only when the AC, pressing iron and microwave are off. The pump's surge plus an AC can go over the limit.
+
+A 3kVA inverter gives a little less, so the same rule applies, just with less room to spare.
+
+## Can a 3.5kVA Inverter Carry a 1.5HP Pumping Machine?
+
+It's risky.
+
+Some 3.5kVA inverters will start a 1.5HP pump when nothing else heavy is on. Many will trip, especially on a borehole pump. And even when it starts, the pump uses a big share of the inverter, so the rest of the house has little room.
+
+If you have a 1.5HP pump, a 5kVA inverter is the safer choice. Our guide on [what a 3.5kVA inverter can carry](/blog/what-can-a-3-5kva-inverter-carry) covers the rest of the home at this size.
+
+## Can a 4.2kVA or 5kVA Inverter Carry a 1.5HP or 2HP Pumping Machine?
+
+A 1.5HP pump, yes. A 2HP pump, possibly, with care.
+
+A 5kVA inverter gives about 4,000 to 5,000 watts. A 1HP or 1.5HP pump is fine on it. It's still wise to start the pump when the ACs are off.
+
+A 2HP pump runs at about 1,500 to 1,900 watts and has a big surge. A 5kVA that gives the full 5,000 watts can often start one, with the ACs and other heavy loads off. On an older 5kVA that gives about 4,000 watts, or a 4.2kVA, it's tight.
+
+If you run a 2HP pump often, ask a technician to check your inverter's surge rating before you rely on it. Our guide on [what a 5kVA inverter can carry](/blog/what-can-a-5kva-inverter-carry) covers the rest of the home at this size.
+
+If you're not sure what your home needs, PowerNexa can size it for you, pump included.
+
+## Is a Borehole Pump Harder to Carry Than a Surface Pump?
+
+Often, yes.
+
+There are two common types in Lagos homes:
+
+- A surface pump sits on the ground and pulls water up from a well or tank
+- A submersible pump sits deep inside the borehole and pushes the water up
+
+A submersible pump often pulls a bigger surge than a surface pump of the same HP. It also sits at the end of a long cable, which adds to the strain. So a borehole pump that is "only 1HP" can trip an inverter that handles a 1HP surface pump well.
+
+If your water comes from a borehole, tell your installer before they size the inverter.
+
+## What Is an "Inverter Pumping Machine"?
+
+It's a pump, not a home inverter.
+
+This mix-up is common. An "inverter pumping machine" is a pump with its own speed control built in. Instead of jumping to full speed in one go, it speeds up slowly.
+
+That gentle start means a much smaller surge. So an inverter pumping machine is much kinder to a home inverter and battery than an ordinary pump of the same size.
+
+You still need a home inverter big enough to carry it, but the start-up is far easier.
+
+## How Much Battery Does a Pumping Machine Use?
+
+Less than people fear, if you don't run it for long.
+
+A 1HP pump running at about 1,000 watts for 30 minutes uses about 500 watt-hours. Add about 10% for the inverter's own loss, and it's about 550 watt-hours.
+
+On a 5kWh lithium battery, that's roughly an eighth of what you can use in a night. On a small tubular bank, it's a bigger share.
+
+The surge doesn't drain much battery, because it only lasts a second or two. What drains it is running time. A pump left running for two hours while the tank overflows will cost you much more of your night.
+
+Our guide on [how to calculate inverter battery backup time](/blog/how-to-calculate-inverter-battery-backup-time) shows how to work this out for your own battery.
+
+## Can Solar Power a Pumping Machine in Lekki or Isheri?
+
+Yes, and the afternoon is the best time to do it.
+
+![A water tank on the roof of a house in a busy neighbourhood](/images/blog/can-an-inverter-carry-a-pumping-machine-tank.jpg)
+
+*Photo: Unsplash*
+
+On a sunny afternoon, four 550W panels can give roughly 1,600 watts. That's enough to run a 1HP pump while the panels also keep the battery charging. With six panels, there's more room for the rest of the house too.
+
+Pumping in the afternoon has two benefits:
+
+- The panels carry most of the pump's power, so the battery is saved for the night
+- The battery is fuller, so the inverter has more to give if the panels dip
+
+On rainy days, especially in July and August, and in harmattan haze, the panels give less. The pump then takes more from the battery.
+
+You may also see "solar pumping machines" for sale. These are pumps that run straight from their own panels, without a home inverter. They're mostly used for farms and boreholes away from the house. They're a different setup from a home solar and inverter system.
+
+## Why Does My Inverter Trip When the Pumping Machine Starts in Agege or Alimosho?
+
+Usually, because too much is starting at once.
+
+The most common reasons:
+
+- The AC, iron or microwave was on when the pump started
+- The fridge or freezer compressor kicked in at the same moment
+- The pump is bigger than the inverter can start
+- The pump is old, and its motor now pulls more than it used to
+- The cable from the inverter to the pump is too thin or very long
+
+Try this: switch off the AC and other heavy loads, start the pump, wait a minute, then switch the others back on one at a time. If the pump starts fine that way, the inverter is the right size, and only the timing was wrong.
+
+If it still trips with nothing else on, the pump is likely too big for the inverter. Our guides on [inverter overload](/blog/inverter-overload) and why an [inverter keeps tripping](/blog/inverter-keeps-tripping) explain what to check.
+
+## Should a Float Switch Run My Pump on Inverter?
+
+It can, but be careful.
+
+Many homes, from Surulere to Ogba, have a float switch in the tank. When the water drops, it starts the pump by itself.
+
+On an inverter, that can cause trouble. The pump may start at night while the AC is on, trip the inverter and leave the house dark. Or it may run on battery at 2am and drain power you needed for the night.
+
+Better choice:
+
+- Pump by hand when NEPA is on, or in the afternoon when the sun is strong
+- Fill the tank fully, so you pump less often
+
+Less suitable choice:
+
+- Leaving a float switch to start the pump at any time on battery
+
+If you want to keep the float switch, ask a technician whether the pump can be set to run only when NEPA or the generator is on.
+
+## Does a Pumping Machine Need a Pure Sine Wave Inverter?
+
+It runs best on one.
+
+A pure sine wave inverter gives power shaped like NEPA's. A cheaper modified sine wave inverter gives a rougher shape. Motors, like the one in your pump, can run hotter and noisier on it and wear out faster.
+
+Most hybrid solar inverters sold today are pure sine wave. If yours is an older or very cheap unit, check before you run a pump on it. Our [inverter installation](/services/inverter-installation) page explains the difference.
+
+## Is It Safe to Run a Pumping Machine on an Inverter?
+
+Yes, when the inverter is the right size and the wiring is done well.
+
+Please stop and call a technician if:
+
+- The inverter trips again and again when the pump starts
+- You smell burning near the inverter, the pump or the cables
+- The pump hums but the water doesn't flow
+- The cables to the pump feel hot
+
+Don't keep restarting an inverter that trips every time the pump starts. Each heavy overload puts strain on it. And never run a pump dry, with no water reaching it. It heats up fast and can damage the motor.
+
+## What to Tell a Technician in Gbagada, Ikeja or Anywhere in Lagos
+
+Before you call, note:
+
+- Your pump's HP, and whether it's a surface or borehole pump
+- Your inverter's kVA and "rated output power" from the label
+- What else is usually on when you pump
+- Whether a float switch starts the pump
+- What happens when it trips: a beep, "overload" on the screen, or a full shutdown
+
+A photo of the pump's label and the inverter's label helps a lot. You can send these to us on WhatsApp. Asking questions costs nothing.
+
+If you're planning a new system, from a flat in Akoka to a duplex in Ikota, tell your installer about the pump at the start. It's much cheaper to size the inverter for it once than to replace the inverter later.
+
+## The Bottom Line: Can an Inverter Carry a Pumping Machine?
+
+Yes. An inverter can carry a pumping machine when it's big enough to handle the pump's start-up surge, and when you don't start the pump with other heavy loads on.
+
+The simplest way to see it:
+
+A 0.5HP pump fits a 2.5kVA. A 1HP pump fits a 3.5kVA. A 1.5HP pump fits a 5kVA.
+
+Pump in the afternoon or when NEPA is on, switch off the AC while the pump starts, and don't leave it running longer than the tank needs. Do that, and your pump and your inverter can work together without trouble.`,
+  },
 ];

@@ -50,7 +50,7 @@ pillar/series from the rotation and `marketing/POSTS-LOG.md`, write the copy
 (humanizer, house style, provable claims only), build HTML slides on
 `marketing/templates/inhouse.css`, render them to PNG with
 `node marketing/render.mjs <folder>` (headless Edge), check each PNG, write
-`caption.md` and log it. **Carousels are 3 slides at most.** Every image and carousel follows the in-house template (`marketing/inhouse design.jpg`, built on `marketing/templates/inhouse.css`, owner 27 Oct 2026): one people photo melting into a navy/orange wash, Title Case headline in the template's font (Inter Tight), "Read Caption" pill, logo bottom-left, WhatsApp pill bottom-right, brand colours only. Slides and captions use plain 5th-grade English, **no pidgin** (owner, 27 Oct 2026; NEPA, gen and light are fine), that sounds like a person talking (no AI filler), and **captions are 100 words or less**, each given in its own code block so it copies in one go. The only phone number on any social post is **0904 874 4395** (owner, 29 Sept 2026), never the website's 0813/0708 numbers. Captions keep the "Is Zobo Good for Diabetes?" shape from the blog (owner, 29 Sept 2026), cut down to fit the 100 words (`marketing/STRATEGY.md` section 7).
+`caption.md` and log it. **Carousels are 3 slides at most.** Every image and carousel follows the in-house template (`marketing/inhouse design.jpg`, built on `marketing/templates/inhouse.css`, owner 27 Oct 2026): one people photo melting into a navy/orange wash, Title Case headline in the template's font (Inter Tight), "Read Caption" pill, logo bottom-left, WhatsApp pill bottom-right, brand colours only. Slides and captions use plain 5th-grade English, **no pidgin** (owner, 27 Oct 2026; NEPA, gen and light are fine), that sounds like a person talking (no AI filler), and **captions are 100 words or less**, each given in its own code block so it copies in one go. The only phone number on any social post is **0904 874 4395** (owner, 29 Sept 2026), never the website's 0813/0708 numbers. Captions keep the "Is Zobo Good for Diabetes?" shape from the blog (owner, 29 Sept 2026), cut down to fit the 100 words (`marketing/STRATEGY.md` section 7). **Source and install, not repair (owner, 14 Nov 2026):** every post and video positions PowerNexa as the company that sources and installs inverter, solar and battery systems. No repair offers, no "send us your fault", no fault-fixing how-to as the main topic, and CTAs point to a quote for an installation (`marketing/STRATEGY.md` section 7).
 
 **All social media assets stay off GitHub** (owner, Sept 2026): the whole
 `marketing/` folder is gitignored and lives only on the owner's computer. Never
@@ -183,6 +183,24 @@ owner's reference post ("Is Zobo Good for Diabetes?"). What that means here:
 - Short paragraphs, often one sentence. Plain words. "You", not "customers".
   House style still applies (no em dashes, provable claims only).
 
+**Position: we source and install, not repair (owner rule, 14 Nov 2026,
+overrides anything above):** the troubleshooting posts were bringing in too
+many repair and complaint requests. Every post must position PowerNexa as the
+company that sources (buys and brings every part) and installs inverter,
+solar and battery systems. The one-line product mention and the ending point
+to getting the right system sourced and installed (`/get-a-quote`,
+`/services/inverter-installation`, `/services/solar-panel-installation`).
+Never link to `/services/solar-maintenance-repair`, never invite readers to
+send us fault photos or book a repair, and don't put "send these to us on
+WhatsApp" next to a fault. Safety notes still say "call a qualified
+technician", in general terms and not us. When choosing topics, favour
+problems whose real fix is a correctly sized new system (undersized inverter,
+backup too short, fuel spend, light bill) over pure repair topics. All 14 live posts that had repair links or "send it to us" lines were
+rewritten this way on 14 Nov 2026 (seed file and Supabase rows, then a
+production redeploy, since patching rows directly doesn't refresh the cached
+pages). The 5 service pages still include maintenance and repair; only the
+blog and social media changed.
+
 **Published (19, all in `src/lib/blog-seed-data.ts`, seeded via `npm run seed:blog`):**
 solar panel installation cost in Lagos; best solar installers in Lagos; solar and
 inverter installation in Lagos (complete guide); inverter vs generator in Lagos;
@@ -215,12 +233,19 @@ the post should answer as H2 questions):
 7. (published 1 Nov 2026 as `/blog/how-to-calculate-inverter-battery-backup-time`, score 100, was: How to Calculate Inverter Battery Backup Time)
 8. (published 10 Nov 2026 as `/blog/inverter-not-turning-on`, score 100, was: Inverter Not Turning On: What to Check)
 9. (published 14 Nov 2026 as `/blog/can-an-inverter-carry-a-pumping-machine`, score 100, was: Can an Inverter Carry a Pumping Machine?)
-10. Lithium Battery Not Communicating With Inverter [lithium battery not communicating with inverter] (not charging to 100, not fully charging, not taking charge)
-11. Inverter Making Noise: Humming, Buzzing and Fan Sounds [inverter making noise] (humming continuously, noise after power cut, loud noise, fan keeps running)
-12. How to Charge an Inverter Battery With a Generator [how to charge inverter battery with generator] (generator not charging inverter, how to charge inverter battery without electricity)
-13. Inverter Heating Up or Smelling Burnt: When to Worry [inverter heating up] (heating problem, battery heating, smells burnt)
-14. Inverter Battery Water: How and When to Top It Up [inverter battery water] (tubular battery maintenance, water draining fast, which water to use)
-15. Band A Tariff in Lagos: Why Your Light Bill Went Up and What You Can Do [band a electricity tariff in lagos] (band a areas in lagos, how to reduce electricity bill at home)
+
+Re-planned 14 Nov 2026 under the "source and install, not repair" rule: pure
+repair topics (lithium battery not communicating, inverter making noise,
+inverter heating up) were dropped. Buying-intent problems and how-tos come
+first. Autocomplete (`gl=ng`) checked 14 Nov 2026:
+
+10. How Many Solar Panels Do I Need? [how many solar panels do i need] (for a 1.5kVA / 2kVA / 3.5kVA / 5kVA / 10kVA inverter, to charge a 24V 200Ah battery, calculator; keep panel counts on the `PACKAGES` pairings and the ~4 sun-hour assumptions)
+11. Band A Tariff in Lagos: Why Your Light Bill Went Up and What You Can Do [band a tariff in lagos] (band a tariff ikeja electric / ekedc, band a tariff rate, how to reduce electricity bill at home)
+12. How to Run AC on Solar [how to run ac on solar] (at night, without battery, on solar panel, solar power)
+13. How to Know an Original Lithium Battery [how to know original lithium battery] (how to know a good inverter battery; autocomplete also shows brand variants, don't name brands)
+14. How to Know a Good Inverter Before You Buy [how to know a good inverter] (how to find best inverter for home, what to look for when buying an inverter, how do I know if my inverter is bad)
+15. How to Charge an Inverter Battery With a Generator [how to charge inverter battery with generator] (can generator charge inverter battery, how to charge inverter battery at home; frame toward solar so the generator runs less)
+16. Inverter Battery Water: How and When to Top It Up [inverter battery water] (water level, refill, which water to use; frame toward a lithium upgrade that needs no water)
 
 **Instead of new posts, fold these searches into live posts:** "can 3.5kva
 inverter carry ac" into the 3.5kVA post, "can 5kva inverter carry ac / freezer /

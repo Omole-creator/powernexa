@@ -50,7 +50,7 @@ pillar/series from the rotation and `marketing/POSTS-LOG.md`, write the copy
 (humanizer, house style, provable claims only), build HTML slides on
 `marketing/templates/inhouse.css`, render them to PNG with
 `node marketing/render.mjs <folder>` (headless Edge), check each PNG, write
-`caption.md` and log it. **Carousels are 3 slides at most.** Every image and carousel follows the in-house template (`marketing/inhouse design.jpg`, built on `marketing/templates/inhouse.css`, owner 27 Oct 2026): one people photo melting into a navy/orange wash, Title Case headline in the template's font (Inter Tight), "Read Caption" pill, logo bottom-left, WhatsApp pill bottom-right, brand colours only. Slides and captions use plain 5th-grade English, **no pidgin** (owner, 27 Oct 2026; NEPA, gen and light are fine), that sounds like a person talking (no AI filler), and **captions are 100 words or less**, each given in its own code block so it copies in one go. The only phone number on any social post is **0904 874 4395** (owner, 29 Sept 2026), never the website's 0813/0708 numbers. Captions keep the "Is Zobo Good for Diabetes?" shape from the blog (owner, 29 Sept 2026), cut down to fit the 100 words (`marketing/STRATEGY.md` section 7). **Source and install, not repair (owner, 14 Nov 2026):** every post and video positions PowerNexa as the company that sources and installs inverter, solar and battery systems. No repair offers, no "send us your fault", no fault-fixing how-to as the main topic, and CTAs point to a quote for an installation (`marketing/STRATEGY.md` section 7).
+`caption.md` and log it. **Carousels are 3 slides at most.** Every image and carousel follows the in-house template (`marketing/inhouse design.jpg`, built on `marketing/templates/inhouse.css`, owner 27 Oct 2026): one people photo melting into a navy/orange wash, Title Case headline in the template's font (Inter Tight), "Read Caption" pill, logo bottom-left, WhatsApp pill bottom-right, brand colours only. Slides and captions use plain 5th-grade English, **no pidgin** (owner, 27 Oct 2026; NEPA, gen and light are fine), that sounds like a person talking (no AI filler), and **captions are 100 words or less**, each given in its own code block so it copies in one go. The only phone number on any social post is **0904 874 4395** (owner, 29 Sept 2026), never the website's 0813/0708 numbers. Captions keep the "Is Zobo Good for Diabetes?" shape from the blog (owner, 29 Sept 2026), cut down to fit the 100 words (`marketing/STRATEGY.md` section 7). **Supply and install, not repair (owner, 14 Nov 2026):** every post and video positions PowerNexa as the company that supplies and installs inverter, solar and battery systems and handles everything from start to finish (market terms only: "supply and install", never "source" or "power needs"). No repair offers, no "send us your fault", no fault-fixing how-to as the main topic, and CTAs point to a quote for an installation (`marketing/STRATEGY.md` section 7).
 
 **All social media assets stay off GitHub** (owner, Sept 2026): the whole
 `marketing/` folder is gitignored and lives only on the owner's computer. Never
@@ -183,12 +183,12 @@ owner's reference post ("Is Zobo Good for Diabetes?"). What that means here:
 - Short paragraphs, often one sentence. Plain words. "You", not "customers".
   House style still applies (no em dashes, provable claims only).
 
-**Position: we source and install, not repair (owner rule, 14 Nov 2026,
+**Position: we supply and install, not repair (owner rule, 14 Nov 2026,
 overrides anything above):** the troubleshooting posts were bringing in too
 many repair and complaint requests. Every post must position PowerNexa as the
-company that sources (buys and brings every part) and installs inverter,
-solar and battery systems. The one-line product mention and the ending point
-to getting the right system sourced and installed (`/get-a-quote`,
+company that supplies and installs inverter, solar and battery systems and
+handles everything from start to finish. Wording: use the market's own terms. Say PowerNexa "supplies and installs" inverters and solar and "handles everything from start to finish" (owner, 14 Nov 2026). Don't say "source"/"sourcing" or "power needs"/"what you need to power": customers don't use or understand them. Talk about inverter installation, solar installation, batteries, kVA and light, the way Lagos buyers do. The one-line product mention and the ending point
+to getting the right system supplied and installed (`/get-a-quote`,
 `/services/inverter-installation`, `/services/solar-panel-installation`).
 Never link to `/services/solar-maintenance-repair`, never invite readers to
 send us fault photos or book a repair, and don't put "send these to us on
@@ -234,7 +234,7 @@ the post should answer as H2 questions):
 8. (published 10 Nov 2026 as `/blog/inverter-not-turning-on`, score 100, was: Inverter Not Turning On: What to Check)
 9. (published 14 Nov 2026 as `/blog/can-an-inverter-carry-a-pumping-machine`, score 100, was: Can an Inverter Carry a Pumping Machine?)
 
-Re-planned 14 Nov 2026 under the "source and install, not repair" rule: pure
+Re-planned 14 Nov 2026 under the "supply and install, not repair" rule: pure
 repair topics (lithium battery not communicating, inverter making noise,
 inverter heating up) were dropped. Buying-intent problems and how-tos come
 first. Autocomplete (`gl=ng`) checked 14 Nov 2026:

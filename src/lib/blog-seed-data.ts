@@ -981,7 +981,7 @@ Have these ready for whoever checks it. They save time:
 
 Most of these problems build up slowly. Terminals loosen, settings get changed and batteries wear. A check-up every six months catches them early. Every system we install gets two free check-ups, at 6 and 12 months.
 
-If your inverter still won't charge after these checks, a qualified technician needs to test it. And if the system was never sized for your home, fixing one part won't last. PowerNexa sources every part and installs complete inverter and solar systems, sized to what you run. [Get a quote](/get-a-quote) to start with a site assessment.
+If your inverter still won't charge after these checks, a qualified technician needs to test it. And if the system was never sized for your home, fixing one part won't last. If you want a new inverter or solar system, PowerNexa supplies and installs it and handles everything from start to finish. [Get a quote](/get-a-quote) to start with a site assessment.
 
 If the batteries are the problem, see our [battery replacement service](/services/battery-replacement-storage). If your system is too small for what you run, our guide on [what size inverter you need](/blog/what-size-inverter-do-i-need) shows you how to work out the right size.`,
   },
@@ -1121,7 +1121,7 @@ An inverter that beeps and then shuts off is usually protecting itself or the ba
 
 Once you've reduced the load, let it cool or let the battery charge, it should come back on. If it keeps shutting off with little load and a charged battery, that's a job for a technician.
 
-If the beeping comes from a system that's too small for your home, PowerNexa can source and install one sized for what you run.
+If the beeping comes from a system that's too small for your home, PowerNexa can supply and install a bigger one for you.
 
 ## Can You Fix Inverter Beeping Yourself?
 
@@ -1154,7 +1154,7 @@ If you need help, a few details save time and money:
 - How old the batteries are
 - When the beeping started and what was running at the time
 
-If the batteries are worn out, our [battery replacement service](/services/battery-replacement-storage) sources new ones and installs them. If the whole system is too small for your home, a repair won't stop the beeping for long. PowerNexa can source and install a system sized to your load. [Get a quote](/get-a-quote) to get started.
+If the batteries are worn out, our [battery replacement service](/services/battery-replacement-storage) supplies and installs new ones for you. If the whole system is too small for your home, a repair won't stop the beeping for long. PowerNexa can supply and install a system that fits your load, from start to finish. [Get a quote](/get-a-quote) to get started.
 
 ## The Bottom Line: Why Is My Inverter Beeping?
 
@@ -1281,7 +1281,7 @@ Some inverters come back on by themselves once the load drops. Others need a res
 
 If you reset it and the overload comes back straight away with only light load, stop there. Resetting again and again won't fix a fault, and it can make it worse.
 
-If your inverter is simply too small for your home, PowerNexa can source and install one that's the right size.
+If your inverter is simply too small for your home, PowerNexa can supply and install one that's the right size.
 
 ## Why Is My Inverter Showing Overload and Low Battery Together?
 
@@ -1315,7 +1315,7 @@ Call for help if:
 
 Before you call, a photo of the screen, the make and model of your inverter, and a list of what was running when it started will save time.
 
-If the overload keeps coming back because your home has outgrown the inverter, the lasting fix is a bigger one. PowerNexa sources the inverter, batteries and panels and installs the full system. See our [inverter installation](/services/inverter-installation) service, or [get a quote](/get-a-quote) to start with a site assessment.
+If the overload keeps coming back because your home has outgrown the inverter, the lasting fix is a bigger one. PowerNexa supplies and installs the inverter, batteries and panels, and handles everything from start to finish. See our [inverter installation](/services/inverter-installation) service, or [get a quote](/get-a-quote) to start with a site assessment.
 
 ## The Bottom Line: What Does Inverter Overload Mean?
 
@@ -1411,7 +1411,7 @@ Signs it isn't getting a full charge:
 
 In homes that depend on NEPA alone, the battery may not get enough charging hours. Solar panels help here, but only if there are enough of them for the battery size. Our guide on an [inverter not charging](/blog/inverter-not-charging) walks through the charging side step by step.
 
-If your battery and panels were never the right size for your home, PowerNexa can source and install a system that is.
+If your battery and panels were never the right size for your home, PowerNexa can supply and install one that is.
 
 ## Why Is My Tubular Battery Not Holding Charge in Ikorodu or Ajah?
 
@@ -1475,7 +1475,7 @@ Call for help if:
 
 Before you call, note how old the batteries are, the type (tubular or lithium), what usually runs at night, and how many hours the backup now lasts. A photo of the inverter screen helps too.
 
-If the batteries are worn out, our [battery replacement service](/services/battery-replacement-storage) sources new ones and installs them. If the whole system is too small for your nights, [get a quote](/get-a-quote) for one sized to what you run.
+If the batteries are worn out, our [battery replacement service](/services/battery-replacement-storage) supplies and installs new ones for you. If the whole system is too small for your nights, [get a quote](/get-a-quote) for one sized to what you run.
 
 ## The Bottom Line: Why Is My Inverter Battery Not Giving Backup?
 
@@ -1608,7 +1608,7 @@ It can show up when:
 
 Check that the battery breaker is on and the battery isn't completely flat. Leave the terminals and cables to a technician, because a battery can spark badly if a metal tool touches both terminals.
 
-If your inverter shows overload or low battery faults again and again, it may be too small for your home. PowerNexa can source and install a system sized to what you run.
+If your inverter shows overload or low battery faults again and again, it may be too small for your home. PowerNexa can supply and install one that fits, from start to finish.
 
 ## Why Does My Inverter Show Fault Only When NEPA Brings Light?
 
@@ -1648,7 +1648,7 @@ Call for help if:
 
 Before you call, take a photo of the screen showing the code, and note the make and model of the inverter, how old it is, and what was running when the fault started. This saves time and helps the technician bring the right parts.
 
-If a fault keeps coming back because the system is too small or was poorly installed, a quick repair may not last. PowerNexa sources every part and installs complete inverter and solar systems. [Get a quote](/get-a-quote) to start with a site assessment.
+If a fault keeps coming back because the system is too small or was poorly installed, a quick repair may not last. If you want a new inverter or solar system, PowerNexa supplies and installs it and handles everything from start to finish. [Get a quote](/get-a-quote) to start with a site assessment.
 
 ## The Bottom Line: What Does It Mean When Your Inverter Is Showing Fault?
 
@@ -1794,7 +1794,7 @@ Other causes include:
 
 If it happens mostly at night, or when the battery has been running for a while, the battery is the first thing to check. Our guide on an [inverter battery not giving backup](/blog/inverter-battery-not-giving-backup) covers how to tell if a battery is wearing out.
 
-If it trips because your home has outgrown the inverter, PowerNexa can source and install one that fits your load.
+If it trips because your home has outgrown the inverter, PowerNexa can supply and install one that fits your load.
 
 ## Why Does My Inverter Keep Blowing Fuses?
 
@@ -1848,7 +1848,7 @@ Call for help if:
 
 Before you call, note which switch trips, when it happens, what was running, and the make and model of your inverter and battery. A photo of the distribution box and the inverter screen helps too.
 
-If the tripping comes from a system that's too small or was wired badly from the start, the lasting fix is a system done properly. PowerNexa sources every part and installs the full system, wiring included. [Get a quote](/get-a-quote) to start with a site assessment.
+If the tripping comes from a system that's too small or was wired badly from the start, the lasting fix is a system done properly. PowerNexa supplies and installs the full system, wiring included, from start to finish. [Get a quote](/get-a-quote) to start with a site assessment.
 
 ## The Bottom Line: Why Does Your Inverter Keep Tripping?
 
@@ -1974,7 +1974,7 @@ Other reasons a battery may not fill up:
 
 If your battery charges but still doesn't last the night, our guide on an [inverter battery not giving backup](/blog/inverter-battery-not-giving-backup) explains how to tell if the battery is wearing out.
 
-If your system simply doesn't have enough panels, PowerNexa can source and install the right number for your home.
+If your system simply doesn't have enough panels, PowerNexa can supply and install the right number of panels for your home.
 
 ## Can Rain, Clouds or Harmattan Stop Solar From Charging?
 
@@ -2044,7 +2044,7 @@ Call for help if:
 
 Before you call, take a photo of the inverter screen around midday, showing PV voltage and PV power. Note the make and model of your inverter and battery, how many panels you have and their size, and when the problem started.
 
-If you simply need more panels, or a system sized properly from the start, PowerNexa sources and installs it. See our [solar panel installation](/services/solar-panel-installation) service, or [get a quote](/get-a-quote).
+If you simply need more panels, or a system sized properly from the start, PowerNexa supplies and installs it, from start to finish. See our [solar panel installation](/services/solar-panel-installation) service, or [get a quote](/get-a-quote).
 
 ## The Bottom Line: Why Is Your Solar Panel Not Charging Your Battery?
 
@@ -2201,7 +2201,7 @@ Run the same formula backwards.
 
 So for 8 hours at 500 watts, you'd need about four 12V 200Ah tubular batteries (9.6kWh), or a lithium battery of around 5kWh. A 51.2V 100Ah lithium battery stores about 5.1kWh, so it comes close, at a little under 8 hours.
 
-If you're not sure what size battery bank your home needs, PowerNexa can size it, source it and install it for you.
+If you're not sure what size battery bank your home needs, PowerNexa can size it, supply it and install it for you.
 
 Better choice:
 
@@ -2262,7 +2262,7 @@ Ask for help if:
 
 Before you call, note the battery type, size and number, how old they are, what runs at night, and how long your backup now lasts. A photo of the inverter screen helps too.
 
-If the batteries need replacing, our [battery replacement service](/services/battery-replacement-storage) sources new ones and installs them. If you're planning a new system, [get a quote](/get-a-quote) and we'll size the batteries to your nights.
+If the batteries need replacing, our [battery replacement service](/services/battery-replacement-storage) supplies and installs new ones for you. If you're planning a new system, [get a quote](/get-a-quote) and we'll size the batteries to your nights.
 
 ## The Bottom Line: How Do You Calculate Inverter Battery Backup Time?
 
@@ -2371,7 +2371,7 @@ Check these first:
 
 If you see "overload", our guide on [inverter overload](/blog/inverter-overload) explains what to do. If you see a code or a red light, our guide on an [inverter showing fault](/blog/inverter-showing-fault) covers the common ones.
 
-If your inverter keeps shutting down because it's too small for what you run, PowerNexa can source and install one that fits.
+If your inverter keeps shutting down because it's too small for what you run, PowerNexa can supply and install one that fits.
 
 ## Why Is My Inverter Not Turning On Automatically?
 
@@ -2459,7 +2459,7 @@ Call for help if:
 
 Before you call, note what you saw, when it stopped working, and anything that happened just before, like rain, a storm or NEPA coming back. A photo of the inverter screen, the battery and the breakers helps a lot.
 
-If the inverter is beyond repair, or the system was never right for your home, PowerNexa sources a new inverter, batteries and panels and installs the full system. [Get a quote](/get-a-quote) to start with a site assessment.
+If the inverter is beyond repair, or the system was never right for your home, PowerNexa supplies and installs a new inverter, batteries and panels, and handles everything from start to finish. [Get a quote](/get-a-quote) to start with a site assessment.
 
 ## The Bottom Line: Why Is Your Inverter Not Turning On?
 
@@ -2705,7 +2705,7 @@ Before you call, note:
 
 A photo of the pump's label and the inverter's label helps a lot.
 
-If you're planning a new system, from a flat in Akoka to a duplex in Ikota, tell your installer about the pump at the start. It's much cheaper to size the inverter for it once than to replace the inverter later. PowerNexa sources and installs systems sized for your pump and the rest of your home. [Get a quote](/get-a-quote) to get started.
+If you're planning a new system, from a flat in Akoka to a duplex in Ikota, tell your installer about the pump at the start. It's much cheaper to size the inverter for it once than to replace the inverter later. PowerNexa supplies and installs inverter and solar systems sized for your pump and the rest of your home, from start to finish. [Get a quote](/get-a-quote) to get started.
 
 ## The Bottom Line: Can an Inverter Carry a Pumping Machine?
 

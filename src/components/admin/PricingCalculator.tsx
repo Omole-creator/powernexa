@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import {
   JOB_COSTS,
+  MARKUPS,
   PACKAGES,
   defaultAccessoryCosts,
   defaultAccessoryQuantities,
@@ -13,6 +14,8 @@ import {
   type AccessoryCosts,
   type Chemistry,
   type ManualEquipmentCosts,
+  type MarkupKey,
+  type MarkupRates,
   type PackageKey,
   type PriceSourceItem,
   type ServiceCosts,
@@ -67,7 +70,11 @@ export type CalcState = {
   accessoryOverrides?: Partial<Record<keyof AccessoryCosts, string>>; // quotes saved before 29 Sept 2026: line totals
   serviceOverrides: Partial<Record<keyof ServiceCosts, string>>;
   manualInputs: Partial<Record<keyof ManualEquipmentCosts, string>>;
+  markupPercents?: Partial<Record<MarkupKey, string>>; // per-job markup, in %; missing = usual rate
 };
+
+const MARKUP_KEYS = Object.keys(MARKUPS) as MarkupKey[];
+const usualPercent = (key: MarkupKey) => String(Math.round(MARKUPS[key] * 100));
 
 export function PricingCalculator({
   priceBook,
@@ -105,6 +112,9 @@ export function PricingCalculator({
   const [manualInputs, setManualInputs] = useState<Partial<Record<keyof ManualEquipmentCosts, string>>>(
     initialCalc?.manualInputs ?? {}
   );
+  const [markupPercents, setMarkupPercents] = useState<Partial<Record<MarkupKey, string>>>(
+    initialCalc?.markupPercents ?? {}
+  );
   const calcState: CalcState = {
     preset,
     inverterKva,
@@ -119,6 +129,7 @@ export function PricingCalculator({
     accessoryQty,
     serviceOverrides,
     manualInputs,
+    markupPercents,
   };
 
   const sources = useMemo(() => [...new Set(priceBook.map((i) => i.source))], [priceBook]);
@@ -154,6 +165,10 @@ export function PricingCalculator({
     const raw = manualInputs[key]?.trim();
     if (raw && Number.isFinite(Number(raw))) manual[key] = Number(raw);
   }
+  // A blank markup box means the usual rate for that line.
+  const markups: MarkupRates = {};
+  for (const key of MARKUP_KEYS) markups[key] = numberOr(markupPercents[key], MARKUPS[key] * 100) / 100;
+  const markupsChanged = MARKUP_KEYS.some((key) => markups[key] !== MARKUPS[key]);
   const estimate = estimateJob({
     spec,
     priceBook,
@@ -162,6 +177,7 @@ export function PricingCalculator({
     services,
     sourceFilter: source || undefined,
     manual,
+    markups,
   });
 
   const rounded = quotedPrice(estimate);
@@ -193,8 +209,9 @@ export function PricingCalculator({
     <div className="rounded-2xl border border-line bg-white p-6">
       <h2 className="font-display text-lg font-bold text-navy">Job cost calculator</h2>
       <p className="mt-1 text-sm text-charcoal/60">
-        Supplier cost, your markups (inverter 10%, battery 20%, panels 10%, accessories 35%), then labour,
-        transport and the site survey, which you can change for each job. With &quot;Other brands&quot; it uses the
+        Supplier cost, your markups (usually inverter 10%, battery 20%, panels 10%, accessories 35%), then labour,
+        transport and the site survey, which you can all change for each job. Set a markup to 0% for a job that
+        doesn&apos;t need one. With &quot;Other brands&quot; it uses the
         cheapest price on file as a guide cost, unless you choose one supplier or type the cost in yourself. The brand
         name is added in the customer quote below.
       </p>
@@ -325,7 +342,27 @@ export function PricingCalculator({
         </p>
       ) : null}
 
-      <div className="mt-6 overflow-x-auto">
+      <div className="mt-6 flex flex-wrap items-center justify-end gap-2 text-xs">
+        <span className="mr-auto font-semibold text-navy">
+          Markups for this job{markupsChanged ? <span className="ml-2 font-normal text-orange">(changed from the usual rates)</span> : null}
+        </span>
+        <button
+          type="button"
+          onClick={() => setMarkupPercents(Object.fromEntries(MARKUP_KEYS.map((k) => [k, "0"])))}
+          className="rounded-lg border border-line px-3 py-1.5 font-semibold text-navy hover:border-orange"
+        >
+          Set all to 0%
+        </button>
+        <button
+          type="button"
+          onClick={() => setMarkupPercents({})}
+          disabled={!markupsChanged}
+          className="rounded-lg border border-line px-3 py-1.5 font-semibold text-navy hover:border-orange disabled:opacity-40"
+        >
+          Back to usual rates
+        </button>
+      </div>
+      <div className="mt-2 overflow-x-auto">
         <table className="w-full min-w-[640px] text-sm">
           <thead className="text-xs uppercase tracking-wide text-charcoal/45">
             <tr className="border-b border-line">
@@ -343,7 +380,27 @@ export function PricingCalculator({
                   {line.detail ? <span className="block text-xs text-charcoal/50">{line.detail}</span> : null}
                 </td>
                 <td className="py-2 text-right font-mono-num text-charcoal/70">{formatNaira(line.cost)}</td>
-                <td className="py-2 text-right font-mono-num text-charcoal/55">{Math.round(line.markupRate * 100)}%</td>
+                <td className="py-2 text-right">
+                  {isMarkupKey(line.key) ? (
+                    <span className="inline-flex items-center gap-1">
+                      <input
+                        type="number"
+                        min="0"
+                        step="1"
+                        aria-label={`Markup on ${line.label}, %`}
+                        value={markupPercents[line.key] ?? usualPercent(line.key)}
+                        onChange={(e) => {
+                          const key = line.key as MarkupKey;
+                          setMarkupPercents((prev) => ({ ...prev, [key]: e.target.value }));
+                        }}
+                        className="w-16 rounded-lg border border-line px-2 py-1 text-right font-mono-num text-sm outline-none focus:border-orange focus:ring-2 focus:ring-orange/20"
+                      />
+                      <span className="text-charcoal/55">%</span>
+                    </span>
+                  ) : (
+                    <span className="font-mono-num text-charcoal/55">{Math.round(line.markupRate * 100)}%</span>
+                  )}
+                </td>
                 <td className="py-2 text-right font-mono-num text-navy">{formatNaira(line.price)}</td>
               </tr>
             ))}
@@ -411,6 +468,10 @@ export function PricingCalculator({
     <CustomerQuoteBuilder estimate={estimate} spec={spec} calc={calcState} savedQuote={savedQuote} />
     </>
   );
+}
+
+function isMarkupKey(key: string): key is MarkupKey {
+  return key in MARKUPS;
 }
 
 function numberOr(value: string | undefined, fallback: number): number {

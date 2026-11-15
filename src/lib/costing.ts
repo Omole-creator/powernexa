@@ -16,6 +16,11 @@ export const MARKUPS = {
   earthing: 0.35,
 } as const;
 
+export type MarkupKey = keyof typeof MARKUPS;
+// Per-job markup rates (0.1 = 10%). Any key left out uses MARKUPS, so a job
+// that needs no markup can set a line, or all of them, to 0.
+export type MarkupRates = Partial<Record<MarkupKey, number>>;
+
 // Starting figures for the service lines, from the guide's 5kVA worked
 // example. They change from job to job (distance, roof, access), so the
 // calculator lets each one be typed over. Labour follows the guide's
@@ -224,9 +229,14 @@ export function estimateJob(options: {
   services?: ServiceCosts;
   sourceFilter?: string; // only use this supplier, e.g. "Nexus"
   manual?: ManualEquipmentCosts;
+  markups?: MarkupRates;
 }): JobEstimate {
   const { spec } = options;
   const manual = options.manual ?? {};
+  const rate = (key: MarkupKey): number => {
+    const r = options.markups?.[key];
+    return r !== undefined && Number.isFinite(r) && r >= 0 ? r : MARKUPS[key];
+  };
   const book = options.sourceFilter
     ? options.priceBook.filter((item) => item.source === options.sourceFilter)
     : options.priceBook;
@@ -287,8 +297,8 @@ export function estimateJob(options: {
       quantity: asTyped ? typed.quantity : picked.quantity,
       unitSize: asTyped ? typed.size : picked.quantity > 0 ? picked.providedSize / picked.quantity : undefined,
       cost: picked.cost,
-      markupRate: MARKUPS[key],
-      price: picked.cost * (1 + MARKUPS[key]),
+      markupRate: rate(key),
+      price: picked.cost * (1 + rate(key)),
     });
   };
 
@@ -313,7 +323,7 @@ export function estimateJob(options: {
   const quantities = { ...defaultAccessoryQuantities(spec.panelCount), ...options.accessoryQuantities };
   for (const key of Object.keys(accessoryLabels) as (keyof AccessoryCosts)[]) {
     const cost = accessories[key];
-    equipment.push({ key, label: accessoryLabels[key], quantity: Math.max(1, Math.round(quantities[key] ?? 1)), cost, markupRate: MARKUPS[key], price: cost * (1 + MARKUPS[key]) });
+    equipment.push({ key, label: accessoryLabels[key], quantity: Math.max(1, Math.round(quantities[key] ?? 1)), cost, markupRate: rate(key), price: cost * (1 + rate(key)) });
   }
 
   const equipmentCost = sum(equipment.map((l) => l.cost));
